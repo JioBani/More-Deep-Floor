@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb95dc27746f76d4dac76cf0d98a2ce5, type: 3}
+  m_Name: Defender1_01
+  m_EditorClassIdentifier: 
+  id: 1
+  name: "\uB098\uC774\uD2B8"
+  damage: 10
+  damages: 0a0000001400000028000000
+  attackSpeeds:
+  - 1
+  - 1
+  - 1
+  attackSpeed: 0.2
+  maxMana: 100
+  cost: 1
+  sprite: {fileID: -6915752714702971298, guid: a5d0c72d5fc16964eb4bdd474ecad798, type: 3}
+  skillData: {fileID: 11400000, guid: 12e31f0db1264984b83ae7358a60e131, type: 2}
+  job: {fileID: 11400000, guid: d11c720aca94e814e96e98c294874b9c, type: 2}
+  character: {fileID: 11400000, guid: c3b9033a7dd6d634ba56b0b5cd46143d, type: 2}

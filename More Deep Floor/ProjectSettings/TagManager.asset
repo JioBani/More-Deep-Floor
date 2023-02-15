@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - SellZone
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - DefenderLange
+  - Taggeter
+  - Entitiy
+  - Tile
+  - DamageText
+  - EntityCollideZone
+  - MonsterCollideZone
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 2425651459
+    locked: 0
+  - name: Entity
+    uniqueID: 4250941897
+    locked: 0
+  - name: DamageText
+    uniqueID: 4189426099
+    locked: 0
+  - name: Ui_0
+    uniqueID: 887537769
+    locked: 0
+  - name: Ui_1
+    uniqueID: 2601064315
+    locked: 0
+  - name: Debug
+    uniqueID: 2290481881
+    locked: 0
+  - name: SkillEffect
+    uniqueID: 441701613
+    locked: 0

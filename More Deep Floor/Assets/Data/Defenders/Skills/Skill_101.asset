@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a76243e38609dfe4e922892b23e24bee, type: 3}
+  m_Name: Skill_101
+  m_EditorClassIdentifier: 
+  description: "3\uCD08\uAC04 {DamageMul} \uC758 \uCD94\uAC00 \uB370\uBBF8\uC9C0
+    \uBC0F {AttackSpeedMul}\uC758 \uCD94\uAC00 \uACF5\uACA9\uC18D\uB3C4"
+  descriptionShowing: "3\uCD08\uAC04 {1} \uC758 \uCD94\uAC00 \uB370\uBBF8\uC9C0 \uBC0F
+    {5}\uC758 \uCD94\uAC00 \uACF5\uACA9\uC18D\uB3C4"
+  parameters:
+  - name: DamageMul
+    value: 1
+  - name: AttackSpeedMul
+    value: 5
+  isApplied: 1
+  id: 1
+  name: "1\uB819 \uB098\uC774\uD2B8 \uC2A4\uD0AC"

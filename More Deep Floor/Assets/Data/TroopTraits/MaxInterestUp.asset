@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a075453861a1c7344b949c79fe3abebd, type: 3}
+  m_Name: MaxInterestUp
+  m_EditorClassIdentifier: 
+  traitName: "\uB77C\uC6B4\uB4DC \uC774\uC790 \uC99D\uAC00"
+  maxLevel: 5
+  price: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a000000
+  sprite: {fileID: -2867462654027373793, guid: f1d5fb7cfd5815645b8b6ab7ed21f42b, type: 3}
+  description: "\uCD5C\uB300 \uC774\uC790\uAC00 {gold} \uB9CC\uD07C \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  amounts:
+  - name: gold
+    values:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5

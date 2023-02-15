@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca5f2a0d3218c3438e7ccbf2de3e25c, type: 3}
+  m_Name: Trait_Sniper
+  m_EditorClassIdentifier: 
+  dataName: "\uC800\uACA9\uC218"
+  description: "\uACF5\uACA9 \uB300\uC0C1\uC774 \uBA40\uB9AC \uB5A8\uC5B4\uC838 \uC788\uC744
+    \uC218\uB85D \uCD94\uAC00 \uB370\uBBF8\uC9C0"
+  descriptionShowing: "\uACF5\uACA9 \uB300\uC0C1\uC774 \uBA40\uB9AC \uB5A8\uC5B4\uC838
+    \uC788\uC744 \uC218\uB85D \uCD94\uAC00 \uB370\uBBF8\uC9C0"
+  parameters:
+  - name: Damage0
+    value: 50
+  - name: Damage1
+    value: 75
+  - name: Damage2
+    value: 100
+  isApplied: 1
+  id: 8
