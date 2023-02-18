@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a075453861a1c7344b949c79fe3abebd, type: 3}
   m_Name: MaxInterestUp
   m_EditorClassIdentifier: 
+  traitId: 2
   traitName: "\uB77C\uC6B4\uB4DC \uC774\uC790 \uC99D\uAC00"
   maxLevel: 5
   price: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a000000

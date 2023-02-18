@@ -14,17 +14,20 @@ namespace LNK.MoreDeepFloor.TroopTraitSelect
         [SerializeField] private TroopTraitUiManager uiManager;
         [SerializeField] private Image iconImage;
     
-        public TroopTraitData traitData;
-        public TroopTrait trait;
+        private TroopTrait trait;
         public Button button;
         public bool isClicked = false;
 
         private void Awake()
         {
-            trait = new TroopTrait(traitData);
             button = GetComponent<Button>();
             button.onClick.AddListener(OnClick);
-            iconImage.sprite = traitData.Sprite;
+        }
+
+        public void SetData(TroopTrait _trait)
+        {
+            trait = _trait;
+            iconImage.sprite = trait.traitData.Sprite;
         }
 
         public void OnClick()

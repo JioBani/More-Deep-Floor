@@ -12,17 +12,19 @@ namespace LNK.MoreDeepFloor.TroopTraitSelect
         public TroopTraitData traitData;
         public int level;
 
-        public TroopTrait(TroopTraitData _traitData)
+        public TroopTrait(TroopTraitData _traitData , int _level)
         {
             traitData = _traitData;
+            level = _level;
+        }
+
+        public virtual void OnStageStartAction()
+        {
+            
         }
 
         public string GetDescription(int _level) => traitData.GetDescription(_level);
         
-        public TroopTrait Clone()
-        {
-            return new TroopTrait(traitData);
-        }
     }
 }
 

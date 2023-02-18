@@ -13,6 +13,7 @@ namespace LNK.MoreDeepFloor.InGame
     {
         private MonsterManager monsterManager;
         private TileManager tileManager;
+        private InGameStateManager inGameStateManager;
         
         public StageData stageData;
         private InfinityTowerData infinityTowerData;
@@ -22,14 +23,16 @@ namespace LNK.MoreDeepFloor.InGame
         private List<Tile> routeTiles = new List<Tile>();
         public int round = 0;
         
-        public delegate void RoundEvent(int round);
+        //public delegate void RoundEvent(int round);
+        //public delegate void OnStageStartEventHandler();
 
-        
-        public RoundEvent OnRoundStartAction;
-        public RoundEvent OnRoundEndAction;
+        //public RoundEvent OnRoundStartAction;
+        //public RoundEvent OnRoundEndAction;
+        //public OnStageStartEventHandler OnStageStartAction;
 
         void Awake()
         {
+            inGameStateManager = ReferenceManager.instance.inGameStateManager;
             monsterManager = ReferenceManager.instance.monsterManager;
             tileManager = ReferenceManager.instance.tileManager;
         }
@@ -67,6 +70,10 @@ namespace LNK.MoreDeepFloor.InGame
             else
                 Invoke(nameof(StartNormalRound) , 3.0f);
             isStageStarted = true;
+            
+            inGameStateManager.SetStageStart();
+            
+            //OnStageStartAction?.Invoke();
         }
         
         public void SetRoundEnd()
@@ -87,14 +94,17 @@ namespace LNK.MoreDeepFloor.InGame
                     EndNormalRound();
                 }
             }
-            OnRoundEndAction?.Invoke(round);
+            
+            inGameStateManager.SetRoundEnd(round);
+            //OnRoundEndAction?.Invoke(round);
         }
 
         void StartNormalRound()
         {
             monsterManager.StartRound(stageData.roundOriginalDatas[round]);
             round++;
-            OnRoundStartAction?.Invoke(round);
+            inGameStateManager.SetRoundStart(round);
+            //OnRoundStartAction?.Invoke(round);
             Debug.Log($"[StageManager.StartRound()] {round} 라운드 시작");
         }
 
@@ -115,7 +125,8 @@ namespace LNK.MoreDeepFloor.InGame
         {
             monsterManager.StartInfinityTowerRound(infinityTowerData);
             round++;
-            OnRoundStartAction?.Invoke(round);
+            inGameStateManager.SetRoundStart(round);
+            //OnRoundStartAction?.Invoke(round);
             Debug.Log($"[StageManager.StartRound()] {round} 라운드 시작");
         }
 

@@ -19,6 +19,8 @@ namespace LNK.MoreDeepFloor.Common.DataSave
 
         public static bool SaveData<T>(T data, string path)
         {
+            FileStream fileStream = new FileStream(path, FileMode.Create);
+            
             try
             {
                 if (!data.GetType().IsSerializable)
@@ -26,8 +28,6 @@ namespace LNK.MoreDeepFloor.Common.DataSave
                     Debug.LogError("[DataSaver.SaveData()] 직렬화 가능한 객체가 아닙니다.");
                     return false;
                 }
-            
-                FileStream fileStream = new FileStream(path, FileMode.Create);
                 BinaryFormatter formatter = new BinaryFormatter();
                 formatter.Serialize(fileStream,data);
                 fileStream.Close();
@@ -38,6 +38,7 @@ namespace LNK.MoreDeepFloor.Common.DataSave
             {
                 Debug.LogError($"[DataSaver.SaveData()] 파일을 저장하는데 실패했습니다. {path}");
                 Debug.LogError(e.Message);
+                fileStream.Close();
                 return false;
             }
         }
@@ -57,6 +58,7 @@ namespace LNK.MoreDeepFloor.Common.DataSave
                     FileStream fileStream = new FileStream(path, FileMode.Open);
                     BinaryFormatter formatter = new BinaryFormatter();
                     data = formatter.Deserialize(fileStream) as T;
+                    fileStream.Close();
                     if (data == null) return false;
                     else return true;
                 }

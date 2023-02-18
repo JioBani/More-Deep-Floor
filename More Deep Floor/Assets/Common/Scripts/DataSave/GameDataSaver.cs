@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using LNK.MoreDeepFloor.Common.DataSave.DataSchema;
 using LNK.MoreDeepFloor.Data.Schemas;
+using LNK.MoreDeepFloor.Data.TroopTraits;
 using LNK.MoreDeepFloor.TroopTraitSelect;
 using UnityEngine;
 
@@ -12,10 +13,17 @@ namespace LNK.MoreDeepFloor.Common.DataSave
     
     public class GameDataSaver
     {
-        private static string savePath = Application.dataPath + "/" + "GameSaveData";
-        private static string goodsDataFileName = Application.dataPath + "/GameSaveData/GoodsData.dat";
-        private static string troopTraitsDataFileName = Application.dataPath + "/GameSaveData/TroopTraitsData.dat";
+        private string savePath;
+        private string goodsDataFileName;
+        private string troopTraitsDataFileName;
 
+        public GameDataSaver()
+        {
+            savePath = Application.dataPath + "/" + "GameSaveData";
+            goodsDataFileName = Application.dataPath + "/GameSaveData/GoodsData.dat";
+            troopTraitsDataFileName = Application.dataPath + "/GameSaveData/TroopTraitsData.dat";
+        }
+        
         /*
         string MakeFilePath(string fileName)
         {
@@ -64,42 +72,49 @@ namespace LNK.MoreDeepFloor.Common.DataSave
 
         public bool SaveTroopTraitsData(List<TroopTrait> saveTraits)
         {
-            if (DataSaver.CheckData(goodsDataFileName))
+            if (DataSaver.CheckData(troopTraitsDataFileName))
             {
                 if (!LoadTroopTraitsData(out var lastData))
                 {
                     Debug.Log("[GameDataSaver.SaveTroopTraitsData()] 이전에 저장된 정보를 불러오지 못했습니다.");
                     return false;
                 }
-                
-                List<TroopTraitSaveData> newSaveList = lastData.data.ToList();
+
+                Dictionary<TroopTraitId, TroopTraitSaveData> lastDataDic = lastData.TransToDic();
                 
                 foreach (var troopTrait in saveTraits)
                 {
-                    int index = newSaveList.FindIndex(trait => trait.id == troopTrait.traitData.TraitId);
-                        
-                    if (index != -1)
-                    {
-                        newSaveList[index] = new TroopTraitSaveData(troopTrait);
-                    }
-                    else
-                    {
-                        newSaveList.Add(new TroopTraitSaveData(troopTrait));
-                    }
+                    lastDataDic[troopTrait.traitData.TraitId] = 
+                        new TroopTraitSaveData(troopTrait.traitData.TraitId, troopTrait.level);
+                }
+                
+                List<TroopTraitSaveData> newTroopList = new List<TroopTraitSaveData>();
+
+                foreach (var troopData in lastDataDic)
+                {
+                    newTroopList.Add(new TroopTraitSaveData(troopData.Key, troopData.Value.level));
                 }
 
-                TroopTraitsSaveData newSaveData = new TroopTraitsSaveData(newSaveList);
-                return SaveData<TroopTraitsSaveData>(newSaveData, troopTraitsDataFileName);
+                TroopTraitsSaveData newData = new TroopTraitsSaveData(newTroopList);
+
+                return SaveData<TroopTraitsSaveData>(newData,troopTraitsDataFileName);
             }
             else
             {
-                return SaveData<TroopTraitsSaveData>(new TroopTraitsSaveData(new List<TroopTraitSaveData>()), troopTraitsDataFileName);
+                List<TroopTraitSaveData> newData = new List<TroopTraitSaveData>();
+                
+                foreach (var troopTrait in saveTraits)
+                {
+                    newData.Add(new TroopTraitSaveData(troopTrait));
+                }
+
+                return SaveData<TroopTraitsSaveData>(new TroopTraitsSaveData(newData), troopTraitsDataFileName);
             }
         }
-
+        
         public bool LoadTroopTraitsData(out TroopTraitsSaveData traitsData)
         {
-            if (DataSaver.CheckData(goodsDataFileName))
+            if (DataSaver.CheckData(troopTraitsDataFileName))
             {
                 if (LoadData<TroopTraitsSaveData>(troopTraitsDataFileName, out var data))
                 {
@@ -131,6 +146,11 @@ namespace LNK.MoreDeepFloor.Common.DataSave
             }
             
            
+        }
+
+        public bool IsTroopTraitSavaDataExist()
+        {
+            return DataSaver.CheckData(troopTraitsDataFileName);
         }
         
     }

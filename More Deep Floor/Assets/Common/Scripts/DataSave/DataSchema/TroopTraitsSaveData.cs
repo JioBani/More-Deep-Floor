@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using LNK.MoreDeepFloor.Data.DefenderTraits;
 using LNK.MoreDeepFloor.Data.TroopTraits;
 using LNK.MoreDeepFloor.TroopTraitSelect;
 using UnityEngine;
@@ -20,6 +21,7 @@ namespace LNK.MoreDeepFloor.Common.DataSave.DataSchema
         }
     }
 
+    [Serializable]
     public struct TroopTraitSaveData
     {
         public TroopTraitId id;
@@ -80,6 +82,18 @@ namespace LNK.MoreDeepFloor.Common.DataSave.DataSchema
             }
 
             return TroopTraitSaveData.NoneData();
+        }
+
+        public Dictionary<TroopTraitId , TroopTraitSaveData> TransToDic()
+        {
+            Dictionary<TroopTraitId, TroopTraitSaveData> result = new Dictionary<TroopTraitId, TroopTraitSaveData>();
+
+            foreach (var trait in data)
+            {
+                result[trait.id] = trait;
+            }
+
+            return result;
         }
     }
 }

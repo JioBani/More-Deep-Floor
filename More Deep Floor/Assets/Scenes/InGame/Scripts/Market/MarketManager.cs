@@ -1,15 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using LNK.MoreDeepFloor.Common;
-using LNK.MoreDeepFloor.Common.EventHandlers;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.DataSchema;
 using LNK.MoreDeepFloor.InGame.Entity;
 using LNK.MoreDeepFloor.InGame.Tiles;
 using UnityEngine;
-using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 namespace LNK.MoreDeepFloor.InGame.MarketSystem
 {
@@ -18,6 +14,7 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
         private DefenderManager defenderManager;
         private TileManager tileManager;
         private StageManager stageManager;
+        private InGameStateManager inGameStateManager;
         private Camera mainCamera;
 
         [SerializeField] private GameObject defenderButtonParent;
@@ -26,8 +23,10 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
         private MerchandiseInfo merchandiseInfo;
 
         private DefenderButton[] defenderButtons;
-        
-        public int gold;
+
+        public int gold { get; private set; }
+        public int interestLimit { get; private set; }
+
         //public int level;
         public MarketLevelInfo levelInfo = new MarketLevelInfo();
 
@@ -47,6 +46,7 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
         {
             mainCamera = Camera.main;
 
+            inGameStateManager = ReferenceManager.instance.inGameStateManager;
             tileManager = ReferenceManager.instance.tileManager;
             defenderManager = ReferenceManager.instance.defenderManager;
             stageManager = ReferenceManager.instance.stageManager;
@@ -59,8 +59,11 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
                 defenderButtons[i] = defenderButtonParent.transform.GetChild(i).GetComponent<DefenderButton>();
             }
 
-            stageManager.OnRoundStartAction += OnRoundStart;
-            stageManager.OnRoundEndAction += OnRoundEnd;
+            inGameStateManager.OnRoundStartAction += OnRoundStart;
+            inGameStateManager.OnRoundEndAction += OnRoundEnd;
+
+            //stageManager.OnRoundStartAction += OnRoundStart;
+            //stageManager.OnRoundEndAction += OnRoundEnd;
 
            
         }
@@ -87,13 +90,18 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
 
         void OnRoundEnd(int round)
         {
+            AddInterest(round);
+        }
+        
+        void AddInterest(int round)
+        {
             int income = 0;
             
             if (round > 1)
             {
-                if (gold > 50)
+                if (gold > interestLimit * 10)
                 {
-                    income += 5;
+                    income += interestLimit;
                 }
                 else if(gold > 0)
                 {
@@ -102,8 +110,13 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
             }
 
             income += 2;
-            
+
             GoldChange(income);
+        }
+
+        public void SetInterestLimit(int value)
+        {
+            interestLimit = value;
         }
 
         //#. 리롤

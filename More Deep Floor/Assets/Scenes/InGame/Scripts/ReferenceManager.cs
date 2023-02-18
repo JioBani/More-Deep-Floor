@@ -16,6 +16,7 @@ namespace LNK.MoreDeepFloor.InGame
     {
         public static ReferenceManager instance;
 
+        public InGameStateManager inGameStateManager;
         public BulletManager bulletManager;
         public TileManager tileManager;
         public StageManager stageManager;
