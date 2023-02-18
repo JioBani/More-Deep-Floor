@@ -42,6 +42,7 @@ namespace LNK.MoreDeepFloor.InGame.Tiles
             catch (Exception e)
             {
                 Debug.LogError($"[TileManager.LeftEntity()] {gameObject.name} : 배치된 Placer 없음");
+                Debug.LogError("[TileManager.LeftEntity()]" + e);
                 throw;
             }
         }

@@ -209,7 +209,6 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
     public class Trait_Challenging : DefenderStateActionInfoBase
     {
         private float[] maxHpPer;
-        private TraitController traitController;
         
         public Trait_Challenging()
         {
@@ -322,7 +321,7 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
             
             if (Random.Range(1, 101) <= percents[level])
             {
-                marketManager.GoldChange(1);
+                marketManager.GoldChange(1 , "탐욕적인");
             }
         }
     }

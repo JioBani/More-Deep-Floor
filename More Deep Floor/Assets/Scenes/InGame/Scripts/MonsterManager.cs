@@ -98,7 +98,7 @@ namespace LNK.MoreDeepFloor.InGame
 
         void OnMonsterDie(Monster monster)
         {
-            _marketManager.GoldChange(monster.status.currentGold);
+            _marketManager.GoldChange(monster.status.currentGold , "몬스터 처치");
         }
 
         void OnMonsterPass(Monster monster)

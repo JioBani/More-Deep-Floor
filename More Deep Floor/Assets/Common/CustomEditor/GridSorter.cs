@@ -14,7 +14,6 @@ namespace LNK.MoreDeepFloor.Common.CustomEditors
         public void SortObjects()
         {
             Vector3 pos = position;
-            int index = 0;
             
             for (int i = 0; i < parent.childCount; i++)
             {

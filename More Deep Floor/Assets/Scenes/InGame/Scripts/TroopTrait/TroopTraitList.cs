@@ -11,7 +11,7 @@ namespace LNK.MoreDeepFloor.InGame.TroopTraitSystem
     {
         public TroopTrait_None(TroopTraitData _traitData, int _level) : base(_traitData, _level)
         {
-            
+            type = TroopTraitType.None;
         }
     }
     
@@ -19,12 +19,12 @@ namespace LNK.MoreDeepFloor.InGame.TroopTraitSystem
     {
         public TroopTrait_StartGold(TroopTraitData _traitData, int _level) : base(_traitData, _level)
         {
-            
+            type = TroopTraitType.OnDataLoad;
         }
 
         public override void OnStageStartAction()
         {
-            ReferenceManager.instance.marketManager.GoldChange(10);
+            ReferenceManager.instance.marketManager.GoldChange(10 , "TroopTrait_StartGold" );
         }
     }
     

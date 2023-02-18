@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame.PathFinder
 {
-    public class PathFinder {
+    /*public class PathFinder {
         
         private Vector2Int maxSize;
         private Tile[][] tileMap;
@@ -139,7 +139,7 @@ namespace LNK.MoreDeepFloor.InGame.PathFinder
             
             return neighbors;
         }
-    }
+    }*/
 }
 
 

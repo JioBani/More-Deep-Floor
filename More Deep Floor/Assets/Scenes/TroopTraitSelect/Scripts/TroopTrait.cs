@@ -7,10 +7,17 @@ using UnityEngine;
 
 namespace LNK.MoreDeepFloor.TroopTraitSelect
 {
+    public enum TroopTraitType
+    {
+        None,
+        OnDataLoad,
+    }
+    
     public class TroopTrait
     {
         public TroopTraitData traitData;
         public int level;
+        public TroopTraitType type = TroopTraitType.None;
 
         public TroopTrait(TroopTraitData _traitData , int _level)
         {

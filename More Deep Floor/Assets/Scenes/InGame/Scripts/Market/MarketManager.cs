@@ -111,7 +111,7 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
 
             income += 2;
 
-            GoldChange(income);
+            GoldChange(income , "이자");
         }
 
         public void SetInterestLimit(int value)
@@ -140,10 +140,11 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
         
         
         //#. 골드
-        public void GoldChange(int change)
+        public void GoldChange(int change , string name)
         {
             gold += change;
             OnGoldChangeAction?.Invoke(gold , change);
+            Debug.Log($"[MarketManager.GoldChange()] 골드 변화 {name} 으로 부터 {change}");
         }
 
         //#. 구매
@@ -156,7 +157,7 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
             }
             else
             {
-                GoldChange(-price);
+                GoldChange(-price , "수호자 구매");
                 Debug.Log($"[MarketManager.TryBuy()] 구매 성공");
                 return true;
             }
@@ -207,7 +208,7 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
 
         public void SellDefender(Defender defender)
         {
-            GoldChange(defender.status.defenderData.cost * defender.status.level);
+            GoldChange(defender.status.defenderData.cost * defender.status.level , "수호자 판매");
             Debug.Log($"[MarketManager.SellDefender()] 수호자 판매 : {defender.status.defenderData.cost * defender.status.level}");
         }
         
