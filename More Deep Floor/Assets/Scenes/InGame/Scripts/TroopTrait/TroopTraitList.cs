@@ -32,12 +32,12 @@ namespace LNK.MoreDeepFloor.InGame.TroopTraitSystem
     {
         public TroopTrait_RoundInterest(TroopTraitData _traitData, int _level) : base(_traitData, _level)
         {
-            
+            type = TroopTraitType.OnDataLoad;
         }
 
         public override void OnStageStartAction()
         {
-            ReferenceManager.instance.marketManager.SetInterestLimit(10);
+            ReferenceManager.instance.marketManager.SetInterestLimit(5);
         }
     }
 }

@@ -144,7 +144,6 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
 
         void OnDefenderPlaceChange(Defender target)
         {
-            Debug.Log("DefenderStateController : OnDefenderPlaceChange");
             stateSortByType[DefenderStateType.OnDefenderPlaceChange].OnDefenderPlaceChange(target);
         }
     }

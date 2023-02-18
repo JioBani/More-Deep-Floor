@@ -285,7 +285,6 @@ namespace LNK.MoreDeepFloor.InGame.Entity
 
         void OriginalAttack()
         {
-            Debug.Log("[Defender] OnBeforeOriginalAttackAction");
             OnBeforeOriginalAttackAction?.Invoke(target,DefenderStateId.None);
             OnBeforeAttackAction?.Invoke(target,DefenderStateId.None);
             bulletManager.Fire(gameObject, target.gameObject);

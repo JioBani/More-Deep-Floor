@@ -63,7 +63,6 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
             for (var i = 0; i < stateList.Count; i++)
             {
                 stateList[i].actionInfo.OnBeforeOriginalAttackAction(target,id);
-                Debug.Log($"BeforeAttackAction : {stateList[i].id}");
             }
         }
 

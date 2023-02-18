@@ -11,6 +11,7 @@ namespace LNK.MoreDeepFloor.TroopTraitSelect
     {
         None,
         OnDataLoad,
+        OnRoundEnd,
     }
     
     public class TroopTrait

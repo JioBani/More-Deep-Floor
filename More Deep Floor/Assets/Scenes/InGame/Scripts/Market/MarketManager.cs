@@ -24,6 +24,7 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
 
         private DefenderButton[] defenderButtons;
 
+        public int startGold;
         public int gold { get; private set; }
         public int interestLimit { get; private set; }
 
@@ -59,11 +60,9 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
                 defenderButtons[i] = defenderButtonParent.transform.GetChild(i).GetComponent<DefenderButton>();
             }
 
+            inGameStateManager.OnDataLoadAction += OnDataLoad;
             inGameStateManager.OnRoundStartAction += OnRoundStart;
             inGameStateManager.OnRoundEndAction += OnRoundEnd;
-
-            //stageManager.OnRoundStartAction += OnRoundStart;
-            //stageManager.OnRoundEndAction += OnRoundEnd;
 
            
         }
@@ -81,16 +80,23 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
             OnInitEventAction?.Invoke(levelInfo.level,levelInfo.currentExp,levelInfo.maxExp);
             onInitLevelAction?.Invoke(levelInfo.level);
         }
+        
+        
         //#. 이벤트 함수
+
+        void OnDataLoad()
+        {
+            GoldChange(startGold, "시작골드");
+        }
 
         void OnRoundStart(int round)
         {
-            
+            AddInterest(round);
         }
 
         void OnRoundEnd(int round)
         {
-            AddInterest(round);
+            
         }
         
         void AddInterest(int round)
@@ -108,8 +114,6 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
                     income += gold / 10;
                 }
             }
-
-            income += 2;
 
             GoldChange(income , "이자");
         }

@@ -20,5 +20,5 @@ MonoBehaviour:
     value: 2
   - name: num1
     value: 3
-  isApplied: 1
+  isApplied: 0
   id: 9

@@ -183,18 +183,13 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
 
         public override void OnBeforeOriginalAttackAction(Monster target, DefenderStateId stateId)
         {
-            Debug.Log($"OnBeforeAttackAction1");
             int nums = (int)targetNums[traitController.job.synergyLevel];
-            Debug.Log($"OnBeforeAttackAction2");
             List<Monster> monsters = defender.TrySearchTargetsExpectTarget(3);
-            Debug.Log($"OnBeforeAttackAction3");
             if (stateId == DefenderStateId.Trait_Circus) return;
-            Debug.Log($"monsters.Count = {monsters.Count} ,nums = {nums}");
             
             for (var i = 0; i < monsters.Count; i++)
             {
                 if(i >= nums) break;
-                Debug.Log($"Attack : {i}");
                 defender.SetExtraAttack(monsters[i] , DefenderStateId.Trait_Circus);
             }
         }
