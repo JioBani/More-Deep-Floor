@@ -5,6 +5,7 @@ using LNK.MoreDeepFloor.Common.DataSave;
 using LNK.MoreDeepFloor.Common.DataSave.DataSchema;
 using LNK.MoreDeepFloor.Common.GoodsSystyem;
 using LNK.MoreDeepFloor.Data.Schemas.TroopTraitScene;
+using LNK.MoreDeepFloor.Data.TroopTraits;
 using UnityEngine;
 
 namespace LNK.MoreDeepFloor.TroopTraitSelect
@@ -19,13 +20,21 @@ namespace LNK.MoreDeepFloor.TroopTraitSelect
         
         [SerializeField] private List<TroopTraitData> traitsData;
         [SerializeField] private TroopTraitData noneTraitData;
-        
+        private List<TraitSelectButton> troopTraitButtons = null;
         
         private void Awake()
         {
             gameDataSaver = new GameDataSaver();
             goodsManager = ReferenceManager.instance.goodsManager;
 
+            troopTraitButtons = new List<TraitSelectButton>();
+            
+            for (int i = 0; i < traitsSelectButtonParent.transform.childCount; i++)
+            {
+                troopTraitButtons.Add(traitsSelectButtonParent.transform.GetChild(i).GetComponent<TraitSelectButton>());
+            }
+            
+            
             if (!gameDataSaver.IsTroopTraitSavaDataExist())
             {
                 traits = new List<TroopTrait>();
@@ -49,24 +58,81 @@ namespace LNK.MoreDeepFloor.TroopTraitSelect
         void SetTraitButtonData()
         {
             traits = new List<TroopTrait>();
+
+            /*if (troopTraitButtons == null)
+            {
+                troopTraitButtons = new Dictionary<TroopTraitId, TraitSelectButton>();
+                
+                for (int i = 0; i < traitsSelectButtonParent.transform.childCount; i++)
+                {
+                    TraitSelectButton button = traitsSelectButtonParent.transform.GetChild(i).GetComponent<TraitSelectButton>();
+                    if(button.traitData.TraitId != TroopTraitId.None)
+                        troopTraitButtons.Add(button.traitData.TraitId , button);
+                }
+            }*/
             
+            
+            for (var i = 0; i < troopTraitButtons.Count; i++)
+            {
+                var traitData = troopTraitButtons[i].traitData;
+                
+                if (traitData.TraitId == TroopTraitId.None)
+                {
+                    troopTraitButtons[i].SetData(new TroopTrait(traitData , 0));
+                }
+                else
+                {
+                    var saveData = troopTraitsSaveData.GetData(traitData.TraitId);
+                    int level = 0;
+                    
+                    if (saveData.id != TroopTraitId.None)
+                    {
+                        level = saveData.level;
+                    }
+                    
+                    TroopTrait trait = new TroopTrait(traitData, level);
+                    traits.Add(trait);
+                    troopTraitButtons[i].SetData(trait);
+
+                }
+                
+                
+                
+                
+            }
+            
+            
+            
+            /*for (int i = 0; i < traitsSelectButtonParent.transform.childCount; i++)
+            {
+               
+                if(troopTraitsSaveData.GetData(troopTraitButtons))
+            }
+            
+            
+
             for (var i = 0; i < troopTraitsSaveData.data.Count; i++)
             {
-                TroopTraitData traitData = traitsData.Find(data => data.TraitId == troopTraitsSaveData.data[i].id);
+                var saveTraitData = troopTraitsSaveData.data[i];
+                var button = troopTraitButtons[saveTraitData.id];
+                TroopTraitData traitData = button.traitData;
+                TroopTrait trait = new TroopTrait(traitData,saveTraitData.level);
+                traits.Add(trait);
+
+                button.SetData(trait);
+                Debug.Log($"[TroopTraitManager.SetTraitButtonData()] {trait.traitData.TraitId} : Lv {trait.level}");
+
+                /#1#/TroopTraitData traitData = traitsData.Find(data => data.TraitId == troopTraitsSaveData.data[i].id);
                     
                 if (traitData == null)
                 {
                     traitData = noneTraitData;
                 }
 
-                TroopTrait trait = new TroopTrait(traitData,troopTraitsSaveData.data[i].level);
-                Debug.Log($"[TroopTraitManager.SetTraitButtonData()] {trait.traitData.TraitId} : Lv {trait.level}");
-                traits.Add(trait);
                     
-                TraitSelectButton button = traitsSelectButtonParent.transform.GetChild(i).GetComponent<TraitSelectButton>();
+                //TraitSelectButton button = traitsSelectButtonParent.transform.GetChild(i).GetComponent<TraitSelectButton>();#1#
                     
-                button.SetData(trait);
-            }
+            }*/
         }
 
         public bool TryUpgrade(TroopTrait data)

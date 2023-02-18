@@ -373,6 +373,7 @@ MonoBehaviour:
   traitsData:
   - {fileID: 11400000, guid: 8a695f68a0b23c244bc55d7b1758e059, type: 2}
   - {fileID: 11400000, guid: 468e1a496630cda49995f93b9e3d0e64, type: 2}
+  - {fileID: 11400000, guid: b2ab6b76e31a2d744ba1c2f58dbd2b72, type: 2}
   noneTraitData: {fileID: 11400000, guid: eb731bea9a04b2b499c30c7e124c3956, type: 2}
 --- !u!1 &186512740
 GameObject:
@@ -773,6 +774,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9117976106374023111, guid: 5f51c3eb9439ea9488d0d2f0a530deb6,
         type: 3}
+      propertyPath: traitData
+      value: 
+      objectReference: {fileID: 11400000, guid: eb731bea9a04b2b499c30c7e124c3956,
+        type: 2}
+    - target: {fileID: 9117976106374023111, guid: 5f51c3eb9439ea9488d0d2f0a530deb6,
+        type: 3}
       propertyPath: uiManager
       value: 
       objectReference: {fileID: 1010250128}
@@ -1004,6 +1011,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9117976106374023111, guid: 5f51c3eb9439ea9488d0d2f0a530deb6,
+        type: 3}
+      propertyPath: traitData
+      value: 
+      objectReference: {fileID: 11400000, guid: eb731bea9a04b2b499c30c7e124c3956,
+        type: 2}
     - target: {fileID: 9117976106374023111, guid: 5f51c3eb9439ea9488d0d2f0a530deb6,
         type: 3}
       propertyPath: uiManager
@@ -1610,6 +1623,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9117976106374023111, guid: 5f51c3eb9439ea9488d0d2f0a530deb6,
         type: 3}
+      propertyPath: traitData
+      value: 
+      objectReference: {fileID: 11400000, guid: eb731bea9a04b2b499c30c7e124c3956,
+        type: 2}
+    - target: {fileID: 9117976106374023111, guid: 5f51c3eb9439ea9488d0d2f0a530deb6,
+        type: 3}
       propertyPath: uiManager
       value: 
       objectReference: {fileID: 1010250128}
@@ -1775,6 +1794,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9117976106374023111, guid: 5f51c3eb9439ea9488d0d2f0a530deb6,
+        type: 3}
+      propertyPath: traitData
+      value: 
+      objectReference: {fileID: 11400000, guid: eb731bea9a04b2b499c30c7e124c3956,
+        type: 2}
     - target: {fileID: 9117976106374023111, guid: 5f51c3eb9439ea9488d0d2f0a530deb6,
         type: 3}
       propertyPath: uiManager
@@ -2103,6 +2128,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9117976106374023111, guid: 5f51c3eb9439ea9488d0d2f0a530deb6,
+        type: 3}
+      propertyPath: traitData
+      value: 
+      objectReference: {fileID: 11400000, guid: eb731bea9a04b2b499c30c7e124c3956,
+        type: 2}
     - target: {fileID: 9117976106374023111, guid: 5f51c3eb9439ea9488d0d2f0a530deb6,
         type: 3}
       propertyPath: uiManager
@@ -2795,6 +2826,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9117976106374023111, guid: 5f51c3eb9439ea9488d0d2f0a530deb6,
+        type: 3}
+      propertyPath: traitData
+      value: 
+      objectReference: {fileID: 11400000, guid: eb731bea9a04b2b499c30c7e124c3956,
+        type: 2}
     - target: {fileID: 9117976106374023111, guid: 5f51c3eb9439ea9488d0d2f0a530deb6,
         type: 3}
       propertyPath: uiManager
@@ -4222,6 +4259,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9117976106374023111, guid: 5f51c3eb9439ea9488d0d2f0a530deb6,
         type: 3}
+      propertyPath: traitData
+      value: 
+      objectReference: {fileID: 11400000, guid: eb731bea9a04b2b499c30c7e124c3956,
+        type: 2}
+    - target: {fileID: 9117976106374023111, guid: 5f51c3eb9439ea9488d0d2f0a530deb6,
+        type: 3}
       propertyPath: uiManager
       value: 
       objectReference: {fileID: 1010250128}
@@ -4809,6 +4852,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9117976106374023111, guid: 5f51c3eb9439ea9488d0d2f0a530deb6,
         type: 3}
+      propertyPath: traitData
+      value: 
+      objectReference: {fileID: 11400000, guid: b2ab6b76e31a2d744ba1c2f58dbd2b72,
+        type: 2}
+    - target: {fileID: 9117976106374023111, guid: 5f51c3eb9439ea9488d0d2f0a530deb6,
+        type: 3}
       propertyPath: uiManager
       value: 
       objectReference: {fileID: 1010250128}
@@ -4939,6 +4988,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9117976106374023111, guid: 5f51c3eb9439ea9488d0d2f0a530deb6,
         type: 3}
+      propertyPath: traitData
+      value: 
+      objectReference: {fileID: 11400000, guid: eb731bea9a04b2b499c30c7e124c3956,
+        type: 2}
+    - target: {fileID: 9117976106374023111, guid: 5f51c3eb9439ea9488d0d2f0a530deb6,
+        type: 3}
       propertyPath: uiManager
       value: 
       objectReference: {fileID: 1010250128}
@@ -5067,6 +5122,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9117976106374023111, guid: 5f51c3eb9439ea9488d0d2f0a530deb6,
+        type: 3}
+      propertyPath: traitData
+      value: 
+      objectReference: {fileID: 11400000, guid: eb731bea9a04b2b499c30c7e124c3956,
+        type: 2}
     - target: {fileID: 9117976106374023111, guid: 5f51c3eb9439ea9488d0d2f0a530deb6,
         type: 3}
       propertyPath: uiManager

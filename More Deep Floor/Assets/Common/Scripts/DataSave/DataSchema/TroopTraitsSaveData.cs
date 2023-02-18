@@ -66,7 +66,7 @@ namespace LNK.MoreDeepFloor.Common.DataSave.DataSchema
             
             if (findData.id == TroopTraitId.None)
             {
-                Debug.LogError($"[TroopTraitsSaveData.GetData()] 특성 데이터를 찾을 수 없습니다. : {id} ");
+                Debug.LogWarning($"[TroopTraitsSaveData.GetData()] 특성 데이터를 찾을 수 없습니다. : {id} ");
                 return findData;
             }
             else
@@ -74,6 +74,7 @@ namespace LNK.MoreDeepFloor.Common.DataSave.DataSchema
                 return findData;
             }
         }
+        
         public TroopTraitSaveData Find(TroopTraitId id)
         {
             for (var i = 0; i < data.Count; i++)

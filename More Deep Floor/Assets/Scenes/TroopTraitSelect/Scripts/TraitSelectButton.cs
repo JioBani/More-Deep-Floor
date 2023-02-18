@@ -15,6 +15,7 @@ namespace LNK.MoreDeepFloor.TroopTraitSelect
         [SerializeField] private Image iconImage;
     
         private TroopTrait trait;
+        public TroopTraitData traitData;
         public Button button;
         public bool isClicked = false;
 

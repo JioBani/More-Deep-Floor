@@ -9,6 +9,7 @@ namespace LNK.MoreDeepFloor.Data.TroopTraits
         None,
         StartGold,
         RoundInterest,
+        AttackSpeedUp
     }
 }
 
