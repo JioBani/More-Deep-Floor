@@ -13,6 +13,14 @@ using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame
 {
+
+    public class DefenderStatusModifier
+    {
+        public int damage = 0;
+        public float attackSpeed = 0;
+    }
+
+    
     public class DefenderManager : MonoBehaviour
     {
         private MarketManager marketManager;
@@ -26,6 +34,8 @@ namespace LNK.MoreDeepFloor.InGame
         public DefenderTableData defenderTableData;
         public int battleDefender = 0;
         public int battleDefenderLimit = 0;
+
+        public DefenderStatusModifier defenderStatusModifier = new DefenderStatusModifier();
         
         public delegate void OnBattleLimitInitEventHandler(int limit);
         public delegate void OnBattleFieldDefenderChangeEventHandler(int limit , List<Defender> defenders);
@@ -97,7 +107,7 @@ namespace LNK.MoreDeepFloor.InGame
         public void SpawnDefenderById(DefenderId id , Tile tile)
         {
             Debug.Log($"[DefenderManager.SpawnDefenderById()] id : {id}");
-            SpawnDefenderAtWaitingRoom(new DefenderData(defenderTableData.FindDefenderDataById(id)), tile);
+            SpawnDefenderAtWaitingRoom(new DefenderData(defenderTableData.FindDefenderDataById(id) , defenderStatusModifier), tile);
         }
 
         Defender SpawnDefenderAtWaitingRoom(DefenderData defenderData , Tile tile)
@@ -236,6 +246,17 @@ namespace LNK.MoreDeepFloor.InGame
         {
             OnDefenderPlaceChangeAction?.Invoke(defender);
             Debug.Log("SetDefenderPlaceChange");
+        }
+
+        public void AddDamage(int _damage)
+        {
+            defenderStatusModifier.damage += _damage;
+        }
+        
+        public void AddAttackSpeed(int _attackSpeed)
+        {
+            defenderStatusModifier.attackSpeed += _attackSpeed;
+            Debug.Log("[DefenderManager.AddAttackSpeed()] AddAttackSpeed");
         }
 
         #endregion

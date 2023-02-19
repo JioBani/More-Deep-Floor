@@ -71,12 +71,12 @@ namespace LNK.MoreDeepFloor.InGame.TroopTraitSystem
                 }
             }
         }
-
+        
         void OnDataLoad()
         {
             foreach (var troopTrait in traitSortByType[TroopTraitType.OnDataLoad])
             {
-                troopTrait.OnStageStartAction();
+                troopTrait.OnDataLoadAction();
             }
         }
     }

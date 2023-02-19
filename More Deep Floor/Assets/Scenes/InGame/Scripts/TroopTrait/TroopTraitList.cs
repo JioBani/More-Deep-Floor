@@ -22,7 +22,7 @@ namespace LNK.MoreDeepFloor.InGame.TroopTraitSystem
             type = TroopTraitType.OnDataLoad;
         }
 
-        public override void OnStageStartAction()
+        public override void OnDataLoadAction()
         {
             ReferenceManager.instance.marketManager.GoldChange(10 , "TroopTrait_StartGold" );
         }
@@ -35,9 +35,22 @@ namespace LNK.MoreDeepFloor.InGame.TroopTraitSystem
             type = TroopTraitType.OnDataLoad;
         }
 
-        public override void OnStageStartAction()
+        public override void OnDataLoadAction()
         {
             ReferenceManager.instance.marketManager.SetInterestLimit(5);
+        }
+    }
+    
+    public class TroopTrait_AttackSpeedUp : TroopTrait
+    {
+        public TroopTrait_AttackSpeedUp(TroopTraitData _traitData, int _level) : base(_traitData, _level)
+        {
+            type = TroopTraitType.OnDataLoad;
+        }
+
+        public override void OnDataLoadAction()
+        {
+            ReferenceManager.instance.defenderManager.AddAttackSpeed(1);
         }
     }
 }

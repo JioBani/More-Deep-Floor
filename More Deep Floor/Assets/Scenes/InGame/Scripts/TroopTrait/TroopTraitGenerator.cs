@@ -19,6 +19,7 @@ namespace LNK.MoreDeepFloor.InGame.TroopTraitSystem
                 case TroopTraitId.None : return new TroopTrait(troopTraitTable.Get(id), level);
                 case TroopTraitId.StartGold : return new TroopTrait_StartGold(troopTraitTable.Get(id), level);
                 case TroopTraitId.RoundInterest : return new TroopTrait_RoundInterest(troopTraitTable.Get(id), level);
+                case TroopTraitId.AttackSpeedUp : return new TroopTrait_AttackSpeedUp(troopTraitTable.Get(id), level);
                 default : return new TroopTrait(troopTraitTable.Get(id), level);
             }
         }

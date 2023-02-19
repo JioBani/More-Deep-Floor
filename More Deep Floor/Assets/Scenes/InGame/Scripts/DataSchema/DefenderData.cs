@@ -34,6 +34,19 @@ namespace LNK.MoreDeepFloor.InGame.DataSchema
             job = defenderOriginalData.Job;
             character = defenderOriginalData.Character;
         }
+
+        public DefenderData(DefenderOriginalData defenderOriginalData, DefenderStatusModifier statusModifier) : this(defenderOriginalData)
+        {
+            for (var i = 0; i < damages.Length; i++)
+            {
+                damages[i] += statusModifier.damage;
+            }
+
+            for (var i = 0; i < attackSpeeds.Length; i++)
+            {
+                attackSpeeds[i] += statusModifier.attackSpeed;
+            }
+        }
     }
 }
 

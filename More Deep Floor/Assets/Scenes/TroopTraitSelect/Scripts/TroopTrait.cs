@@ -26,7 +26,12 @@ namespace LNK.MoreDeepFloor.TroopTraitSelect
             level = _level;
         }
 
-        public virtual void OnStageStartAction()
+        /*public virtual void OnStageStartAction()
+        {
+            
+        }*/
+
+        public virtual void OnDataLoadAction()
         {
             
         }
