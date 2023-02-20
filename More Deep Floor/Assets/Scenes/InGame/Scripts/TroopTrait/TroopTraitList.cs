@@ -81,17 +81,13 @@ namespace LNK.MoreDeepFloor.InGame.TroopTraitSystem
 
         void AddState(Defender defender)
         {
-            DefenderState state = 
-                ReferenceManager.instance.defenderStateActionList.Get(DefenderStateId.TroopTrait_GoldAttack);
-
+            TroopTraitState_GoldAttack state =  
+                (TroopTraitState_GoldAttack)defender.stateController.AddState(DefenderStateId.TroopTrait_GoldAttack);
+            
             if (isPercentLoaded)
             {
-                TroopTraitState_GoldAttack actionInfo = (TroopTraitState_GoldAttack)state.actionInfo;
-                actionInfo.percentList = percents;
+                state.percentList = percents;
             }
-
-            defender.stateController.AddState(DefenderStateId.TroopTrait_GoldAttack);
         }
     }
 }
-

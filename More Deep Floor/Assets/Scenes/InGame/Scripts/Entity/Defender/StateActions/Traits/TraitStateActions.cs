@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using LNK.MoreDeepFloor.Common.TimerSystem;
 using LNK.MoreDeepFloor.Data.Defender.States;
+using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.Entity;
 using LNK.MoreDeepFloor.InGame.Entity.Defenders;
 using LNK.MoreDeepFloor.InGame.Entity.Defenders.States;
@@ -29,19 +30,35 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
     
     //#. None
 
-    public class State_None : DefenderStateActionInfoBase {}
+    public class State_None : DefenderState
+    {
+        public State_None(
+            DefenderStateId _id, 
+            DefenderStateData _stateData, 
+            Defender _defender) : base(_id, _stateData, _defender)
+        {
+            
+        }
+    }
 
     #region #. 직업
     
     //#. 검투사
-    public class Trait_Gladiator : DefenderStateActionInfoBase
+    public class Trait_Gladiator : DefenderState
     {
-        public Trait_Gladiator()
+        public Trait_Gladiator(
+            DefenderStateId _id, 
+            DefenderStateData _stateData, 
+            Defender _defender) : base(_id, _stateData, _defender)
         {
-            id = DefenderStateId.Trait_Gladiator;
-            type = DefenderStateType.OnKill;
+            type = DefenderStateType.Immediately;
         }
 
+        public override void OnGenerated()
+        {
+            id = DefenderStateId.None;
+        }
+        
         public override void ActiveAction(Defender caster, Monster target)
         {
             stateController.AddState(DefenderStateId.Effect_Gladiator);
@@ -50,14 +67,17 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
     
     
     //#. 직업효과_희열
-    public class Effect_Gladiator : DefenderStateActionInfoBase
+    public class Effect_Gladiator : DefenderState
     {
-        public Effect_Gladiator()
+        
+        public Effect_Gladiator(
+            DefenderStateId _id, 
+            DefenderStateData _stateData, 
+            Defender _defender) : base(_id, _stateData, _defender)
         {
-            id = DefenderStateId.Effect_Gladiator;
             type = DefenderStateType.Immediately;
         }
-        
+
         List<float> attackSpeedMul;
 
         public override void OnGenerated()
@@ -88,16 +108,43 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
             });
         }
     }
+
+    public class _Effect_Gladiator : DefenderState
+    {
+        public _Effect_Gladiator(
+            DefenderStateId _id,
+            DefenderStateData _stateData,
+            Defender _defender) : base(_id, _stateData, _defender)
+        {
+            type = DefenderStateType.Immediately;
+        }
+        
+        List<float> attackSpeedMul;
+
+        public override void OnGenerated()
+        {
+            attackSpeedMul = new List<float>();
+            stateData.GetParameter("AttackSpeedMul0", out float attackSpeedMul0);
+            stateData.GetParameter("AttackSpeedMul1", out float attackSpeedMul1);
+            stateData.GetParameter("AttackSpeedMul2", out float attackSpeedMul2);
+            
+            attackSpeedMul.Add(attackSpeedMul0);
+            attackSpeedMul.Add(attackSpeedMul1);
+            attackSpeedMul.Add(attackSpeedMul2);
+        }
+    }
     
     
     //#. 연구가
-    public class Trait_Researcher : DefenderStateActionInfoBase
+    public class Trait_Researcher : DefenderState
     {
         private float[] percents;
         
-        public Trait_Researcher()
+        public Trait_Researcher(
+            DefenderStateId _id,
+            DefenderStateData _stateData,
+            Defender _defender) : base(_id, _stateData, _defender)
         {
-            id = DefenderStateId.Trait_Researcher;
             type = DefenderStateType.OnUseSkill;
         }
 
@@ -129,13 +176,15 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
     }
     
     //#. 저격수
-    public class Trait_Sniper : DefenderStateActionInfoBase
+    public class Trait_Sniper : DefenderState
     {
         private float[] percents;
         
-        public Trait_Sniper()
+        public Trait_Sniper(
+            DefenderStateId _id,
+            DefenderStateData _stateData,
+            Defender _defender) : base(_id, _stateData, _defender)
         {
-            id = DefenderStateId.None;
             type = DefenderStateType.OnTargetHit;
         }
 
@@ -164,16 +213,18 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
         }
     }
 
-    public class Trait_Circus : DefenderStateActionInfoBase
+    public class Trait_Circus : DefenderState
     {
         private float[] targetNums;
         
-        public Trait_Circus()
+        public Trait_Circus(
+            DefenderStateId _id,
+            DefenderStateData _stateData,
+            Defender _defender) : base(_id, _stateData, _defender)
         {
-            id = DefenderStateId.Trait_Circus;
             type = DefenderStateType.BeforeOriginalAttack;
         }
-
+        
         public override void OnGenerated()
         {
             targetNums = new[] { 0f, 0f };
@@ -201,13 +252,15 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
     #region #. 성격
 
     //.# 도전적인
-    public class Trait_Challenging : DefenderStateActionInfoBase
+    public class Trait_Challenging : DefenderState
     {
         private float[] maxHpPer;
         
-        public Trait_Challenging()
+        public Trait_Challenging(
+            DefenderStateId _id,
+            DefenderStateData _stateData,
+            Defender _defender) : base(_id, _stateData, _defender)
         {
-            id = DefenderStateId.Trait_Challenging;
             type = DefenderStateType.OnTargetHit;
         }
 
@@ -241,14 +294,16 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
     
     
     //#. 강압적인
-    public class Trait_Coercive : DefenderStateActionInfoBase
+    public class Trait_Coercive : DefenderState
     {
         private int[] percents;
         private float[] time;
         
-        public Trait_Coercive()
+        public Trait_Coercive(
+            DefenderStateId _id,
+            DefenderStateData _stateData,
+            Defender _defender) : base(_id, _stateData, _defender)
         {
-            id = DefenderStateId.Trait_Coercive;
             type = DefenderStateType.OnTargetHit;
         }
 
@@ -290,13 +345,16 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
 
     
     //#. 탐욕적인
-    public class Trait_Greedy : DefenderStateActionInfoBase
+    public class Trait_Greedy : DefenderState
     {
         private MarketManager marketManager;
         private float[] percents;
-        public Trait_Greedy()
+        
+        public Trait_Greedy(
+            DefenderStateId _id,
+            DefenderStateData _stateData,
+            Defender _defender) : base(_id, _stateData, _defender)
         {
-            id = DefenderStateId.Trait_Greedy;
             type = DefenderStateType.OnKill;
         }
 
@@ -322,16 +380,19 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
     }
     
     //#. 고무적인
-    public class Trait_Encouraging : DefenderStateActionInfoBase
+    public class Trait_Encouraging : DefenderState
     {
         private DefenderManager defenderManager;
         private List<Defender> defenders = null;
         
-        public Trait_Encouraging()
+        public Trait_Encouraging(
+            DefenderStateId _id,
+            DefenderStateData _stateData,
+            Defender _defender) : base(_id, _stateData, _defender)
         {
-            id = DefenderStateId.Trait_Encouraging;
             type = DefenderStateType.OnDefenderPlaceChange;
         }
+        
 
         public override void OnGenerated()
         {
@@ -368,13 +429,15 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
     }
     
     //#. 특성효과_고무됨
-    public class Effect_Encouraging : DefenderStateActionInfoBase
+    public class Effect_Encouraging : DefenderState
     {
         private StatusBuff statsBuff;
         
-        public Effect_Encouraging()
+        public Effect_Encouraging(
+            DefenderStateId _id,
+            DefenderStateData _stateData,
+            Defender _defender) : base(_id, _stateData, _defender)
         {
-            id = DefenderStateId.Effect_Encouraging;
             type = DefenderStateType.Immediately;
         }
 

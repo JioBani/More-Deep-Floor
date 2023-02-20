@@ -28,7 +28,7 @@ namespace LNK.MoreDeepFloor.InGame
         public SkillManager skillManager;
         public TraitManager traitManager;
 
-        public DefenderStateActionList defenderStateActionList;
+        public DefenderStateList defenderStateList;
 
         private void Awake()
         {

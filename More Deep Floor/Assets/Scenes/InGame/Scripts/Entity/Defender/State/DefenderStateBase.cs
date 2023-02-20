@@ -5,6 +5,7 @@ using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.TraitSystem;
 using UnityEngine;
 
+/*
 namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
 {
 
@@ -57,5 +58,6 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
         }
     }
 }
+*/
 
 

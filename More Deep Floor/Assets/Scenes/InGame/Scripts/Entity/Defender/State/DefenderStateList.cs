@@ -30,7 +30,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
         {
             for (var i = 0; i < stateList.Count; i++)
             {
-                stateList[i].actionInfo.ActiveAction(caster,target);
+                stateList[i].ActiveAction(caster,target);
             }
         }
 
@@ -38,7 +38,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
         {
             for (var i = 0; i < stateList.Count; i++)
             {
-                stateList[i].actionInfo.OnUseSkillAction(caster,target,isFinal);
+                stateList[i].OnUseSkillAction(caster,target,isFinal);
             }
         }
 
@@ -46,7 +46,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
         {
             for (var i = 0; i < stateList.Count; i++)
             {
-                stateList[i].actionInfo.OnTargetHitAction(caster,target,damage);
+                stateList[i].OnTargetHitAction(caster,target,damage);
             }
         }
 
@@ -54,7 +54,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
         {
             for (var i = 0; i < stateList.Count; i++)
             {
-                stateList[i].actionInfo.OnBeforeAttackAction(target,id);
+                stateList[i].OnBeforeAttackAction(target,id);
             }
         }
         
@@ -62,7 +62,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
         {
             for (var i = 0; i < stateList.Count; i++)
             {
-                stateList[i].actionInfo.OnBeforeOriginalAttackAction(target,id);
+                stateList[i].OnBeforeOriginalAttackAction(target,id);
             }
         }
 
@@ -70,7 +70,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
         {
             for (var i = 0; i < stateList.Count; i++)
             {
-                stateList[i].actionInfo.OnDefenderPlaceChange(target);
+                stateList[i].OnDefenderPlaceChange(target);
             }
         }
 

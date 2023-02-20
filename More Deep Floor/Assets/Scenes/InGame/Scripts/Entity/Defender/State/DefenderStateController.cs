@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using LNK.MoreDeepFloor.Data.Defender.States;
 using LNK.MoreDeepFloor.InGame.StateActions;
+using LNK.MoreDeepFloor.InGame.TraitSystem;
 using TMPro;
 using UnityEngine;
 
@@ -26,6 +27,9 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
         [SerializeField] private Defender defender;
         [SerializeField] private TextMeshPro stateText;
 
+        private DefenderStateController stateController;
+        private TraitController traitController;
+
         public void Awake()
         {
             defender.OnKillAction += OnKill;
@@ -34,6 +38,9 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
             defender.OnBeforeOriginalAttackAction += BeforeOriginalAttack;
             defender.OnBeforeAttackAction += BeforeAttack;
             ReferenceManager.instance.defenderManager.OnDefenderPlaceChangeAction += OnDefenderPlaceChange;
+            
+            stateController = GetComponent<DefenderStateController>();
+            traitController = GetComponent<TraitController>();
         }
 
         public void Init()
@@ -45,20 +52,19 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
             }
         }
 
-        public void AddState(DefenderState state)
+        public void AddState(DefenderState newState)
         {
-            if (stateList.TryGetValue(state.id, out var stateInfo))
+            if (stateList.TryGetValue(newState.id, out var state))
             {
-                stateInfo.AddStack();
-                stateInfo.actionInfo.OnAction(defender , null);
+                state.AddStack();
+                state.OnAction(defender , null);
+                state.OnAction(defender , null);
             }
             else
             {
-                state.Set(defender,this);
-                
                 stateList[state.id] = state;
-                stateSortByType[state.actionInfo.type].Add(state);
-                state.actionInfo.OnAction(defender, null);
+                stateSortByType[state.type].Add(state);
+                state.OnAction(defender, null);
             }
         }
         
@@ -68,18 +74,23 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
             if (stateList.TryGetValue(id, out var stateInfo))
             {
                 stateInfo.AddStack();
-                stateInfo.actionInfo.OnAction(defender , null);
+                stateInfo.OnAction(defender , null);
                 OnStateChange();
                 return stateInfo;
             }
             else
             {
-                DefenderState newState = ReferenceManager.instance.defenderStateActionList.Get(id);
-                newState.Set(defender,this);
+                DefenderState newState = ReferenceManager.instance.defenderStateList.Get(
+                    id , 
+                    defender , 
+                    stateController,
+                    traitController
+                    );
+                //newState.Set(defender,this);
                 
                 stateList[id] = newState;
-                stateSortByType[newState.actionInfo.type].Add(newState);
-                newState.actionInfo.OnAction(defender, null);
+                stateSortByType[newState.type].Add(newState);
+                newState.OnAction(defender, null);
                 OnStateChange();
                 return newState;
             }
@@ -97,11 +108,11 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
             
             if (!stateList[id].RemoveStack())
             {
-                stateSortByType[state.actionInfo.type].Remove(state);
+                stateSortByType[state.type].Remove(state);
                 stateList.Remove(id);
             }
 
-            state.actionInfo.OffAction(defender, null);
+            state.OffAction(defender, null);
             
             OnStateChange();
         }
