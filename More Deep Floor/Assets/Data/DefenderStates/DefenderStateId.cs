@@ -23,6 +23,9 @@ namespace LNK.MoreDeepFloor.Data.Defender.States
         Skill_Bishop01,
         Skill_Knight01,
         
+        TroopTrait_GoldAttack
+
+
     }
 }
 

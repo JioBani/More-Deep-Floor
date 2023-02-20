@@ -68,6 +68,7 @@ namespace LNK.MoreDeepFloor.InGame.TroopTraitSystem
                     TroopTrait newTrait = generator.Get(saveData.data[i].id, saveData.data[i].level);
                     traits.Add(newTrait);
                     traitSortByType[newTrait.type].Add(newTrait);
+                    Debug.Log($"[TroopTraitApplier.OnSceneLoaded()] 데이터 로드 : {newTrait.traitData.TraitId}");
                 }
             }
         }

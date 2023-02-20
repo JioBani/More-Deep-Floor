@@ -5,6 +5,7 @@ using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.Entity.Defenders.States;
 using LNK.MoreDeepFloor.InGame.StateActions.Skills;
 using LNK.MoreDeepFloor.InGame.StateActions.Traits;
+using LNK.MoreDeepFloor.InGame.StateActions.TroopTrait;
 using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame.StateActions
@@ -30,9 +31,11 @@ namespace LNK.MoreDeepFloor.InGame.StateActions
                 case DefenderStateId.Trait_Sniper   : actionInfoBase = new Trait_Sniper(); break;
                 case DefenderStateId.Trait_Circus   : actionInfoBase = new Trait_Circus(); break;
                 
+                case DefenderStateId.TroopTrait_GoldAttack   : actionInfoBase = new TroopTraitState_GoldAttack(); break;
+                
                 case DefenderStateId.Skill_Bishop01   : actionInfoBase = new Bishop01_Buff(); break;
                 case DefenderStateId.Skill_Knight01   : actionInfoBase = new Knight01_Buff(); break;
-                
+           
                 default : 
                     actionInfoBase = new State_None(); 
                     Debug.LogError($"[DefenderStateActionList.Get()] 상태 없음 : {id}");

@@ -41,12 +41,14 @@ namespace LNK.MoreDeepFloor.InGame
         public delegate void OnBattleFieldDefenderChangeEventHandler(int limit , List<Defender> defenders);
         public delegate void OnDefenderInOutEventHandler(Defender defender);
         public delegate void OnDefenderPlaceChangeEventHandler(Defender defender);
+        public delegate void OnDefenderSpawnEventHandler(Defender defender);
         
         public OnBattleLimitInitEventHandler OnBattleLimitInitAction;
         public OnBattleFieldDefenderChangeEventHandler OnBattleFieldDefenderChangeAction;
         public OnDefenderInOutEventHandler OnDefenderEnterBattleFieldAction;
         public OnDefenderInOutEventHandler OnDefenderExitBattleFieldAction;
         public OnDefenderPlaceChangeEventHandler OnDefenderPlaceChangeAction;
+        public OnDefenderSpawnEventHandler OnDefenderSpawnAction;
         
         //#. 이벤트 함수
         private void Awake()
@@ -107,7 +109,8 @@ namespace LNK.MoreDeepFloor.InGame
         public void SpawnDefenderById(DefenderId id , Tile tile)
         {
             Debug.Log($"[DefenderManager.SpawnDefenderById()] id : {id}");
-            SpawnDefenderAtWaitingRoom(new DefenderData(defenderTableData.FindDefenderDataById(id) , defenderStatusModifier), tile);
+            Defender defender = SpawnDefenderAtWaitingRoom(new DefenderData(defenderTableData.FindDefenderDataById(id) , defenderStatusModifier), tile);
+            OnDefenderSpawnAction?.Invoke(defender);
         }
 
         Defender SpawnDefenderAtWaitingRoom(DefenderData defenderData , Tile tile)
@@ -256,7 +259,6 @@ namespace LNK.MoreDeepFloor.InGame
         public void AddAttackSpeed(int _attackSpeed)
         {
             defenderStatusModifier.attackSpeed += _attackSpeed;
-            Debug.Log("[DefenderManager.AddAttackSpeed()] AddAttackSpeed");
         }
 
         #endregion

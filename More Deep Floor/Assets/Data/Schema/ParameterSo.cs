@@ -58,15 +58,7 @@ namespace LNK.MoreDeepFloor.Data.Schemas
             MatchCollection resultColl = reg.Matches(description);
             List<string> parameterNames = new List<string>();
             Dictionary<string, float> parameterDic = new Dictionary<string, float>();
-
-            foreach (Match o in resultColl)
-            {
-                string str = o.Value.Remove(0, 1);
-                str = str.Remove(str.Length - 1, 1);
-                Debug.Log(str);
-                parameterNames.Add(str);
-            }
-
+            
             descriptionShowing = description;
             
             foreach (var name in parameterNames)

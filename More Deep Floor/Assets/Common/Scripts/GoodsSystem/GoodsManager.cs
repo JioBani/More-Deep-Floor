@@ -62,6 +62,11 @@ namespace LNK.MoreDeepFloor.Common.GoodsSystyem
             Debug.Log("저장완료");
         }
 
+        public void OnClickGoldUp()
+        {
+            GoldChange(10);
+        }
+
         public void OnClickLoad()
         {
             if (gameDataSaver.LoadGoodsData(out goodsData))

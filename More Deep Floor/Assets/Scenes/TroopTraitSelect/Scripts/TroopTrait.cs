@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.Data.Schemas.TroopTraitScene;
+using LNK.MoreDeepFloor.InGame.Entity;
 using UnityEngine;
 
 namespace LNK.MoreDeepFloor.TroopTraitSelect
@@ -32,6 +33,11 @@ namespace LNK.MoreDeepFloor.TroopTraitSelect
         }*/
 
         public virtual void OnDataLoadAction()
+        {
+            
+        }
+
+        public virtual void OnDefenderSpawn(Defender defender)
         {
             
         }
