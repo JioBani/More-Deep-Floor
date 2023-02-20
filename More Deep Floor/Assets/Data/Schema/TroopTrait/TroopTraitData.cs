@@ -36,6 +36,7 @@ namespace LNK.MoreDeepFloor.Data.Schemas.TroopTraitScene
         public string Description => description;
 
         [SerializeField]private List<Amount> amounts;
+        private Dictionary<string, float[]> amountsDic = null;
 
         public int GetPrice(int _level)
         {
@@ -64,6 +65,31 @@ namespace LNK.MoreDeepFloor.Data.Schemas.TroopTraitScene
 
             return result;
         }
+
+        public bool GetAmounts(string _name , out float[] values)
+        {
+            if (amountsDic == null)
+            {
+                amountsDic = new Dictionary<string, float[]>();
+                for (var i = 0; i < amounts.Count; i++)
+                {
+                    amountsDic[amounts[i].name] = amounts[i].values;
+                }
+            }
+            
+            if(amountsDic.TryGetValue(_name , out var result))
+            {
+                values = result;
+                return true;
+            }
+            else
+            {
+                Debug.LogError($"[TroopTraitData.GetAmounts()] 수치를 가져올 수 없습니다. name : {_name}");
+                values = null;
+                return false;
+            }
+        }
+        
     }
 }
 

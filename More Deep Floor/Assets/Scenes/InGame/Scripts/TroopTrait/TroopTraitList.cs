@@ -5,6 +5,7 @@ using LNK.MoreDeepFloor.Data.Defender.States;
 using LNK.MoreDeepFloor.Data.Schemas.TroopTraitScene;
 using LNK.MoreDeepFloor.InGame.Entity;
 using LNK.MoreDeepFloor.InGame.Entity.Defenders.States;
+using LNK.MoreDeepFloor.InGame.StateActions.TroopTrait;
 using LNK.MoreDeepFloor.TroopTraitSelect;
 using UnityEngine;
 
@@ -60,9 +61,16 @@ namespace LNK.MoreDeepFloor.InGame.TroopTraitSystem
     
     public class TroopTrait_GoldAttack : TroopTrait
     {
+        private float[] percents;
+        private bool isPercentLoaded = true;
+        
         public TroopTrait_GoldAttack(TroopTraitData _traitData, int _level) : base(_traitData, _level)
         {
             type = TroopTraitType.OnDataLoad;
+            if (!traitData.GetAmounts("percent", out percents))
+            {
+                isPercentLoaded = false;
+            }
         }
 
         public override void OnDataLoadAction()
@@ -73,8 +81,16 @@ namespace LNK.MoreDeepFloor.InGame.TroopTraitSystem
 
         void AddState(Defender defender)
         {
-            defender.GetComponent<DefenderStateController>().AddState(DefenderStateId.TroopTrait_GoldAttack);
-            Debug.Log("TroopTrait_GoldAttack.AddState");
+            DefenderState state = 
+                ReferenceManager.instance.defenderStateActionList.Get(DefenderStateId.TroopTrait_GoldAttack);
+
+            if (isPercentLoaded)
+            {
+                TroopTraitState_GoldAttack actionInfo = (TroopTraitState_GoldAttack)state.actionInfo;
+                actionInfo.percentList = percents;
+            }
+
+            defender.stateController.AddState(DefenderStateId.TroopTrait_GoldAttack);
         }
     }
 }

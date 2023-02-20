@@ -12,6 +12,8 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.TroopTrait
     public class TroopTraitState_GoldAttack : DefenderStateActionInfoBase
     {
         private MarketManager marketManager;
+
+        public float[] percentList;
         
         public TroopTraitState_GoldAttack()
         {
