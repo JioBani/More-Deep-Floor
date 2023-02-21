@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,33 +5,23 @@ using UnityEngine.UI;
 
 namespace LNK.MoreDeepFloor.MainMenu
 {
-    public class PanelController : MonoBehaviour
+    public class BottomButtonBar : MonoBehaviour
     {
         [SerializeField] private RectTransform canvasRectTransform;
         [SerializeField] CanvasScaler canvasScaler;
-        [SerializeField] private Button playButton;
-        [SerializeField] private Button traitButton;
-        [SerializeField] private Button gachaButton;
-
         [SerializeField] private Button[] buttons;
         private float canvasWidth;
         [SerializeField] private float startX;
         [SerializeField] private float startY;
-        private float wRatio;
-        private float hRatio;
         
-        private void Awake()
-        {
-        }
-
         private void Start()
         {
-            canvasWidth = canvasRectTransform.sizeDelta.x;
-            OnClickButton(0);
+            
         }
 
-        void SetButtonSize(int openIndex)
+        public void SetButtonSize(int openIndex)
         {
+            canvasWidth = canvasRectTransform.sizeDelta.x;
             float x = startX;
             float stdWidth = canvasWidth / (float)(buttons.Length + 1);
 
@@ -52,11 +41,6 @@ namespace LNK.MoreDeepFloor.MainMenu
                     x += stdWidth;
                 }
             }
-        }
-
-        public void OnClickButton(int index)
-        {
-            SetButtonSize(index);
         }
     }
 }
