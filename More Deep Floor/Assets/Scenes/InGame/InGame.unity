@@ -6309,7 +6309,7 @@ MonoBehaviour:
   uiAssetManager: {fileID: 1168845991}
   skillManager: {fileID: 717804879}
   traitManager: {fileID: 144966640}
-  defenderStateActionList: {fileID: 26149404}
+  defenderStateList: {fileID: 26149404}
 --- !u!1001 &399755557
 PrefabInstance:
   m_ObjectHideFlags: 0
