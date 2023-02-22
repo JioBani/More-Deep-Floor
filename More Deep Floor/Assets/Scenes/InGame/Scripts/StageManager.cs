@@ -22,6 +22,7 @@ namespace LNK.MoreDeepFloor.InGame
         public List<Vector2Int> route;
         private List<Tile> routeTiles = new List<Tile>();
         public int round = 0;
+        public int monsterLimit;
         
         //public delegate void RoundEvent(int round);
         //public delegate void OnStageStartEventHandler();
@@ -35,6 +36,8 @@ namespace LNK.MoreDeepFloor.InGame
             inGameStateManager = ReferenceManager.instance.inGameStateManager;
             monsterManager = ReferenceManager.instance.monsterManager;
             tileManager = ReferenceManager.instance.tileManager;
+
+            monsterManager.OnMonsterNumberChangeAction += CheckMonsterLimit;
         }
 
         void Start()
@@ -134,6 +137,19 @@ namespace LNK.MoreDeepFloor.InGame
         {
             infinityTowerData.SetNextRound();
             Invoke(nameof(StartInfinityTowerRound) , 3.0f);
+        }
+
+        void SetGameOver()
+        {
+            inGameStateManager.SetGameOver();
+        }
+        
+        void CheckMonsterLimit(int number)
+        {
+            if (number > monsterLimit)
+            {
+                SetGameOver();
+            }
         }
 
         

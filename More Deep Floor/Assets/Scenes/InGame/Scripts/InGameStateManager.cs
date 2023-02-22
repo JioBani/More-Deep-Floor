@@ -20,6 +20,8 @@ namespace LNK.MoreDeepFloor.InGame
 
         public delegate void OnRoundEndEventHandler(int round);
 
+        public delegate void OnGameOverEventHandler();
+
 
         public OnSceneLoadEventHandler OnSceneLoadAction;
         public OnDataLoadEventHandler OnDataLoadAction;
@@ -27,6 +29,7 @@ namespace LNK.MoreDeepFloor.InGame
         public OnStageEndEventHandler OnStageEndAction;
         public OnRoundStartEventHandler OnRoundStartAction;
         public OnRoundEndEventHandler OnRoundEndAction;
+        public OnGameOverEventHandler OnGameOverAction;
 
 
         private void Awake()
@@ -69,6 +72,13 @@ namespace LNK.MoreDeepFloor.InGame
             Debug.Log("[InGameStateManager] 라운드 끝");
 
             OnRoundEndAction?.Invoke(round);
+        }
+
+        public void SetGameOver()
+        {
+            OnGameOverAction?.Invoke();
+            Debug.Log("[InGameStateManager.SetGameOver()] 게임 오버");
+            SceneManager.LoadScene("MainMenu");
         }
     }
 }

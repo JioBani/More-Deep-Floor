@@ -13,12 +13,21 @@ namespace LNK.MoreDeepFloor.InGame.Ui
         private void Awake()
         {
             numberText = GetComponent<Text>();
+        }
+
+        private void OnEnable()
+        {
             ReferenceManager.instance.monsterManager.OnMonsterNumberChangeAction += RefreshText;
         }
 
         void RefreshText(int number)
         {
             numberText.text = $"{number} / 100";
+        }
+
+        private void OnDisable()
+        {
+            ReferenceManager.instance.monsterManager.OnMonsterNumberChangeAction -= RefreshText;
         }
     }
 }

@@ -1568,6 +1568,7 @@ MonoBehaviour:
   - {x: 8, y: 8}
   - {x: 1, y: 8}
   round: 0
+  monsterLimit: 1
 --- !u!1 &95606210
 GameObject:
   m_ObjectHideFlags: 0

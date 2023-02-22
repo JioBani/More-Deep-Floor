@@ -147,8 +147,8 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
         public void GoldChange(int change , string name)
         {
             gold += change;
-            OnGoldChangeAction?.Invoke(gold , change);
             Debug.Log($"[MarketManager.GoldChange()] 골드 변화 {name} 으로 부터 {change}");
+            OnGoldChangeAction?.Invoke(gold , change);
         }
 
         //#. 구매

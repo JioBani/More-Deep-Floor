@@ -9,24 +9,34 @@ namespace LNK.MoreDeepFloor.InGame.Ui.Market
 {
     public class GoldText : MonoBehaviour
     {
-        private MarketManager marketManeger;
+        private MarketManager marketManager;
         private Text textUi;
 
         private void Awake()
         {
-            marketManeger = ReferenceManager.instance.marketManager;
+            marketManager = ReferenceManager.instance.marketManager;
             textUi = GetComponent<Text>();
-            marketManeger.OnGoldChangeAction += RefreshGoldText;
+        }
+
+        private void OnEnable()
+        {
+            marketManager.OnGoldChangeAction += RefreshGoldText;
+
         }
 
         void Start()
         {
-            textUi.text = marketManeger.gold + " gold";
+            textUi.text = marketManager.gold + " gold";
         }
 
         private void RefreshGoldText(int gold, int change)
         {
             textUi.text = gold + " gold";
+        }
+
+        private void OnDisable()
+        {
+            marketManager.OnGoldChangeAction -= RefreshGoldText;
         }
     }
 }
