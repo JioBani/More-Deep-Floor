@@ -85,12 +85,15 @@ namespace LNK.MoreDeepFloor.InGame
             roadTiles = new List<Tile>();
             
             for (int i = 0; i < vertices.Count - 1; i++)
-            {;
+            {
                 tile0 = routeTiles[i];
                 tile1 = routeTiles[i + 1];
-                List<Tile> tiles = GetTilesBetween(tile0,tile1);
-                roadTiles.AddRange(tiles);
+                roadTiles.AddRange(GetTilesBetween(tile0,tile1));
             }
+            
+            tile0 = routeTiles[vertices.Count - 1];
+            tile1 = routeTiles[0];
+            roadTiles.AddRange(GetTilesBetween(tile0,tile1));
             
             for (int i = 0; i < roadTiles.Count; i++)
             {

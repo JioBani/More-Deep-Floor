@@ -27,10 +27,18 @@ namespace LNK.MoreDeepFloor.InGame
         
         private MonsterData currentMonsterData;
 
+        public int monsterNumber { get; private set; }
+
+        public delegate void OnMonsterNumberChangeEventHandler(int number);
+
+        public OnMonsterNumberChangeEventHandler OnMonsterNumberChangeAction;
+
         private void Awake()
         {
             _marketManager = ReferenceManager.instance.marketManager;
             stageManager = ReferenceManager.instance.stageManager;
+
+            ReferenceManager.instance.inGameStateManager.OnDataLoadAction += OnDataLoad;
         }
 
         private void Start()
@@ -44,6 +52,12 @@ namespace LNK.MoreDeepFloor.InGame
                     ()=>OnMonsterOff(monster)
                     );
             }
+        }
+
+        private void OnDataLoad()
+        {
+            monsterNumber = 0;
+            OnMonsterNumberChangeAction?.Invoke(monsterNumber);
         }
 
         public void StartStage(List<Tile> _route)
@@ -94,11 +108,17 @@ namespace LNK.MoreDeepFloor.InGame
             monster.SetRoute(route);
             monster.SetMove();
             monsters.Add(monster.GetComponent<Monster>());
+
+            monsterNumber++;
+            OnMonsterNumberChangeAction?.Invoke(monsterNumber);
         }
 
         void OnMonsterDie(Monster monster)
         {
             _marketManager.GoldChange(monster.status.currentGold , "몬스터 처치");
+            
+            monsterNumber--;
+            OnMonsterNumberChangeAction?.Invoke(monsterNumber);
         }
 
         void OnMonsterPass(Monster monster)

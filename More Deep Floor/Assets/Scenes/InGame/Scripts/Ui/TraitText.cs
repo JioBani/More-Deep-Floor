@@ -25,7 +25,6 @@ public class TraitText : MonoBehaviour
     {
         List<BattleFieldTraitInfo> list = new List<BattleFieldTraitInfo>();
         
-        
         traitText.text = "";
         
         foreach (var trait in traits)
@@ -35,7 +34,43 @@ public class TraitText : MonoBehaviour
 
         list = list.OrderByDescending(element => element.synergyLevel).ToList();
         
-        foreach (var trait in list)
+        for (var i = 0; i < list.Count; i++)
+        {
+            var trait = list[i];
+            
+            if(trait.traitData.SynergyTrigger.Length < 1)
+                continue;
+
+            if (trait.nums != 0)
+            {
+                string str = "";
+                
+                if (trait.synergyLevel == -1)
+                {
+                    str += $"{trait.traitData.Id} : {trait.nums} / {trait.traitData.SynergyTrigger[trait.synergyLevel + 1]} => {trait.synergyLevel}";
+                }
+                else if ((trait.synergyLevel + 1 < trait.traitData.SynergyTrigger.Length))
+                {
+                    if (trait.nums == trait.traitData.SynergyTrigger[trait.synergyLevel])
+                    {
+                        str += $"{trait.traitData.Id} : {trait.nums} / {trait.traitData.SynergyTrigger[trait.synergyLevel]} => {trait.synergyLevel}";
+                    }
+                    else
+                    {
+                        str += $"{trait.traitData.Id} : {trait.nums} / {trait.traitData.SynergyTrigger[trait.synergyLevel + 1]} => {trait.synergyLevel}";
+                    }
+                }
+                else
+                {
+                    str += $"{trait.traitData.Id} : {trait.nums} / {trait.traitData.SynergyTrigger[trait.synergyLevel]}=> {trait.synergyLevel}";
+                }
+                
+                traitText.text += str;
+                traitText.text += "\n";
+            }
+        }
+        
+        /*foreach (var trait in list)
         {
             if(trait.traitData.SynergyTrigger.Length < 1)
                 continue;
@@ -78,6 +113,6 @@ public class TraitText : MonoBehaviour
             
             traitText.text += str;
             traitText.text += "\n";
-        }
+        }*/
     }
 }

@@ -37,7 +37,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             Depart();
         }
 
-        public void Depart()
+        /*public void Depart()
         {
             if (currentDestiIndex == destinations.Count - 1)
             {
@@ -60,6 +60,32 @@ namespace LNK.MoreDeepFloor.InGame.Entity
                 currentDesti = destinations[currentDestiIndex];
                 OnDepartAction?.Invoke(currentDesti);
             }
+        }*/
+
+        public void Depart()
+        {
+            if (currentDestiIndex == destinations.Count - 1)
+            {
+               //isMoving = false;
+                lastTile = destinations[currentDestiIndex];
+                currentDestiIndex = 0;
+                //OnMoveEnd?.Invoke();
+            }
+            else
+            {
+                if (currentDestiIndex == -1)
+                {
+                    currentDestiIndex = 0;
+                    isMoving = true;
+                }
+                else
+                {
+                    lastTile = destinations[currentDestiIndex];
+                    currentDestiIndex++;
+                }
+            }
+            currentDesti = destinations[currentDestiIndex];
+            OnDepartAction?.Invoke(currentDesti);
         }
 
         public void OnArrived()
