@@ -12,7 +12,8 @@ namespace LNK.MoreDeepFloor.InGame.DataSchema
         public int rounds;
         public RoundOriginalData[] roundOriginalDatas;
         public InfiniteTowerOriginalData infiniteTowerOriginalData;
-
+        public StageOriginalData stageOriginalData;
+        
         public StageData(StageOriginalData stageOriginalData)
         {
             name = stageOriginalData.Name;
@@ -20,6 +21,7 @@ namespace LNK.MoreDeepFloor.InGame.DataSchema
             rounds = stageOriginalData.Rounds;
             roundOriginalDatas = stageOriginalData.RoundsDatas;
             infiniteTowerOriginalData = stageOriginalData.InfiniteTowerOriginalData;
+            this.stageOriginalData = stageOriginalData;
         }
 
         public StageData(

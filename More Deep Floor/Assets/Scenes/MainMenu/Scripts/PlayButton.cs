@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using LNK.MoreDeepFloor.Loading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,7 +10,7 @@ namespace LNK.MoreDeepFloor.MainMenu
     {
         public void OnClickPlay()
         {
-            SceneManager.LoadScene("InGame");
+            SceneLoadingManager.LoadScene("InGame");
         }
     }
 }

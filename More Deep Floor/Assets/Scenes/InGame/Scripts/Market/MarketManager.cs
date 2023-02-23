@@ -60,6 +60,7 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
                 defenderButtons[i] = defenderButtonParent.transform.GetChild(i).GetComponent<DefenderButton>();
             }
 
+            inGameStateManager.OnSceneLoadAction += OnSceneLoad;
             inGameStateManager.OnDataLoadAction += OnDataLoad;
             inGameStateManager.OnRoundStartAction += OnRoundStart;
             inGameStateManager.OnRoundEndAction += OnRoundEnd;
@@ -84,6 +85,11 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
         
         //#. 이벤트 함수
 
+        void OnSceneLoad()
+        {
+            gold = 0;
+        }
+        
         void OnDataLoad()
         {
             GoldChange(startGold, "시작골드");
@@ -154,6 +160,12 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
         //#. 구매
         public bool TryBuy(int price)
         {
+            if (inGameStateManager.gameState == GameState.GameOver)
+            {
+                Debug.Log($"[MarketManager.TryBuy()] 구매 실패 : 게임 오버({gold})");
+                return false;
+            }
+
             if (price > gold)
             {
                 Debug.Log($"[MarketManager.TryBuy()] 구매 실패 : 잔액 부족({gold})");

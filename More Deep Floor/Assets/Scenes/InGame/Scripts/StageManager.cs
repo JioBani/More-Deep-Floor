@@ -104,15 +104,18 @@ namespace LNK.MoreDeepFloor.InGame
 
         void StartNormalRound()
         {
+            if (inGameStateManager.gameState == GameState.GameOver) return;
+            
             monsterManager.StartRound(stageData.roundOriginalDatas[round]);
             round++;
             inGameStateManager.SetRoundStart(round);
-            //OnRoundStartAction?.Invoke(round);
             Debug.Log($"[StageManager.StartRound()] {round} 라운드 시작");
         }
 
         void EndNormalRound()
         {
+            if (inGameStateManager.gameState == GameState.GameOver) return;
+            
             Debug.Log("[StageManager.StartRound()] 라운드 종료");
             if (round == stageData.rounds)
             {
@@ -125,7 +128,9 @@ namespace LNK.MoreDeepFloor.InGame
         }
 
         void StartInfinityTowerRound()
-        {
+        { 
+            if (inGameStateManager.gameState == GameState.GameOver) return;
+            
             monsterManager.StartInfinityTowerRound(infinityTowerData);
             round++;
             inGameStateManager.SetRoundStart(round);
@@ -135,6 +140,8 @@ namespace LNK.MoreDeepFloor.InGame
 
         void EndInfinityTowerRound()
         {
+            if (inGameStateManager.gameState == GameState.GameOver) return;
+            
             infinityTowerData.SetNextRound();
             Invoke(nameof(StartInfinityTowerRound) , 3.0f);
         }

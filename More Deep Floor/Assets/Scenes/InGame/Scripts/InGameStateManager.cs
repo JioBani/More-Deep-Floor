@@ -1,11 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using LNK.MoreDeepFloor.Common.SceneDataSystem;
+using LNK.MoreDeepFloor.InGame.Ui;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace LNK.MoreDeepFloor.InGame
 {
+    public enum GameState
+    {
+        BeforeStartStage,
+        Playing,
+        GameOver
+    }
+    
     public class InGameStateManager : MonoBehaviour
     {
         public delegate void OnSceneLoadEventHandler();
@@ -31,6 +40,8 @@ namespace LNK.MoreDeepFloor.InGame
         public OnRoundEndEventHandler OnRoundEndAction;
         public OnGameOverEventHandler OnGameOverAction;
 
+        [SerializeField] private ResultWindow resultWindow;
+        public GameState gameState;
 
         private void Awake()
         {
@@ -39,17 +50,21 @@ namespace LNK.MoreDeepFloor.InGame
 
         void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
+            gameState = GameState.BeforeStartStage;
+
             Debug.Log("[InGameStateManager] 씬 로드");
             OnSceneLoadAction?.Invoke();
 
             Debug.Log("[InGameStateManager] 데이터 로드");
             OnDataLoadAction?.Invoke();
+
         }
 
         public void SetStageStart()
         {
             Debug.Log("[InGameStateManager] 스테이지 시작");
 
+            gameState = GameState.Playing;
             OnStageStartAction?.Invoke();
         }
 
@@ -76,9 +91,20 @@ namespace LNK.MoreDeepFloor.InGame
 
         public void SetGameOver()
         {
+            var stageManager = ReferenceManager.instance.stageManager;
+            
+            var resultData = new InGameResult(
+                stageManager.stageData.stageOriginalData,
+                stageManager.round,
+                ReferenceManager.instance.marketManager.gold,
+                false
+            );
+            
+            resultWindow.SetResultWindow(resultData);
+            
+            gameState = GameState.GameOver;
             OnGameOverAction?.Invoke();
             Debug.Log("[InGameStateManager.SetGameOver()] 게임 오버");
-            SceneManager.LoadScene("MainMenu");
         }
     }
 }

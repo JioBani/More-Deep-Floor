@@ -25,6 +25,11 @@ namespace LNK.MoreDeepFloor.MainMenu
         {
             bottomButtonBar.SetButtonSize(1);
         }
+
+        private void OnDestroy()
+        {
+            DOTween.CompleteAll();
+        }
     }
 }
 
