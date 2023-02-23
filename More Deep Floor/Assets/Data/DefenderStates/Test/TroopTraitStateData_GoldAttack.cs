@@ -1,15 +1,26 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using LNK.MoreDeepFloor.Common.ProbabilityChecks;
-using LNK.MoreDeepFloor.Data.Defender.States;
-using LNK.MoreDeepFloor.Data.Schemas;
+using LNK.MoreDeepFloor.InGame;
 using LNK.MoreDeepFloor.InGame.Entity;
 using LNK.MoreDeepFloor.InGame.Entity.Defenders.States;
 using LNK.MoreDeepFloor.InGame.MarketSystem;
 using UnityEngine;
 
-namespace LNK.MoreDeepFloor.InGame.StateActions.TroopTrait
+
+namespace LNK.MoreDeepFloor.Data.Defender.States.Test
 {
+    [CreateAssetMenu(
+        fileName = "DefenderState Data", 
+        menuName = "Scriptable Object/Defender State Data/TroopTrait/Gold Attack", 
+        order = int.MaxValue)]
+    public class TroopTraitStateData_GoldAttack : DefenderStateData
+    {
+        public TroopTraitState_GoldAttack state;
+    }
+    
+    [Serializable]
     public class TroopTraitState_GoldAttack : DefenderState
     {
         private MarketManager marketManager;
@@ -18,8 +29,8 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.TroopTrait
         
         public TroopTraitState_GoldAttack(
             DefenderStateId _id, 
-            DefenderStateData _stateData, 
-            Defender _defender) 
+            Schemas.DefenderStateData _stateData, 
+            InGame.Entity.Defender _defender) 
             : base(_id, _stateData, _defender)
         {
             
@@ -32,7 +43,7 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.TroopTrait
             marketManager = ReferenceManager.instance.marketManager;
         }
 
-        public override void OnTargetHitAction(Defender caster, Monster target, int damage)
+        public override void OnTargetHitAction(InGame.Entity.Defender caster, Monster target, int damage)
         {
             if (ProbabilityCheck.Check(1,1))
             {
