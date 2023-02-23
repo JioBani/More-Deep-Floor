@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Sniper
   m_EditorClassIdentifier: 
   id: 3
-  traitStateData: {fileID: 11400000, guid: 434c50f3ed9a02b4ba27b69f92770f51, type: 2}
+  traitName: 
+  traitStateData: {fileID: 11400000, guid: 46e9e9777e4f90044b28ce1d64583633, type: 2}
   traitType: 0
   synergyTrigger: 010000000200000003000000

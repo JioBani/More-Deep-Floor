@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: Defender State Table
   m_EditorClassIdentifier: 
   states:
-  - {fileID: 11400000, guid: 9b00fe8620ea10d47929524709399af3, type: 2}
-  - {fileID: 11400000, guid: 0b619a02936cdd04faa17cac303ba0cd, type: 2}
-  - {fileID: 11400000, guid: 28abc9de3ab79ea43859e037c90bccbb, type: 2}
+  - {fileID: 11400000, guid: 28dca0aed65b07743b2af8d535577a59, type: 2}
+  - {fileID: 11400000, guid: 7f25b8ebc21dad3469f830ff077b8cf3, type: 2}
+  - {fileID: 11400000, guid: 3cc29f0436feada47b30fcbe7fe8adde, type: 2}
+  - {fileID: 11400000, guid: e7b4e5575393b3d4ba03b4081765922b, type: 2}
+  - {fileID: 11400000, guid: 14b3b57fced6bae4dafb0e0217227f93, type: 2}
+  - {fileID: 11400000, guid: b2a78a06ec67b074585b419eabd36fce, type: 2}
+  - {fileID: 11400000, guid: 46e9e9777e4f90044b28ce1d64583633, type: 2}
   - {fileID: 11400000, guid: e20795b8a13dba448a1a4e3cf3571ffc, type: 2}
   - {fileID: 11400000, guid: eaff089d6d1b2764f9d3fc6dbcc68ab6, type: 2}
-  - {fileID: 11400000, guid: 61ebe51e99f70ba4298f17c77ac2765e, type: 2}
-  - {fileID: 11400000, guid: 707bb5a990932264c8c30a512eaeb02d, type: 2}
-  - {fileID: 11400000, guid: 434c50f3ed9a02b4ba27b69f92770f51, type: 2}
-  - {fileID: 11400000, guid: 7cc19ede21a0d6b41a2077c973de2b47, type: 2}
   - {fileID: 11400000, guid: f696cbca42c361348ba54ddd4fe1b486, type: 2}
-  - {fileID: 11400000, guid: 3cc29f0436feada47b30fcbe7fe8adde, type: 2}
-  - {fileID: 11400000, guid: 04cf0344159023d4c9c647a361483138, type: 2}
+  - {fileID: 11400000, guid: 707bb5a990932264c8c30a512eaeb02d, type: 2}
+  - {fileID: 11400000, guid: d350b2b01a4894a4697f0d4175c7db28, type: 2}

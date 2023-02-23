@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Researcher
   m_EditorClassIdentifier: 
   id: 2
-  traitStateData: {fileID: 11400000, guid: 61ebe51e99f70ba4298f17c77ac2765e, type: 2}
+  traitName: 
+  traitStateData: {fileID: 11400000, guid: b2a78a06ec67b074585b419eabd36fce, type: 2}
   traitType: 0
   synergyTrigger: 010000000200000003000000

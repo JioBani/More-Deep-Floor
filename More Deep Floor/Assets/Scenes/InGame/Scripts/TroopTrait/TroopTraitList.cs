@@ -1,11 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using LNK.MoreDeepFloor.Data.Defender.States;
+using LNK.MoreDeepFloor.Data.Defenders.States;
 using LNK.MoreDeepFloor.Data.Schemas.TroopTraitScene;
 using LNK.MoreDeepFloor.InGame.Entity;
-using LNK.MoreDeepFloor.InGame.Entity.Defenders.States;
-using LNK.MoreDeepFloor.InGame.StateActions.TroopTrait;
 using LNK.MoreDeepFloor.TroopTraitSelect;
 using UnityEngine;
 
@@ -81,12 +79,13 @@ namespace LNK.MoreDeepFloor.InGame.TroopTraitSystem
 
         void AddState(Defender defender)
         {
-            TroopTraitState_GoldAttack state =  
-                (TroopTraitState_GoldAttack)defender.stateController.AddState(DefenderStateId.TroopTrait_GoldAttack);
-            
+            MoreDeepFloor.Data.Defenders.States.Schemas.TroopTrait_GoldAttack state = 
+                (MoreDeepFloor.Data.Defenders.States.Schemas.TroopTrait_GoldAttack)
+                defender.stateController.AddState(DefenderStateId.TroopTrait_GoldAttack);
+
             if (isPercentLoaded)
             {
-                state.percentList = percents;
+                state.percents = percents;
             }
         }
     }

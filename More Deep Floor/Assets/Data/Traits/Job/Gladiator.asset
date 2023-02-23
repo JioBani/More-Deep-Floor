@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Gladiator
   m_EditorClassIdentifier: 
   id: 1
-  traitStateData: {fileID: 11400000, guid: 28abc9de3ab79ea43859e037c90bccbb, type: 2}
-  traitStateId: 1
+  traitName: 
+  traitStateData: {fileID: 11400000, guid: e7b4e5575393b3d4ba03b4081765922b, type: 2}
+  traitType: 0
   synergyTrigger: 020000000300000004000000

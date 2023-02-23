@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 4
   traitName: Circus
-  traitStateData: {fileID: 11400000, guid: 7cc19ede21a0d6b41a2077c973de2b47, type: 2}
+  traitStateData: {fileID: 11400000, guid: 7f25b8ebc21dad3469f830ff077b8cf3, type: 2}
   traitType: 0
   synergyTrigger: 0100000002000000

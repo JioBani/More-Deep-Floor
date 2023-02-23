@@ -9,16 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ca5f2a0d3218c3438e7ccbf2de3e25c, type: 3}
+  m_Script: {fileID: 11500000, guid: 8db57bce5f4bed64a96fa51a6d2a7126, type: 3}
   m_Name: Trait_Greedy
   m_EditorClassIdentifier: 
-  dataName: "\uD0D0\uC695\uC2A4\uB7EC\uC6B4"
-  description: 
-  descriptionShowing: 
-  parameters:
-  - name: percent0
-    value: 100
-  - name: percent1
-    value: 100
-  isApplied: 0
   id: 7
+  stateName: "\uD2B9\uC131 : \uD0D0\uC695\uC801\uC778"
+  actionType: 0
+  description: "\uCC98\uCE58\uC2DC \uC77C\uC815 \uD655\uB960\uB85C \uACE8\uB4DC \uD68D\uB4DD"
+  percents: []

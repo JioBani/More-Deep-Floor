@@ -9,16 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ca5f2a0d3218c3438e7ccbf2de3e25c, type: 3}
+  m_Script: {fileID: 11500000, guid: bd2ce78e6d0ec0c40821108f45cb813d, type: 3}
   m_Name: Trait_Encouraging
   m_EditorClassIdentifier: 
-  dataName: "\uB3D9\uAE30\uBD80\uC5EC\uC911"
-  description: 
-  descriptionShowing: 
-  parameters:
-  - name: Num0
-    value: 2
-  - name: Num1
-    value: 3
-  isApplied: 1
   id: 6
+  stateName: "\uD2B9\uC131 : \uACE0\uBB34\uC801\uC778"
+  actionType: 6
+  description: "\uC8FC\uBCC0\uC5D0 \uC788\uB294 \uC218\uD638\uC790 \uACF5\uACA9\uC18D\uB3C4
+    \uC99D\uAC00"

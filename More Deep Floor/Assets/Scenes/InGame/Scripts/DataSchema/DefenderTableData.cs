@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO.IsolatedStorage;
 using System.Linq;
-using LNK.MoreDeepFloor.Data.Defender;
+using LNK.MoreDeepFloor.Data.Defenders;
 using LNK.MoreDeepFloor.Data.Schemas;
 using UnityEngine;
 

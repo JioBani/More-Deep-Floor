@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using LNK.MoreDeepFloor.Data.Defender;
+using LNK.MoreDeepFloor.Data.Defenders;
 using LNK.MoreDeepFloor.Data.DefenderTraits;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.DataSchema;

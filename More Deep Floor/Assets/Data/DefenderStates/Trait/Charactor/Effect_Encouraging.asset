@@ -9,12 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ca5f2a0d3218c3438e7ccbf2de3e25c, type: 3}
+  m_Script: {fileID: 11500000, guid: 5cc7f08e454279c40a5c0fc9170c6491, type: 3}
   m_Name: Effect_Encouraging
   m_EditorClassIdentifier: 
-  dataName: "\uACE0\uBB34\uB428"
-  description: 
-  descriptionShowing: 
-  parameters: []
-  isApplied: 1
   id: 10
+  stateName: "\uACE0\uBB34\uB428"
+  actionType: 0
+  description: "\uACF5\uACA9\uC18D\uB3C4 \uC0C1\uC2B9"

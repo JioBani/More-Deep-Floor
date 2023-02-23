@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using LNK.MoreDeepFloor.Common.TimerSystem;
-using LNK.MoreDeepFloor.Data.Defender.States;
+using LNK.MoreDeepFloor.Data.Defenders.States;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.Entity;
 using LNK.MoreDeepFloor.InGame.Entity.Defenders;
@@ -28,6 +28,7 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
     }*/
     
     
+    /*
     //#. None
 
     public class State_None : DefenderState
@@ -39,10 +40,11 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
         {
             
         }
-    }
+    }*/
 
     #region #. 직업
     
+    /*
     //#. 검투사
     public class Trait_Gladiator : DefenderState
     {
@@ -51,7 +53,7 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
             DefenderStateData _stateData, 
             Defender _defender) : base(_id, _stateData, _defender)
         {
-            type = DefenderStateType.Immediately;
+            actionType = DefenderStateType.Immediately;
         }
 
         public override void OnGenerated()
@@ -63,10 +65,10 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
         {
             stateController.AddState(DefenderStateId.Effect_Gladiator);
         }
-    }
+    }*/
     
     
-    //#. 직업효과_희열
+    /*//#. 직업효과_희열
     public class Effect_Gladiator : DefenderState
     {
         
@@ -75,7 +77,7 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
             DefenderStateData _stateData, 
             Defender _defender) : base(_id, _stateData, _defender)
         {
-            type = DefenderStateType.Immediately;
+            actionType = DefenderStateType.Immediately;
         }
 
         List<float> attackSpeedMul;
@@ -107,16 +109,16 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
                 RemoveState();
             });
         }
-    }
+    }*/
 
-    public class _Effect_Gladiator : DefenderState
+    /*public class _Effect_Gladiator : DefenderState
     {
         public _Effect_Gladiator(
             DefenderStateId _id,
             DefenderStateData _stateData,
             Defender _defender) : base(_id, _stateData, _defender)
         {
-            type = DefenderStateType.Immediately;
+            actionType = DefenderStateType.Immediately;
         }
         
         List<float> attackSpeedMul;
@@ -132,10 +134,10 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
             attackSpeedMul.Add(attackSpeedMul1);
             attackSpeedMul.Add(attackSpeedMul2);
         }
-    }
+    }*/
     
     
-    //#. 연구가
+    /*//#. 연구가
     public class Trait_Researcher : DefenderState
     {
         private float[] percents;
@@ -145,7 +147,7 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
             DefenderStateData _stateData,
             Defender _defender) : base(_id, _stateData, _defender)
         {
-            type = DefenderStateType.OnUseSkill;
+            actionType = DefenderStateType.OnUseSkill;
         }
 
         public override void OnGenerated()
@@ -173,9 +175,9 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
                 });
             }
         }
-    }
+    }*/
     
-    //#. 저격수
+    /*//#. 저격수
     public class Trait_Sniper : DefenderState
     {
         private float[] percents;
@@ -185,7 +187,7 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
             DefenderStateData _stateData,
             Defender _defender) : base(_id, _stateData, _defender)
         {
-            type = DefenderStateType.OnTargetHit;
+            actionType = DefenderStateType.OnTargetHit;
         }
 
         public override void OnGenerated()
@@ -212,7 +214,10 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
                       $"addDamage = {addDamage}");
         }
     }
+    */
 
+    
+    /*
     public class Trait_Circus : DefenderState
     {
         private float[] targetNums;
@@ -222,7 +227,7 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
             DefenderStateData _stateData,
             Defender _defender) : base(_id, _stateData, _defender)
         {
-            type = DefenderStateType.BeforeOriginalAttack;
+            actionType = DefenderStateType.BeforeOriginalAttack;
         }
         
         public override void OnGenerated()
@@ -244,14 +249,14 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
                 defender.SetExtraAttack(monsters[i] , DefenderStateId.Trait_Circus);
             }
         }
-    }
+    }*/
     
     
     #endregion
 
     #region #. 성격
 
-    //.# 도전적인
+    /*//.# 도전적인
     public class Trait_Challenging : DefenderState
     {
         private float[] maxHpPer;
@@ -261,7 +266,7 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
             DefenderStateData _stateData,
             Defender _defender) : base(_id, _stateData, _defender)
         {
-            type = DefenderStateType.OnTargetHit;
+            actionType = DefenderStateType.OnTargetHit;
         }
 
         public override void OnGenerated()
@@ -291,10 +296,11 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
             
         }
     }
+    */
     
     
     //#. 강압적인
-    public class Trait_Coercive : DefenderState
+    /*public class Trait_Coercive : DefenderState
     {
         private int[] percents;
         private float[] time;
@@ -304,7 +310,7 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
             DefenderStateData _stateData,
             Defender _defender) : base(_id, _stateData, _defender)
         {
-            type = DefenderStateType.OnTargetHit;
+            actionType = DefenderStateType.OnTargetHit;
         }
 
         public override void OnGenerated()
@@ -341,11 +347,11 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
             }
            
         }
-    }
+    }*/
 
     
     //#. 탐욕적인
-    public class Trait_Greedy : DefenderState
+    /*public class Trait_Greedy : DefenderState
     {
         private MarketManager marketManager;
         private float[] percents;
@@ -355,7 +361,7 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
             DefenderStateData _stateData,
             Defender _defender) : base(_id, _stateData, _defender)
         {
-            type = DefenderStateType.OnKill;
+            actionType = DefenderStateType.OnKill;
         }
 
         public override void OnGenerated()
@@ -377,10 +383,10 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
                 marketManager.GoldChange(1 , "탐욕적인");
             }
         }
-    }
+    }*/
     
     //#. 고무적인
-    public class Trait_Encouraging : DefenderState
+    /*public class Trait_Encouraging : DefenderState
     {
         private DefenderManager defenderManager;
         private List<Defender> defenders = null;
@@ -390,7 +396,7 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
             DefenderStateData _stateData,
             Defender _defender) : base(_id, _stateData, _defender)
         {
-            type = DefenderStateType.OnDefenderPlaceChange;
+            actionType = DefenderStateType.OnDefenderPlaceChange;
         }
         
 
@@ -426,10 +432,10 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
                 defenders[i].stateController.RemoveState(DefenderStateId.Effect_Encouraging);   
             }
         }
-    }
+    }*/
     
     //#. 특성효과_고무됨
-    public class Effect_Encouraging : DefenderState
+    /*public class Effect_Encouraging : DefenderState
     {
         private StatusBuff statsBuff;
         
@@ -438,7 +444,7 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
             DefenderStateData _stateData,
             Defender _defender) : base(_id, _stateData, _defender)
         {
-            type = DefenderStateType.Immediately;
+            actionType = DefenderStateType.Immediately;
         }
 
         public override void OnAction(Defender caster, Monster target)
@@ -450,7 +456,7 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
         {
             defender.status.RemoveAttackSpeedBuff(statsBuff);
         }
-    }
+    }*/
 
     
     

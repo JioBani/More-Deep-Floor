@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using LNK.MoreDeepFloor.Data.Defender.States;
+using LNK.MoreDeepFloor.Data.Defenders.States;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.TraitSystem;
 using UnityEngine;

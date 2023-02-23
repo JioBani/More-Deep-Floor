@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ca5f2a0d3218c3438e7ccbf2de3e25c, type: 3}
+  m_Script: {fileID: 11500000, guid: 688fafa9306183c4ab170493a4d612ce, type: 3}
   m_Name: TroopTrait_GoldAttack
   m_EditorClassIdentifier: 
-  dataName: "\uACE8\uB4DC\uC5B4\uD0DD"
-  description: 
-  descriptionShowing: 
-  parameters: []
-  isApplied: 1
   id: 13
+  stateName: "\uACE8\uB4DC\uC5B4\uD0DD"
+  actionType: 2
+  description: "\uACF5\uACA9\uC2DC \uC77C\uC815 \uD655\uB960\uB85C \uACE8\uB4DC \uD655\uB4DD"
+  percentList: []

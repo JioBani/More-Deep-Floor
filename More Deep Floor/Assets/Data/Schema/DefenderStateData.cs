@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using LNK.MoreDeepFloor.Common.ReadOnlyInspector;
-using LNK.MoreDeepFloor.Data.Defender.States;
-using LNK.MoreDeepFloor.Data.DefenderTraits;
+using LNK.MoreDeepFloor.Data.Defenders.States;
+using LNK.MoreDeepFloor.InGame.Entity;
+using LNK.MoreDeepFloor.InGame.Entity.Defenders.States;
+using LNK.MoreDeepFloor.InGame.Entity.Defenders;
 using UnityEditor;
 using UnityEngine;
 
@@ -14,21 +16,24 @@ namespace LNK.MoreDeepFloor.Data.Schemas
         menuName = "Scriptable Object/DefenderState Data", 
         order = int.MaxValue)]
 
-    public class DefenderStateData : ParameterSo
+    public abstract class DefenderStateData: ScriptableObject
     {
         [SerializeField] private DefenderStateId id;
         public DefenderStateId Id => id;
+        
+        [SerializeField] private string stateName;
+        public string StateName => stateName;
+        
+        [SerializeField] private DefenderStateType actionType;
+        public DefenderStateType ActionType => actionType;
+        
+        [TextArea][SerializeField] protected string description;
+        public string Description => description;
 
-        public void SetStateName(string _name)
-        {
-            dataName = _name;
-        }
-
-        public void SetTraitId(DefenderStateId _id)
-        {
-            id = _id;
-        }
+        public abstract DefenderState GetState(Defender defender);
     }
 
 }
+
+
 

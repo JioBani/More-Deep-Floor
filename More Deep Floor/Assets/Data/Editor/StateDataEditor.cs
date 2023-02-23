@@ -18,12 +18,12 @@ namespace LNK.MoreDeepFloor.Data.Editors
             EditorGUI.BeginDisabledGroup(serializedObject.isEditingMultipleObjects);
             if (GUILayout.Button("Set Parameters"))
             {
-                ((DefenderStateData) target).SetParameters();
+                //((DefenderStateData) target).SetParameters();
             }
             
             if (GUILayout.Button("Set Description"))
             {
-                ((DefenderStateData) target).SetDescriptionShowing();
+                //((DefenderStateData) target).SetDescriptionShowing();
             }
             EditorGUI.EndDisabledGroup();
         }

@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using LNK.MoreDeepFloor.Data.Defender.States;
+using LNK.MoreDeepFloor.Data.Defenders.States;
 using LNK.MoreDeepFloor.Data.Schemas;
 using UnityEngine;
 using UnityEditor;
@@ -21,7 +21,7 @@ namespace LNK.MoreDeepFloor.Data.DefenderTraits
 
         public void CreateMyAsset()
         {
-            string traitAssetPath;
+            /*string traitAssetPath;
             string stateAssetPath;
             
             if (traitType == TraitType.Job)
@@ -76,7 +76,7 @@ namespace LNK.MoreDeepFloor.Data.DefenderTraits
             AssetDatabase.SaveAssets();
             EditorUtility.FocusProjectWindow();
         
-            Selection.activeObject = traitAsset;
+            Selection.activeObject = traitAsset;*/
         }
     }
 }

@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using LNK.MoreDeepFloor.Data.Defender.States;
+using LNK.MoreDeepFloor.Data.Defenders.States;
 using LNK.MoreDeepFloor.InGame.StateActions;
 using LNK.MoreDeepFloor.InGame.TraitSystem;
 using TMPro;
@@ -63,7 +63,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
             else
             {
                 stateList[state.id] = state;
-                stateSortByType[state.type].Add(state);
+                stateSortByType[state.actionType].Add(state);
                 state.OnAction(defender, null);
             }
         }
@@ -89,7 +89,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
                 //newState.Set(defender,this);
                 
                 stateList[id] = newState;
-                stateSortByType[newState.type].Add(newState);
+                stateSortByType[newState.actionType].Add(newState);
                 newState.OnAction(defender, null);
                 OnStateChange();
                 return newState;
@@ -108,7 +108,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
             
             if (!stateList[id].RemoveStack())
             {
-                stateSortByType[state.type].Remove(state);
+                stateSortByType[state.actionType].Remove(state);
                 stateList.Remove(id);
             }
 

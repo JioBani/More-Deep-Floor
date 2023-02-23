@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace LNK.MoreDeepFloor.Data.Defender
+namespace LNK.MoreDeepFloor.Data.Defenders
 {
     public enum DefenderId
     {
