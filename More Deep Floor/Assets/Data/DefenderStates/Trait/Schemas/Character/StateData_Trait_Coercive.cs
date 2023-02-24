@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using LNK.MoreDeepFloor.Common.TimerSystem;
+using LNK.MoreDeepFloor.Data.DefenderTraits.Schemas;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.Entity;
 using LNK.MoreDeepFloor.InGame.Entity.Defenders.States;
@@ -14,28 +15,27 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits //.
         //menuName = "Scriptable Object/Defender State Data/Trait/Character/Name", 
         order = int.MaxValue)]
 
-    public class StateData_Trait_Coercive : DefenderStateData
+    public class StateData_Trait_Coercive : TraitStateData
     {
-        public int[] percents;
-        public float[] time;
         public override DefenderState GetState(Defender defender)
         {
-            return new Trait_Coercive(this, defender);
+            return new TraitData_Coercive(this, traitData ,  defender);
         }
     }
 
-    public class Trait_Coercive : DefenderState
+    public class TraitData_Coercive : DefenderState
     {
-        private StateData_Trait_Coercive stateDataSpecific;
-        public int[] percents;
-        public float[] time;
+        //private StateData_Trait_Coercive stateDataSpecific;
+        private Trait_Coercive traitData;
+        private float[] percents;
+        private float[] time;
         
         
-        public Trait_Coercive(DefenderStateData _stateData, Defender _defender) : base(_stateData, _defender)
+        public TraitData_Coercive(DefenderStateData _stateData, TraitData _traitData ,Defender _defender) : base(_stateData, _defender)
         {
-            stateDataSpecific = ((StateData_Trait_Coercive)_stateData);
-            percents = stateDataSpecific.percents;
-            time = stateDataSpecific.time;
+            traitData = _traitData as Trait_Coercive;
+            percents = traitData.Percent;
+            time = traitData.Time;
         }
         
         public override void ActiveAction(Defender caster, Monster target)

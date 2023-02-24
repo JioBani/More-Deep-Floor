@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using LNK.MoreDeepFloor.Data.DefenderTraits.Schemas;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame;
 using LNK.MoreDeepFloor.InGame.Entity;
@@ -15,27 +16,24 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas //.
     //menuName = "Scriptable Object/Defender State Data/Trait/Character/Name", 
     order = int.MaxValue)]
 
-    public class StateData_Trait_Greedy : DefenderStateData
+    public class StateData_Trait_Greedy : TraitStateData
     {
-        public float[] percents;
-
         public override DefenderState GetState(Defender defender)
         {
-            return new Trait_Greedy(this, defender);
+            return new TraitState_Greedy(this,traitData ,defender);
         }
     }
 
-    public class Trait_Greedy : DefenderState
+    public class TraitState_Greedy : DefenderState
     {
-        private StateData_Trait_Greedy stateDataSpecific;
-        
+        private Trait_Greedy traitData;
         private MarketManager marketManager;
         private float[] percents;
-        
-        public Trait_Greedy(DefenderStateData _stateData, Defender _defender) : base(_stateData, _defender)
+
+        public TraitState_Greedy(DefenderStateData _stateData,TraitData _traitData ,Defender _defender) : base(_stateData, _defender)
         {
-            stateDataSpecific = ((StateData_Trait_Greedy)_stateData);
-            percents = stateDataSpecific.percents;
+            traitData = _traitData as Trait_Greedy;
+            percents = traitData.Percent;
         }
 
         public override void OnGenerated()

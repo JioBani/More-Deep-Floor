@@ -16,4 +16,8 @@ MonoBehaviour:
   stateName: "\uD2B9\uC131 : \uC11C\uCEE4\uC2A4\uB2E8"
   actionType: 4
   description: "\uACF5\uACA9\uC2DC \uCD94\uAC00 \uACF5\uACA9"
-  targetNums: []
+  traitData: {fileID: 11400000, guid: da27f154df0c4cd4abafbcd865a8d34e, type: 2}
+  targetNums:
+  - 1
+  - 2
+  - 3

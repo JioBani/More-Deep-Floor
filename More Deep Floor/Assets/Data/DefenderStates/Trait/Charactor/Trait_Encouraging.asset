@@ -17,3 +17,4 @@ MonoBehaviour:
   actionType: 6
   description: "\uC8FC\uBCC0\uC5D0 \uC788\uB294 \uC218\uD638\uC790 \uACF5\uACA9\uC18D\uB3C4
     \uC99D\uAC00"
+  traitData: {fileID: 11400000, guid: 00f4a8185f0c9194d80d28e56f6caade, type: 2}

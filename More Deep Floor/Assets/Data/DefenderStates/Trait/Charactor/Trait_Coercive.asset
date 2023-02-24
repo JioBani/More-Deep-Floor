@@ -16,5 +16,4 @@ MonoBehaviour:
   stateName: "\uAC15\uC555\uC801\uC778"
   actionType: 2
   description: "\uC0C1\uB300 \uACF5\uACA9\uC2DC \uC77C\uC815\uD655\uB960\uB85C \uAE30\uC808"
-  percents: 
-  time: []
+  traitData: {fileID: 11400000, guid: 00f4a8185f0c9194d80d28e56f6caade, type: 2}

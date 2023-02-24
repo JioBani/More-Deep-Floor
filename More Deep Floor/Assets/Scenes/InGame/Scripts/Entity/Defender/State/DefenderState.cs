@@ -81,7 +81,6 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
         {
             stateController.RemoveState(id);
         }
-        
     }
 }
 

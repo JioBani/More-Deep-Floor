@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -15,7 +16,7 @@ namespace LNK.MoreDeepFloor.Data.Schemas
         fileName = "DefenderState Data", 
         menuName = "Scriptable Object/DefenderState Data", 
         order = int.MaxValue)]
-
+    
     public abstract class DefenderStateData: ScriptableObject
     {
         [SerializeField] private DefenderStateId id;
@@ -31,6 +32,11 @@ namespace LNK.MoreDeepFloor.Data.Schemas
         public string Description => description;
 
         public abstract DefenderState GetState(Defender defender);
+    }
+    
+    public abstract class TraitStateData: DefenderStateData
+    {
+        public TraitData traitData;
     }
 
 }

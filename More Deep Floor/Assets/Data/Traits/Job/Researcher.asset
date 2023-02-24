@@ -9,11 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6d3b201a1345b3acb2f8be709489be, type: 3}
+  m_Script: {fileID: 11500000, guid: cf1948381e5dc904f9ca6a1e385cbb3a, type: 3}
   m_Name: Researcher
   m_EditorClassIdentifier: 
   id: 2
-  traitName: 
+  traitName: "\uC5F0\uAD6C\uAC00"
   traitStateData: {fileID: 11400000, guid: b2a78a06ec67b074585b419eabd36fce, type: 2}
   traitType: 0
   synergyTrigger: 010000000200000003000000
+  description: 
+  percent: 640000006400000064000000

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using LNK.MoreDeepFloor.Data.DefenderTraits.Schemas;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.Entity;
 using LNK.MoreDeepFloor.InGame.Entity.Defenders.States;
@@ -13,23 +14,23 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits
         //menuName = "Scriptable Object/Defender State Data/Trait/Character/Name", 
         order = int.MaxValue)]
 
-    public class StateData_Trait_Sniper : DefenderStateData
+    public class StateData_Trait_Sniper : TraitStateData
     {
-        private float[] percents;
+        public float[] percents;
         
         public override DefenderState GetState(Defender defender)
         {
-            return new Trait_Sniper(this, defender);
+            return new TraitState_Sniper(this,traitData, defender);
         }
     }
 
-    public class Trait_Sniper : DefenderState
+    public class TraitState_Sniper : DefenderState
     {
         private float[] percents;
         
-        public Trait_Sniper(DefenderStateData _stateData, Defender _defender) : base(_stateData, _defender)
+        public TraitState_Sniper(DefenderStateData _stateData,TraitData traitData, Defender _defender) : base(_stateData, _defender)
         {
-
+            percents = ((Trait_Sniper)traitData).Percent;
         }
         
         public override void OnTargetHitAction(Defender caster, Monster target, int damage)

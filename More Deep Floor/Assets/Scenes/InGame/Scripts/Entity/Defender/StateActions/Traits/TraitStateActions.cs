@@ -17,7 +17,7 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
     {
         public Name()
         {
-            id = DefenderStateId.Trait_Gladiator;
+            id = DefenderStateId.TraitState_Gladiator;
             type = DefenderStateType.OnKill;
         }
 
@@ -46,9 +46,9 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
     
     /*
     //#. 검투사
-    public class Trait_Gladiator : DefenderState
+    public class TraitState_Gladiator : DefenderState
     {
-        public Trait_Gladiator(
+        public TraitState_Gladiator(
             DefenderStateId _id, 
             DefenderStateData _stateData, 
             Defender _defender) : base(_id, _stateData, _defender)
@@ -138,11 +138,11 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
     
     
     /*//#. 연구가
-    public class Trait_Researcher : DefenderState
+    public class TraitState_Researcher : DefenderState
     {
         private float[] percents;
         
-        public Trait_Researcher(
+        public TraitState_Researcher(
             DefenderStateId _id,
             DefenderStateData _stateData,
             Defender _defender) : base(_id, _stateData, _defender)
@@ -218,11 +218,11 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
 
     
     /*
-    public class Trait_Circus : DefenderState
+    public class TraitState_Circus : DefenderState
     {
         private float[] targetNums;
         
-        public Trait_Circus(
+        public TraitState_Circus(
             DefenderStateId _id,
             DefenderStateData _stateData,
             Defender _defender) : base(_id, _stateData, _defender)
@@ -241,12 +241,12 @@ namespace LNK.MoreDeepFloor.InGame.StateActions.Traits
         {
             int nums = (int)targetNums[traitController.job.synergyLevel];
             List<Monster> monsters = defender.TrySearchTargetsExpectTarget(3);
-            if (stateId == DefenderStateId.Trait_Circus) return;
+            if (stateId == DefenderStateId.TraitState_Circus) return;
             
             for (var i = 0; i < monsters.Count; i++)
             {
                 if(i >= nums) break;
-                defender.SetExtraAttack(monsters[i] , DefenderStateId.Trait_Circus);
+                defender.SetExtraAttack(monsters[i] , DefenderStateId.TraitState_Circus);
             }
         }
     }*/

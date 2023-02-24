@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using LNK.MoreDeepFloor.Data.DefenderTraits.Schemas;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame;
 using LNK.MoreDeepFloor.InGame.Entity;
@@ -15,24 +16,29 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits //.
         menuName = "Scriptable Object/Defender State Data/Trait/Character/Trait_Encouraging", 
     order = int.MaxValue)]
 
-    public class StateData_Trait_Encouraging : DefenderStateData
+    public class StateData_Trait_Encouraging : TraitStateData
     {
         public override DefenderState GetState(Defender defender)
         {
-            return new Trait_Encouraging(this, defender);
+            return new TraitData_Encouraging(this, traitData , defender);
         }
     }
 
-    public class Trait_Encouraging : DefenderState
+    public class TraitData_Encouraging : DefenderState
     {
-        private StateData_Trait_Encouraging stateDataSpecific;
+        private Trait_Encouraging traitData;
+        private StateData_Effect_Encouraging effectData;
+        private int[] percent;
+        private int level;
         
         private DefenderManager defenderManager;
         private List<Defender> defenders = null;
         
-        public Trait_Encouraging(DefenderStateData _stateData, Defender _defender) : base(_stateData, _defender)
+        public TraitData_Encouraging(DefenderStateData _stateData, TraitData _traitData, Defender _defender) : base(_stateData, _defender)
         {
-            stateDataSpecific = ((StateData_Trait_Encouraging)_stateData);
+            traitData = _traitData as Trait_Encouraging;
+            effectData = traitData.Effect;
+            percent = traitData.Percent;
         }
         public override void OnGenerated()
         {
@@ -41,6 +47,8 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits //.
         
         public override void OnDefenderPlaceChange(Defender target)
         {
+            level = traitController.GetTraitInfo(traitData.TraitType).synergyLevel;
+            
             if (defenders != null)
             {
                 for (var i = 0; i < defenders.Count; i++)
@@ -53,7 +61,9 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits //.
             
             for (var i = 0; i < defenders.Count; i++)
             {
-                defenders[i].stateController.AddState(DefenderStateId.Effect_Encouraging);   
+                Effect_Encouraging state = effectData.GetState(defenders[i]) as Effect_Encouraging;
+                state.SetPercent(percent[level]);
+                defenders[i].stateController.AddState(state);   
             }
         }
 

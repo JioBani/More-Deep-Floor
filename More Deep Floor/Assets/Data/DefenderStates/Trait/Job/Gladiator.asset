@@ -17,4 +17,9 @@ MonoBehaviour:
   actionType: 0
   description: "\uB300\uC0C1 \uCC98\uCE58\uC2DC \uC77C\uC815 \uC2DC\uAC04\uB3D9\uC548
     \uCD94\uAC00 \uACF5\uACA9\uC18D\uB3C4"
-  attackSpeed: []
+  traitData: {fileID: 11400000, guid: ba64404342474a242a5a88c1cb816a70, type: 2}
+  effectStateData: {fileID: 11400000, guid: 14b3b57fced6bae4dafb0e0217227f93, type: 2}
+  attackSpeed:
+  - 1
+  - 2
+  - 3

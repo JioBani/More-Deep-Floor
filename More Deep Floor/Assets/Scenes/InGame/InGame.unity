@@ -1568,7 +1568,7 @@ MonoBehaviour:
   - {x: 8, y: 8}
   - {x: 1, y: 8}
   round: 0
-  monsterLimit: 1
+  monsterLimit: 100
 --- !u!1 &95606210
 GameObject:
   m_ObjectHideFlags: 0
@@ -22580,6 +22580,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1830088795}
     m_Modifications:
+    - target: {fileID: 2445178011191243450, guid: 94750e7dbfb58a94082210a899eae9a6,
+        type: 3}
+      propertyPath: timeOut
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 6935698768654233284, guid: 94750e7dbfb58a94082210a899eae9a6,
         type: 3}
       propertyPath: m_Pivot.x

@@ -17,4 +17,8 @@ MonoBehaviour:
   actionType: 3
   description: "\uC2A4\uD0AC \uC0AC\uC6A9\uC2DC \uC77C\uC815 \uD655\uB960\uB85C \uD55C\uBC88
     \uB354 \uC0AC\uC6A9"
-  percents: []
+  traitData: {fileID: 11400000, guid: 0b30fd65ab4dfa644a2f4b789b73a970, type: 2}
+  percents:
+  - 100
+  - 100
+  - 100

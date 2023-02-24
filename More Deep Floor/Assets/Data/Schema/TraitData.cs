@@ -1,11 +1,22 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using LNK.MoreDeepFloor.Common.SerializableDictionarys;
 using LNK.MoreDeepFloor.Data.Defenders.States;
 using LNK.MoreDeepFloor.Data.DefenderTraits;
+using LNK.MoreDeepFloor.InGame.Entity;
+using LNK.MoreDeepFloor.InGame.Entity.Defenders.States;
 using UnityEngine;
 
 namespace LNK.MoreDeepFloor.Data.Schemas
 {
+    [Serializable]
+    public struct Amounts
+    {
+        public string name;
+        public float[] values;
+    }
+    
     [CreateAssetMenu(fileName = "Trait Data", menuName = "Scriptable Object/Trait Data", order = int.MaxValue)]
     
     public class TraitData : ScriptableObject
@@ -22,13 +33,13 @@ namespace LNK.MoreDeepFloor.Data.Schemas
         [SerializeField] private TraitType traitType;
         public TraitType TraitType => traitType;
         
-        /*[SerializeField] private DefenderStateId traitStateId;
-        public DefenderStateId TraitStateId => traitStateId;*/
-
-
         [SerializeField] private int[] synergyTrigger;
         public int[] SynergyTrigger => synergyTrigger;
-
+        
+        [Space()]
+        [Space()]
+        [TextArea][SerializeField] protected string description;
+        public string Description => description;
 
         public void SetTraitId(TraitId _traitId)
         {
@@ -38,6 +49,11 @@ namespace LNK.MoreDeepFloor.Data.Schemas
         public void SetTraitName(string _name)
         {
             traitName = _name;
+        }
+
+        public virtual DefenderState GetTraitState(Defender defender)
+        {
+            return traitStateData.GetState(defender);
         }
     }
 }

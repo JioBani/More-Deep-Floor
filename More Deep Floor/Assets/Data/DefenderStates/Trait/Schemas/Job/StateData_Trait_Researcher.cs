@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using LNK.MoreDeepFloor.Common.TimerSystem;
+using LNK.MoreDeepFloor.Data.DefenderTraits.Schemas;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.Entity;
 using LNK.MoreDeepFloor.InGame.Entity.Defenders.States;
@@ -14,23 +15,23 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits
         //menuName = "Scriptable Object/Defender State Data/Trait/Character/Name", 
         order = int.MaxValue)]
 
-    public class StateData_Trait_Researcher : DefenderStateData
+    public class StateData_Trait_Researcher : TraitStateData
     {
         public float[] percents;
         
         public override DefenderState GetState(Defender defender)
         {
-            return new Trait_Researcher(this, defender);
+            return new TraitState_Researcher(this, traitData,defender);
         }
     }
 
-    public class Trait_Researcher : DefenderState
+    public class TraitState_Researcher : DefenderState
     {
-        private float[] percents;
+        private int[] percents;
         
-        public Trait_Researcher(DefenderStateData _stateData, Defender _defender) : base(_stateData, _defender)
+        public TraitState_Researcher(DefenderStateData _stateData, TraitData traitData, Defender _defender) : base(_stateData, _defender)
         {
-            percents = ((StateData_Trait_Researcher)_stateData).percents;
+            percents = ((Trait_Researcher)traitData).Percent;
         }
         
         public override void OnUseSkillAction(Defender caster, Monster target, bool isFinal)

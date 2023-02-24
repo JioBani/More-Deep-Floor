@@ -103,7 +103,8 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
             }
             else if (result == 1)
             {
-                defenderStateController.AddState(target.traitData.TraitStateData.Id);
+                //defenderStateController.AddState(target.traitData.TraitStateData.Id);
+                defenderStateController.AddState(target.traitData.GetTraitState(defender));
             }
             
             RefreshText();
@@ -118,6 +119,12 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
         {
             jobText.text = job.traitData.Id + " : " + job.synergyLevel;
             characterText.text = character.traitData.Id + " : " + character.synergyLevel;
+        }
+
+        public TraitInfo GetTraitInfo(TraitType type)
+        {
+            if (type == TraitType.Job) return job;
+            else return character;
         }
     }
 }

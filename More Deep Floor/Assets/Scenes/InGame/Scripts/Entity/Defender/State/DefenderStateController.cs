@@ -52,19 +52,22 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
             }
         }
 
-        public void AddState(DefenderState newState)
+        public DefenderState AddState(DefenderState newState)
         {
             if (stateList.TryGetValue(newState.id, out var state))
             {
                 state.AddStack();
                 state.OnAction(defender , null);
-                state.OnAction(defender , null);
+                OnStateChange();
+                return state;
             }
             else
             {
-                stateList[state.id] = state;
-                stateSortByType[state.actionType].Add(state);
-                state.OnAction(defender, null);
+                stateList[newState.id] = newState;
+                stateSortByType[newState.actionType].Add(newState);
+                newState.OnAction(defender, null);
+                OnStateChange();
+                return newState;
             }
         }
         

@@ -9,11 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6d3b201a1345b3acb2f8be709489be, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d55ddcb23479c24daa98ace06969fe1, type: 3}
   m_Name: Sniper
   m_EditorClassIdentifier: 
   id: 3
-  traitName: 
+  traitName: "\uC800\uACA9\uC218"
   traitStateData: {fileID: 11400000, guid: 46e9e9777e4f90044b28ce1d64583633, type: 2}
   traitType: 0
   synergyTrigger: 010000000200000003000000
+  description: 
+  percent: 140000003200000064000000

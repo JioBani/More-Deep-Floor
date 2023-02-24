@@ -9,11 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6d3b201a1345b3acb2f8be709489be, type: 3}
+  m_Script: {fileID: 11500000, guid: a47c9dac79cf29e468b32942e0694237, type: 3}
   m_Name: Circus
   m_EditorClassIdentifier: 
   id: 4
-  traitName: Circus
+  traitName: "\uC11C\uCEE4\uC2A4\uB2E8"
   traitStateData: {fileID: 11400000, guid: 7f25b8ebc21dad3469f830ff077b8cf3, type: 2}
   traitType: 0
-  synergyTrigger: 0100000002000000
+  synergyTrigger: 010000000200000003000000
+  description: "\uD55C\uBC88\uC5D0 \uC5EC\uB7EC\uBA85\uC744 \uACF5\uACA9"
+  targetNumber: 010000000200000003000000

@@ -26,16 +26,16 @@ namespace LNK.MoreDeepFloor.InGame.StateActions
             switch (id)
             {
                 /*case DefenderStateId.None  : state = new State_None(id , stateData, defender); break;
-                case DefenderStateId.Trait_Gladiator  : state = new Trait_Gladiator(id , stateData , defender); break;
+                case DefenderStateId.TraitState_Gladiator  : state = new TraitState_Gladiator(id , stateData , defender); break;
                 case DefenderStateId.Effect_Gladiator : state = new Effect_Gladiator(id , stateData , defender); break;
                 case DefenderStateId.Trait_Challenging   : state = new Trait_Challenging(id , stateData , defender); break;
-                case DefenderStateId.Trait_Researcher   : state = new Trait_Researcher(id , stateData , defender); break;
+                case DefenderStateId.TraitState_Researcher   : state = new TraitState_Researcher(id , stateData , defender); break;
                 case DefenderStateId.Trait_Coercive   : state = new Trait_Coercive(id , stateData , defender); break;
                 case DefenderStateId.Trait_Encouraging   : state = new Trait_Encouraging(id , stateData , defender); break;
                 case DefenderStateId.Effect_Encouraging   : state = new Effect_Encouraging(id , stateData , defender); break;
                 case DefenderStateId.Trait_Greedy   : state = new Trait_Greedy(id , stateData , defender); break;
                 case DefenderStateId.Trait_Sniper   : state = new Trait_Sniper(id , stateData , defender); break;
-                case DefenderStateId.Trait_Circus   : state = new Trait_Circus(id , stateData , defender); break;*/
+                case DefenderStateId.TraitState_Circus   : state = new TraitState_Circus(id , stateData , defender); break;*/
                 
                 //case DefenderStateId.TroopTrait_GoldAttack   : state = new TroopTraitState_GoldAttack(id , stateData , defender); break;
                 
