@@ -19,9 +19,9 @@ MonoBehaviour:
   synergyTrigger: 010000000200000003000000
   description: 
   percent:
-  - 1
-  - 2
-  - 4
+  - 10
+  - 20
+  - 40
   time:
   - 0.5
   - 0.5

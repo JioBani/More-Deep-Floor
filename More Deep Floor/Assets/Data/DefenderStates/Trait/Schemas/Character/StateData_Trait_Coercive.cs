@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using LNK.MoreDeepFloor.Common.ProbabilityChecks;
 using LNK.MoreDeepFloor.Common.TimerSystem;
 using LNK.MoreDeepFloor.Data.DefenderTraits.Schemas;
 using LNK.MoreDeepFloor.Data.Schemas;
@@ -37,21 +38,19 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits //.
             percents = traitData.Percent;
             time = traitData.Time;
         }
-        
-        public override void ActiveAction(Defender caster, Monster target)
+
+        public override void OnTargetHitAction(Defender caster, Monster target, int damage)
         {
             int level = traitController.character.synergyLevel;
+            if (!ProbabilityCheck.Check((int)percents[level], 100))
+                return;
             
-            int trigger = Random.Range(1,101);
-            if (trigger <= percents[level])
+            target.SetStun(true);
+            
+            TimerManager.instance.LateAction(time[level] , () =>
             {
-                target.SetStun(true);
-                TimerManager.instance.LateAction(time[level] , () =>
-                {
-                    target.SetStun(false);
-                });
-            }
-           
+                target.SetStun(false);
+            });
         }
     }
 }

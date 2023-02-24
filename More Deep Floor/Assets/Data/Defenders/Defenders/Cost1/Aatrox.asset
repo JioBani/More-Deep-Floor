@@ -24,4 +24,4 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 08782cc6a9b5baa47855bdc74cbb9929, type: 3}
   skillData: {fileID: 11400000, guid: 22bdf28b87864fe46be39299b5c81d4e, type: 2}
   job: {fileID: 11400000, guid: e0378760863b6dd4aaf96ce42205a5ed, type: 2}
-  character: {fileID: 11400000, guid: 10d60ec9d5999e440a844f96a3c2b05c, type: 2}
+  character: {fileID: 11400000, guid: 851abc7cbf6249043b2d3f3333bf393b, type: 2}
