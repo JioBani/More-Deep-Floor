@@ -23,7 +23,12 @@ namespace LNK.MoreDeepFloor.InGame
         private List<Tile> routeTiles = new List<Tile>();
         public int round = 0;
         public int monsterLimit;
-        
+
+        [SerializeField] private float roundTime;
+        private WaitForSeconds roundTimer;
+
+        private bool isGameOver = false;
+
         //public delegate void RoundEvent(int round);
         //public delegate void OnStageStartEventHandler();
 
@@ -65,18 +70,52 @@ namespace LNK.MoreDeepFloor.InGame
 
         public void StartStage()
         {
+            roundTimer = new WaitForSeconds(roundTime);
+            
             monsterManager.StartStage(routeTiles);
             Debug.Log("[StageManager.StartStage()] 스테이지 시작");
 
-            if(stageData.isInfinity)
+            /*if(stageData.isInfinity)
                 Invoke(nameof(StartInfinityTowerRound) , 3.0f);
             else
-                Invoke(nameof(StartNormalRound) , 3.0f);
+                Invoke(nameof(StartNormalRound) , 3.0f);*/
             isStageStarted = true;
-            
             inGameStateManager.SetStageStart();
-            
+            StartCoroutine(RoundRoutine());
+
             //OnStageStartAction?.Invoke();
+        }
+
+        IEnumerator RoundRoutine()
+        {
+            while (!isGameOver)
+            {
+                StartRound();
+                yield return roundTimer;
+            }
+        }
+
+        void StartRound()
+        {
+            if (stageData.isInfinity)
+            {
+                EndInfinityTowerRound();
+            }
+            else
+            {
+                EndNormalRound();
+            }
+            inGameStateManager.SetRoundStart(round);
+        }
+
+        /*void OnEndRound()
+        {
+            Debug.Log("[StageManager.StartRound()] 라운드 종료");
+            if (round == stageData.rounds)
+            {
+                Debug.Log("[StageManager.StartRound()] 스테이지 종료");
+            }
+            inGameStateManager.SetRoundEnd(round);
         }
         
         public void SetRoundEnd()
@@ -101,6 +140,7 @@ namespace LNK.MoreDeepFloor.InGame
             inGameStateManager.SetRoundEnd(round);
             //OnRoundEndAction?.Invoke(round);
         }
+        */
 
         void StartNormalRound()
         {
@@ -148,6 +188,8 @@ namespace LNK.MoreDeepFloor.InGame
 
         void SetGameOver()
         {
+            isGameOver = true;
+            StopCoroutine(RoundRoutine());
             inGameStateManager.SetGameOver();
         }
         

@@ -130,10 +130,10 @@ namespace LNK.MoreDeepFloor.InGame
         {
             roundOffMonsterNums++;
             monsters.Remove(monster);
-            if (roundOffMonsterNums == roundMonsterNums)
+            /*if (roundOffMonsterNums == roundMonsterNums)
             {
                 stageManager.SetRoundEnd();
-            }
+            }*/
         }
     }
 
