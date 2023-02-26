@@ -18,7 +18,7 @@ namespace LNK.MoreDeepFloor.Data.DefenderTraits
         Coercive,
         Greedy,
         Encouraging,
-        HardMind,
+        Tenacious,
 
     }
 

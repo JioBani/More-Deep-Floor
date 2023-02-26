@@ -22,6 +22,6 @@ MonoBehaviour:
     value: 10
   - name: SlowTime
     value: 10
-  isApplied: 1
-  id: 1
+  isApplied: 0
+  id: 4
   name: "1\uB819 \uB8E9 \uC2A4\uD0AC"

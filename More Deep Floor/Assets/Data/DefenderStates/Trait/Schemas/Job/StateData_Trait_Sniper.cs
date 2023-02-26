@@ -42,10 +42,6 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits
             float value = distance / 5f;
             float addDamage = maxDamagePercent * value * 0.01f * damage;
             target.SetHitFinal(addDamage * damage, caster);
-            Debug.Log($"[Trait_Sniper] " +
-                      $"distance = {distance} , " +
-                      $"value = {value} , " +
-                      $"addDamage = {addDamage}");
         }
     }
 }

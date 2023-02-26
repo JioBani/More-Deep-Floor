@@ -14,7 +14,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         private Tile currentDesti;
         private Tile lastTile;
         public bool isMoving = false;
-        public float speed;
+        public MonsterStatusValue speed;
         public delegate void Action(Tile nextDestination);
 
         public delegate void EndAction();
@@ -101,7 +101,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
                 transform.position = Vector2.MoveTowards(
                     transform.position , 
                     currentDesti.transform.position ,
-                    speed);
+                    speed.currentValue);
                 
                 if (Vector2.Distance(transform.position, currentDesti.transform.position) < 0.01f)
                 {
@@ -132,7 +132,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
 
         public void Init(MonsterStatus status)
         {
-            speed = status.currentSpeed;
+            speed = status.speed;
             SetPause(false);
         }
         

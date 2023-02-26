@@ -90,7 +90,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             hpText.text = monsterData.hp.ToString();
             
             status = new MonsterStatus(monsterData);
-            status.OnSpeedChangeAction += OnSpeedChange;
+            //status.OnSpeedChangeAction += OnSpeedChange;
 
             mover.Init(status);
         }
@@ -196,10 +196,10 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             innerHpBarRender.size = new Vector2((float)(status.currentHp / status.maxHp), innerHpBarRender.size.y);
         }
 
-        void OnSpeedChange(float currentSpeed)
+        /*void OnSpeedChange(float currentSpeed)
         {
             mover.speed = currentSpeed;
-        }
+        }*/
     }
     
 }

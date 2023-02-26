@@ -6,6 +6,125 @@ using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame.Entity
 {
+    public class MonsterStatusBuff
+    {
+        public float value;
+        public string name;
+        public float stack;
+
+        public MonsterStatusBuff(float _value , string _name)
+        {
+            value = _value;
+            stack = 1;
+            name = _name;
+        }
+
+        public void AddStack()
+        {
+            stack++;
+        }
+
+        /// <summary>
+        /// 버프 스택 감소
+        /// </summary>
+        /// <returns>스택이 0 이하인 경우 false</returns>
+        public bool RemoveStack()
+        {
+            stack--;
+            if (stack <= 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+    }
+    
+    public class MonsterStatusValue
+    {
+        public float originalValue { get; private set; }
+        public float currentValue { get; private set; }
+        private List<MonsterStatusBuff> buffList = new List<MonsterStatusBuff>();
+        
+        public MonsterStatusValue(float value)
+        {
+            originalValue = value;
+            currentValue = value;
+        }
+        
+        public void Refresh()
+        {
+            currentValue = originalValue;
+            string str = "";
+
+            foreach (var statusBuff in buffList)
+            {
+                currentValue += statusBuff.value;
+                str += $"{statusBuff.name} : {statusBuff.value} ,";
+            }
+        }
+
+        public MonsterStatusBuff AddBuff(float value, string name)
+        {
+            
+            MonsterStatusBuff buff = buffList.Find(buff => buff.name == name);
+            if (buff == null)
+            {
+                MonsterStatusBuff newBuff = new MonsterStatusBuff(value,name);
+                buffList.Add(newBuff);
+                Refresh();
+                return newBuff;
+            }
+            else
+            {
+                buff.AddStack();
+                Refresh();
+                return buff;
+            }
+        }
+
+        public MonsterStatusBuff AddBuffWithModify(float value, string name)
+        {
+            MonsterStatusBuff buff = buffList.Find(buff => buff.name == name);
+            if (buff == null)
+            {
+                MonsterStatusBuff newBuff = new MonsterStatusBuff(value,name);
+                buffList.Add(newBuff);
+                Refresh();
+                return newBuff;
+            }
+            else
+            {
+                buff.value = value;
+                buff.AddStack();
+                Refresh();
+                return buff;
+            }
+        }
+
+        public void RemoveBuff(MonsterStatusBuff buff)
+        {
+            if (!buff.RemoveStack())
+            {
+                buffList.Remove(buff);
+            }
+            
+            Refresh();
+        }
+
+        public void SetOriginalValue(float value)
+        {
+            originalValue = value;
+            Refresh();
+        }
+
+        public void ModifyBuff(MonsterStatusBuff buff, float value)
+        {
+            buff.value = value;
+            Refresh();
+        }
+    }
+    
     public class MonsterStatus
     {
         public delegate void OnSpeedChangeEventHandler(float speed);
@@ -15,10 +134,15 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         public float maxHp;
         public float currentHp;
 
-        public float speed;
-        public float currentSpeed;
+        //public MonsterStatus maxHp;
+        //public MonsterStatus currentHp;
+
+        //public float speed;
+        //public float currentSpeed;
         private Dictionary<int, float> speedBuffs;
         private int speedBuffId;
+
+        public MonsterStatusValue speed;
 
         public int gold;
         public int currentGold;
@@ -29,9 +153,11 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         {
             this.maxHp = maxHp;
             this.currentHp = maxHp;
+
+            this.speed = new MonsterStatusValue(speed);
             
-            this.speed = speed;
-            this.currentSpeed = speed;
+            //this.speed = speed;
+            //this.currentSpeed = speed;
             
             this.gold = gold;
             this.currentGold = gold;
@@ -47,7 +173,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             gold: monsterData.gold
         ){ }
 
-        public int AddSpeedBuff(float value)
+        /*public int AddSpeedBuff(float value)
         {
             speedBuffId++;
             currentSpeed += value;
@@ -72,6 +198,6 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             
             if(currentSpeed < 0) currentSpeed = 0;
             OnSpeedChangeAction?.Invoke(currentSpeed);
-        }
+        }*/
     }
 }

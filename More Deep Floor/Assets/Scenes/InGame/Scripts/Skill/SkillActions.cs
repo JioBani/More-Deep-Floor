@@ -91,10 +91,12 @@ namespace LNK.MoreDeepFloor.InGame.SkillSystem
                     (target) =>
                     {
                         MonsterStatus status = target.status;
-                        int id = status.AddSpeedBuff(-target.status.currentSpeed / 2);
+                        MonsterStatusBuff buff = status.speed.AddBuff( -status.speed.currentValue  / 2, skillData.Id.ToString());
+                        //int id = status.AddSpeedBuff(-target.status.currentSpeed / 2);
                         TimerManager.instance.LateAction(slowTime, () =>
                         {
-                            status.RemoveSpeedBuff(id);
+                            buff.RemoveStack();
+                            //status.RemoveSpeedBuff(id);
                         });
                     }
                 ));
