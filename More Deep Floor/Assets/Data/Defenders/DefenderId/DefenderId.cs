@@ -9,14 +9,40 @@ namespace LNK.MoreDeepFloor.Data.Defenders
         None,
         
         //#. 1코스트
-        Aartrox,
-        Riven,
-        Heimerdinger,
-        Ryze,
-        Caitlyn,
-        Senna,
-        Qiyana,
-        Draven,
+        아트록스,
+        리븐,
+        하이머딩거,
+        라이즈,
+        케이틀린,
+        세나,
+        키아나,
+        드레이븐,
+        
+        //#. 2코스트
+        룰루,
+        신지드,
+        이즈리얼,
+        트리스타나,
+        트린다미어,
+        
+        //#. 3코스트
+        럼블,
+        베인,
+        세트,
+        올라프,
+        잔나,
+        
+        //#. 4코스트
+        샤코,
+        직스,
+        징크스,
+        크산테,
+        
+        //#. 5코스트
+        다리우스,
+        레나타,
+        조이,
+        진,
         
         
         Knight_Cost1,

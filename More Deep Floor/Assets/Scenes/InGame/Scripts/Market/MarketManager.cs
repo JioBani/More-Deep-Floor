@@ -25,7 +25,7 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
         private DefenderButton[] defenderButtons;
 
         public int startGold;
-        public int gold { get; private set; }
+        public int gold;
         public int interestLimit { get; private set; }
 
         //public int level;

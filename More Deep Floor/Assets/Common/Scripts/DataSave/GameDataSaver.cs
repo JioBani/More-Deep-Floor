@@ -19,9 +19,9 @@ namespace LNK.MoreDeepFloor.Common.DataSave
 
         public GameDataSaver()
         {
-            savePath = Application.dataPath + "/" + "GameSaveData";
-            goodsDataFileName = Application.dataPath + "/GameSaveData/GoodsData.dat";
-            troopTraitsDataFileName = Application.dataPath + "/GameSaveData/TroopTraitsData.dat";
+            savePath = Application.persistentDataPath    + "/" + "GameSaveData";
+            goodsDataFileName = Application.persistentDataPath    + "/GameSaveData/GoodsData.dat";
+            troopTraitsDataFileName = Application.persistentDataPath    + "/GameSaveData/TroopTraitsData.dat";
         }
         
         /*
@@ -32,6 +32,12 @@ namespace LNK.MoreDeepFloor.Common.DataSave
 
         bool SaveData<T>(T data, string fileName)
         {
+            if (!DataSaver.CheckDirectory(savePath))
+            {
+                Debug.Log("[GameDataSaver.SaveData()] 데이터 저장 폴더가 없습니다. 새로 생성합니다.");
+                Debug.Log($"[GameDataSaver.SaveData()] {savePath + '/'}");
+                DataSaver.CreateDirectory(savePath + '/');
+            }
             return DataSaver.SaveData<T>(data,fileName);
         }
 

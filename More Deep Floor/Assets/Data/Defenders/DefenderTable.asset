@@ -13,10 +13,29 @@ MonoBehaviour:
   m_Name: DefenderTable
   m_EditorClassIdentifier: 
   defenders:
+  - {fileID: 11400000, guid: 68f62bc160ae85143afab1501b628fbf, type: 2}
+  - {fileID: 11400000, guid: 0d4771707ef05764a806e2e6225c14f5, type: 2}
+  - {fileID: 11400000, guid: 856355538ff63354d955c503a3582690, type: 2}
+  - {fileID: 11400000, guid: 074e695760e6d864aa3c3186b544908b, type: 2}
   - {fileID: 11400000, guid: 2b13e264fb8608a4a840e43a0d33d2ec, type: 2}
   - {fileID: 11400000, guid: 2d64b652192be004b8a70bf13fb074d9, type: 2}
-  - {fileID: 11400000, guid: 68f62bc160ae85143afab1501b628fbf, type: 2}
   - {fileID: 11400000, guid: c772d0a4f8faa554abb12806af710a9e, type: 2}
-  - {fileID: 11400000, guid: 856355538ff63354d955c503a3582690, type: 2}
-  - {fileID: 11400000, guid: 0d4771707ef05764a806e2e6225c14f5, type: 2}
-  - {fileID: 11400000, guid: 074e695760e6d864aa3c3186b544908b, type: 2}
+  - {fileID: 11400000, guid: 6302fe7cc560ed54e9f9e60a3b98c74c, type: 2}
+  - {fileID: 11400000, guid: 9b4239972a5fdfd48a223225f52c2a78, type: 2}
+  - {fileID: 11400000, guid: 2fcec2473a9f9ae4bb70b888f735f669, type: 2}
+  - {fileID: 11400000, guid: 7945184b1c6515344920afdf67d130e0, type: 2}
+  - {fileID: 11400000, guid: 87bceb664c66934409d8377f451b916f, type: 2}
+  - {fileID: 11400000, guid: 689e122e0fffa024cbf5e61a71ef2013, type: 2}
+  - {fileID: 11400000, guid: e7ebfd7ba4dddcf41a91d7593bf26c56, type: 2}
+  - {fileID: 11400000, guid: ddf146f6f41041548b2d2fd1d7a03d1e, type: 2}
+  - {fileID: 11400000, guid: fbc30a52f42d8b949b4ad4ab10650fdc, type: 2}
+  - {fileID: 11400000, guid: a9deedfa6cf85d24da12b67256ec03d3, type: 2}
+  - {fileID: 11400000, guid: 398cf559814141345ac13196e972ee30, type: 2}
+  - {fileID: 11400000, guid: c5282efb10c5c0a48a46808181129ab7, type: 2}
+  - {fileID: 11400000, guid: 0cc6b462e759222438668279b34adb52, type: 2}
+  - {fileID: 11400000, guid: 3e509c51f7938fb4081c4cbfc1b0cdd8, type: 2}
+  - {fileID: 11400000, guid: 2e455431bd3fae84c838d3a7fd023361, type: 2}
+  - {fileID: 11400000, guid: fe2c1bbfd146c284d82c7b3fa658070e, type: 2}
+  - {fileID: 11400000, guid: 1dc5f960790ea34439d7bb084a998b45, type: 2}
+  - {fileID: 11400000, guid: e998de837cb4fef49ac6900a3eab2bc5, type: 2}
+  - {fileID: 11400000, guid: ee1f6543d52e6464ba2e529bf0d842a7, type: 2}

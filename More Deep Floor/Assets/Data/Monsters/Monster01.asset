@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Monster01
   m_EditorClassIdentifier: 
   name: "\uBAAC\uC2A4\uD130 1"
-  hp: 1000
+  hp: 100
   moveSpeed: 0.04
   gold: 1
   animatorOverrideController: {fileID: 22100000, guid: 22a2fb6e4fdc5d3468a37d0dc9804bb9,

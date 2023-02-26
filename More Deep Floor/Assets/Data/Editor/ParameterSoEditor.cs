@@ -22,7 +22,7 @@ namespace LNK.MoreDeepFloor.Data.Editors
             
             if (GUILayout.Button("Set Description"))
             {
-                ((ParameterSo) target).SetDescriptionShowing();
+                //((ParameterSo) target).SetDescriptionShowing();
             }
             EditorGUI.EndDisabledGroup();
         }

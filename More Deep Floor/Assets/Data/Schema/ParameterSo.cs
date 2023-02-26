@@ -40,7 +40,7 @@ namespace LNK.MoreDeepFloor.Data.Schemas
 
         public void SetParameters()
         {
-            EditorUtility.SetDirty(this);
+            //EditorUtility.SetDirty(this);
             Parameters = new Dictionary<string, float>();
             
             for (int i = 0; i < parameters.Length; i++)
@@ -48,11 +48,11 @@ namespace LNK.MoreDeepFloor.Data.Schemas
                 Parameters.Add(parameters[i].name , parameters[i].value);
             }
 
-            SetDescriptionShowing();
+            // SetDescriptionShowing();
             isApplied = true;
         }
 
-        public void SetDescriptionShowing()
+        /*public void SetDescriptionShowing()
         {
             Regex reg = new Regex(@"\{(.*?)\}"); 
             MatchCollection resultColl = reg.Matches(description);
@@ -76,7 +76,7 @@ namespace LNK.MoreDeepFloor.Data.Schemas
                     isApplied = false;
                 }
             }
-        }
+        }*/
 
         public bool GetParameter(string name , out float parameter)
         {

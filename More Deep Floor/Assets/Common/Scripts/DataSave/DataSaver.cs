@@ -16,9 +16,9 @@ namespace LNK.MoreDeepFloor.Common.DataSave
     
     public class DataSaver
     {
-
         public static bool SaveData<T>(T data, string path)
         {
+            //FileStream fileStream
             FileStream fileStream = new FileStream(path, FileMode.Create);
             
             try
@@ -81,6 +81,24 @@ namespace LNK.MoreDeepFloor.Common.DataSave
             else
             {
                 return false;
+            }
+        }
+
+        public static bool CheckDirectory(string path)
+        {
+            return Directory.Exists(path);
+        }
+
+        public static void CreateDirectory(string path)
+        {
+            try
+            {
+                Directory.CreateDirectory(path);
+
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"[DataSaver.CreateDirectory] 폴더 생성 불가 : {path} \n 오류 : {e}");
             }
         }
     }

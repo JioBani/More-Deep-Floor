@@ -13,5 +13,8 @@ MonoBehaviour:
   m_Name: None
   m_EditorClassIdentifier: 
   id: 0
-  traitStateData: {fileID: 11400000, guid: 9b00fe8620ea10d47929524709399af3, type: 2}
+  traitName: "\uC5C6\uC74C"
+  traitStateData: {fileID: 11400000, guid: 28dca0aed65b07743b2af8d535577a59, type: 2}
+  traitType: 0
   synergyTrigger: 
+  description: 

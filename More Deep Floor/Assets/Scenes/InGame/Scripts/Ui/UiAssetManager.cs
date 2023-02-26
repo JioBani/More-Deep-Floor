@@ -7,7 +7,7 @@ namespace LNK.MoreDeepFloor.InGame.Ui
     public class UiAssetManager : MonoBehaviour
     {
         public Sprite[] merchandiseBackground;
-        
+        public Color[] merchandiseBackgroundColors;
     }
 }
 

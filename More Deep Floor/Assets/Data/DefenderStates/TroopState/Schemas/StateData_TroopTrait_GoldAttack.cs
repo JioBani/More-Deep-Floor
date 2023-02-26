@@ -22,17 +22,18 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas //.
         
         public override DefenderState GetState(Defender defender)
         {
-            return new TroopTrait_GoldAttack(this, defender);
+            return new TroopTraitState_GoldAttack(this, defender);
         }
     }
 
-    public class TroopTrait_GoldAttack : DefenderState
+    public class TroopTraitState_GoldAttack : DefenderState
     {
         private StateData_TroopTrait_GoldAttack stateDataSpecific;
         private MarketManager marketManager;
         public float[] percents;
+        private int level;
         
-        public TroopTrait_GoldAttack(DefenderStateData _stateData, Defender _defender) : base(_stateData, _defender)
+        public TroopTraitState_GoldAttack(DefenderStateData _stateData, Defender _defender) : base(_stateData, _defender)
         {
             stateDataSpecific = ((StateData_TroopTrait_GoldAttack)_stateData);
         }
@@ -44,10 +45,15 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas //.
 
         public override void OnTargetHitAction(Defender caster, Monster target, int damage)
         {
-            if (ProbabilityCheck.Check(1,1))
+            if (ProbabilityCheck.Check((int)(percents[level] * 0.01f * 1000),1000))
             {
                 marketManager.GoldChange(1 , "TroopTraitState_GoldAttack");
             }
+        }
+
+        public void SetTroopTraitLevel(int _level)
+        {
+            level = _level;
         }
     }
 }

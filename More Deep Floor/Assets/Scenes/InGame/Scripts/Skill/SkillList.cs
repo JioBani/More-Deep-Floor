@@ -23,7 +23,7 @@ namespace LNK.MoreDeepFloor.InGame.SkillSystem
                 /*case DefenderId.Knight_Cost1 : skillActionInfoBase = new Knight01(); break;
                 case DefenderId.Aartrox : skillActionInfoBase = new Rock01(); break;
                 case DefenderId.Bishop_Cost1 : skillActionInfoBase = new Bishop01(); break;*/
-                default: skillActionInfoBase = new Rock01(); break;
+                default: skillActionInfoBase = new None(); break;
             }
                 
             skillActionInfoBase.Set(skillData , caster , stateController);

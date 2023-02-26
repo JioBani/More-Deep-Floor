@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: InfiniteMonster
   m_EditorClassIdentifier: 
   name: "\uBB34\uD55C\uC758\uD0D1 \uBAAC\uC2A4\uD130"
-  hp: 1000
+  hp: 100
   moveSpeed: 0.04
   gold: 1
   animatorOverrideController: {fileID: 22100000, guid: 22a2fb6e4fdc5d3468a37d0dc9804bb9,

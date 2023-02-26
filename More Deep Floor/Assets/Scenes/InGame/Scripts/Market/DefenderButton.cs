@@ -16,6 +16,8 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
         [SerializeField] private Image backgroundImage;
         [SerializeField] private Text nameText;
         [SerializeField] private Text goldText;
+        [SerializeField] private Text jobText;
+        [SerializeField] private Text characterText;
 
         private MarketManager marketManager;
         private UiAssetManager uiAssetManager;
@@ -30,13 +32,23 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
 
         public void SetDefender(DefenderData _defenderData)
         {
-            content.SetActive(true);
-            defenderData = _defenderData;
-            image.sprite = defenderData.sprite;
-            image.enabled = true;
-            backgroundImage.sprite = uiAssetManager.merchandiseBackground[defenderData.cost];
-            nameText.text = defenderData.name;
-            goldText.text = defenderData.cost + " G";
+            try
+            {
+                content.SetActive(true);
+                defenderData = _defenderData;
+                image.sprite = defenderData.sprite;
+                image.enabled = true;
+                backgroundImage.color = uiAssetManager.merchandiseBackgroundColors[defenderData.cost];
+                nameText.text = defenderData.name;
+                goldText.text = defenderData.cost.ToString();
+                jobText.text = defenderData.job.TraitName;
+                characterText.text = defenderData.character.TraitName;
+            }
+            catch (Exception e)
+            {
+                Debug.Log($"[{defenderData.name}]" + e);
+            }
+            
         }
 
         public void OnClick()
