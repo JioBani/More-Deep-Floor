@@ -54,6 +54,8 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
         private DefenderStateController defenderStateController;
         public TraitInfo job;
         public TraitInfo character;
+        
+        //public delegate void OnTraitLevelChangeEventHandler(TraitType traitType , l);
 
         [SerializeField] private TextMeshPro jobText;
         [SerializeField] private TextMeshPro characterText;

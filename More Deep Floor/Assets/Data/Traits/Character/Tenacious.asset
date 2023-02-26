@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 9
   traitName: "\uC545\uCC29\uAC19\uC740"
-  traitStateData: {fileID: 0}
+  traitStateData: {fileID: 11400000, guid: ccf6fc43742fe2d4cad9e0e261075f52, type: 2}
   traitType: 1
-  synergyTrigger: 
+  synergyTrigger: 010000000200000003000000
   description: 
+  percent: 14000000280000003c000000

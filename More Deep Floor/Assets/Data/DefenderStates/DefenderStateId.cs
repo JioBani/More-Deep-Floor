@@ -18,11 +18,7 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States
         Trait_Sniper,
         Trait_Circus,
         Effect_Encouraging,
-        //#. 특성 효과
-        
-        Skill_Bishop01,
-        Skill_Knight01,
-        
+        Trait_Tenacious,
         TroopTrait_GoldAttack
 
 

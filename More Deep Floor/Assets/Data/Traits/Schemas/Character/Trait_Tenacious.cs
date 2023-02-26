@@ -10,6 +10,7 @@ namespace LNK.MoreDeepFloor.Data.DefenderTraits.Schemas
         order = int.MaxValue)]
     public class Trait_Tenacious : TraitData
     {
-        int[] percent;
+        [SerializeField] private int[] percent;
+        public int[] Percent => percent;
     }
 }

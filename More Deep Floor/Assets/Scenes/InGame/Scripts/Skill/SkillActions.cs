@@ -39,7 +39,7 @@ namespace LNK.MoreDeepFloor.InGame.SkillSystem
     {
         public override void Act(List<Monster> targets = null)
         {
-            stateController.AddState(DefenderStateId.Skill_Knight01);
+            //stateController.AddState(DefenderStateId.Skill_Knight01);
         }
     }
 
@@ -95,7 +95,7 @@ namespace LNK.MoreDeepFloor.InGame.SkillSystem
                         //int id = status.AddSpeedBuff(-target.status.currentSpeed / 2);
                         TimerManager.instance.LateAction(slowTime, () =>
                         {
-                            buff.RemoveStack();
+                            status.speed.RemoveBuff(buff);
                             //status.RemoveSpeedBuff(id);
                         });
                     }
@@ -123,7 +123,7 @@ namespace LNK.MoreDeepFloor.InGame.SkillSystem
             {
                 Defender defender = defenders[i];
                 DefenderStateController state = defender.GetComponent<DefenderStateController>();
-                state.AddState(DefenderStateId.Skill_Bishop01 );
+                //state.AddState(DefenderStateId.Skill_Bishop01 );
             }
         }
     }

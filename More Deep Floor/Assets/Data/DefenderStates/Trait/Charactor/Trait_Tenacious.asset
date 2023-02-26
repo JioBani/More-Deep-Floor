@@ -9,14 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688fafa9306183c4ab170493a4d612ce, type: 3}
-  m_Name: TroopTrait_GoldAttack
+  m_Script: {fileID: 11500000, guid: 13344a886c0516e448e577848a5dcda6, type: 3}
+  m_Name: Trait_Tenacious
   m_EditorClassIdentifier: 
-  id: 12
-  stateName: "\uACE8\uB4DC\uC5B4\uD0DD"
+  id: 11
+  stateName: "\uC545\uCC29\uAC19\uC740"
   actionType: 2
-  description: "\uACF5\uACA9\uC2DC \uC77C\uC815 \uD655\uB960\uB85C \uACE8\uB4DC \uD655\uB4DD"
-  percentList:
-  - 1
-  - 2
-  - 4
+  description: 
+  traitData: {fileID: 11400000, guid: 0701f61e6eb38db4ea2dcc5345b179ed, type: 2}
