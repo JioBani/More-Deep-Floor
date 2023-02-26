@@ -11,19 +11,28 @@ namespace LNK.MoreDeepFloor.Data.Schemas
     public class DefenderStateTable : ScriptableObject
     {
         [SerializeField] private List<DefenderStateData> states;
-        private Dictionary<DefenderStateId, DefenderStateData> dic;
+        private Dictionary<DefenderStateId, DefenderStateData> dic = null;
 
-        private void OnValidate()
+        /*private void OnValidate()
         {
             dic = new Dictionary<DefenderStateId, DefenderStateData>();
             foreach (var stateData in states)
             {
                 dic[stateData.Id] = stateData;
             }
-        }
+        }*/
 
         public DefenderStateData Get(DefenderStateId id)
         {
+            if (dic == null)
+            {
+                dic = new Dictionary<DefenderStateId, DefenderStateData>();
+                foreach (var stateData in states)
+                {
+                    dic[stateData.Id] = stateData;
+                }
+            }
+                
             if (dic.TryGetValue(id, out var state))
                 return state;
             else

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using LNK.MoreDeepFloor.Data.Defenders.States;
@@ -12,7 +13,19 @@ namespace LNK.MoreDeepFloor.InGame.StateActions
     public class DefenderStateList : MonoBehaviour
     {
         [SerializeField] private DefenderStateTable table;
-        
+
+        private void Awake()
+        {
+            /*if (table == null)
+            {
+                Debug.LogWarning("[DefenderStateList] 데이터 오류 : DefenderStateTable 없음");
+            }
+            else
+            {
+                Debug.Log("[DefenderStateList] DefenderStateTable 확인");
+            }*/
+        }
+
         public DefenderState Get(
             DefenderStateId id , 
             Defender defender, 
