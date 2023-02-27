@@ -9,7 +9,7 @@ using LNK.MoreDeepFloor.InGame.TraitSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TraitText : MonoBehaviour
+/*public class TraitText : MonoBehaviour
 {
     private TraitManager traitManager;
     private Text traitText;
@@ -113,6 +113,6 @@ public class TraitText : MonoBehaviour
             
             traitText.text += str;
             traitText.text += "\n";
-        }*/
+        }#1#
     }
-}
+}*/

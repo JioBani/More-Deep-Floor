@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 6
   traitName: "\uAC15\uC555\uC801\uC778"
-  image: {fileID: 21300000, guid: 80a3dd439ccd97944b0ba557d6b338eb, type: 3}
+  image: {fileID: 21300000, guid: 74b866c3005b3e9478ecd358f8db54bc, type: 3}
   traitStateData: {fileID: 11400000, guid: eaff089d6d1b2764f9d3fc6dbcc68ab6, type: 2}
   traitType: 1
   synergyTrigger: 010000000200000003000000
