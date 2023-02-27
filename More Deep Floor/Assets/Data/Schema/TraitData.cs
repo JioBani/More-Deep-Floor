@@ -27,6 +27,9 @@ namespace LNK.MoreDeepFloor.Data.Schemas
         [SerializeField] private string traitName;
         public string TraitName => traitName;
 
+        [SerializeField] private Sprite image;
+        public Sprite Image => image;
+        
         [SerializeField] private DefenderStateData traitStateData;
         public DefenderStateData TraitStateData => traitStateData;
         

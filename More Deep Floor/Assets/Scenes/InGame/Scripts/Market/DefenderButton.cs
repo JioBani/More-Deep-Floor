@@ -18,6 +18,8 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
         [SerializeField] private Text goldText;
         [SerializeField] private Text jobText;
         [SerializeField] private Text characterText;
+        [SerializeField] private Image jobSprite;
+        [SerializeField] private Image characterSprite;
 
         private MarketManager marketManager;
         private UiAssetManager uiAssetManager;
@@ -43,6 +45,8 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
                 goldText.text = defenderData.cost.ToString();
                 jobText.text = defenderData.job.TraitName;
                 characterText.text = defenderData.character.TraitName;
+                jobSprite.sprite = defenderData.job.Image;
+                characterSprite.sprite = defenderData.character.Image;
             }
             catch (Exception e)
             {
