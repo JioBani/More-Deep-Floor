@@ -35,6 +35,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         [SerializeField] private SpriteRenderer manaInnerBarRenderer;
         [SerializeField] private SkillController skillController;
 
+        public delegate void OnSpawnEventHandler();
         public delegate void OnBeforeOriginalAttackEventHandler(Monster target,DefenderStateId from);
         public delegate void OnBeforeAttackEventHandler(Monster target,DefenderStateId from);
         public delegate void OnUseSkillEventHandler(Monster target, bool isFinal = false);
@@ -42,6 +43,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         public delegate void OnKillEventHandler(Monster target);
         public delegate void OnTargetHitEventHandler(Monster target , int damage);
 
+        public OnSpawnEventHandler OnSpawnAction;
         public OnBeforeOriginalAttackEventHandler OnBeforeOriginalAttackAction;
         public OnBeforeAttackEventHandler OnBeforeAttackAction;
         public OnUseSkillEventHandler OnUseSkillAction;
@@ -121,10 +123,13 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             skillController.SetSkillData(this , skillData , stateController);
             traitController.SetTrait(this);
             stateController.Init();
+            
         }
 
         public void OnSpawn()
         {
+            OnSpawnAction?.Invoke();
+            
             defenderManager.CheckMerge(this);
         }
 

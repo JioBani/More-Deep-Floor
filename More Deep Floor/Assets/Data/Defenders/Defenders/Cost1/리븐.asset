@@ -23,5 +23,5 @@ MonoBehaviour:
   cost: 1
   sprite: {fileID: 21300000, guid: 1473a938c034e01489395563d25b0264, type: 3}
   skillData: {fileID: 11400000, guid: 22bdf28b87864fe46be39299b5c81d4e, type: 2}
-  job: {fileID: 11400000, guid: ba64404342474a242a5a88c1cb816a70, type: 2}
-  character: {fileID: 11400000, guid: 0701f61e6eb38db4ea2dcc5345b179ed, type: 2}
+  job: {fileID: 11400000, guid: 0b30fd65ab4dfa644a2f4b789b73a970, type: 2}
+  character: {fileID: 11400000, guid: 00f4a8185f0c9194d80d28e56f6caade, type: 2}

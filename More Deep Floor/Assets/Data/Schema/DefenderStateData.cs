@@ -31,6 +31,15 @@ namespace LNK.MoreDeepFloor.Data.Schemas
         [TextArea][SerializeField] protected string description;
         public string Description => description;
 
+        [SerializeField] private Sprite image;
+        public Sprite Image => image;
+
+        [SerializeField] private bool isInvisible;
+        public bool IsInvisible => isInvisible;
+
+        [SerializeField] private bool isNeedStack;
+        public bool IsNeedStack => isNeedStack;
+
         public abstract DefenderState GetState(Defender defender);
     }
     

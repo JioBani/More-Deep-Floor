@@ -29,6 +29,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
 
         private DefenderStateController stateController;
         private TraitController traitController;
+        [SerializeField]private StateInfoViewController stateInfoViewController;
 
         public void Awake()
         {
@@ -58,6 +59,8 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
             {
                 state.AddStack();
                 state.OnAction(defender , null);
+                stateInfoViewController.RefreshStack(state);
+                
                 OnStateChange();
                 return state;
             }
@@ -66,6 +69,8 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
                 stateList[newState.id] = newState;
                 stateSortByType[newState.actionType].Add(newState);
                 newState.OnAction(defender, null);
+                
+                stateInfoViewController.AddStateImage(newState.stateData);
                 OnStateChange();
                 return newState;
             }
@@ -78,6 +83,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
             {
                 stateInfo.AddStack();
                 stateInfo.OnAction(defender , null);
+                
                 OnStateChange();
                 return stateInfo;
             }
@@ -94,6 +100,8 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
                 stateList[id] = newState;
                 stateSortByType[newState.actionType].Add(newState);
                 newState.OnAction(defender, null);
+                
+                stateInfoViewController.AddStateImage(newState.stateData);
                 OnStateChange();
                 return newState;
             }
@@ -112,6 +120,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
             if (!stateList[id].RemoveStack())
             {
                 stateSortByType[state.actionType].Remove(state);
+                stateInfoViewController.RemoveStateImage(state);
                 stateList.Remove(id);
             }
 

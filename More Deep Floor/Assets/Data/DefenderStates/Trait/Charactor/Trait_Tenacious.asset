@@ -16,4 +16,6 @@ MonoBehaviour:
   stateName: "\uC545\uCC29\uAC19\uC740"
   actionType: 2
   description: 
+  image: {fileID: 5000730549932156952, guid: f1d5fb7cfd5815645b8b6ab7ed21f42b, type: 3}
+  isInvisible: 1
   traitData: {fileID: 11400000, guid: 0701f61e6eb38db4ea2dcc5345b179ed, type: 2}
