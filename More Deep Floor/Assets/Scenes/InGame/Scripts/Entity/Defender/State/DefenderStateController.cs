@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using LNK.MoreDeepFloor.Data.Defenders.States;
+using LNK.MoreDeepFloor.InGame.DebugSystem;
 using LNK.MoreDeepFloor.InGame.StateActions;
 using LNK.MoreDeepFloor.InGame.TraitSystem;
 using TMPro;
@@ -11,6 +12,8 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
 {
     public class DefenderStateController : MonoBehaviour
     {
+        private DebugController debugController;
+        
         private Dictionary<DefenderStateId, DefenderState> stateList;
         
         private Dictionary<DefenderStateType, DefenderStateList> stateSortByType = new Dictionary<DefenderStateType, DefenderStateList>()
@@ -39,7 +42,8 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
             defender.OnBeforeOriginalAttackAction += BeforeOriginalAttack;
             defender.OnBeforeAttackAction += BeforeAttack;
             ReferenceManager.instance.defenderManager.OnDefenderPlaceChangeAction += OnDefenderPlaceChange;
-            
+
+            debugController = ReferenceManager.instance.debugController;
             stateController = GetComponent<DefenderStateController>();
             traitController = GetComponent<TraitController>();
         }
@@ -131,6 +135,8 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
 
         void OnStateChange()
         {
+            if(!debugController.showDefenderState) return;
+            
             string str = "";
             foreach (var state in stateList)
             {

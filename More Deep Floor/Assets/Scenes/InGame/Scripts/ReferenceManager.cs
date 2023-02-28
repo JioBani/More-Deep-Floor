@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using LNK.MoreDeepFloor.Common.TimerSystem;
+using LNK.MoreDeepFloor.InGame.DebugSystem;
 using LNK.MoreDeepFloor.InGame.Entity.Defenders;
 using LNK.MoreDeepFloor.InGame.MarketSystem;
 using LNK.MoreDeepFloor.InGame.SkillSystem;
@@ -27,6 +28,7 @@ namespace LNK.MoreDeepFloor.InGame
         public UiAssetManager uiAssetManager;
         public SkillManager skillManager;
         public TraitManager traitManager;
+        public DebugController debugController;
 
         public DefenderStateList defenderStateList;
 
