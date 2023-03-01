@@ -18,6 +18,8 @@ MonoBehaviour:
   traitStateData: {fileID: 11400000, guid: f696cbca42c361348ba54ddd4fe1b486, type: 2}
   traitType: 1
   synergyTrigger: 010000000200000003000000
-  description: 
+  description: "\uAC00\uC7A5 \uAC00\uAE4C\uC6B4 \uC218\uD638\uC790\uB4E4\uC5D0\uAC8C
+    \uCD94\uAC00 \uACF5\uACA9\uC18D\uB3C4\uB97C \uBD80\uC5EC\uD569\uB2C8\uB2E4."
+  triggerDescription: "2) 2\uBA85\uC5D0\uAC8C 20%\n4) 2\uBA85\uC5D0\uAC8C 40%"
   percent: 14000000280000003c000000
   effect: {fileID: 11400000, guid: 3cc29f0436feada47b30fcbe7fe8adde, type: 2}

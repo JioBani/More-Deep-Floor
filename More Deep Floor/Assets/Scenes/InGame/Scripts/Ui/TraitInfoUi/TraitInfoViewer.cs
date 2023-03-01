@@ -23,7 +23,7 @@ namespace LNK.MoreDeepFloor.InGame.Ui.TraitInfoUi
                 views[i].gameObject.SetActive(false);
             }
 
-            ReferenceManager.instance.traitManager.OnTraitChangeAciton += RefreshTrait;
+            ReferenceManager.instance.traitManager.OnTraitChangeAction += RefreshTrait;
         }
 
         public void RefreshTrait(Dictionary<TraitId, BattleFieldTraitInfo> traits)

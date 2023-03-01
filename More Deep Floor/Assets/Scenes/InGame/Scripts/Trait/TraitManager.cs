@@ -12,18 +12,52 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
     public class TraitManager : MonoBehaviour
     {
         public Dictionary<TraitId, BattleFieldTraitInfo> currentTraits = new Dictionary<TraitId, BattleFieldTraitInfo>();
+        public Dictionary<TraitId, List<DefenderOriginalData>> defenderSortByTrait;
+        
         [SerializeField] private TraitDataTable traitDataTable;
+        [SerializeField] private DefenderTableOriginalData defenderTableData;
+        
         private DefenderManager defenderManager;
 
         public delegate void OnTraitChangeEventHandler(Dictionary<TraitId, BattleFieldTraitInfo> traits);
 
-        public OnTraitChangeEventHandler OnTraitChangeAciton;
+        public OnTraitChangeEventHandler OnTraitChangeAction;
         
         private void Awake()
         {
+            defenderSortByTrait = new Dictionary<TraitId, List<DefenderOriginalData>>();
+            
             foreach (var traitData in traitDataTable.TraitDataList)
             {
                 currentTraits.Add(traitData.Id , new BattleFieldTraitInfo(traitData));
+            }
+            
+            for (var i = 0; i < defenderTableData.Defenders.Count; i++)
+            {
+                if (defenderSortByTrait.TryGetValue(defenderTableData.Defenders[i].Job.Id, out var defenderList))
+                {
+                    defenderList.Add(defenderTableData.Defenders[i]);
+                }
+                else
+                {
+                    List<DefenderOriginalData> list = new List<DefenderOriginalData>();
+                    list.Add(defenderTableData.Defenders[i]);
+                    defenderSortByTrait.Add(defenderTableData.Defenders[i].Job.Id , list);
+                }
+            }
+            
+            for (var i = 0; i < defenderTableData.Defenders.Count; i++)
+            {
+                if (defenderSortByTrait.TryGetValue(defenderTableData.Defenders[i].Character.Id, out var defenderList))
+                {
+                    defenderList.Add(defenderTableData.Defenders[i]);
+                }
+                else
+                {
+                    List<DefenderOriginalData> list = new List<DefenderOriginalData>();
+                    list.Add(defenderTableData.Defenders[i]);
+                    defenderSortByTrait.Add(defenderTableData.Defenders[i].Character.Id , list);
+                }
             }
             
             defenderManager = ReferenceManager.instance.defenderManager;
@@ -38,7 +72,7 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
             currentTraits[data.character.Id].AddDefender(defender , TraitType.Character);
             SetSynergyLevel(defender);
             
-            OnTraitChangeAciton?.Invoke(currentTraits);
+            OnTraitChangeAction?.Invoke(currentTraits);
         }
 
         void RemoveDefender(Defender defender)
@@ -49,7 +83,7 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
             SetSynergyLevel(defender);
             defender.GetComponent<TraitController>().OnBattleFieldExit();
 
-            OnTraitChangeAciton?.Invoke(currentTraits);
+            OnTraitChangeAction?.Invoke(currentTraits);
         }
 
         void SetSynergyLevel(Defender defender)

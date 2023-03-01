@@ -39,10 +39,13 @@ namespace LNK.MoreDeepFloor.Data.Schemas
         [SerializeField] private int[] synergyTrigger;
         public int[] SynergyTrigger => synergyTrigger;
         
-        [Space()]
-        [Space()]
+        [Space()] [Space()]
         [TextArea][SerializeField] protected string description;
         public string Description => description;
+        
+        [Space()] [Space()]
+        [TextArea][SerializeField] protected string triggerDescription;
+        public string TriggerDescription => triggerDescription;
 
         public void SetTraitId(TraitId _traitId)
         {
