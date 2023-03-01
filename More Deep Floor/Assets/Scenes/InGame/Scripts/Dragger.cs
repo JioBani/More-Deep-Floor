@@ -9,6 +9,9 @@ public class Dragger : MonoBehaviour
     private bool isDragging;
     private Vector2 startPos;
     public Void_EventHandler OnDragEnd;
+    public Void_EventHandler OnSimpleClick;
+    private float triggerTime = 0.2f;
+    private float timer = 0;
     
     private void Update() 
     {
@@ -19,7 +22,15 @@ public class Dragger : MonoBehaviour
             gameObject.transform.position = new Vector3(mousePos.x, mousePos.y, transform.position.z);
         }
     }
-    
+
+    private void FixedUpdate()
+    {
+        if (isDragging)
+        {
+            timer += Time.deltaTime;
+        }
+    }
+
     private void OnMouseDown()
     {
         //Debug.Log("OnMouseDown");
@@ -27,6 +38,7 @@ public class Dragger : MonoBehaviour
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         
         startPos = mousePos - transform.position;
+        timer = 0;
         isDragging = true;
     }
 
@@ -35,8 +47,19 @@ public class Dragger : MonoBehaviour
         //Debug.Log("OnMouseUp");
         if (isDragging)
         {
-            isDragging = false;
-            OnDragEnd?.Invoke();
+            if (timer > triggerTime)
+            {
+                isDragging = false;
+                timer = 0;
+                OnDragEnd?.Invoke();
+            }
+            else
+            {
+                isDragging = false;
+                timer = 0;
+                OnDragEnd?.Invoke();
+                OnSimpleClick?.Invoke();
+            }
         }
     }
 }

@@ -13,6 +13,7 @@ using LNK.MoreDeepFloor.InGame.MarketSystem;
 using LNK.MoreDeepFloor.InGame.SkillSystem;
 using LNK.MoreDeepFloor.InGame.Tiles;
 using LNK.MoreDeepFloor.InGame.TraitSystem;
+using LNK.MoreDeepFloor.InGame.Ui;
 using TMPro;
 using UnityEngine;
 
@@ -23,6 +24,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         private BulletManager bulletManager;
         private DefenderManager defenderManager;
         private MarketManager marketManager;
+        private UiManager uiManager;
         
         private Dragger dragger;
         private Poolable poolable;
@@ -67,6 +69,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             bulletManager = ReferenceManager.instance.bulletManager;
             defenderManager = ReferenceManager.instance.defenderManager;
             marketManager = ReferenceManager.instance.marketManager;
+            uiManager = ReferenceManager.instance.UiManager;
             
             dragger = GetComponent<Dragger>();
             poolable = GetComponent<Poolable>();
@@ -75,6 +78,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             stateController = GetComponent<DefenderStateController>();
             
             dragger.OnDragEnd += OnDragEnd;
+            dragger.OnSimpleClick += OnSimpleClick;
 
             placer.OnEnterBattleFieldAction = EnterBattleField;
             placer.OnEnterWaitingRoomAciton = EnterWaitingRoom;
@@ -126,7 +130,6 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             skillController.SetSkillData(this , skillData , stateController);
             traitController.SetTrait(this);
             stateController.Init();
-            
         }
 
         public void OnSpawn()
@@ -324,6 +327,11 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         void OnManaChanged(int maxMana, int currentMana)
         {
             manaInnerBarRenderer.size = new Vector2(status.currentMana / (float)status.currentMaxMana ,0.25f);
+        }
+
+        void OnSimpleClick()
+        {
+            uiManager.OnClickDefender(this);
         }
     }
 }

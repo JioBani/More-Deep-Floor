@@ -28,6 +28,7 @@ namespace LNK.MoreDeepFloor.InGame
         public UiAssetManager uiAssetManager;
         public SkillManager skillManager;
         public TraitManager traitManager;
+        public UiManager UiManager;
         public DebugController debugController;
 
         public DefenderStateList defenderStateList;
