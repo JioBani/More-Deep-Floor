@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using LNK.MoreDeepFloor.Common.Palettes;
 using LNK.MoreDeepFloor.Data.Defenders;
 using LNK.MoreDeepFloor.Data.Defenders.States;
 using LNK.MoreDeepFloor.Data.DefenderTraits;
@@ -31,6 +32,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         [SerializeField] private SpriteRenderer spriteRenderer;
         private Placer placer;
         [SerializeField] private TextMeshPro levelUpText;
+        [SerializeField] private SpriteRenderer frameSpriteRenderer;
         [SerializeField] private EntityCollide entityCollide;
         [SerializeField] private SpriteRenderer manaInnerBarRenderer;
         [SerializeField] private SkillController skillController;
@@ -116,6 +118,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         {
             status = new DefenderStatus(_defenderData);
             spriteRenderer.sprite = _defenderData.sprite;
+            frameSpriteRenderer.color = Palette.defenderCostColors[_defenderData.cost];
             levelUpText.text = "Lv 1";
             OnManaChanged(status.currentMaxMana , status.maxMana);
             status.OnManaChangedAction += OnManaChanged;
