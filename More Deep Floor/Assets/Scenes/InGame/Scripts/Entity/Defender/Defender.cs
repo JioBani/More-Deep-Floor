@@ -77,8 +77,8 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             traitController = GetComponent<TraitController>();
             stateController = GetComponent<DefenderStateController>();
             
-            dragger.OnDragEnd += OnDragEnd;
-            dragger.OnSimpleClick += OnSimpleClick;
+            dragger.OnDragEndAction += OnDragEnd;
+            dragger.OnSimpleClickAction += OnSimpleClick;
 
             placer.OnEnterBattleFieldAction = EnterBattleField;
             placer.OnEnterWaitingRoomAciton = EnterWaitingRoom;
