@@ -33,11 +33,11 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             
         [SerializeField] private SpriteRenderer spriteRenderer;
         private Placer placer;
-        [SerializeField] private TextMeshPro levelUpText;
         [SerializeField] private SpriteRenderer frameSpriteRenderer;
         [SerializeField] private EntityCollide entityCollide;
         [SerializeField] private SpriteRenderer manaInnerBarRenderer;
         [SerializeField] private SkillController skillController;
+        [SerializeField] private DefenderVisual defenderVisual;
 
         public delegate void OnSpawnEventHandler();
         public delegate void OnBeforeOriginalAttackEventHandler(Monster target,DefenderStateId from);
@@ -123,13 +123,13 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             status = new DefenderStatus(_defenderData);
             spriteRenderer.sprite = _defenderData.sprite;
             frameSpriteRenderer.color = Palette.defenderCostColors[_defenderData.cost];
-            levelUpText.text = "Lv 1";
             OnManaChanged(status.currentMaxMana , status.maxMana);
             status.OnManaChangedAction += OnManaChanged;
             skillData = _defenderData.skillData;
             skillController.SetSkillData(this , skillData , stateController);
             traitController.SetTrait(this);
             stateController.Init();
+            defenderVisual.SetStar(_defenderData.cost , status.level);
         }
 
         public void OnSpawn()
@@ -273,7 +273,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             if (status.level < 3)
             {
                 status.LevelUp();
-                levelUpText.text = "Lv " + status.level;
+                defenderVisual.SetStar(status.defenderData.cost , status.level);
             }
         }
 
