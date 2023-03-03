@@ -22,6 +22,7 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
             maxExp = maxExpList[level];
         }
 
+        //#. Out Index 문제 있음
         public bool ExpUp(int value)
         {
             currentExp += value;
