@@ -20,7 +20,10 @@ MonoBehaviour:
   synergyTrigger: 010000000200000003000000
   description: "\uC801 \uCC98\uCE58\uC2DC \uC77C\uC815 \uD655\uB960\uB85C \uCD94\uAC00
     \uACE8\uB4DC\uB97C \uD68D\uB4DD\uD569\uB2C8\uB2E4."
-  triggerDescription: "3) 5% 1\uACE8\uB4DC\n5) 10% 1\uACE8\uB4DC"
+  effects:
+  - 10%
+  - 20%
+  - 40%
   percent:
   - 10
   - 20

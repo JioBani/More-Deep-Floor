@@ -18,15 +18,15 @@ MonoBehaviour:
   traitStateData: {fileID: 11400000, guid: eaff089d6d1b2764f9d3fc6dbcc68ab6, type: 2}
   traitType: 1
   synergyTrigger: 010000000200000003000000
-  description: "\uC801\uC5D0\uAC8C \uD53C\uD574\uB97C \uC785\uD788\uBA74 \uB300\uC0C1\uC758
-    \uC774\uB3D9\uC18D\uB3C4\uB97C \uAC10\uC18C\uC2DC\uD0B5\uB2C8\uB2E4."
-  triggerDescription: '2) 20%
-
-    4) 40%'
+  description: "\uC801 \uACF5\uACA9\uC2DC \uC77C\uC815 \uD655\uB960\uB85C \uAE30\uC808"
+  effects:
+  - "10% , 0.5\uCD08"
+  - "20% , 0.5\uCD08"
+  - "20% , 1\uCD08"
   percent:
   - 10
   - 20
-  - 40
+  - 20
   time:
   - 0.5
   - 0.5

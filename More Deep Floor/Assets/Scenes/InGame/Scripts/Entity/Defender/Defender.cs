@@ -69,7 +69,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             bulletManager = ReferenceManager.instance.bulletManager;
             defenderManager = ReferenceManager.instance.defenderManager;
             marketManager = ReferenceManager.instance.marketManager;
-            uiManager = ReferenceManager.instance.UiManager;
+            uiManager = ReferenceManager.instance.uiManager;
             
             dragger = GetComponent<Dragger>();
             poolable = GetComponent<Poolable>();

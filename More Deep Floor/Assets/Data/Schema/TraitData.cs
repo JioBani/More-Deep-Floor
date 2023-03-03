@@ -43,9 +43,8 @@ namespace LNK.MoreDeepFloor.Data.Schemas
         [TextArea][SerializeField] protected string description;
         public string Description => description;
         
-        [Space()] [Space()]
-        [TextArea][SerializeField] protected string triggerDescription;
-        public string TriggerDescription => triggerDescription;
+        [Space()] [Space()] [SerializeField] private string[] effects;
+        public string[] Effects => effects;
 
         public void SetTraitId(TraitId _traitId)
         {
@@ -55,6 +54,18 @@ namespace LNK.MoreDeepFloor.Data.Schemas
         public void SetTraitName(string _name)
         {
             traitName = _name;
+        }
+
+        public string GetEffect(int level)
+        {
+            if (synergyTrigger.Length <= level && effects.Length <= level)
+            {
+                return "";
+            }
+            else
+            {
+                return synergyTrigger[level] + ") " + effects[level];
+            }
         }
 
         public virtual DefenderState GetTraitState(Defender defender)

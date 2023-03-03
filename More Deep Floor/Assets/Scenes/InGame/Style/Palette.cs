@@ -12,6 +12,8 @@ namespace LNK.MoreDeepFloor.InGame.Style
     public class Palette : ScriptableObject
     {
         [SerializeField] private Color panelColor;
+        
+        //[SerializeField] private Color 
     }
 }
 

@@ -32,11 +32,26 @@ namespace LNK.MoreDeepFloor.InGame.Ui.TraitInfoUi
             
             foreach (var trait in traits)
             {
-                if(trait.Value.synergyLevel != -1)
+                if(trait.Value.nums > 0)
                     list.Add(trait.Value);
             }
             
-            list = list.OrderByDescending(element => element.synergyLevel).ToList();
+            //list = list.OrderByDescending(element => element.synergyLevel).ToList();
+            list.Sort((a, b) =>
+            {
+                if (a.synergyLevel > b.synergyLevel)
+                {
+                    return -1;
+                }
+                if(a.synergyLevel < b.synergyLevel)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return b.nums.CompareTo(a.nums);
+                }
+            });
             
             for (var i = 0; i < views.Length; i++)
             {

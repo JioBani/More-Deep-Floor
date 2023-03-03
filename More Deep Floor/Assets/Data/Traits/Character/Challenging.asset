@@ -17,12 +17,13 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 4840e3df6ff326c4298f3ddc2144f5ae, type: 3}
   traitStateData: {fileID: 11400000, guid: e20795b8a13dba448a1a4e3cf3571ffc, type: 2}
   traitType: 1
-  synergyTrigger: 010000000200000003000000
+  synergyTrigger: 020000000400000006000000
   description: "\uACF5\uACA9\uC2DC \uC801\uC758 \uCD5C\uB300 \uCCB4\uB825\uC5D0 \uBE44\uB840\uD55C
     \uCD94\uAC00 \uB370\uBBF8\uC9C0\uB97C \uC785\uD799\uB2C8\uB2E4."
-  triggerDescription: '2) 1%
-
-    4) 3%'
+  effects:
+  - 1%
+  - 2%
+  - 4%
   maxHpPer:
   - 1
   - 2
