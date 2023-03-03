@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using LNK.MoreDeepFloor.Data.Schemas;
+using LNK.MoreDeepFloor.InGame.DataSchema;
 using LNK.MoreDeepFloor.InGame.TraitSystem;
 using LNK.MoreDeepFloor.Style;
 using TMPro;
@@ -9,33 +10,6 @@ using UnityEngine.UI;
 
 namespace LNK.MoreDeepFloor.InGame.Ui.TraitInfoUi
 {
-    public class DefenderImage
-    {
-        public GameObject gameObject;
-        Image image;
-        Image frame;
-        
-
-        public DefenderImage(GameObject _gameObject)
-        {
-            gameObject = _gameObject;
-            image = _gameObject.transform.GetChild(0).GetComponent<Image>();
-            frame = _gameObject.transform.GetChild(1).GetComponent<Image>();
-        }
-
-        public void SetOn(Sprite sprite, Color color)
-        {
-            image.sprite = sprite;
-            frame.color = color;
-            gameObject.SetActive(true);
-        }
-
-        public void SetOff()
-        {
-            gameObject.SetActive(false);
-        }
-    }
-    
     public class TraitDetails : MonoBehaviour
     {
         [SerializeField] private GameObject defenderImageParents;
@@ -56,7 +30,7 @@ namespace LNK.MoreDeepFloor.InGame.Ui.TraitInfoUi
             
             for (int i = 0; i < defenderImages.Length; i++)
             {
-                defenderImages[i] = new DefenderImage(defenderImageParents.transform.GetChild(i).gameObject);
+                defenderImages[i] = defenderImageParents.transform.GetChild(i).GetComponent<DefenderImage>();
             };
             
             gameObject.SetActive(false);
@@ -70,7 +44,7 @@ namespace LNK.MoreDeepFloor.InGame.Ui.TraitInfoUi
             {
                 if (i < defenders.Count)
                 {
-                    defenderImages[i].SetOn(defenders[i].Sprite , palette.CostColors[defenders[i].Cost - 1]);
+                    defenderImages[i].SetOn(new DefenderData(defenders[i]));
                 }
                 else
                 {

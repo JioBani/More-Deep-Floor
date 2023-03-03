@@ -1180,6 +1180,8 @@ MonoBehaviour:
   - {fileID: 7752725695477276545}
   - {fileID: 7522333172467183107}
   - {fileID: 435424794774083475}
+  traitOnColor: {r: 0, g: 0, b: 0, a: 0}
+  traitOffColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &5714730279322951785
 GameObject:
   m_ObjectHideFlags: 0

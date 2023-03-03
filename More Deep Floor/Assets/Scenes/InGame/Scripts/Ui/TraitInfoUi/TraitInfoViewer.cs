@@ -36,7 +36,6 @@ namespace LNK.MoreDeepFloor.InGame.Ui.TraitInfoUi
                     list.Add(trait.Value);
             }
             
-            //list = list.OrderByDescending(element => element.synergyLevel).ToList();
             list.Sort((a, b) =>
             {
                 if (a.synergyLevel > b.synergyLevel)

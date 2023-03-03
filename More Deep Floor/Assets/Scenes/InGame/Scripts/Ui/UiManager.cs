@@ -1,28 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
+using LNK.MoreDeepFloor.Data.Schemas;
+using LNK.MoreDeepFloor.InGame.DataSchema;
 using LNK.MoreDeepFloor.InGame.Entity;
 using LNK.MoreDeepFloor.InGame.TraitSystem;
-using LNK.MoreDeepFloor.InGame.Ui.DefenderInfoUi;
+using LNK.MoreDeepFloor.InGame.Ui.DefenderDataInfoUi;
+using LNK.MoreDeepFloor.InGame.Ui.DefenderStatusInfoUi;
 using LNK.MoreDeepFloor.InGame.Ui.TraitInfoUi;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace LNK.MoreDeepFloor.InGame.Ui
 {
     public class UiManager : MonoBehaviour
     {
-        [SerializeField] private DefenderInfo defenderInfo;
+        [FormerlySerializedAs("defenderInfo")] [SerializeField] private DefenderStatusInfo defenderStatusInfo;
         [SerializeField] private TraitDetails traitDetails;
+        [SerializeField] private DefenderDataInfo defenderDataInfo;
 
         public void OnClickDefender(Defender defender)
         {
-            if (defenderInfo.gameObject.activeSelf)
+            if (defenderStatusInfo.gameObject.activeSelf)
             {
-                defenderInfo.SetOff();
-                defenderInfo.SetOn(defender);
+                defenderStatusInfo.SetOff();
+                defenderStatusInfo.SetOn(defender);
             }
             else
             {
-                defenderInfo.SetOn(defender);
+                defenderStatusInfo.SetOn(defender);
             }
         }
 
@@ -36,6 +41,19 @@ namespace LNK.MoreDeepFloor.InGame.Ui
             else
             {
                 traitDetails.SetOn(pos , battleFieldTraitInfo);
+            }
+        }
+
+        public void OnClickDefenderImage(DefenderData defenderData)
+        {
+            if (defenderDataInfo.gameObject.activeSelf)
+            {
+                defenderDataInfo.SetOff();
+                defenderDataInfo.SetOn(defenderData , Input.mousePosition);
+            }
+            else
+            {
+                defenderDataInfo.SetOn(defenderData , Input.mousePosition);
             }
         }
     }
