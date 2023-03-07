@@ -37,9 +37,9 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             defenderData = _defenderData;
             level = 1;
 
-            damage = new DefenderStatusValue(_defenderData.damages[0]);
+            damage = new DefenderStatusValue(_defenderData.currentDamages[level]);
 
-            attackSpeed = new DefenderStatusValue(_defenderData.attackSpeeds[0]);
+            attackSpeed = new DefenderStatusValue(_defenderData.currentAttackSpeeds[level]);
             attackSpeedTimer = 1 / attackSpeed.currentValue;
 
             maxMana = defenderData.maxMana;
@@ -52,8 +52,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         public void LevelUp()
         {
             level++;
-            attackSpeed.SetOriginalValue(defenderData.attackSpeeds[level - 1]);
-            damage.SetOriginalValue(defenderData.damages[level - 1]);
+            RefreshStatus();
         }
 
         public bool ManaUp(int value)
@@ -111,7 +110,13 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             }
                
         }
-        
+
+        public void RefreshStatus()
+        {
+            damage.SetOriginalValue(defenderData.currentDamages[level]);
+            attackSpeed.SetOriginalValue(defenderData.currentAttackSpeeds[level]);
+            attackSpeedTimer = 1 / attackSpeed.currentValue;
+        }
     }
 }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using LNK.MoreDeepFloor.Data.Defenders.States.Schemas;
@@ -14,6 +15,17 @@ namespace LNK.MoreDeepFloor.Data.DefenderTraits.Schemas
         
         [SerializeField]private float[] attackSpeedUp;
         public float[] AttackSpeedUp => attackSpeedUp;
+    }
+    
+    public class RuntimeTrait_Gladiator : RuntimeTraitData
+    {
+        public float[] currentAttackSpeedUp;
+
+        public RuntimeTrait_Gladiator(TraitData _data) : base(_data)
+        {
+            currentAttackSpeedUp = (_data as Trait_Gladiator)?.AttackSpeedUp.Clone() as float[];
+        }
+        
     }
 }
 

@@ -9,6 +9,7 @@ using LNK.MoreDeepFloor.InGame.SkillSystem;
 using LNK.MoreDeepFloor.InGame.StateActions;
 using LNK.MoreDeepFloor.InGame.TraitSystem;
 using LNK.MoreDeepFloor.InGame.Ui;
+using LNK.MoreDeepFloor.InGame.Upgrade;
 using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame
@@ -29,6 +30,7 @@ namespace LNK.MoreDeepFloor.InGame
         public SkillManager skillManager;
         public TraitManager traitManager;
         public UiManager uiManager;
+        public UpgradeManager upgradeManager;
         public DebugController debugController;
 
         public DefenderStateList defenderStateList;

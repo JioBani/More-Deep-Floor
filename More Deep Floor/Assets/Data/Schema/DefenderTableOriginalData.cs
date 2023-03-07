@@ -9,7 +9,7 @@ namespace LNK.MoreDeepFloor.Data.Schemas
     
     public class DefenderTableOriginalData : ScriptableObject
     {
-        [SerializeField] private List<DefenderOriginalData> defenders;
+        [SerializeField] public List<DefenderOriginalData> defenders;
         public  List<DefenderOriginalData> Defenders { get { return defenders; } }
     }
 }

@@ -14,13 +14,61 @@ using UnityEngine;
 namespace LNK.MoreDeepFloor.InGame
 {
 
-    public class DefenderStatusModifier
+    /*public class DefenderStatusModifier
+    /*public class DefenderStatusModifier
     {
         public int damage = 0;
         public float attackSpeed = 0;
+    }*/
+
+    public class DefenderDataTable
+    {
+        List<DefenderData> defenderDatas;
+        public Dictionary<DefenderId, DefenderData> defenderSortById { private set; get; }
+        public List<DefenderData>[] defenderSortByCost { private set; get; }
+
+        public DefenderDataTable(DefenderTableOriginalData defenderTableOriginalData)
+        {
+            defenderDatas = new List<DefenderData>();
+            defenderSortById = new Dictionary<DefenderId, DefenderData>();
+            defenderSortByCost = new List<DefenderData>[6];
+            
+            for (var i = 0; i < defenderSortByCost.Length; i++)
+            {
+                defenderSortByCost[i] = new List<DefenderData>();
+            }
+            
+            for (var i = 0; i < defenderTableOriginalData.defenders.Count; i++)
+            {
+                DefenderData defenderData = new DefenderData(defenderTableOriginalData.defenders[i]);
+                defenderDatas.Add(defenderData);
+                defenderSortById.Add(defenderData.id, defenderData);
+                defenderSortByCost[defenderData.cost].Add(defenderData);
+            }
+        }
+
+        public DefenderData FindById(DefenderId id)
+        {
+            if (defenderSortById.TryGetValue(id, out var defender))
+            {
+                return defender;
+            }
+            else
+            {
+                Debug.LogWarning($"[DefenderDataTable.FindById()] Defender를 찾을수 없음 : {id}");
+                return null;
+            }
+        }
+        
+        public void ModifyDefenderData(DefenderDataModifier modifier)
+        {
+            for (var i = 0; i < defenderDatas.Count; i++)
+            {
+                defenderDatas[i].ModifyData(modifier);
+            }
+        }
     }
 
-    
     public class DefenderManager : MonoBehaviour
     {
         private MarketManager marketManager;
@@ -31,11 +79,12 @@ namespace LNK.MoreDeepFloor.InGame
         public List<Defender> battleDefenders = new List<Defender>();
         private int[] defenderIndex = {0,0,0,0,0,0};
 
-        public DefenderTableData defenderTableData;
+        //public DefenderTableData defenderTableData;
+        public DefenderDataTable defenderDataTable;
         public int battleDefender = 0;
         public int battleDefenderLimit = 0;
 
-        public DefenderStatusModifier defenderStatusModifier = new DefenderStatusModifier();
+        public DefenderDataModifier defenderDataModifier = new DefenderDataModifier();
         
         public delegate void OnBattleLimitInitEventHandler(int limit);
         public delegate void OnBattleFieldDefenderChangeEventHandler(int limit , List<Defender> defenders);
@@ -54,7 +103,8 @@ namespace LNK.MoreDeepFloor.InGame
         private void Awake()
         {
             marketManager = ReferenceManager.instance.marketManager;
-            defenderTableData = new DefenderTableData(defenderTableOriginalData);
+            //defenderTableData = new DefenderTableData(defenderTableOriginalData);
+            defenderDataTable = new DefenderDataTable(defenderTableOriginalData);
 
             marketManager.onInitLevelAction += OnInitLevel;
             marketManager.OnLevelUpAction += OnLevelUp;
@@ -109,7 +159,13 @@ namespace LNK.MoreDeepFloor.InGame
         public void SpawnDefenderById(DefenderId id , Tile tile)
         {
             Debug.Log($"[DefenderManager.SpawnDefenderById()] id : {id}");
-            Defender defender = SpawnDefenderAtWaitingRoom(new DefenderData(defenderTableData.FindDefenderDataById(id) , defenderStatusModifier), tile);
+            
+            /*Defender defender = SpawnDefenderAtWaitingRoom(
+                new DefenderData(defenderTableData.FindDefenderDataById(id) ,
+                    defenderDataModifier), tile);*/
+
+            Defender defender = SpawnDefenderAtWaitingRoom(defenderDataTable.FindById(id), tile);
+
             OnDefenderSpawnAction?.Invoke(defender);
         }
 
@@ -253,12 +309,33 @@ namespace LNK.MoreDeepFloor.InGame
 
         public void AddDamage(int _damage)
         {
-            defenderStatusModifier.damage += _damage;
+            defenderDataModifier.damage += _damage;
         }
         
         public void AddAttackSpeed(int _attackSpeed)
         {
-            defenderStatusModifier.attackSpeed += _attackSpeed;
+            defenderDataModifier.attackSpeed += _attackSpeed;
+        }
+
+        public void ModifyDefenderData(DefenderDataModifier modifier)
+        {
+            defenderDataTable.ModifyDefenderData(modifier);
+            
+            for (var i = 0; i < battleDefenders.Count; i++)
+            {
+                battleDefenders[i].status.RefreshStatus();
+            }
+        }
+
+        public void ModifyDefenderDataTest()
+        {
+            DefenderDataModifier modifier = new DefenderDataModifier
+            {
+                damage = 10,
+                attackSpeed = 0
+            };
+
+            ModifyDefenderData(modifier);
         }
 
         #endregion

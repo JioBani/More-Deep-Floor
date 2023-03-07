@@ -49,8 +49,8 @@ namespace LNK.MoreDeepFloor.InGame.Ui.DefenderDataInfoUi
             characterImage.sprite = defenderData.character.Image;
             characterName.text = defenderData.character.TraitName;
 
-            damageText.text = MakeDamageValue(defenderData.damages);
-            attackSpeedText.text = MakeAttackSpeedValue(defenderData.attackSpeeds);
+            damageText.text = MakeDamageValue(defenderData.currentDamages);
+            attackSpeedText.text = MakeAttackSpeedValue(defenderData.currentAttackSpeeds);
             
             gameObject.SetActive(true);
             transform.position = pos;

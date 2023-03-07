@@ -7,6 +7,12 @@ using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame.DataSchema
 {
+    public class DefenderDataModifier
+    {
+        public int damage;
+        public float attackSpeed;
+    }
+    
     public class DefenderData
     {
         public DefenderId id;
@@ -14,7 +20,9 @@ namespace LNK.MoreDeepFloor.InGame.DataSchema
         public int cost;
         public string name;
         public int[] damages;
+        public int[] currentDamages;
         public float[] attackSpeeds;
+        public float[] currentAttackSpeeds;
         public Sprite sprite;
         public int maxMana;
         public SkillData skillData;
@@ -27,7 +35,9 @@ namespace LNK.MoreDeepFloor.InGame.DataSchema
             cost = defenderOriginalData.Cost;
             name = defenderOriginalData.Name;
             damages = (int[])defenderOriginalData.Damages.Clone();
+            currentDamages = (int[])defenderOriginalData.Damages.Clone();
             attackSpeeds = (float[])defenderOriginalData.AttackSpeeds.Clone();
+            currentAttackSpeeds = (float[])defenderOriginalData.AttackSpeeds.Clone();
             sprite = defenderOriginalData.Sprite;
             maxMana = defenderOriginalData.MaxMana;
             skillData = defenderOriginalData.SkillData;
@@ -35,18 +45,32 @@ namespace LNK.MoreDeepFloor.InGame.DataSchema
             character = defenderOriginalData.Character;
         }
 
-        public DefenderData(DefenderOriginalData defenderOriginalData, DefenderStatusModifier statusModifier) : this(defenderOriginalData)
+        public DefenderData(DefenderOriginalData defenderOriginalData, DefenderDataModifier modifier) : this(defenderOriginalData)
         {
-            for (var i = 0; i < damages.Length; i++)
+            for (var i = 0; i < currentDamages.Length; i++)
             {
-                damages[i] += statusModifier.damage;
+                currentDamages[i] += modifier.damage;
             }
 
-            for (var i = 0; i < attackSpeeds.Length; i++)
+            for (var i = 0; i < currentAttackSpeeds.Length; i++)
             {
-                attackSpeeds[i] += statusModifier.attackSpeed;
+                currentAttackSpeeds[i] += modifier.attackSpeed;
             }
         }
+
+        public void ModifyData(DefenderDataModifier modifier)
+        {
+            for (var i = 0; i < currentDamages.Length; i++)
+            {
+                currentDamages[i] += modifier.damage;
+            }
+
+            for (var i = 0; i < currentAttackSpeeds.Length; i++)
+            {
+                currentAttackSpeeds[i] += modifier.attackSpeed;
+            }
+        }
+        
     }
 }
 

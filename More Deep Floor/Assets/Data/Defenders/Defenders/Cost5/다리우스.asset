@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 23
   name: "\uB2E4\uB9AC\uC6B0\uC2A4"
-  damages: 640000002c010000e8030000
+  damages: 00000000640000002c010000e8030000
   attackSpeeds:
+  - 1
   - 1
   - 1
   - 1
