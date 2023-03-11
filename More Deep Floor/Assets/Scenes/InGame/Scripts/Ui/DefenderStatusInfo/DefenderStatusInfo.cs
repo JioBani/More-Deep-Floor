@@ -16,7 +16,7 @@ namespace LNK.MoreDeepFloor.InGame.Ui.DefenderStatusInfoUi
         private DefenderData defenderData;
         private DefenderStatus defenderStatus;
 
-        private Camera camera;
+        private Camera mainCamera;
 
         [SerializeField] private Image defenderImage;
         
@@ -37,7 +37,7 @@ namespace LNK.MoreDeepFloor.InGame.Ui.DefenderStatusInfoUi
 
         public void Awake()
         {
-            camera = Camera.main;
+            mainCamera = Camera.main;
         }
 
         public void SetOn(Defender _defender)
@@ -57,7 +57,7 @@ namespace LNK.MoreDeepFloor.InGame.Ui.DefenderStatusInfoUi
 
             isOn = true;
             gameObject.SetActive(true);
-            transform.position = camera.WorldToScreenPoint(_defender.gameObject.transform.position);
+            transform.position = mainCamera.WorldToScreenPoint(_defender.gameObject.transform.position);
         }
 
         public void SetOff()

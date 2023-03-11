@@ -20,23 +20,27 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits //.
         
         public override DefenderState GetState(Defender defender)
         {
-            return new TraitState_Circus(this,traitData ,defender);
+            Debug.LogWarning("[StateData_Trait_Circus] 정상적이지 않은 방법으로 생성됨");
+            return new TraitState_Circus(this,null ,defender);
         }
     }
 
-    public class TraitState_Circus : DefenderState
+    public class TraitState_Circus : TraitState
     {
-        private StateData_Trait_Circus stateDataSpecific;
+        private RuntimeTrait_Circus runtimeTraitData;
         private int[] targetNums;
         
-        public TraitState_Circus(DefenderStateData _stateData, TraitData _traitData , Defender _defender) : base(_stateData, _defender)
+        public TraitState_Circus(DefenderStateData _stateData, RuntimeTrait_Circus _runtimeTraitData , Defender _defender) :
+            base(_stateData, _runtimeTraitData,_defender)
         {
-            targetNums = ((Trait_Circus)_traitData).TargetNumber;
+            runtimeTraitData = _runtimeTraitData;
+            targetNums = runtimeTraitData.currentTargetNumber;
         }
         
         public override void OnBeforeOriginalAttackAction(Monster target, DefenderStateId stateId)
         {
             int nums = targetNums[traitController.job.synergyLevel];
+            Debug.Log($"[TraitState_Circus] 발동 : {nums}");
             List<Monster> monsters = defender.TrySearchTargetsExpectTarget(3);
             if (stateId == DefenderStateId.Trait_Circus) return;
             

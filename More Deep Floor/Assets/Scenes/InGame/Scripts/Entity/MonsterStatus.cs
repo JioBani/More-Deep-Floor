@@ -133,14 +133,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         
         public float maxHp;
         public float currentHp;
-
-        //public MonsterStatus maxHp;
-        //public MonsterStatus currentHp;
-
-        //public float speed;
-        //public float currentSpeed;
         private Dictionary<int, float> speedBuffs;
-        private int speedBuffId;
 
         public MonsterStatusValue speed;
 
@@ -161,8 +154,6 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             
             this.gold = gold;
             this.currentGold = gold;
-
-            speedBuffId = 0;
             
             speedBuffs = new Dictionary<int, float>();
         }

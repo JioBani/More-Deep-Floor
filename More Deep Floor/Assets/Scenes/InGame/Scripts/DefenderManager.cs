@@ -304,7 +304,6 @@ namespace LNK.MoreDeepFloor.InGame
         public void SetDefenderPlaceChange(Defender defender)
         {
             OnDefenderPlaceChangeAction?.Invoke(defender);
-            Debug.Log("SetDefenderPlaceChange");
         }
 
         public void AddDamage(int _damage)

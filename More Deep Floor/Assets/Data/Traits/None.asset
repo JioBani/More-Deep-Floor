@@ -9,13 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6d3b201a1345b3acb2f8be709489be, type: 3}
+  m_Script: {fileID: 11500000, guid: 34f6173780faeb84ba6787a4df56f354, type: 3}
   m_Name: None
   m_EditorClassIdentifier: 
   id: 0
-  traitName: "\uC5C6\uC74C"
+  traitName: "\uBBFC\uAC04\uC778"
   image: {fileID: 21300000, guid: 8a815da4eaad99547862e01a90ade1d1, type: 3}
   traitStateData: {fileID: 11400000, guid: 28dca0aed65b07743b2af8d535577a59, type: 2}
   traitType: 0
   synergyTrigger: 
   description: 
+  effects: []

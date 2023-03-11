@@ -6,6 +6,7 @@ using LNK.MoreDeepFloor.Data.Defenders.States;
 using LNK.MoreDeepFloor.Data.DefenderTraits;
 using LNK.MoreDeepFloor.InGame.Entity;
 using LNK.MoreDeepFloor.InGame.Entity.Defenders.States;
+using LNK.MoreDeepFloor.InGame.TroopTraitSystem;
 using UnityEngine;
 
 namespace LNK.MoreDeepFloor.Data.Schemas
@@ -19,7 +20,7 @@ namespace LNK.MoreDeepFloor.Data.Schemas
     
     [CreateAssetMenu(fileName = "Trait Data", menuName = "Scriptable Object/Trait Data", order = int.MaxValue)]
     
-    public class TraitData : ScriptableObject
+    public abstract class TraitData : ScriptableObject
     {
         [SerializeField] private TraitId id;
         public TraitId Id => id;
@@ -30,8 +31,8 @@ namespace LNK.MoreDeepFloor.Data.Schemas
         [SerializeField] private Sprite image;
         public Sprite Image => image;
         
-        [SerializeField] private DefenderStateData traitStateData;
-        public DefenderStateData TraitStateData => traitStateData;
+        [SerializeField] private TraitStateData traitStateData;
+        public TraitStateData TraitStateData => traitStateData;
         
         [SerializeField] private TraitType traitType;
         public TraitType TraitType => traitType;
@@ -68,9 +69,11 @@ namespace LNK.MoreDeepFloor.Data.Schemas
             }
         }
 
-        public virtual DefenderState GetTraitState(Defender defender)
+        public DefenderState GetTraitState(Defender defender)
         {
             return traitStateData.GetState(defender);
         }
+
+        public abstract RuntimeTraitData GetRuntimeData();
     }
 }

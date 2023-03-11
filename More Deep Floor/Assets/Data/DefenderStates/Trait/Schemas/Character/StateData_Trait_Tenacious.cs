@@ -18,18 +18,22 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas //.
     {
         public override DefenderState GetState(Defender defender)
         {
-            return new TraitState_Tenacious(this ,traitData , defender);
+            Debug.LogWarning("[StateData_Trait_Tenacious] 정상적이지 않은 방법으로 생성됨");
+            return new TraitState_Tenacious(this ,null , defender);
         }
     }
 
-    public class TraitState_Tenacious : DefenderState
+    public class TraitState_Tenacious : TraitState
     {
         private StateData_Trait_Tenacious stateDataSpecific;
         private Trait_Tenacious traitData;
+        private RuntimeTrait_Tenacious runtimeTraitData;
         private TraitType traitType;
-        public TraitState_Tenacious(DefenderStateData _stateData, TraitData _traitData, Defender _defender) : base(_stateData, _defender)
+        public TraitState_Tenacious(DefenderStateData _stateData, RuntimeTrait_Tenacious _runtimeTraitData, Defender _defender) 
+            : base(_stateData,_runtimeTraitData ,_defender)
         {
-            traitData = _traitData as Trait_Tenacious;
+            runtimeTraitData = _runtimeTraitData;
+            traitData = _runtimeTraitData.traitData as Trait_Tenacious;
             traitType = traitData.TraitType;
         }
 
@@ -38,7 +42,7 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas //.
             //Debug.Log("TraitState_Tenacious B: " + target.status.speed.currentValue);
 
             MonsterStatusBuff statusBuff = target.status.speed.AddBuff(
-                -traitData.Percent[traitController.GetTraitInfo(traitType).synergyLevel] * 0.01f *  target.status.speed.currentValue, 
+                -runtimeTraitData.currentPercent[traitController.GetTraitInfo(traitType).synergyLevel] * 0.01f *  target.status.speed.currentValue, 
                 id.ToString());
             
             //Debug.Log("TraitState_Tenacious A: " + target.status.speed.currentValue);

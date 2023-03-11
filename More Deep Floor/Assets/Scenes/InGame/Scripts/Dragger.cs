@@ -12,8 +12,7 @@ public class Dragger : MonoBehaviour , IDragHandler, IBeginDragHandler, IEndDrag
     public Void_EventHandler OnDragEndAction;
     public Void_EventHandler OnSimpleClickAction;
     private float clickStartTime;
-    private float triggerTime = 0.2f;
-    private float timer = 0;
+    private float triggerTime = 0.1f;
     private Camera mainCamera;
 
     private void Awake()
@@ -47,7 +46,7 @@ public class Dragger : MonoBehaviour , IDragHandler, IBeginDragHandler, IEndDrag
 
     private void OnMouseUp()
     {
-        if (Time.time - clickStartTime< 0.1f)
+        if (Time.time - clickStartTime< triggerTime)
         {
             OnSimpleClickAction?.Invoke();
         }

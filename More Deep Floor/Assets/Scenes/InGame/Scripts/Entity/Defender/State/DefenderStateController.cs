@@ -59,6 +59,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
 
         public DefenderState AddState(DefenderState newState)
         {
+            Debug.Log($"[DefenderStateController.AddState()] id : {newState.id} , type : {newState.actionType}");
             if (stateList.TryGetValue(newState.id, out var state))
             {
                 state.AddStack();
@@ -169,11 +170,13 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
         void BeforeOriginalAttack(Monster target, DefenderStateId id)
         {
             stateSortByType[DefenderStateType.BeforeOriginalAttack].BeforeOriginalAttackAction(target,id);
+
         }
 
         void OnDefenderPlaceChange(Defender target)
         {
             stateSortByType[DefenderStateType.OnDefenderPlaceChange].OnDefenderPlaceChange(target);
+
         }
     }
 }

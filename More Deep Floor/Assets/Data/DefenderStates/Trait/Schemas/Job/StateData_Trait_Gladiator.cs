@@ -21,23 +21,26 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas
         
         public override DefenderState GetState(Defender defender)
         {
-            return new TraitState_Gladiator(this, traitData, defender);
+            Debug.LogWarning("[StateData_Trait_Gladiator] 정상적이지 않은 방법으로 생성됨");
+            return new TraitState_Gladiator(this, null, defender);
         }
     }
     
-    public class TraitState_Gladiator : DefenderState
+    public class TraitState_Gladiator : TraitState
     {
-        private Trait_Gladiator traitData;
+        private RuntimeTrait_Gladiator runtimeTraitData;
+        private Trait_Gladiator traitGladiator;
         
-        public TraitState_Gladiator(DefenderStateData _stateData, TraitData _traitData, Defender _defender) : base(_stateData, _defender)
+        public TraitState_Gladiator(DefenderStateData _stateData, RuntimeTrait_Gladiator _runTimeTraitData, Defender _defender) 
+            : base(_stateData,_runTimeTraitData ,  _defender)
         {
-            traitData = ((Trait_Gladiator)_traitData);
+            runtimeTraitData = _runTimeTraitData;
+            traitGladiator = _runTimeTraitData.traitData as Trait_Gladiator;
         }
         
         public override void ActiveAction(Defender caster, Monster target)
         {
-
-            Effect_Gladiator state = new Effect_Gladiator(traitData.Effect , caster,traitData.AttackSpeedUp);
+            Effect_Gladiator state = new Effect_Gladiator(traitGladiator.Effect , caster, runtimeTraitData);
             stateController.AddState(state);
         }
     }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using LNK.MoreDeepFloor.Common.TimerSystem;
+using LNK.MoreDeepFloor.Data.DefenderTraits.Schemas;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.Entity;
 using LNK.MoreDeepFloor.InGame.Entity.Defenders;
@@ -22,18 +23,19 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas
         public override DefenderState GetState(Defender defender)
         {
             Debug.LogWarning("[StateData_Effect_Gladiator.GetState()] 정상적인 방법으로 생성되지 않았습니다 : GetState");
-            return new Effect_Gladiator(this, defender,attackSpeed);
+            return new Effect_Gladiator(this, defender,null);
         }
     }
     
     //[Serializable]
     public class Effect_Gladiator : DefenderState
     {
+        private RuntimeTrait_Gladiator runtimeTraitGladiator;
         public float[] attackSpeed;
-        
-        public Effect_Gladiator(DefenderStateData _stateData, Defender _defender, float[] _attackSpeed) : base(_stateData, _defender)
+
+        public Effect_Gladiator(DefenderStateData _stateData, Defender _defender, RuntimeTrait_Gladiator runtimeTraitGladiator) : base(_stateData, _defender)
         {
-            attackSpeed = _attackSpeed;
+            attackSpeed = runtimeTraitGladiator.currentAttackSpeedUp;
         }
 
         public override void OnAction(Defender caster, Monster target)

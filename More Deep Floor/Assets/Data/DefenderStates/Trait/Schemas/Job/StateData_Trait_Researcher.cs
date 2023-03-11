@@ -21,17 +21,21 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits
         
         public override DefenderState GetState(Defender defender)
         {
-            return new TraitState_Researcher(this, traitData,defender);
+            Debug.LogWarning("[StateData_Trait_Researcher] 정상적이지 않은 방법으로 생성됨");
+            return new TraitState_Researcher(this, null,defender);
         }
     }
 
-    public class TraitState_Researcher : DefenderState
+    public class TraitState_Researcher : TraitState
     {
+        public RuntimeTrait_Researcher runtimeTraitData;
         private int[] percents;
         
-        public TraitState_Researcher(DefenderStateData _stateData, TraitData traitData, Defender _defender) : base(_stateData, _defender)
+        public TraitState_Researcher(DefenderStateData _stateData, RuntimeTrait_Researcher _runtimeTraitData, Defender _defender) 
+            : base(_stateData, _runtimeTraitData,_defender)
         {
-            percents = ((Trait_Researcher)traitData).Percent;
+            runtimeTraitData = _runtimeTraitData;
+            percents = runtimeTraitData.currentPercent;
         }
         
         public override void OnUseSkillAction(Defender caster, Monster target, bool isFinal)

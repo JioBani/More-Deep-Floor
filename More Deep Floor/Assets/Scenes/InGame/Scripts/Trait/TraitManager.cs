@@ -5,6 +5,7 @@ using LNK.MoreDeepFloor.Data.DefenderTraits;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.DataSchema;
 using LNK.MoreDeepFloor.InGame.Entity;
+using LNK.MoreDeepFloor.InGame.Entity.Defenders.States;
 using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame.TraitSystem
@@ -14,7 +15,7 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
         public Dictionary<TraitId, BattleFieldTraitInfo> currentTraits = new Dictionary<TraitId, BattleFieldTraitInfo>();
         public Dictionary<TraitId, List<DefenderOriginalData>> defenderSortByTrait;
         
-        [SerializeField] private TraitDataTable traitDataTable;
+        public TraitDataTable traitDataTable;
         [SerializeField] private DefenderTableOriginalData defenderTableData;
         
         private DefenderManager defenderManager;
@@ -63,6 +64,8 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
             defenderManager = ReferenceManager.instance.defenderManager;
             defenderManager.OnDefenderEnterBattleFieldAction += AddDefender;
             defenderManager.OnDefenderExitBattleFieldAction += RemoveDefender;
+            
+            traitDataTable.Init();
         }
 
         void AddDefender(Defender defender)

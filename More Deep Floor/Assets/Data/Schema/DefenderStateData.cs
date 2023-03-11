@@ -42,12 +42,6 @@ namespace LNK.MoreDeepFloor.Data.Schemas
 
         public abstract DefenderState GetState(Defender defender);
     }
-    
-    public abstract class TraitStateData: DefenderStateData
-    {
-        public TraitData traitData;
-    }
-
 }
 
 

@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
 {
-    public class DefenderState
+    public abstract class DefenderState
     {
         public DefenderStateId id;
         public DefenderStateData stateData;
@@ -58,7 +58,11 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
         public virtual void OnBeforeAttackAction(Monster target, DefenderStateId from){}
         
         public virtual void OnBeforeOriginalAttackAction(Monster target, DefenderStateId from){}
-        public virtual void OnDefenderPlaceChange(Defender target){}
+
+        public virtual void OnDefenderPlaceChange(Defender target)
+        {
+            Debug.LogWarning($"[DefenderState.OnDefenderPlaceChange()] 정상적이지 않은 접근 : {id}");
+        }
 
         
         public bool RemoveStack()

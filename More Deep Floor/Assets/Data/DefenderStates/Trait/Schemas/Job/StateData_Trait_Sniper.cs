@@ -20,17 +20,22 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits
         
         public override DefenderState GetState(Defender defender)
         {
-            return new TraitState_Sniper(this,traitData, defender);
+            Debug.LogWarning("[StateData_Trait_Sniper] 정상적이지 않은 방법으로 생성됨");
+            return new TraitState_Sniper(this,null , defender);
         }
     }
 
-    public class TraitState_Sniper : DefenderState
+    public class TraitState_Sniper : TraitState
     {
+        private RuntimeTrait_Sniper runtimeTraitData;
+        
         private float[] percents;
         
-        public TraitState_Sniper(DefenderStateData _stateData,TraitData traitData, Defender _defender) : base(_stateData, _defender)
+        public TraitState_Sniper(DefenderStateData _stateData, RuntimeTrait_Sniper _runtimeTraitData, Defender _defender) :
+            base(_stateData, null,_defender)
         {
-            percents = ((Trait_Sniper)traitData).Percent;
+            runtimeTraitData = _runtimeTraitData;
+            percents = runtimeTraitData.percent;
         }
         
         public override void OnTargetHitAction(Defender caster, Monster target, int damage)

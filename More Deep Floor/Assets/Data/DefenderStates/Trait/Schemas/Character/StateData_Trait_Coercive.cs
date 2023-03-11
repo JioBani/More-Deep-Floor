@@ -20,23 +20,26 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits //.
     {
         public override DefenderState GetState(Defender defender)
         {
-            return new TraitData_Coercive(this, traitData ,  defender);
+            Debug.LogWarning("[StateData_Trait_Coercive] 정상적이지 않은 방법으로 생성됨");
+            return new TraitState_Coercive(this, null,  defender);
         }
     }
 
-    public class TraitData_Coercive : DefenderState
+    public class TraitState_Coercive : TraitState
     {
-        //private StateData_Trait_Coercive stateDataSpecific;
+        private RuntimeTrait_Coercive runtimeTraitData;
         private Trait_Coercive traitData;
         private float[] percents;
         private float[] time;
         
         
-        public TraitData_Coercive(DefenderStateData _stateData, TraitData _traitData ,Defender _defender) : base(_stateData, _defender)
+        public TraitState_Coercive(DefenderStateData _stateData, RuntimeTrait_Coercive _runtimeTraitData ,Defender _defender) : 
+            base(_stateData,_runtimeTraitData, _defender)
         {
-            traitData = _traitData as Trait_Coercive;
-            percents = traitData.Percent;
-            time = traitData.Time;
+            runtimeTraitData = _runtimeTraitData;
+            traitData = runtimeTraitData.traitData as Trait_Coercive;
+            percents = runtimeTraitData.currentPercent;
+            time = runtimeTraitData.currentTime;
         }
 
         public override void OnTargetHitAction(Defender caster, Monster target, int damage)

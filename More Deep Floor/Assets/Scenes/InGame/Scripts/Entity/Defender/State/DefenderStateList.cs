@@ -78,6 +78,11 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
         {
             stateList = new List<DefenderState>();
         }
+
+        public int GetCount()
+        {
+            return stateList.Count;
+        }
     }
 }
 

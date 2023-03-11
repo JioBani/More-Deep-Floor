@@ -14,18 +14,6 @@ namespace LNK.MoreDeepFloor.InGame.StateActions
     {
         [SerializeField] private DefenderStateTable table;
 
-        private void Awake()
-        {
-            /*if (table == null)
-            {
-                Debug.LogWarning("[DefenderStateList] 데이터 오류 : DefenderStateTable 없음");
-            }
-            else
-            {
-                Debug.Log("[DefenderStateList] DefenderStateTable 확인");
-            }*/
-        }
-
         public DefenderState Get(
             DefenderStateId id , 
             Defender defender, 
@@ -33,35 +21,8 @@ namespace LNK.MoreDeepFloor.InGame.StateActions
             TraitController traitController
         )
         {
-            DefenderState state;
             DefenderStateData stateData = table.Get(id);
             return stateData.GetState(defender);
-            switch (id)
-            {
-                /*case DefenderStateId.None  : state = new State_None(id , stateData, defender); break;
-                case DefenderStateId.TraitState_Gladiator  : state = new TraitState_Gladiator(id , stateData , defender); break;
-                case DefenderStateId.Effect_Gladiator : state = new Effect_Gladiator(id , stateData , defender); break;
-                case DefenderStateId.Trait_Challenging   : state = new Trait_Challenging(id , stateData , defender); break;
-                case DefenderStateId.TraitState_Researcher   : state = new TraitState_Researcher(id , stateData , defender); break;
-                case DefenderStateId.Trait_Coercive   : state = new Trait_Coercive(id , stateData , defender); break;
-                case DefenderStateId.Trait_Encouraging   : state = new Trait_Encouraging(id , stateData , defender); break;
-                case DefenderStateId.Effect_Encouraging   : state = new Effect_Encouraging(id , stateData , defender); break;
-                case DefenderStateId.Trait_Greedy   : state = new Trait_Greedy(id , stateData , defender); break;
-                case DefenderStateId.Trait_Sniper   : state = new Trait_Sniper(id , stateData , defender); break;
-                case DefenderStateId.TraitState_Circus   : state = new TraitState_Circus(id , stateData , defender); break;*/
-                
-                //case DefenderStateId.TroopTrait_GoldAttack   : state = new TroopTraitState_GoldAttack(id , stateData , defender); break;
-                
-                //case DefenderStateId.Skill_Bishop01   : state = new Bishop01_Buff(); break;
-                //case DefenderStateId.Skill_Knight01   : state = new Knight01_Buff(); break;
-           
-                default : 
-                    //state = new State_None(id , stateData, defender);; 
-                    Debug.LogError($"[DefenderStateActionList.Get()] 상태 없음 : {id}");
-                    break;
-            }
-
-            return new DefenderState();
         }
     }
 }

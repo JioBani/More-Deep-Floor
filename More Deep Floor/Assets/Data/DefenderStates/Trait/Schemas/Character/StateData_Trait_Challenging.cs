@@ -22,19 +22,23 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits //.
         
         public override DefenderState GetState(Defender defender)
         {
-            return new TraitState_Challenging(this, traitData,  defender);
+            Debug.LogWarning("[StateData_Trait_Challenging] 정상적이지 않은 방법으로 생성됨");
+            return new TraitState_Challenging(this, null,  defender);
         }
     }
 
-    public class TraitState_Challenging : DefenderState
+    public class TraitState_Challenging : TraitState
     {
+        private RuntimeTrait_Challenging runtimeTraitData;
         private Trait_Challenging traitData;
         private float[] maxHpPer;
         
-        public TraitState_Challenging(DefenderStateData _stateData, TraitData _traitData , Defender _defender) : base(_stateData, _defender)
+        public TraitState_Challenging(DefenderStateData _stateData, RuntimeTrait_Challenging _runtimeTraitData , Defender _defender) : 
+            base(_stateData,_runtimeTraitData ,_defender)
         {
-            traitData = _traitData as Trait_Challenging;
-            maxHpPer = traitData.MaxHpPer;
+            runtimeTraitData = _runtimeTraitData;
+            traitData = runtimeTraitData.traitData as Trait_Challenging;
+            maxHpPer = runtimeTraitData.currentMaxHpPer;
         }
         
         public override void OnTargetHitAction(Defender caster, Monster target, int damage)

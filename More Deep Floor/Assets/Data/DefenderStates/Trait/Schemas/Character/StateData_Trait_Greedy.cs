@@ -20,20 +20,22 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas //.
     {
         public override DefenderState GetState(Defender defender)
         {
-            return new TraitState_Greedy(this,traitData ,defender);
+            Debug.LogWarning("[StateData_Trait_Greedy] 올바르지 않는 방법으로 생성됨");
+            return new TraitState_Greedy(this, null,defender);
         }
     }
 
-    public class TraitState_Greedy : DefenderState
+    public class TraitState_Greedy : TraitState
     {
-        private Trait_Greedy traitData;
+        private RuntimeTrait_Greedy runtimeTraitData;
         private MarketManager marketManager;
         private float[] percents;
 
-        public TraitState_Greedy(DefenderStateData _stateData,TraitData _traitData ,Defender _defender) : base(_stateData, _defender)
+        public TraitState_Greedy(DefenderStateData _stateData,RuntimeTrait_Greedy _runtimeTraitData ,Defender _defender) 
+            : base(_stateData,_runtimeTraitData ,_defender)
         {
-            traitData = _traitData as Trait_Greedy;
-            percents = traitData.Percent;
+            runtimeTraitData = _runtimeTraitData;
+            percents = runtimeTraitData.currentPercent;
         }
 
         public override void OnGenerated()

@@ -15,6 +15,7 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
     public class BattleFieldTraitInfo
     {
          public TraitData traitData;
+         public RuntimeTraitData runtimeTraitData;
          public int nums;
          public List<Defender> defenders;
          public Dictionary<DefenderId,int> defenderIds;

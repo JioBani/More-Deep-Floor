@@ -20,12 +20,14 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits //.
     {
         public override DefenderState GetState(Defender defender)
         {
-            return new TraitData_Encouraging(this, traitData , defender);
+            Debug.LogWarning("[StateData_Trait_Encouraging] 정상적이지 않은 방법으로 생성됨");
+            return new TraitState_Encouraging(this,null, defender);
         }
     }
 
-    public class TraitData_Encouraging : DefenderState
+    public class TraitState_Encouraging : TraitState
     {
+        private RuntimeTrait_Encouraging runtimeTraitData;
         private Trait_Encouraging traitData;
         private StateData_Effect_Encouraging effectData;
         private int[] percent;
@@ -34,11 +36,13 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits //.
         private DefenderManager defenderManager;
         private List<Defender> defenders = null;
         
-        public TraitData_Encouraging(DefenderStateData _stateData, TraitData _traitData, Defender _defender) : base(_stateData, _defender)
+        public TraitState_Encouraging(DefenderStateData _stateData, RuntimeTrait_Encouraging _runtimeTraitData, Defender _defender)
+            : base(_stateData, _runtimeTraitData,_defender)
         {
-            traitData = _traitData as Trait_Encouraging;
+            runtimeTraitData = _runtimeTraitData;
+            traitData = runtimeTraitData.traitData as Trait_Encouraging;
             effectData = traitData.Effect;
-            percent = traitData.Percent;
+            percent = runtimeTraitData.currentPercent;
         }
         public override void OnGenerated()
         {
@@ -47,6 +51,7 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits //.
         
         public override void OnDefenderPlaceChange(Defender target)
         {
+            Debug.Log("[TraitData_Encouraging.OnDefenderPlaceChange()]");
             level = traitController.GetTraitInfo(traitData.TraitType).synergyLevel;
             
             if (defenders != null)

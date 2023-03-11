@@ -22,13 +22,6 @@ namespace LNK.MoreDeepFloor.Data.Schemas
         [SerializeField] private Parameter[] parameters;
 
         private Dictionary<string, float> Parameters;
-
-        [SerializeField] [ReadOnly] private bool isApplied = false;
-        
-        private void OnValidate()
-        {
-            isApplied = false;
-        }
         
         public void SetParameter(Parameter[] _parameters)
         {
@@ -47,37 +40,8 @@ namespace LNK.MoreDeepFloor.Data.Schemas
             {
                 Parameters.Add(parameters[i].name , parameters[i].value);
             }
-
-            // SetDescriptionShowing();
-            isApplied = true;
         }
-
-        /*public void SetDescriptionShowing()
-        {
-            Regex reg = new Regex(@"\{(.*?)\}"); 
-            MatchCollection resultColl = reg.Matches(description);
-            List<string> parameterNames = new List<string>();
-            Dictionary<string, float> parameterDic = new Dictionary<string, float>();
-            
-            descriptionShowing = description;
-            
-            foreach (var name in parameterNames)
-            {
-                if (Parameters.TryGetValue(name , out float value))
-                {
-                    Debug.Log($"{name} : {value}");
-                    descriptionShowing = descriptionShowing.Replace(name,value.ToString());
-                    isApplied = true;
-                }
-                else
-                {
-                    Debug.Log($"파라미터 없음");
-                    descriptionShowing = descriptionShowing.Replace(name, "Unknown");
-                    isApplied = false;
-                }
-            }
-        }*/
-
+        
         public bool GetParameter(string name , out float parameter)
         {
             if (Parameters == null)

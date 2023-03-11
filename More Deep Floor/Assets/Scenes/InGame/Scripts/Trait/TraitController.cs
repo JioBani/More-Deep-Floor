@@ -15,6 +15,7 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
 {
     public class TraitInfo
     { 
+        public RuntimeTraitData runtimeTraitData;
         public TraitData traitData;
         public int synergyLevel  { get; private set; }
 
@@ -41,9 +42,11 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
             return 0;
         }
 
-        public TraitInfo(TraitData _traitData)
+        public TraitInfo(RuntimeTraitData _runtimeTraitData)
         {
-            traitData = _traitData;
+            Debug.Log(_runtimeTraitData);
+            runtimeTraitData = _runtimeTraitData;
+            traitData = _runtimeTraitData.traitData;
             synergyLevel = -1;
         }
     }
@@ -52,10 +55,10 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
     {
         private Defender defender;
         private DefenderStateController defenderStateController;
+        private TraitManager traitManager;
         public TraitInfo job;
         public TraitInfo character;
         
-        //public delegate void OnTraitLevelChangeEventHandler(TraitType traitType , l);
 
         [SerializeField] private TextMeshPro jobText;
         [SerializeField] private TextMeshPro characterText;
@@ -63,13 +66,14 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
         void Awake()
         {
             defenderStateController = GetComponent<DefenderStateController>();
+            traitManager = ReferenceManager.instance.traitManager;
             defender = GetComponent<Defender>();
         }
 
         public void SetTrait(Defender defender)
         {
-            job = new TraitInfo(defender.status.defenderData.job);
-            character = new TraitInfo(defender.status.defenderData.character);
+            job = new TraitInfo(traitManager.traitDataTable.FindRuntimeTrait(defender.status.defenderData.job.Id));
+            character = new TraitInfo(traitManager.traitDataTable.FindRuntimeTrait(defender.status.defenderData.character.Id));
             defender.OnKillAction += OnKill;
         }
 
@@ -105,8 +109,8 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
             }
             else if (result == 1)
             {
-                //defenderStateController.AddState(target.traitData.TraitStateData.Id);
-                defenderStateController.AddState(target.traitData.GetTraitState(defender));
+                defenderStateController.AddState(target.runtimeTraitData.GetState(defender));
+                Debug.Log($"[TraitController.SetSynergyLevel()] 특성 상태 추가 : {target.traitData.Id}");
             }
             
             RefreshText();

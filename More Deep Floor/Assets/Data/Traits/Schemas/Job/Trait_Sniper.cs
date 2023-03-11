@@ -1,4 +1,7 @@
+using LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits;
 using LNK.MoreDeepFloor.Data.Schemas;
+using LNK.MoreDeepFloor.InGame.Entity;
+using LNK.MoreDeepFloor.InGame.Entity.Defenders.States;
 using UnityEngine;
 
 namespace LNK.MoreDeepFloor.Data.DefenderTraits.Schemas
@@ -12,6 +15,24 @@ namespace LNK.MoreDeepFloor.Data.DefenderTraits.Schemas
     {
         [SerializeField] private float[] percent;
         public float[] Percent => percent;
+        public override RuntimeTraitData GetRuntimeData()
+        {
+            return new RuntimeTrait_Sniper(this);
+        }
+    }
+
+    public class RuntimeTrait_Sniper : RuntimeTraitData
+    {
+        public float[] percent;
+        public RuntimeTrait_Sniper(Trait_Sniper _data) : base(_data)
+        {
+            percent = _data.Percent.Clone() as float[];
+        }
+
+        public override TraitState GetState(Defender defender)
+        {
+            return new TraitState_Sniper(traitData.TraitStateData, this, defender);
+        }
     }
 }
 
