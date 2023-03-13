@@ -24,14 +24,8 @@ namespace LNK.MoreDeepFloor.Data.Schemas
         /// </summary>
         public virtual void OnAddAction(UpgradeManager upgradeManager)
         {
-            List<Defender> battleDefenders = upgradeManager.defenderManager.battleDefenders;
             
-            for (var i = 0; i < battleDefenders.Count; i++)
-            {
-                battleDefenders[i].status.damage.AddBuff(10 , upgradeName);
-            }
         }
-
     }
 }
 
