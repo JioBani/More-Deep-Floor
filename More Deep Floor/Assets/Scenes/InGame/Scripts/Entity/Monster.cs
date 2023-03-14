@@ -132,6 +132,17 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             ChangeHp((int)-bullet.firer.status.damage.currentValue, bullet.firer);
         }*/
 
+        public void SetHit(HitInfo hitInfo)
+        {
+            ChangeHp(-hitInfo.damage , hitInfo.caster);
+
+            switch (hitInfo.HitType)
+            {
+                case HitType.CommonAttack:
+                    break;
+            }
+        }
+        
         public void SetHit(int damage, Defender caster)
         {
             ChangeHp(-damage , caster);
