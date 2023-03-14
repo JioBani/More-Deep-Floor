@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.Entity;
 using LNK.MoreDeepFloor.InGame.Entity.Defenders.States;
+using LNK.MoreDeepFloor.InGame.MonsterDetectors;
 using LNK.MoreDeepFloor.InGame.Upgrade;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace LNK.MoreDeepFloor.Data.Upgrades
 {
@@ -39,6 +41,17 @@ namespace LNK.MoreDeepFloor.Data.Upgrades
             public Furious(DefenderStateData _stateData, Defender _defender) : base(_stateData, _defender)
             {
                 
+            }
+
+            public override void OnTargetHitAction(Defender caster, Monster target, int damage)
+            {
+                List<Monster> targets = MonsterDetector.Circle(target.transform.position,2);
+                
+                /*for (var i = 0; i < targets.Count; i++)
+                {
+                    if(!ReferenceEquals(target , targets[i]))
+                        //targets[i].Set("Furious" , damage);
+                }*/
             }
         }
     }
