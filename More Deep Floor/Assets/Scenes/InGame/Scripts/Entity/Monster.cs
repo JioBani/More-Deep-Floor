@@ -132,22 +132,25 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             ChangeHp((int)-bullet.firer.status.damage.currentValue, bullet.firer);
         }*/
 
-        public void SetHit(HitInfo hitInfo)
+        public void SetHit(AttackInfo attackInfo)
         {
-            ChangeHp(-hitInfo.damage , hitInfo.caster);
+            ChangeHp(-attackInfo.damage , attackInfo.caster);
+            
+            attackInfo.ActiveAttackHitAction(this);
+            attackInfo.caster.OnTargetHit(this , attackInfo);
 
-            switch (hitInfo.HitType)
+            /*switch (attackInfo.AttackType)
             {
-                case HitType.CommonAttack:
+                case AttackType.CommonAttack:
                     break;
-            }
+            }*/
         }
         
-        public void SetHit(int damage, Defender caster)
+        /*public void SetHit(int damage, Defender caster)
         {
             ChangeHp(-damage , caster);
             caster.OnTargetHit(this, damage);
-        }
+        }*/
 
         public void SetHit(float damage, Defender caster) => SetHit((int)damage, caster);
 
@@ -161,7 +164,8 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         public void SetHitWithBuff(AttackInfo attackInfo)
         {
             SetHit(attackInfo.damage, attackInfo.caster);
-            attackInfo.OnMonsterHitAction?.Invoke(this);
+            attackInfo.ActiveAttackHitAction(this);
+            //attackInfo.OnMonsterHitAction?.Invoke(this);
         }
 
         public void SetStun(bool _isStun)

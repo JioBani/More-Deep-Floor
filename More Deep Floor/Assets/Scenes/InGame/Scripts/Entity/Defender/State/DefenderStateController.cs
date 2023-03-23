@@ -36,11 +36,11 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
 
         public void Awake()
         {
-            defender.OnKillAction += OnKill;
-            defender.OnTargetHitAciton += OnTargetHit;
-            defender.OnUseSkillAction += OnUseSkill;
-            defender.OnBeforeOriginalAttackAction += BeforeOriginalAttack;
-            defender.OnBeforeAttackAction += BeforeAttack;
+            defender.eventManager.OnKillAction += OnKill;
+            defender.eventManager.OnTargetCommonHitAction += OnTargetHit;
+            defender.eventManager.AfterUseSkillAction += OnUseSkill;
+            //defender.eventManager.BeforeCommonAttackAction += BeforeOriginalAttack;
+            defender.eventManager.BeforeCommonAttackAction += BeforeAttack;
             ReferenceManager.instance.defenderManager.OnDefenderPlaceChangeAction += OnDefenderPlaceChange;
 
             debugController = ReferenceManager.instance.debugController;
@@ -152,26 +152,25 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
             stateSortByType[DefenderStateType.OnKill].Action(defender , target);
         }
 
-        void OnTargetHit(Monster target , int damage)
+        void OnTargetHit(Monster target, AttackInfo attackInfo)
         {
-            stateSortByType[DefenderStateType.OnTargetHit].OnTargetHitAction(defender , target , damage);
+            stateSortByType[DefenderStateType.OnTargetHit].OnTargetHitAction(defender , target , attackInfo.damage);
         }
 
-        void OnUseSkill(Monster target , bool isFinal)
+        void OnUseSkill(Monster target, AttackInfo attackInfo)
         {
-            stateSortByType[DefenderStateType.OnUseSkill].SkillAction(defender , target, isFinal);
+            stateSortByType[DefenderStateType.OnUseSkill].SkillAction(defender , target, attackInfo.isFinalSkill);
         }
 
-        void BeforeAttack(Monster target, DefenderStateId id)
+        void BeforeAttack(Monster target, AttackInfo attackInfo)
         {
-            stateSortByType[DefenderStateType.BeforeAttack].BeforeAttackAction(target,id);
+            stateSortByType[DefenderStateType.BeforeAttack].BeforeAttackAction(target , attackInfo);
         }
 
-        void BeforeOriginalAttack(Monster target, DefenderStateId id)
+        /*void BeforeOriginalAttack(Monster target , AttackInfo attackInfo)
         {
-            stateSortByType[DefenderStateType.BeforeOriginalAttack].BeforeOriginalAttackAction(target,id);
-
-        }
+            stateSortByType[DefenderStateType.BeforeOriginalAttack].BeforeOriginalAttackAction(target);
+        }*/
 
         void OnDefenderPlaceChange(Defender target)
         {

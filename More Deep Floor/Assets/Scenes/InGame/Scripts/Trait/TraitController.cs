@@ -74,7 +74,7 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
         {
             job = new TraitInfo(traitManager.traitDataTable.FindRuntimeTrait(defender.status.defenderData.job.Id));
             character = new TraitInfo(traitManager.traitDataTable.FindRuntimeTrait(defender.status.defenderData.character.Id));
-            defender.OnKillAction += OnKill;
+            defender.eventManager.OnKillAction += OnKill;
         }
 
 

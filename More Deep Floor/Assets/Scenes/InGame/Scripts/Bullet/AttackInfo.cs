@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame.Bullets
 {
-    public class AttackInfo
+    /*public class AttackInfo
     {
         public delegate void OnMonsterHitEventHandler(Monster monster);
         
@@ -19,7 +19,7 @@ namespace LNK.MoreDeepFloor.InGame.Bullets
             damage = _damage;
             OnMonsterHitAction = _OnMonsterHitAction;
         }
-    }
+    }*/
 }
 
 

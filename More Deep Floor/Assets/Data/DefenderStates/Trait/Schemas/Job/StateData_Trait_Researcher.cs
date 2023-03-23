@@ -51,7 +51,7 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits
                 TimerManager.instance.LateAction(0.75f , () =>
                 {
                     caster.status.SetManaGain(true);
-                    caster.UseSkillFinal();
+                    caster.UseSkill(AttackInfo.SkillAttack(caster),false);
                 });
             }
         }

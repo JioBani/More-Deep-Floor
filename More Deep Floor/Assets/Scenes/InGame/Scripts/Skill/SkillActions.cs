@@ -85,6 +85,28 @@ namespace LNK.MoreDeepFloor.InGame.SkillSystem
             {
                 Monster monster = cols[i].transform.parent.GetComponent<Monster>();
                 if(monster == null) continue;
+                //monster.SetHitWithBuff();
+                
+                AttackInfo attackInfo = AttackInfo.SkillAttack(caster);
+                
+                attackInfo.AddOnAttackHitAction((_attackInfo, _target) =>
+                {
+                    MonsterStatus status = _target.status;
+                    MonsterStatusBuff buff = status.speed.AddBuff( -status.speed.currentValue  / 2, skillData.Id.ToString());
+                    
+                    TimerManager.instance.LateAction(slowTime, () =>
+                    {
+                        status.speed.RemoveBuff(buff);
+                    });
+                });
+                
+                monster.SetHit(attackInfo);
+                
+                /*monster.SetHit(AttackInfo.SkillAttack(caster).AddOnAttackHitAction((target) =>
+                {
+                    
+                }));
+                
                 monster.SetHitWithBuff(new AttackInfo(
                     caster ,
                     (int)rangeDamage ,
@@ -99,7 +121,7 @@ namespace LNK.MoreDeepFloor.InGame.SkillSystem
                             //status.RemoveSpeedBuff(id);
                         });
                     }
-                ));
+                ));*/
             }
         }
     }

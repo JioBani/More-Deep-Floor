@@ -15,7 +15,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
         
         private void Awake()
         {
-            defender.OnSpawnAction += OnSpawn;
+            defender.eventManager.OnSpawnAction += OnSpawn;
             
             views = new StateInfoView[transform.childCount];
             

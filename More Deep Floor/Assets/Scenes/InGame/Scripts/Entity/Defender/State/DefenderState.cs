@@ -55,9 +55,9 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
 
         public virtual void OnTargetHitAction(Defender caster, Monster target, int damage) {}
         
-        public virtual void OnBeforeAttackAction(Monster target, DefenderStateId from){}
+        public virtual void OnBeforeAttackAction(Monster target, AttackInfo attackInfo){}
         
-        public virtual void OnBeforeOriginalAttackAction(Monster target, DefenderStateId from){}
+        public virtual void OnBeforeOriginalAttackAction(Monster target){}
 
         public virtual void OnDefenderPlaceChange(Defender target)
         {

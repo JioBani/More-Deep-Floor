@@ -7,6 +7,7 @@ using LNK.MoreDeepFloor.Data.Defenders.States;
 using LNK.MoreDeepFloor.Data.DefenderTraits;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.DataSchema;
+using LNK.MoreDeepFloor.InGame.DebugSystem;
 using LNK.MoreDeepFloor.InGame.Entity.Defenders;
 using LNK.MoreDeepFloor.InGame.Entity.Defenders.States;
 using LNK.MoreDeepFloor.InGame.MarketSystem;
@@ -14,11 +15,32 @@ using LNK.MoreDeepFloor.InGame.SkillSystem;
 using LNK.MoreDeepFloor.InGame.Tiles;
 using LNK.MoreDeepFloor.InGame.TraitSystem;
 using LNK.MoreDeepFloor.InGame.Ui;
+using LNK.MoreDeepFloor.InGame.Ui.DefenderDataInfoUi;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 namespace LNK.MoreDeepFloor.InGame.Entity
 {
+    public class DefenderEventManager
+    {
+        public delegate void OnSpawnEventHandler();
+        public delegate void BeforeCommonAttackEventHandler(Monster target , AttackInfo attackInfo);
+        public delegate void AfterCommonAttackEventHandler(Monster target , AttackInfo attackInfo);
+        public delegate void OnKillEventHandler(Monster target);
+        public delegate void AfterUseSkillEventHandler(Monster target, AttackInfo attackInfo);
+        public delegate void OnTargetCommonHitEventHandler(Monster target, AttackInfo attackInfo);
+
+
+        public OnSpawnEventHandler OnSpawnAction;
+        public BeforeCommonAttackEventHandler BeforeCommonAttackAction;
+        public AfterCommonAttackEventHandler AfterCommonAttackAction;
+        public OnKillEventHandler OnKillAction;
+        public AfterUseSkillEventHandler AfterUseSkillAction;
+        public OnTargetCommonHitEventHandler OnTargetCommonHitAction;
+    }
+
+
     public class Defender : MonoBehaviour
     {
         private BulletManager bulletManager;
@@ -39,23 +61,26 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         [SerializeField] private SkillController skillController;
         [SerializeField] private DefenderVisual defenderVisual;
 
-        public delegate void OnSpawnEventHandler();
+        public DefenderEventManager eventManager;
+
+        /*public delegate void OnSpawnEventHandler();
         public delegate void OnBeforeOriginalAttackEventHandler(Monster target,DefenderStateId from);
         public delegate void OnBeforeAttackEventHandler(Monster target,DefenderStateId from);
         public delegate void OnUseSkillEventHandler(Monster target, bool isFinal = false);
         public delegate void OnAttackEventHandler(Monster target);
         public delegate void OnKillEventHandler(Monster target);
         public delegate void OnTargetHitEventHandler(Monster target , int damage);
+        
+        public delegate void OnTargetCommonHitEventHandler(Monster target, HitInfo hitInfo);*/
 
-        public OnSpawnEventHandler OnSpawnAction;
+        /*public OnSpawnEventHandler OnSpawnAction;
         public OnBeforeOriginalAttackEventHandler OnBeforeOriginalAttackAction;
         public OnBeforeAttackEventHandler OnBeforeAttackAction;
         public OnUseSkillEventHandler OnUseSkillAction;
-        //private OnAttackEventHandler OnAttackAction;
         public OnKillEventHandler OnKillAction;
-        public OnTargetHitEventHandler OnTargetHitAciton;
+        public OnTargetHitEventHandler OnTargetHitAciton*/
 
-        private Monster target;
+        private Monster commonAttackTarget;
 
         public DefenderStatus status;
         private SkillData skillData;
@@ -66,6 +91,8 @@ namespace LNK.MoreDeepFloor.InGame.Entity
 
         private void Awake()
         {
+            eventManager = new DefenderEventManager();
+            
             bulletManager = ReferenceManager.instance.bulletManager;
             defenderManager = ReferenceManager.instance.defenderManager;
             marketManager = ReferenceManager.instance.marketManager;
@@ -95,9 +122,10 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             if (isOn)
             {
                 attackTimer += Time.deltaTime;
-                if (attackTimer > status.attackSpeedTimer && !ReferenceEquals(target,null))
+                if (attackTimer > status.attackSpeedTimer && !ReferenceEquals(commonAttackTarget,null))
                 {
-                    OriginalAttack();
+                    CommonAttack();
+                    //OriginalAttack();
                 }
             }
         }
@@ -134,7 +162,9 @@ namespace LNK.MoreDeepFloor.InGame.Entity
 
         public void OnSpawn()
         {
-            OnSpawnAction?.Invoke();
+            eventManager.OnSpawnAction?.Invoke();
+            
+            //OnSpawnAction?.Invoke();
             
             defenderManager.CheckMerge(this);
         }
@@ -154,14 +184,17 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             
         }
 
-        public void OnKillTarget(Monster target)
+        public void OnKillTarget(Monster _target)
         {
-            OnKillAction?.Invoke(target);
+            eventManager.OnKillAction?.Invoke(_target);
+            
+            //OnKillAction?.Invoke(target);
         }
 
-        public void OnTargetHit(Monster target, int damage)
+        public void OnTargetHit(Monster _target , AttackInfo attackInfo)
         {
-            OnTargetHitAciton?.Invoke(target,damage);
+            eventManager.OnTargetCommonHitAction?.Invoke(_target , attackInfo);
+            //OnTargetHitAciton?.Invoke(target,damage);
         }
 
         Tile SearchTile()
@@ -210,17 +243,17 @@ namespace LNK.MoreDeepFloor.InGame.Entity
 
         public void TrySetTarget(Monster _target)
         {
-            if (ReferenceEquals(target , null))
+            if (ReferenceEquals(commonAttackTarget , null))
             {
-                target = _target;
+                commonAttackTarget = _target;
             }
         }
 
         public void TrySetUnTarget(Monster _target)
         {
-            if (ReferenceEquals(target , _target))
+            if (ReferenceEquals(commonAttackTarget , _target))
             {
-                target = null;
+                commonAttackTarget = null;
             }
         }
 
@@ -263,7 +296,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
                 }
             }
 
-            if (targets.Contains(target)) targets.Remove(target);
+            if (targets.Contains(commonAttackTarget)) targets.Remove(commonAttackTarget);
 
             return targets;
         }
@@ -294,10 +327,33 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             poolable.SetOff();
         }
 
+        void CommonAttack(bool isBeforeEventOn = true, bool isAfterEventOn = true)
+        {
+            AttackInfo attackInfo = AttackInfo.CommonAttack(this);
+            if(isBeforeEventOn)
+                eventManager.BeforeCommonAttackAction?.Invoke(commonAttackTarget , attackInfo);
+            
+            bulletManager.Fire(this, commonAttackTarget.gameObject,attackInfo);
+            attackTimer = 0;
+            
+            if(status.ManaUp(20))
+            {
+                UseSkill(AttackInfo.SkillAttack(this));
+            }
+
+            if(isAfterEventOn)
+                eventManager.AfterCommonAttackAction?.Invoke(commonAttackTarget , attackInfo);
+        }
+
+        
+        /*
         void OriginalAttack()
         {
+            eventManager.BeforeCommonAttackAction?.Invoke();
+            
             OnBeforeOriginalAttackAction?.Invoke(target,DefenderStateId.None);
             OnBeforeAttackAction?.Invoke(target,DefenderStateId.None);
+            
             bulletManager.Fire(gameObject, target.gameObject);
             attackTimer = 0;
             if(status.ManaUp(20))
@@ -305,24 +361,45 @@ namespace LNK.MoreDeepFloor.InGame.Entity
                 UseSkill();
             }
         }
+        */
 
-        public void SetExtraAttack(Monster _target , DefenderStateId from)
+        
+        /// <summary>
+        /// 추가 공격(서커스단 등에서 활용) 
+        /// </summary>
+        public void SetExtraAttack(
+            Monster _target , 
+            DefenderStateId from, 
+            bool isActiveBeforeEvent = true,
+            bool isActiveAfterEvent = true)
         {
-            OnBeforeAttackAction?.Invoke(target, from);
-            bulletManager.Fire(gameObject, _target.gameObject);
+            AttackInfo attackInfo = AttackInfo.CommonAttack(this);
+            if (isActiveBeforeEvent)
+                eventManager.BeforeCommonAttackAction?.Invoke(_target , attackInfo);
+            
+            bulletManager.Fire(this, _target.gameObject , attackInfo);
+            
+            if(isActiveAfterEvent) 
+                eventManager.AfterCommonAttackAction?.Invoke(_target , attackInfo);
         }
 
-        public void UseSkill()
+        public void UseSkill(AttackInfo attackInfo , bool isActiveAfterAction = true)
         {
-            skillController.UseSkill(new List<Monster> { target });
-            OnUseSkillAction?.Invoke(target);
+            skillController.UseSkill(new List<Monster> { commonAttackTarget });
+            
+            if(isActiveAfterAction)
+                eventManager.AfterUseSkillAction?.Invoke(commonAttackTarget , attackInfo);
+            //OnUseSkillAction?.Invoke(target);
         }
 
-        public void UseSkillFinal()
+        /*public void UseSkillFinal()
         {
-            skillController.UseSkill(new List<Monster> { target });
-            OnUseSkillAction?.Invoke(target , true);
-        }
+            skillController.UseSkill(new List<Monster> { commonAttackTarget });
+            
+            eventManager.AfterUseSkillAction?.Invoke();
+            
+            //OnUseSkillAction?.Invoke(target , true);
+        }*/
 
         void OnManaChanged(int maxMana, int currentMana)
         {
