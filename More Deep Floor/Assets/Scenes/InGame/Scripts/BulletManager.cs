@@ -11,12 +11,11 @@ namespace LNK.MoreDeepFloor.InGame
     {
         public ObjectPooler objectPooler;
 
-        public void Fire(GameObject firer , GameObject target)
+        public void Fire(Defender firer , GameObject target, AttackInfo attackInfo)
         {
-            //objectPooler.Pool();
             Bullet bullet = objectPooler.Pool().GetComponent<Bullet>();
             bullet.transform.position = firer.transform.position;
-            bullet.Fire(firer.GetComponent<Defender>() , target);
+            bullet.Fire(firer , target);
         }
     }
 }
