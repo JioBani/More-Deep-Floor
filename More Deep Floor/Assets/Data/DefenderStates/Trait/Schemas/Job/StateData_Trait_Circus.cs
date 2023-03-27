@@ -28,6 +28,7 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits //.
     public class TraitState_Circus : TraitState
     {
         private RuntimeTrait_Circus runtimeTraitData;
+        private DefenderStateId stateId;
         private int[] targetNums;
         
         public TraitState_Circus(DefenderStateData _stateData, RuntimeTrait_Circus _runtimeTraitData , Defender _defender) :
@@ -35,9 +36,27 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits //.
         {
             runtimeTraitData = _runtimeTraitData;
             targetNums = runtimeTraitData.currentTargetNumber;
+            stateId = runtimeTraitData.traitData.TraitStateData.Id;
         }
-        
-        public override void OnBeforeOriginalAttackAction(Monster target, DefenderStateId stateId)
+
+        public override void BeforeCommonAttackAction(Monster target, DefenderStateId from)
+        {
+            if (from == stateId) return;
+            
+            int nums = targetNums[traitController.job.synergyLevel];
+            Debug.Log($"[TraitState_Circus] 발동 : {nums}");
+            List<Monster> monsters = defender.TrySearchTargetsExpectTarget(3);
+            if (from == DefenderStateId.Trait_Circus) return;
+            
+            for (var i = 0; i < monsters.Count; i++)
+            {
+                if(i >= nums) break;
+                defender.CommonAttack(monsters[i] , stateId);
+                //defender.SetExtraAttack(monsters[i] , DefenderStateId.Trait_Circus);
+            }
+        }
+
+        /*public override void OnBeforeOriginalAttackAction(Monster target, DefenderStateId stateId)
         {
             int nums = targetNums[traitController.job.synergyLevel];
             Debug.Log($"[TraitState_Circus] 발동 : {nums}");
@@ -49,6 +68,6 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits //.
                 if(i >= nums) break;
                 defender.SetExtraAttack(monsters[i] , DefenderStateId.Trait_Circus);
             }
-        }
+        }*/
     }
 }

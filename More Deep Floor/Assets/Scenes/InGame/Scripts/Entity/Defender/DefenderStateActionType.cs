@@ -10,8 +10,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
         Immediately,
         OnTargetHit,
         OnUseSkill,
-        BeforeOriginalAttack,
-        BeforeAttack,
-        OnDefenderPlaceChange
+        BeforeCommonAttack,
+        OnDefenderPlaceChange,
     }
 }

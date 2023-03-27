@@ -22,9 +22,11 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
             {DefenderStateType.Immediately ,  new DefenderStateList(DefenderStateType.Immediately)},
             {DefenderStateType.OnTargetHit ,  new DefenderStateList(DefenderStateType.OnTargetHit)},
             {DefenderStateType.OnUseSkill ,  new DefenderStateList(DefenderStateType.OnUseSkill)},
-            {DefenderStateType.BeforeOriginalAttack ,  new DefenderStateList(DefenderStateType.BeforeOriginalAttack)},
-            {DefenderStateType.BeforeAttack ,  new DefenderStateList(DefenderStateType.BeforeAttack)},
+            {DefenderStateType.BeforeCommonAttack  , new DefenderStateList(DefenderStateType.BeforeCommonAttack)},
             {DefenderStateType.OnDefenderPlaceChange , new DefenderStateList(DefenderStateType.OnDefenderPlaceChange)}
+
+            //{DefenderStateType.BeforeOriginalAttack ,  new DefenderStateList(DefenderStateType.BeforeOriginalAttack)},
+            //{DefenderStateType.BeforeAttack ,  new DefenderStateList(DefenderStateType.BeforeAttack)},
         };
         
         [SerializeField] private Defender defender;
@@ -39,8 +41,9 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
             defender.OnKillAction += OnKill;
             defender.OnTargetHitAciton += OnTargetHit;
             defender.OnUseSkillAction += OnUseSkill;
-            defender.OnBeforeOriginalAttackAction += BeforeOriginalAttack;
-            defender.OnBeforeAttackAction += BeforeAttack;
+            defender.BeforeCommonAttackAction += BeforeCommonAttack;
+            //defender.OnBeforeOriginalAttackAction += BeforeOriginalAttack;
+            //defender.OnBeforeAttackAction += BeforeAttack;
             ReferenceManager.instance.defenderManager.OnDefenderPlaceChangeAction += OnDefenderPlaceChange;
 
             debugController = ReferenceManager.instance.debugController;
@@ -59,7 +62,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
 
         public DefenderState AddState(DefenderState newState)
         {
-            Debug.Log($"[DefenderStateController.AddState()] id : {newState.id} , type : {newState.actionType}");
+            Debug.Log($"[DefenderStateController.AddState()] id : {newState.id} , type : {newState.actionType.ToString()}");
             if (stateList.TryGetValue(newState.id, out var state))
             {
                 state.AddStack();
@@ -71,7 +74,8 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
             }
             else
             {
-                stateList[newState.id] = newState;
+                stateList.Add(newState.id , newState);
+                //stateList[] = newState;
                 stateSortByType[newState.actionType].Add(newState);
                 newState.OnAction(defender, null);
                 
@@ -102,7 +106,8 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
                     );
                 //newState.Set(defender,this);
                 
-                stateList[id] = newState;
+                stateList.Add(id , newState);
+                //stateList[id] = newState;
                 stateSortByType[newState.actionType].Add(newState);
                 newState.OnAction(defender, null);
                 
@@ -162,16 +167,21 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
             stateSortByType[DefenderStateType.OnUseSkill].SkillAction(defender , target, isFinal);
         }
 
-        void BeforeAttack(Monster target, DefenderStateId id)
+        /*void BeforeAttack(Monster target, DefenderStateId id)
         {
             stateSortByType[DefenderStateType.BeforeAttack].BeforeAttackAction(target,id);
+        }*/
+
+        void BeforeCommonAttack(Monster target, DefenderStateId from)
+        {
+            stateSortByType[DefenderStateType.BeforeCommonAttack].BeforeCommonAttackAction(target,from);
         }
 
-        void BeforeOriginalAttack(Monster target, DefenderStateId id)
+        /*void BeforeOriginalAttack(Monster target, DefenderStateId id)
         {
             stateSortByType[DefenderStateType.BeforeOriginalAttack].BeforeOriginalAttackAction(target,id);
 
-        }
+        }*/
 
         void OnDefenderPlaceChange(Defender target)
         {

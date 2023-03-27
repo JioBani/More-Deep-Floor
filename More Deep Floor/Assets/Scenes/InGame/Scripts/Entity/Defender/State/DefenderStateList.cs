@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using LNK.MoreDeepFloor.Data.Defenders.States;
+using LNK.MoreDeepFloor.InGame.Bullets;
 using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
@@ -50,21 +51,29 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
             }
         }
 
-        public void BeforeAttackAction(Monster target, DefenderStateId id)
+        /*public void BeforeAttackAction(Monster target, AttackInfo attackInfo)
         {
             for (var i = 0; i < stateList.Count; i++)
             {
-                stateList[i].OnBeforeAttackAction(target,id);
+                stateList[i].OnBeforeAttackAction(target , attackInfo);
+            }
+        }*/
+
+        public void BeforeCommonAttackAction(Monster target, DefenderStateId from)
+        {
+            for (var i = 0; i < stateList.Count; i++)
+            {
+                stateList[i].BeforeCommonAttackAction(target , from);
             }
         }
         
-        public void BeforeOriginalAttackAction(Monster target, DefenderStateId id)
+        /*public void BeforeOriginalAttackAction(Monster target)
         {
             for (var i = 0; i < stateList.Count; i++)
             {
-                stateList[i].OnBeforeOriginalAttackAction(target,id);
+                stateList[i].OnBeforeOriginalAttackAction(target);
             }
-        }
+        }*/
 
         public void OnDefenderPlaceChange(Defender target)
         {

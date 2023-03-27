@@ -77,6 +77,11 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             }
         }
 
+        public bool IsManaFull()
+        {
+            return currentMana >= maxMana;
+        }
+
         public StatusBuff AddAttackSpeedBuff(float value, string name)
         {
             StatusBuff buff = attackSpeed.AddBuff(value , name);

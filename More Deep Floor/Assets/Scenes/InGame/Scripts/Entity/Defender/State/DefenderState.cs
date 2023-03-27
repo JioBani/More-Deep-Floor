@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using LNK.MoreDeepFloor.Data.Defenders.States;
 using LNK.MoreDeepFloor.Data.Schemas;
+using LNK.MoreDeepFloor.InGame.Bullets;
 using LNK.MoreDeepFloor.InGame.DataSchema;
 using LNK.MoreDeepFloor.InGame.TraitSystem;
 using UnityEngine;
@@ -55,9 +56,11 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
 
         public virtual void OnTargetHitAction(Defender caster, Monster target, int damage) {}
         
-        public virtual void OnBeforeAttackAction(Monster target, DefenderStateId from){}
-        
-        public virtual void OnBeforeOriginalAttackAction(Monster target, DefenderStateId from){}
+        /*public virtual void OnBeforeAttackAction(Monster target, AttackInfo attackInfo){}*/
+
+        public virtual void BeforeCommonAttackAction(Monster target, DefenderStateId from){ }
+
+        public virtual void OnBeforeOriginalAttackAction(Monster target){}
 
         public virtual void OnDefenderPlaceChange(Defender target)
         {
