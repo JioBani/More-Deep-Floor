@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using ExtensionMethods;
 using LNK.MoreDeepFloor.Data.Defenders;
 using LNK.MoreDeepFloor.Data.DefenderTraits;
 using LNK.MoreDeepFloor.Data.Schemas;
@@ -108,6 +109,14 @@ namespace LNK.MoreDeepFloor.InGame
 
             marketManager.onInitLevelAction += OnInitLevel;
             marketManager.OnLevelUpAction += OnLevelUp;
+        }
+        
+        //#. 수호자 검색
+        public List<Defender> FindDefendersByTrait(TraitId traitId)
+        {
+            return defenders.Filter((defender) => (defender.status.defenderData.character.Id == traitId) ||
+                                                  (defender.status.defenderData.job.Id == traitId));
+            
         }
 
         #region #. 커스텀 이벤트 

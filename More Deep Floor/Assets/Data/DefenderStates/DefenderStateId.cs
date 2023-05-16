@@ -19,7 +19,9 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States
         Trait_Circus,
         Effect_Encouraging,
         Trait_Tenacious,
-        TroopTrait_GoldAttack
+        TroopTrait_GoldAttack,
+        
+        Upgrade_Gladiator_Furious
 
 
     }
