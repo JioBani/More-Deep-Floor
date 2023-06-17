@@ -1,6 +1,7 @@
 using LNK.MoreDeepFloor.InGame.Entity;
 using LNK.MoreDeepFloor.InGame.MarketSystem;
 using LNK.MoreDeepFloor.InGame.Tiles;
+using LNK.MoreDeepFloor.InGame.Ui.Market;
 using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame.Ui
@@ -10,6 +11,7 @@ namespace LNK.MoreDeepFloor.InGame.Ui
         private TileManager tileManager;
         private MarketManager marketManager;
         private ObjectPooler defenderPooler;
+        public MarketBoard marketBoard;
 
         private void Awake()
         {
@@ -26,6 +28,16 @@ namespace LNK.MoreDeepFloor.InGame.Ui
         public void OnClickExpUp()
         {
             marketManager.TryBuyExp();
+        }
+
+        public void OnClickClose()
+        {
+            marketBoard.Close();
+        }
+        
+        public void OnClickOpen()
+        {
+            marketBoard.Open();
         }
     }
 }
