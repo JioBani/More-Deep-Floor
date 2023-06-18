@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
 
 namespace LNK.MoreDeepFloor.InGame.Ui.Market
@@ -14,34 +15,36 @@ namespace LNK.MoreDeepFloor.InGame.Ui.Market
         public GameObject closeButton;
         private Canvas uiCanvas;
         private bool isOpen = true;
-        public const float offset = -30;
+        public const float offset = 0;
         private float length;
         private float width;
+        private CanvasScaler scaler;
 
         private void Awake()
         {
             rect = GetComponent<RectTransform>();
             uiCanvas = ReferenceManager.instance.uiCanvas;
+            scaler = uiCanvas.GetComponent<CanvasScaler>();
         }
 
         // Start is called before the first frame update
         void Start()
         {
             width =  uiCanvas.pixelRect.width;
-            length = width / 2 + rect.sizeDelta.x / 2 + offset;
-        }
-    
-        // Update is called once per frame
-        void Update()
-        {
+            length = (width / 2 + rect.sizeDelta.x * uiCanvas.scaleFactor / 2 + offset);
             
+            openButton.SetActive(!isOpen);
+            closeButton.SetActive(isOpen);
+            
+            Logger.Log($"[MarketBoard] factor = {scaler.scaleFactor} , width = {width} , length = {length}");
         }
+        
 
         public void Close()
         {
             if(!isOpen) return;
             
-            Logger.Log($"[MarketBoard] width = {width/2 + rect.sizeDelta.x/2}");
+            Logger.Log($"[MarketBoard] length = {length}");
             transform.DOMove(transform.position + new Vector3(length,0,0) , 1f);
             openButton.SetActive(true);
             closeButton.SetActive(false);
