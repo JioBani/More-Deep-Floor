@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using LNK.MoreDeepFloor.InGame.Entity;
 using LNK.MoreDeepFloor.InGame.Tiles;
 using UnityEngine;
+using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
 
 namespace LNK.MoreDeepFloor.InGame
 {
@@ -18,7 +19,7 @@ namespace LNK.MoreDeepFloor.InGame
         public Tile[] waitingRoomTiles;
         public List<Tile> routeTiles;
         public List<Tile> roadTiles;
-        public Vector2Int battleFieldSize = new Vector2Int(10,10);
+        public Vector2Int battleFieldSize = new Vector2Int(15,5);
         public int waitingRoomSize;
         
         void Awake()
@@ -38,6 +39,7 @@ namespace LNK.MoreDeepFloor.InGame
                     tile.type = TileType.BattleField;
                     battleFieldTiles[y][x] = tile;
                     tileIndex++;
+                    Logger.Log(tileIndex);
                 }
             }
 

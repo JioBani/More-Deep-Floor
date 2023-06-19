@@ -2172,9 +2172,6 @@ MonoBehaviour:
   isStageStarted: 0
   route:
   - {x: 1, y: 1}
-  - {x: 8, y: 1}
-  - {x: 8, y: 8}
-  - {x: 1, y: 8}
   round: 0
   monsterLimit: 100
   roundTime: 30
@@ -3864,8 +3861,8 @@ MonoBehaviour:
   waitingRoomTiles: []
   routeTiles: []
   roadTiles: []
-  battleFieldSize: {x: 10, y: 10}
-  waitingRoomSize: 10
+  battleFieldSize: {x: 15, y: 5}
+  waitingRoomSize: 15
 --- !u!1 &144966638
 GameObject:
   m_ObjectHideFlags: 0
