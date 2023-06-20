@@ -7,6 +7,7 @@ using LNK.MoreDeepFloor.InGame.Entity;
 using LNK.MoreDeepFloor.InGame.MarketSystem;
 using LNK.MoreDeepFloor.InGame.Tiles;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace LNK.MoreDeepFloor.InGame
 {
@@ -16,14 +17,15 @@ namespace LNK.MoreDeepFloor.InGame
         public ObjectPooler objectPooler;
         public GameObject monsterPool;
         private MarketManager _marketManager;
-        private StageManager stageManager;
+        private TileManager tileManager;
         
         public GameObject monsterParent;
         public List<Monster> monsters = new List<Monster>();
         public int roundMonsterNums;
         public int roundOffMonsterNums;
         private RoundOriginalData _currentRoundOriginal;
-        private List<Tile> route;
+        private List<List<Tile>> routes;
+
         
         private MonsterData currentMonsterData;
 
@@ -36,7 +38,11 @@ namespace LNK.MoreDeepFloor.InGame
         private void Awake()
         {
             _marketManager = ReferenceManager.instance.marketManager;
+<<<<<<< HEAD
             stageManager = ReferenceManager.instance.stageManager;
+=======
+>>>>>>> 몬스터 가로로 움직이게
+            tileManager = ReferenceManager.instance.tileManager;
 
             ReferenceManager.instance.inGameStateManager.OnDataLoadAction += OnDataLoad;
         }
@@ -52,6 +58,17 @@ namespace LNK.MoreDeepFloor.InGame
                     ()=>OnMonsterOff(monster)
                     );
             }
+
+
+            routes = new List<List<Tile>>();
+            
+            for (int i = 0; i < 5; i++)
+            {
+                List<Tile> route = new List<Tile>();
+                route.Add(tileManager.battleFieldTiles[i][14]);
+                route.Add(tileManager.battleFieldTiles[i][0]);
+                routes.Add(route);
+            }
         }
 
         private void OnDataLoad()
@@ -60,9 +77,9 @@ namespace LNK.MoreDeepFloor.InGame
             OnMonsterNumberChangeAction?.Invoke(monsterNumber);
         }
 
-        public void StartStage(List<Tile> _route)
+        public void StartStage()
         {
-            SetRoute(_route);
+            //SetRoute();
         }
 
         public void StartRound(RoundOriginalData roundOriginalData)
@@ -82,30 +99,26 @@ namespace LNK.MoreDeepFloor.InGame
             StartCoroutine(GenerateMonsterLoop(roundMonsterNums));
         }
 
-        void SetRoute(List<Tile> _route)
-        {
-            route = _route;
-        }
 
         IEnumerator GenerateMonsterLoop(int number)
         {
             yield return new WaitForSeconds(3.0f);
             while (number != 0)
             {
-                GenerateMonster();
+                GenerateMonster(Random.Range(0,5));
                 yield return new WaitForSeconds(1.0f);
                 number--;
             }
         }
         
-        void GenerateMonster()
+        void GenerateMonster(int line)
         {
+            
             Monster monster = objectPooler.Pool(monsterParent).GetComponent<Monster>();
             monster.OnDieAction = () => OnMonsterDie(monster);
             monster.OnPassAction = () => OnMonsterPass(monster);
             monster.OnOffAction = () => OnMonsterOff(monster);
-            monster.Init(currentMonsterData);
-            monster.SetRoute(route);
+            monster.Init(currentMonsterData, line);
             monster.SetMove();
             monsters.Add(monster.GetComponent<Monster>());
 

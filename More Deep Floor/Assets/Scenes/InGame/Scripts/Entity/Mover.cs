@@ -25,6 +25,9 @@ namespace LNK.MoreDeepFloor.InGame.Entity
 
         public bool pause;
 
+        private Tile startTile;
+        private Tile endTile;
+
         public void SetRoute(List<Tile> destinations)
         {
             lastTile = ReferenceManager.instance.tileManager.battleFieldTiles[0][1];
@@ -32,8 +35,29 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             currentDestiIndex = -1;
         }
 
-        public void Move()
+        public void SetRoute(
+            List<Tile> _destinations , 
+            Tile _startTile = null , 
+            Tile _endTile = null)
         {
+            destinations = _destinations;
+            startTile = _startTile;
+            endTile = _endTile;
+            currentDestiIndex = -1;
+
+            if (ReferenceEquals(startTile, null))
+            {
+                lastTile = _destinations[0];
+            }
+            else
+            {
+                lastTile = startTile;
+            }
+        }
+
+        public void StartMove()
+        {
+            transform.position = lastTile.transform.position;
             Depart();
         }
 
