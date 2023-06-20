@@ -12,6 +12,7 @@ namespace LNK.MoreDeepFloor.InGame.Tiles
         WaitingRoom = 1 << 2, //4
         BattleField = 1 << 4, //16
         Road = 1 << 6, //64
+        SpawnPoint = 1 << 8 // 256
     }
 
 }

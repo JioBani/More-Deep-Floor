@@ -7,6 +7,7 @@ using LNK.MoreDeepFloor.InGame.Bullets;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.DamageTexts;
 using LNK.MoreDeepFloor.InGame.DataSchema;
+using LNK.MoreDeepFloor.InGame.Entity.Monsters;
 using LNK.MoreDeepFloor.InGame.MarketSystem;
 using LNK.MoreDeepFloor.InGame.Tiles;
 using TMPro;
@@ -20,7 +21,8 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         private MarketManager _marketManager;
         private ObjectPooler textPooler;
         
-        private Mover mover;
+        //private Mover mover;
+        private MonsterMover mover;
         private Animator animator;
         private Poolable poolable;
         private SpriteRenderer spriteRenderer;
@@ -42,6 +44,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         public MonsterStatus status;
         
         public bool isStun = false;
+        private int line;
 
         void Awake()
         {
@@ -50,36 +53,19 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             textPooler = ReferenceManager.instance.objectPoolingManager.textPooler;
             
             animator = GetComponent<Animator>();
-            mover = GetComponent<Mover>();
+            mover = GetComponent<MonsterMover>();
             spriteRenderer = GetComponent<SpriteRenderer>();
             poolable = GetComponent<Poolable>();
 
-            mover.OnDepartAction += (destination) =>
+            mover.OnArriveEvent = () =>
             {
-                direction = mover.GetMoveDirection();
-                switch (direction)
-                {   
-                    case Direction.Up :
-                        animator.SetTrigger(Up);
-                        break;
-                    case Direction.Down : 
-                        animator.SetTrigger(Down);
-                        break;
-                    case Direction.Left : 
-                        animator.SetTrigger(Side);
-                        spriteRenderer.flipX = false;
-                        break;
-                    case Direction.Right : 
-                        animator.SetTrigger(Side);
-                        spriteRenderer.flipX = true;
-                        break;
-                }
+                poolable.SetOff();
             };
 
-            mover.OnMoveEnd += OnPass;
+           
         }
 
-        public void Init(MonsterData _monsterData)
+        public void Init(MonsterData _monsterData , int _line)
         {
             transform.position = tileManager.battleFieldTiles[0][1].transform.position;
             innerHpBarRender.size = new Vector2(1,0.125f);
@@ -90,21 +76,36 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             hpText.text = monsterData.hp.ToString();
             
             status = new MonsterStatus(monsterData);
-            //status.OnSpeedChangeAction += OnSpeedChange;
+            line = _line;
 
-            mover.Init(status);
+            InitMover();
+        }
+
+        void InitMover()
+        {
+            mover.Init();
+            mover.SetSpeed(status.speed);
+            mover.SetRoute(
+                tileManager.monsterSpawnTiles[line].transform.position , 
+                tileManager.battleFieldTiles[line][0].transform.position);
         }
         
         public void SetMove()
         {
-            transform.position = tileManager.battleFieldTiles[0][1].transform.position;
-            mover.Move();
+            //transform.position = tileManager.battleFieldTiles[0][1].transform.position;
+            //transform.position = startTile.transform.position;
+            mover.StartMove();
         }
 
-        public void SetRoute(List<Tile> route)
+        /*public void SetRoute(Tile _startTile , List<Tile> route)
         {
-            mover.SetRoute(route);
-        }
+            mover.SetRoute(route , _startTile);
+        }*/
+
+        /*public void SetLine(int _line)
+        {
+            line = _line;
+        }*/
 
         public void SetActions(
             Void_EventHandler onDieAction,
@@ -195,11 +196,6 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         {
             innerHpBarRender.size = new Vector2((float)(status.currentHp / status.maxHp), innerHpBarRender.size.y);
         }
-
-        /*void OnSpeedChange(float currentSpeed)
-        {
-            mover.speed = currentSpeed;
-        }*/
     }
     
 }

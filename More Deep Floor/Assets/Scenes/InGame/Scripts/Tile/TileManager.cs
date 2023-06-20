@@ -14,13 +14,16 @@ namespace LNK.MoreDeepFloor.InGame
         
         public GameObject battleField;
         public GameObject waitingRoom;
+        public GameObject monsterSpawnPoint;
 
         public Tile[][] battleFieldTiles;
         public Tile[] waitingRoomTiles;
+        public Tile[] monsterSpawnTiles;
         public List<Tile> routeTiles;
         public List<Tile> roadTiles;
         public Vector2Int battleFieldSize = new Vector2Int(15,5);
         public int waitingRoomSize;
+        public int monsterSpawnPointSize;
         
         void Awake()
         {
@@ -51,6 +54,15 @@ namespace LNK.MoreDeepFloor.InGame
                 tile.index = new Vector2Int(i, 0);
                 tile.type = TileType.WaitingRoom;
                 waitingRoomTiles[i] = tile;
+            }
+
+            monsterSpawnTiles = new Tile[monsterSpawnPointSize];
+            for(int i = 0; i < monsterSpawnPoint.transform.childCount; i++)
+            {
+                Tile tile = monsterSpawnPoint.transform.GetChild(i).GetComponent<Tile>();
+                tile.index = new Vector2Int(0, i);
+                tile.type = TileType.SpawnPoint;
+                monsterSpawnTiles[i] = tile;
             }
         }
 

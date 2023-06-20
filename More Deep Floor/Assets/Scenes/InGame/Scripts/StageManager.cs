@@ -72,7 +72,7 @@ namespace LNK.MoreDeepFloor.InGame
         {
             roundTimer = new WaitForSeconds(roundTime);
             
-            monsterManager.StartStage(routeTiles);
+            monsterManager.StartStage();
             Debug.Log("[StageManager.StartStage()] 스테이지 시작");
 
             /*if(stageData.isInfinity)
