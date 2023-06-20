@@ -38,10 +38,6 @@ namespace LNK.MoreDeepFloor.InGame
         private void Awake()
         {
             _marketManager = ReferenceManager.instance.marketManager;
-<<<<<<< HEAD
-            stageManager = ReferenceManager.instance.stageManager;
-=======
->>>>>>> 몬스터 가로로 움직이게
             tileManager = ReferenceManager.instance.tileManager;
 
             ReferenceManager.instance.inGameStateManager.OnDataLoadAction += OnDataLoad;
