@@ -23459,6 +23459,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectPooler: {fileID: 1720102532}
+  objectPoolingManager: {fileID: 0}
 --- !u!1001 &1048990464
 PrefabInstance:
   m_ObjectHideFlags: 0

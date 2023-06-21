@@ -10,6 +10,7 @@ namespace LNK.MoreDeepFloor.InGame
     public class BulletManager : MonoBehaviour
     {
         public ObjectPooler objectPooler;
+        public ObjectPoolingManager objectPoolingManager;
 
         /*
         public void Fire(GameObject firer , GameObject target)
@@ -21,9 +22,14 @@ namespace LNK.MoreDeepFloor.InGame
         }
         */
 
+        void Awake()
+        {
+            objectPoolingManager = ReferenceManager.instance.objectPoolingManager;
+        }
+
         public void Fire(Entity firer, Entity target, int damage ,AttackType attackType)
         {
-            Bullet bullet = objectPooler.Pool().GetComponent<Bullet>();
+            Bullet bullet = objectPoolingManager.PoolBullet();
             bullet.transform.position = firer.transform.position;
             bullet.SetInfo(firer , target , damage , attackType);
             bullet.Fire();
