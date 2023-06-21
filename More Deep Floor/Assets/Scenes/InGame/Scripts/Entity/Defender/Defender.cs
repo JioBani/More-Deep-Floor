@@ -19,7 +19,7 @@ using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame.Entity
 {
-    public class Defender : MonoBehaviour
+    public class Defender : Entity
     {
         private BulletManager bulletManager;
         private DefenderManager defenderManager;
@@ -64,6 +64,8 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         private bool isOn = true;
         private bool isInSellZone = false;
 
+        #region #. 유니티 이벤트함수
+
         private void Awake()
         {
             bulletManager = ReferenceManager.instance.bulletManager;
@@ -102,6 +104,10 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             }
         }
 
+        #endregion
+
+        #region #. 드래그 및 클릭 이벤트 함수 
+
         private void OnEntityTriggerEnter(Collider2D col)
         {
             if (col.CompareTag("SellZone"))
@@ -117,28 +123,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
                 isInSellZone = false;
             }
         }
-
-        public void Init(DefenderData _defenderData)
-        {
-            status = new DefenderStatus(_defenderData);
-            spriteRenderer.sprite = _defenderData.sprite;
-            frameSpriteRenderer.color = Palette.defenderCostColors[_defenderData.cost];
-            OnManaChanged(status.currentMaxMana , status.maxMana);
-            status.OnManaChangedAction += OnManaChanged;
-            skillData = _defenderData.skillData;
-            skillController.SetSkillData(this , skillData , stateController);
-            traitController.SetTrait(this);
-            stateController.Init();
-            defenderVisual.SetStar(_defenderData.cost , status.level);
-        }
-
-        public void OnSpawn()
-        {
-            OnSpawnAction?.Invoke();
-            
-            defenderManager.CheckMerge(this);
-        }
-
+        
         void OnDragEnd()
         {
             if (isInSellZone)
@@ -153,37 +138,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             }
             
         }
-
-        public void OnKillTarget(Monster target)
-        {
-            OnKillAction?.Invoke(target);
-        }
-
-        public void OnTargetHit(Monster target, int damage)
-        {
-            OnTargetHitAciton?.Invoke(target,damage);
-        }
-
-        Tile SearchTile()
-        {
-            int layerMask = 1 << LayerMask.NameToLayer("Tile");
-            Collider2D collider2D = Physics2D.OverlapPoint(transform.position,layerMask);
-
-            if (!ReferenceEquals(collider2D, null))
-            {
-                return collider2D.gameObject.GetComponent<Tile>();
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        public void SpawnAtWaitingRoom(Tile tile)
-        {
-            placer.TryMove(tile);
-        }
-
+        
         public void EnterWaitingRoom()
         {
             defenderManager.OnDefenderEnterWaitingRoom(this);
@@ -207,6 +162,140 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         {
             defenderManager.OnDefenderExitBattleField(this);
         }       
+        
+        void OnSimpleClick()
+        {
+            uiManager.OnClickDefender(this);
+        }
+        
+       
+
+        #endregion
+
+        #region #. 앤티티 이벤트 함수
+
+        public void Init(DefenderData _defenderData)
+        {
+            status = new DefenderStatus(_defenderData);
+            spriteRenderer.sprite = _defenderData.sprite;
+            frameSpriteRenderer.color = Palette.defenderCostColors[_defenderData.cost];
+            OnManaChanged(status.currentMaxMana , status.currentMana);
+            status.OnManaChangedAction += OnManaChanged;
+            skillData = _defenderData.skillData;
+            skillController.SetSkillData(this , skillData , stateController);
+            traitController.SetTrait(this);
+            stateController.Init();
+            defenderVisual.SetStar(_defenderData.cost , status.level);
+        }
+        
+        public void OnSpawn()
+        {
+            OnSpawnAction?.Invoke();
+            
+            defenderManager.CheckMerge(this);
+        }
+        
+        public void OnKillTarget(Monster target)
+        {
+            OnKillAction?.Invoke(target);
+        }
+
+        public void OnTargetHit(Monster target, int damage)
+        {
+            OnTargetHitAciton?.Invoke(target,damage);
+        }
+
+        public void SpawnAtWaitingRoom(Tile tile)
+        {
+            placer.TryMove(tile);
+        }
+        
+        void OnManaChanged(int maxMana, int currentMana)
+        {
+            manaInnerBarRenderer.size = new Vector2(status.currentMana / (float)status.currentMaxMana ,0.25f);
+        }
+
+       
+
+        #endregion
+
+        #region #. 행동 함수
+        void LevelUp()
+        {
+            if (status.level < 3)
+            {
+                status.LevelUp();
+                defenderVisual.SetStar(status.defenderData.cost , status.level);
+            }
+        }
+
+        public void Merge()
+        {
+            LevelUp();
+        }
+
+        public void BeMerged(Defender _defender)
+        {
+            SetOff();
+        }
+
+        public void SetOff()
+        {
+            defenderManager.OnDefenderOff(this);
+            placer.SetOff();
+            poolable.SetOff();
+        }
+
+        void OriginalAttack()
+        {
+            OnBeforeOriginalAttackAction?.Invoke(target,DefenderStateId.None);
+            OnBeforeAttackAction?.Invoke(target,DefenderStateId.None);
+            bulletManager.Fire(gameObject, target.gameObject);
+            attackTimer = 0;
+            if(status.ManaUp(20))
+            {
+                UseSkill();
+            }
+        }
+
+        public void SetExtraAttack(Monster _target , DefenderStateId from)
+        {
+            OnBeforeAttackAction?.Invoke(target, from);
+            bulletManager.Fire(gameObject, _target.gameObject);
+        }
+
+        public void UseSkill()
+        {
+            skillController.UseSkill(new List<Monster> { target });
+            OnUseSkillAction?.Invoke(target);
+        }
+
+        public void UseSkillFinal()
+        {
+            skillController.UseSkill(new List<Monster> { target });
+            OnUseSkillAction?.Invoke(target , true);
+        }
+        
+
+        #endregion
+
+        Tile SearchTile()
+        {
+            int layerMask = 1 << LayerMask.NameToLayer("Tile");
+            Collider2D collider2D = Physics2D.OverlapPoint(transform.position,layerMask);
+
+            if (!ReferenceEquals(collider2D, null))
+            {
+                return collider2D.gameObject.GetComponent<Tile>();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+       
+        
 
         public void TrySetTarget(Monster _target)
         {
@@ -268,71 +357,11 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             return targets;
         }
 
-        void LevelUp()
-        {
-            if (status.level < 3)
-            {
-                status.LevelUp();
-                defenderVisual.SetStar(status.defenderData.cost , status.level);
-            }
-        }
+        
 
-        public void Merge()
-        {
-            LevelUp();
-        }
 
-        public void BeMerged(Defender _defender)
-        {
-            SetOff();
-        }
 
-        public void SetOff()
-        {
-            defenderManager.OnDefenderOff(this);
-            placer.SetOff();
-            poolable.SetOff();
-        }
-
-        void OriginalAttack()
-        {
-            OnBeforeOriginalAttackAction?.Invoke(target,DefenderStateId.None);
-            OnBeforeAttackAction?.Invoke(target,DefenderStateId.None);
-            bulletManager.Fire(gameObject, target.gameObject);
-            attackTimer = 0;
-            if(status.ManaUp(20))
-            {
-                UseSkill();
-            }
-        }
-
-        public void SetExtraAttack(Monster _target , DefenderStateId from)
-        {
-            OnBeforeAttackAction?.Invoke(target, from);
-            bulletManager.Fire(gameObject, _target.gameObject);
-        }
-
-        public void UseSkill()
-        {
-            skillController.UseSkill(new List<Monster> { target });
-            OnUseSkillAction?.Invoke(target);
-        }
-
-        public void UseSkillFinal()
-        {
-            skillController.UseSkill(new List<Monster> { target });
-            OnUseSkillAction?.Invoke(target , true);
-        }
-
-        void OnManaChanged(int maxMana, int currentMana)
-        {
-            manaInnerBarRenderer.size = new Vector2(status.currentMana / (float)status.currentMaxMana ,0.25f);
-        }
-
-        void OnSimpleClick()
-        {
-            uiManager.OnClickDefender(this);
-        }
+        
     }
 }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,18 @@ namespace LNK.MoreDeepFloor.Common.Loggers
         {
             if(isLoggerOn)
                 Debug.Log(msg);
+        }
+
+        public static void LogWarning(object msg)
+        {
+            if(isLoggerOn)
+                Debug.LogWarning(msg);
+        }
+        
+        public static void LogException(Exception e)
+        {
+            if(isLoggerOn)
+                Debug.LogException(e);
         }
     }
 }

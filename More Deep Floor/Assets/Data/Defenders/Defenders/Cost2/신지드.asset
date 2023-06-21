@@ -12,17 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb95dc27746f76d4dac76cf0d98a2ce5, type: 3}
   m_Name: "\uC2E0\uC9C0\uB4DC"
   m_EditorClassIdentifier: 
-  id: 10
   name: "\uC2E0\uC9C0\uB4DC"
+  sprite: {fileID: 21300000, guid: 7bfe156a631655e40af711d4c07bcd6d, type: 3}
   damages: 0000000007000000190000004b000000
   attackSpeeds:
   - 1
   - 1
   - 1
   - 1
-  maxMana: 200
+  ranges: []
+  magicalPowers: []
+  criticalRates: []
+  heathPoints: []
+  physicalDefenses: []
+  magicalDefenses: []
+  moveSpeeds: []
+  maxManas: 64000000
+  id: 10
+  name: "\uC2E0\uC9C0\uB4DC"
   cost: 2
-  sprite: {fileID: 21300000, guid: 7bfe156a631655e40af711d4c07bcd6d, type: 3}
   skillData: {fileID: 11400000, guid: 43fcc9762829b634dbe833772f269f5e, type: 2}
   job: {fileID: 11400000, guid: 0b30fd65ab4dfa644a2f4b789b73a970, type: 2}
   character: {fileID: 11400000, guid: 0701f61e6eb38db4ea2dcc5345b179ed, type: 2}

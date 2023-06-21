@@ -15,7 +15,7 @@ using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame.Entity
 {
-    public class Monster : MonoBehaviour
+    public class Monster : Entity
     {
         private TileManager tileManager;
         private MarketManager _marketManager;

@@ -1,9 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using ExtensionMethods;
 using LNK.MoreDeepFloor.Common.TimerSystem;
 using LNK.MoreDeepFloor.InGame.DataSchema;
 using LNK.MoreDeepFloor.InGame.Entity.Defenders;
 using UnityEngine;
+using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
+
+
 
 namespace LNK.MoreDeepFloor.InGame.Entity
 {
@@ -14,7 +19,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         
         public int level;
         public float attackSpeedTimer;
-        public int maxMana;
+        //public float maxMana;
         public int currentMaxMana;
         public int currentMana;
 
@@ -42,8 +47,9 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             attackSpeed = new DefenderStatusValue(_defenderData.currentAttackSpeeds[level]);
             attackSpeedTimer = 1 / attackSpeed.currentValue;
 
-            maxMana = defenderData.maxMana;
-            currentMaxMana = defenderData.maxMana;
+            currentMaxMana = defenderData.currentMaxManas.SaveGet(0, 100);
+            currentMana = defenderData.currentMaxManas.SaveGet(0, 100);
+            
             currentMana = 0;
 
             buffList = new Dictionary<string, int>();
@@ -120,4 +126,15 @@ namespace LNK.MoreDeepFloor.InGame.Entity
     }
 }
 
+class StatusException<T> : Exception
+{
+    private string id;
+    private T defalutValue;
+    
+    public StatusException(string _id, T _defalutValue) : base()
+    {
+        id = _id;
+        defalutValue = _defalutValue;
+    }
+}
 
