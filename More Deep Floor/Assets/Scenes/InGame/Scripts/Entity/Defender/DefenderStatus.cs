@@ -29,10 +29,20 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         public Dictionary<string, int> buffList;
 
         public delegate void OnManaChangedEventHandler(int maxMana, int currentMana);
+        public delegate void OnHpChangedEventHandler(float maxHp, float currentHp);
+
         public OnManaChangedEventHandler OnManaChangedAction;
+        public OnHpChangedEventHandler OnHpChangedAction;
 
         public DefenderStatusValue damage;
         public DefenderStatusValue attackSpeed;
+        public DefenderStatusValue maxHp;
+
+        public float currentHp
+        {
+            get;
+            private set;
+        }
 
         public DefenderStatus(DefenderData _defenderData)
         {
@@ -47,6 +57,10 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             attackSpeed = new DefenderStatusValue(_defenderData.currentAttackSpeeds[level]);
             attackSpeedTimer = 1 / attackSpeed.currentValue;
 
+            maxHp = new DefenderStatusValue(_defenderData.heathPoints[level]);
+            currentHp = maxHp.currentValue;
+            
+            
             currentMaxMana = defenderData.currentMaxManas.SaveGet(0, 100);
             currentMana = defenderData.currentMaxManas.SaveGet(0, 100);
             
@@ -117,6 +131,13 @@ namespace LNK.MoreDeepFloor.InGame.Entity
                
         }
 
+        public void ChangeHp(float value)
+        {
+            currentHp += value;
+            if (currentHp > maxHp.currentValue) currentHp = maxHp.currentValue;
+            else if (currentHp < 0) currentHp = 0;
+        }
+
         public void RefreshStatus()
         {
             damage.SetOriginalValue(defenderData.currentDamages[level]);
@@ -126,15 +147,4 @@ namespace LNK.MoreDeepFloor.InGame.Entity
     }
 }
 
-class StatusException<T> : Exception
-{
-    private string id;
-    private T defalutValue;
-    
-    public StatusException(string _id, T _defalutValue) : base()
-    {
-        id = _id;
-        defalutValue = _defalutValue;
-    }
-}
 

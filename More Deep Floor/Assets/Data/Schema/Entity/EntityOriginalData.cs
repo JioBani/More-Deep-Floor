@@ -39,8 +39,8 @@ namespace LNK.MoreDeepFloor.Data.Entity
         
         
         //#. 체력
-        [SerializeField] private float[] heathPoints;
-        public float[] HeathPoints => heathPoints;
+        [SerializeField] private int[] heathPoints;
+        public int[] HeathPoints => heathPoints;
         
         //#. 물리방어력
         [SerializeField] private float[] physicalDefenses;

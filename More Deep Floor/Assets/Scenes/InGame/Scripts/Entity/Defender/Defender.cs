@@ -16,6 +16,7 @@ using LNK.MoreDeepFloor.InGame.TraitSystem;
 using LNK.MoreDeepFloor.InGame.Ui;
 using TMPro;
 using UnityEngine;
+using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
 
 namespace LNK.MoreDeepFloor.InGame.Entity
 {
@@ -38,6 +39,9 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         [SerializeField] private SpriteRenderer manaInnerBarRenderer;
         [SerializeField] private SkillController skillController;
         [SerializeField] private DefenderVisual defenderVisual;
+        [SerializeField] private TextMeshPro hpText;
+        [SerializeField] private SpriteRenderer hpBar;
+        
 
         public delegate void OnSpawnEventHandler();
         public delegate void OnBeforeOriginalAttackEventHandler(Monster target,DefenderStateId from);
@@ -46,6 +50,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         public delegate void OnAttackEventHandler(Monster target);
         public delegate void OnKillEventHandler(Monster target);
         public delegate void OnTargetHitEventHandler(Monster target , int damage);
+
 
         public OnSpawnEventHandler OnSpawnAction;
         public OnBeforeOriginalAttackEventHandler OnBeforeOriginalAttackAction;
@@ -180,7 +185,10 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             spriteRenderer.sprite = _defenderData.sprite;
             frameSpriteRenderer.color = Palette.defenderCostColors[_defenderData.cost];
             OnManaChanged(status.currentMaxMana , status.currentMana);
+            
             status.OnManaChangedAction += OnManaChanged;
+            status.OnHpChangedAction += OnHpChanged;
+            
             skillData = _defenderData.skillData;
             skillController.SetSkillData(this , skillData , stateController);
             traitController.SetTrait(this);
@@ -193,6 +201,12 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             OnSpawnAction?.Invoke();
             
             defenderManager.CheckMerge(this);
+        }
+
+        public void OnDie()
+        {
+            Logger.Log($"{name} 죽음");
+            status.ChangeHp(status.maxHp.currentValue);
         }
         
         public void OnKillTarget(Monster target)
@@ -215,9 +229,16 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             manaInnerBarRenderer.size = new Vector2(status.currentMana / (float)status.currentMaxMana ,0.25f);
         }
 
-       
+        void OnHpChanged(float maxHp , float currentHp)
+        {
+            if (currentHp <= 0)
+            {
+                OnDie();
+            }
+        }
 
         #endregion
+        
 
         #region #. 행동 함수
         void LevelUp()

@@ -24,8 +24,8 @@ namespace LNK.MoreDeepFloor.Data.Entity
         public float[] criticalRates;
         public float[] currentCriticalRates;
 
-        public float[] heathPoints;
-        public float[] currentHeathPoints;
+        public int[] heathPoints;
+        public int[] currentHeathPoints;
 
         public float[] physicalDefenses;
         public float[] currentPhysicalDefense;
@@ -60,8 +60,8 @@ namespace LNK.MoreDeepFloor.Data.Entity
             currentCriticalRates = (float[])entityOriginalData.CriticalRates.Clone();
             
             //#. 방어
-            heathPoints = (float[])entityOriginalData.HeathPoints.Clone();
-            currentHeathPoints = (float[])entityOriginalData.HeathPoints.Clone();
+            heathPoints = (int[])entityOriginalData.HeathPoints.Clone();
+            currentHeathPoints = (int[])entityOriginalData.HeathPoints.Clone();
             
             physicalDefenses = (float[])entityOriginalData.PhysicalDefense.Clone();
             currentPhysicalDefense = (float[])entityOriginalData.PhysicalDefense.Clone();
