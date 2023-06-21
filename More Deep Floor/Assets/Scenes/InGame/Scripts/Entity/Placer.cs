@@ -6,7 +6,7 @@ using LNK.MoreDeepFloor.InGame.MarketSystem;
 using LNK.MoreDeepFloor.InGame.Tiles;
 using UnityEngine;
 
-namespace LNK.MoreDeepFloor.InGame.Entity
+namespace LNK.MoreDeepFloor.InGame.Entitys
 {
     public class Placer : MonoBehaviour
     {

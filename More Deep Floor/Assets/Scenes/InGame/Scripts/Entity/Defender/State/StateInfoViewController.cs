@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using LNK.MoreDeepFloor.Data.Schemas;
 using UnityEngine;
 
-namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
+namespace LNK.MoreDeepFloor.InGame.Entitys.Defenders.States
 {
     public class StateInfoViewController : MonoBehaviour
     {

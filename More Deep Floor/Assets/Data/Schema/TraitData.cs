@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using LNK.MoreDeepFloor.Common.SerializableDictionarys;
 using LNK.MoreDeepFloor.Data.Defenders.States;
 using LNK.MoreDeepFloor.Data.DefenderTraits;
-using LNK.MoreDeepFloor.InGame.Entity;
-using LNK.MoreDeepFloor.InGame.Entity.Defenders.States;
+using LNK.MoreDeepFloor.InGame.Entitys;
+using LNK.MoreDeepFloor.InGame.Entitys.Defenders.States;
 using LNK.MoreDeepFloor.InGame.TroopTraitSystem;
 using UnityEngine;
 

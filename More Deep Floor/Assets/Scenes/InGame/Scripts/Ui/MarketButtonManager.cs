@@ -1,4 +1,4 @@
-using LNK.MoreDeepFloor.InGame.Entity;
+using LNK.MoreDeepFloor.InGame.Entitys;
 using LNK.MoreDeepFloor.InGame.MarketSystem;
 using LNK.MoreDeepFloor.InGame.Tiles;
 using LNK.MoreDeepFloor.InGame.Ui.Market;

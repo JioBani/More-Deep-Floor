@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
 
-namespace LNK.MoreDeepFloor.InGame.Entity.Monsters
+namespace LNK.MoreDeepFloor.InGame.Entitys.Monsters
 {
     public class DefenderSearcher : MonoBehaviour
     {
@@ -34,7 +34,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Monsters
         {
             Logger.Log($"[DefenderSearcher.OnTriggerExit2D()] {other.gameObject.name}");
             
-            if (ReferenceEquals(target.gameObject, other.gameObject))
+            if (ReferenceEquals(target.gameObject, other.transform.parent.gameObject))
             {
                 target = null;
                 Logger.Log($"[DefenderSearcher.OnTriggerEnter()] 타겟 로스트");

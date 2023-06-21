@@ -6,9 +6,10 @@ using LNK.MoreDeepFloor.Data.Defenders;
 using LNK.MoreDeepFloor.Data.Defenders.States;
 using LNK.MoreDeepFloor.Data.DefenderTraits;
 using LNK.MoreDeepFloor.Data.Schemas;
+using LNK.MoreDeepFloor.InGame.Bullets;
 using LNK.MoreDeepFloor.InGame.DataSchema;
-using LNK.MoreDeepFloor.InGame.Entity.Defenders;
-using LNK.MoreDeepFloor.InGame.Entity.Defenders.States;
+using LNK.MoreDeepFloor.InGame.Entitys.Defenders;
+using LNK.MoreDeepFloor.InGame.Entitys.Defenders.States;
 using LNK.MoreDeepFloor.InGame.MarketSystem;
 using LNK.MoreDeepFloor.InGame.SkillSystem;
 using LNK.MoreDeepFloor.InGame.Tiles;
@@ -18,7 +19,7 @@ using TMPro;
 using UnityEngine;
 using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
 
-namespace LNK.MoreDeepFloor.InGame.Entity
+namespace LNK.MoreDeepFloor.InGame.Entitys
 {
     public class Defender : Entity
     {
@@ -39,9 +40,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         [SerializeField] private SpriteRenderer manaInnerBarRenderer;
         [SerializeField] private SkillController skillController;
         [SerializeField] private DefenderVisual defenderVisual;
-        [SerializeField] private TextMeshPro hpText;
-        [SerializeField] private SpriteRenderer hpBar;
-        
+        [SerializeField] private HpBar hpBar;
 
         public delegate void OnSpawnEventHandler();
         public delegate void OnBeforeOriginalAttackEventHandler(Monster target,DefenderStateId from);
@@ -271,7 +270,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         {
             OnBeforeOriginalAttackAction?.Invoke(target,DefenderStateId.None);
             OnBeforeAttackAction?.Invoke(target,DefenderStateId.None);
-            bulletManager.Fire(gameObject, target.gameObject);
+            bulletManager.Fire(this, target.GetComponent<Monster>() , (int)status.damage.currentValue , AttackType.DefenderToMonster);
             attackTimer = 0;
             if(status.ManaUp(20))
             {
@@ -282,7 +281,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         public void SetExtraAttack(Monster _target , DefenderStateId from)
         {
             OnBeforeAttackAction?.Invoke(target, from);
-            bulletManager.Fire(gameObject, _target.gameObject);
+            bulletManager.Fire(this, _target.GetComponent<Monster>() , (int)status.damage.currentValue , AttackType.DefenderToMonster);
         }
 
         public void UseSkill()
@@ -295,6 +294,12 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         {
             skillController.UseSkill(new List<Monster> { target });
             OnUseSkillAction?.Invoke(target , true);
+        }
+
+        public void SetHit(int value , Monster firer)
+        {
+            status.ChangeHp(-value);
+            hpBar.RefreshBar((int)status.maxHp.currentValue, (int)status.currentHp);
         }
         
 

@@ -1497,6 +1497,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3013209248623093317}
+  - component: {fileID: 1745209398837140630}
   m_Layer: 8
   m_Name: HpBar
   m_TagString: Untagged
@@ -1521,6 +1522,21 @@ Transform:
   m_Father: {fileID: 8779739274292005886}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1745209398837140630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8492337711327770175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61f3e571c630d9c45a76ae0b9b6017c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpText: {fileID: 1452054923233404408}
+  hpBarSprite: {fileID: 1902447675166581226}
+  hpBarBackGround: {fileID: 275016931795357057}
 --- !u!1 &8728898015961291398
 GameObject:
   m_ObjectHideFlags: 0
@@ -1859,8 +1875,7 @@ MonoBehaviour:
   manaInnerBarRenderer: {fileID: 8712491466230985058}
   skillController: {fileID: 1126050928184956768}
   defenderVisual: {fileID: 484847192264780217}
-  hpText: {fileID: 0}
-  hpBar: {fileID: 0}
+  hpBar: {fileID: 1745209398837140630}
   status:
     level: 0
     attackSpeedTimer: 0

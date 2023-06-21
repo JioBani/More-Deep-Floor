@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace LNK.MoreDeepFloor.InGame.Entity.Defenders
+namespace LNK.MoreDeepFloor.InGame.Entitys.Defenders
 {
 
     [Serializable]

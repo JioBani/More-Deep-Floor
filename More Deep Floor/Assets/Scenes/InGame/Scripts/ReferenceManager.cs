@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using LNK.MoreDeepFloor.Common.TimerSystem;
 using LNK.MoreDeepFloor.InGame.DebugSystem;
-using LNK.MoreDeepFloor.InGame.Entity.Defenders;
+using LNK.MoreDeepFloor.InGame.Entitys.Defenders;
 using LNK.MoreDeepFloor.InGame.MarketSystem;
 using LNK.MoreDeepFloor.InGame.SkillSystem;
 using LNK.MoreDeepFloor.InGame.StateActions;

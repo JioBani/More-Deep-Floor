@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.Data.Schemas.TroopTraitScene;
-using LNK.MoreDeepFloor.InGame.Entity;
+using LNK.MoreDeepFloor.InGame.Entitys;
 using UnityEngine;
 
 namespace LNK.MoreDeepFloor.TroopTraitSelect

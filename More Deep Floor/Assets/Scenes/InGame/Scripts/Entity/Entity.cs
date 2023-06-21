@@ -5,7 +5,7 @@ using LNK.MoreDeepFloor.Data.Defenders.States;
 using LNK.MoreDeepFloor.InGame.PathFinder;
 using UnityEngine;
 
-namespace LNK.MoreDeepFloor.InGame.Entity
+namespace LNK.MoreDeepFloor.InGame.Entitys
 {
     
 

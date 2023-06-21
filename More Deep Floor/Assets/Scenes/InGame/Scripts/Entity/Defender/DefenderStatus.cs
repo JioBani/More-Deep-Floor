@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using ExtensionMethods;
 using LNK.MoreDeepFloor.Common.TimerSystem;
 using LNK.MoreDeepFloor.InGame.DataSchema;
-using LNK.MoreDeepFloor.InGame.Entity.Defenders;
+using LNK.MoreDeepFloor.InGame.Entitys.Defenders;
 using UnityEngine;
 using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
 
 
 
-namespace LNK.MoreDeepFloor.InGame.Entity
+namespace LNK.MoreDeepFloor.InGame.Entitys
 {
     [System.Serializable]
     public class DefenderStatus

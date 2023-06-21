@@ -5,7 +5,7 @@ using LNK.MoreDeepFloor.Common.Direction;
 using LNK.MoreDeepFloor.InGame.Tiles;
 using UnityEngine;
 
-namespace LNK.MoreDeepFloor.InGame.Entity
+namespace LNK.MoreDeepFloor.InGame.Entitys
 {
     public class Mover : MonoBehaviour
     {

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using LNK.MoreDeepFloor.Common.ProbabilityChecks;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame;
-using LNK.MoreDeepFloor.InGame.Entity;
-using LNK.MoreDeepFloor.InGame.Entity.Defenders.States;
+using LNK.MoreDeepFloor.InGame.Entitys;
+using LNK.MoreDeepFloor.InGame.Entitys.Defenders.States;
 using LNK.MoreDeepFloor.InGame.MarketSystem;
 using UnityEngine;
 

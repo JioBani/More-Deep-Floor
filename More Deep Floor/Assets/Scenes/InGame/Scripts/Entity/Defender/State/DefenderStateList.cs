@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using LNK.MoreDeepFloor.Data.Defenders.States;
 using UnityEngine;
 
-namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
+namespace LNK.MoreDeepFloor.InGame.Entitys.Defenders.States
 {
     public class DefenderStateList
     {

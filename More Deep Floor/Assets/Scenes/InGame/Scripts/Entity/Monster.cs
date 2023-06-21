@@ -8,20 +8,21 @@ using LNK.MoreDeepFloor.InGame.Bullets;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.DamageTexts;
 using LNK.MoreDeepFloor.InGame.DataSchema;
-using LNK.MoreDeepFloor.InGame.Entity.Monsters;
+using LNK.MoreDeepFloor.InGame.Entitys.Monsters;
 using LNK.MoreDeepFloor.InGame.MarketSystem;
 using LNK.MoreDeepFloor.InGame.Tiles;
 using TMPro;
 using UnityEngine;
 using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
 
-namespace LNK.MoreDeepFloor.InGame.Entity
+namespace LNK.MoreDeepFloor.InGame.Entitys
 {
     public class Monster : Entity
     {
         private TileManager tileManager;
         private MarketManager _marketManager;
         private ObjectPooler textPooler;
+        private BulletManager bulletManager;
         
         //private Mover mover;
         private MonsterMover mover;
@@ -57,6 +58,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             tileManager = ReferenceManager.instance.tileManager;
             _marketManager = ReferenceManager.instance.marketManager;
             textPooler = ReferenceManager.instance.objectPoolingManager.textPooler;
+            bulletManager = ReferenceManager.instance.bulletManager;
             
             animator = GetComponent<Animator>();
             mover = GetComponent<MonsterMover>();
@@ -238,7 +240,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         {
             if (!ReferenceEquals(searcher.target, null))
             {
-                Logger.Log($"[Monster.Attack()] 공격");
+                bulletManager.Fire(this , searcher.target, 10,AttackType.MonsterToDefender);
                 attackTimer = 0;
             }
         }

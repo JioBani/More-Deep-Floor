@@ -6,7 +6,7 @@ using LNK.MoreDeepFloor.InGame.DataSchema;
 using LNK.MoreDeepFloor.InGame.TraitSystem;
 using UnityEngine;
 
-namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
+namespace LNK.MoreDeepFloor.InGame.Entitys.Defenders.States
 {
     public abstract class DefenderState
     {

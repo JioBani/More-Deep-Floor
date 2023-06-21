@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 
 
-namespace LNK.MoreDeepFloor.InGame.Entity.Defenders.States
+namespace LNK.MoreDeepFloor.InGame.Entitys.Defenders.States
 {
     public class StateInfoView : MonoBehaviour
     {

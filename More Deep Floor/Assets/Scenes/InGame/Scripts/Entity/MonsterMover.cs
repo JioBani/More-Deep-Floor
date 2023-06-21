@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using LNK.MoreDeepFloor.InGame.Tiles;
 using UnityEngine;
 
-namespace LNK.MoreDeepFloor.InGame.Entity.Monsters
+namespace LNK.MoreDeepFloor.InGame.Entitys.Monsters
 {
     public class MonsterMover : MonoBehaviour
     {

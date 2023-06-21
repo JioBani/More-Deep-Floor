@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using LNK.MoreDeepFloor.Data.DefenderTraits;
 using LNK.MoreDeepFloor.InGame;
-using LNK.MoreDeepFloor.InGame.Entity;
+using LNK.MoreDeepFloor.InGame.Entitys;
 using LNK.MoreDeepFloor.InGame.TraitSystem;
 using UnityEngine;
 using UnityEngine.UI;

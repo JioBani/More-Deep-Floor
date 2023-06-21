@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using LNK.MoreDeepFloor.Data.DefenderTraits;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.DataSchema;
-using LNK.MoreDeepFloor.InGame.Entity;
-using LNK.MoreDeepFloor.InGame.Entity.Defenders.States;
+using LNK.MoreDeepFloor.InGame.Entitys;
+using LNK.MoreDeepFloor.InGame.Entitys.Defenders.States;
 using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame.TraitSystem

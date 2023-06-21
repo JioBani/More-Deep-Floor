@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using LNK.MoreDeepFloor.Style;
 using UnityEngine;
 
-namespace LNK.MoreDeepFloor.InGame.Entity.Defenders
+namespace LNK.MoreDeepFloor.InGame.Entitys.Defenders
 {
     public class Star
     {

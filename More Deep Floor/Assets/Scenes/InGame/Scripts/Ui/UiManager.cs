@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.DataSchema;
-using LNK.MoreDeepFloor.InGame.Entity;
+using LNK.MoreDeepFloor.InGame.Entitys;
 using LNK.MoreDeepFloor.InGame.TraitSystem;
 using LNK.MoreDeepFloor.InGame.Ui.DefenderDataInfoUi;
 using LNK.MoreDeepFloor.InGame.Ui.DefenderStatusInfoUi;

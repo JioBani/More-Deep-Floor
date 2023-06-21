@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using LNK.MoreDeepFloor.InGame.Entity.Defenders;
+using LNK.MoreDeepFloor.InGame.Entitys.Defenders;
 using UnityEngine;
 
 

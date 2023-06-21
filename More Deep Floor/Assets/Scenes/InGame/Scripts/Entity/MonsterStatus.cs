@@ -4,7 +4,7 @@ using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.DataSchema;
 using UnityEngine;
 
-namespace LNK.MoreDeepFloor.InGame.Entity
+namespace LNK.MoreDeepFloor.InGame.Entitys
 {
     public class MonsterStatusBuff
     {

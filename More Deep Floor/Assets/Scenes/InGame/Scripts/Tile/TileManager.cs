@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using LNK.MoreDeepFloor.InGame.Entity;
+using LNK.MoreDeepFloor.InGame.Entitys;
 using LNK.MoreDeepFloor.InGame.Tiles;
 using UnityEngine;
 using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;

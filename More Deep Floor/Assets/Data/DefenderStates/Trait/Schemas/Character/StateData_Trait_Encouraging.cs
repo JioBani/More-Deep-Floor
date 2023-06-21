@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using LNK.MoreDeepFloor.Data.DefenderTraits.Schemas;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame;
-using LNK.MoreDeepFloor.InGame.Entity;
-using LNK.MoreDeepFloor.InGame.Entity.Defenders;
-using LNK.MoreDeepFloor.InGame.Entity.Defenders.States;
+using LNK.MoreDeepFloor.InGame.Entitys;
+using LNK.MoreDeepFloor.InGame.Entitys.Defenders;
+using LNK.MoreDeepFloor.InGame.Entitys.Defenders.States;
 using UnityEngine;
 
 namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits //.

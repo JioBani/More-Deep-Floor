@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using LNK.MoreDeepFloor.Data.Defenders.States;
 using LNK.MoreDeepFloor.Data.Defenders.States.Schemas;
 using LNK.MoreDeepFloor.Data.Schemas.TroopTraitScene;
-using LNK.MoreDeepFloor.InGame.Entity;
+using LNK.MoreDeepFloor.InGame.Entitys;
 using LNK.MoreDeepFloor.TroopTraitSelect;
 using UnityEngine;
 
