@@ -19,7 +19,7 @@ using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame.Entity
 {
-    public class Defender : Entity
+    public class Defender : MonoBehaviour
     {
         private BulletManager bulletManager;
         private DefenderManager defenderManager;
@@ -54,6 +54,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         //private OnAttackEventHandler OnAttackAction;
         public OnKillEventHandler OnKillAction;
         public OnTargetHitEventHandler OnTargetHitAciton;
+        
 
         private Monster target;
 

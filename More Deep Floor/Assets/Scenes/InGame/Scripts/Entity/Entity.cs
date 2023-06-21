@@ -11,9 +11,14 @@ namespace LNK.MoreDeepFloor.InGame.Entity
 
     public abstract class Entity : MonoBehaviour
     {
+
+        /*#region #. 이벤트 핸들러
+
         public delegate void OnSpawnEventHandler();
-        
-        public delegate void OnBeforeOriginalAttackEventHandler(Monster target,DefenderStateId from);
+        public delegate void OnBeforeOriginalAttackEventHandler(Entity target,DefenderStateId from);
+
+        #endregion*/
+       
 
         
     }
