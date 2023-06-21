@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using LNK.MoreDeepFloor.Common;
@@ -12,6 +13,7 @@ using LNK.MoreDeepFloor.InGame.MarketSystem;
 using LNK.MoreDeepFloor.InGame.Tiles;
 using TMPro;
 using UnityEngine;
+using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
 
 namespace LNK.MoreDeepFloor.InGame.Entity
 {
@@ -28,6 +30,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         private SpriteRenderer spriteRenderer;
         [SerializeField] private SpriteRenderer innerHpBarRender;
         [SerializeField] private TextMeshPro hpText;
+        [SerializeField] private DefenderSearcher searcher;
 
         private Direction direction;
         private List<Tile> route;
@@ -45,6 +48,9 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         
         public bool isStun = false;
         private int line;
+        private Defender target;
+
+        private float attackTimer = 0;
 
         void Awake()
         {
@@ -62,8 +68,40 @@ namespace LNK.MoreDeepFloor.InGame.Entity
                 poolable.SetOff();
             };
 
-           
+            searcher.OnTargetSearchEvent += OnTargetSearch;
+            searcher.OnTargetLostEvent += OnTargetLost;
         }
+
+        private void Update()
+        {
+            if (searcher.isTargetExist)
+            {
+                if (attackTimer < 1)
+                {
+                    attackTimer += Time.deltaTime;
+                }
+                else
+                {
+                    Attack();
+                }
+            }
+        }
+        
+        /*public void FixedUpdate()
+        {
+            if (!ReferenceEquals(searcher.target, null))
+            {
+                Logger.Log($"[Monster.Attack()] 타겟 있음");
+                mover.U(true);
+            }
+            else 
+            {
+                Logger.Log($"[Monster.Attack()] 타겟 없음");
+                mover.SetPause(false);
+            }
+        }*/
+
+
 
         public void Init(MonsterData _monsterData , int _line)
         {
@@ -95,6 +133,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             //transform.position = tileManager.battleFieldTiles[0][1].transform.position;
             //transform.position = startTile.transform.position;
             mover.StartMove();
+            //Invoke(nameof(Attack),1f );
         }
 
         /*public void SetRoute(Tile _startTile , List<Tile> route)
@@ -127,11 +166,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             OnOff();
             poolable.SetOff();
         }
-
-        /*public void OnHit(Bullet bullet)
-        {
-            ChangeHp((int)-bullet.firer.status.damage.currentValue, bullet.firer);
-        }*/
+        
 
         public void SetHit(int damage, Defender caster)
         {
@@ -157,7 +192,8 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         public void SetStun(bool _isStun)
         {
             isStun = _isStun;
-            mover.SetPause(isStun);
+            //mover.SetPause(isStun);
+            mover.UpPauseStack();
         }
 
         void OnDie()
@@ -195,6 +231,26 @@ namespace LNK.MoreDeepFloor.InGame.Entity
         void OnHpChanged(int value)
         {
             innerHpBarRender.size = new Vector2((float)(status.currentHp / status.maxHp), innerHpBarRender.size.y);
+        }
+
+       
+        void Attack()
+        {
+            if (!ReferenceEquals(searcher.target, null))
+            {
+                Logger.Log($"[Monster.Attack()] 공격");
+                attackTimer = 0;
+            }
+        }
+
+        void OnTargetSearch()
+        {
+            mover.UpPauseStack();
+        }
+
+        void OnTargetLost()
+        {
+            mover.DownPauseStack();
         }
     }
     

@@ -9,11 +9,15 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Monsters
     {
         private Vector2 startPos;
         private Vector2 endPos;
+
         private bool isMoving;
-        private bool pause;
-        
+
+        //private bool pause;
+        private int pauseStack = 0;
+
+
         public MonsterStatusValue speed;
-        
+
         public delegate void ArriveAction();
 
         public ArriveAction OnArriveEvent;
@@ -21,23 +25,33 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Monsters
         public void Init()
         {
             isMoving = false;
-            pause = false;
+            pauseStack = 0;
         }
 
         public void SetSpeed(MonsterStatusValue _speed)
         {
             speed = _speed;
         }
-        
-        public void SetRoute(Vector2 _startPos , Vector2 _endPos)
+
+        public void SetRoute(Vector2 _startPos, Vector2 _endPos)
         {
             startPos = _startPos;
             endPos = _endPos;
         }
 
-        public void SetPause(bool _pause)
+        /*public void SetPause(bool _pause)
         {
             pause = _pause;
+        }*/
+
+        public void UpPauseStack()
+        {
+            pauseStack++;
+        }
+
+        public void DownPauseStack()
+        {
+            pauseStack--;
         }
 
         public void StartMove()
@@ -54,7 +68,7 @@ namespace LNK.MoreDeepFloor.InGame.Entity.Monsters
         
         private void FixedUpdate()
         {
-            if (isMoving && !pause)
+            if (isMoving && pauseStack == 0)
             {
                 transform.position = Vector2.MoveTowards(
                     transform.position , 

@@ -57,7 +57,8 @@ namespace LNK.MoreDeepFloor.InGame.Entity
             attackSpeed = new DefenderStatusValue(_defenderData.currentAttackSpeeds[level]);
             attackSpeedTimer = 1 / attackSpeed.currentValue;
 
-            maxHp = new DefenderStatusValue(_defenderData.heathPoints[level]);
+            //maxHp = new DefenderStatusValue(_defenderData.heathPoints[level]);
+            maxHp = new DefenderStatusValue(100);
             currentHp = maxHp.currentValue;
             
             
