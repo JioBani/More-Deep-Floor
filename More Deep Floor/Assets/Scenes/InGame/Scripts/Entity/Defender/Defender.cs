@@ -256,6 +256,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
 
         void OnHpChanged(float maxHp , float currentHp)
         {
+            hpBar.RefreshBar((int)maxHp , (int)currentHp);
             if (currentHp <= 0)
             {
                 OnDie();
@@ -330,7 +331,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
 
         IEnumerator Revive()
         {
-            yield return YieldInstructionCache.WaitForSeconds(2f);
+            yield return YieldInstructionCache.WaitForSeconds(4f);
             //defenderTargetCol.gameObject.layer = LayerMask.NameToLayer("DefenderSearcher");
             defenderTargetCol.gameObject.SetActive(true);
             status.ChangeHp(status.maxHp.currentValue);
