@@ -179,6 +179,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2525020611849280499}
+  - component: {fileID: 588580583511307032}
   m_Layer: 8
   m_Name: HpBar
   m_TagString: Untagged
@@ -203,6 +204,21 @@ Transform:
   m_Father: {fileID: 5417994061228683498}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &588580583511307032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4275970541618461668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61f3e571c630d9c45a76ae0b9b6017c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpText: {fileID: 4377377123557898621}
+  hpBarSprite: {fileID: 3421814778678715517}
+  hpBarBackGround: {fileID: 4281346317913698615}
 --- !u!1 &5048741253487735628
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,8 +413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39c59c370fb26d44993894df7a166d64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  innerHpBarRender: {fileID: 3421814778678715517}
-  hpText: {fileID: 4377377123557898621}
+  hpBar: {fileID: 588580583511307032}
   searcher: {fileID: 1519257115759814330}
   isStun: 0
 --- !u!114 &4722430359953838567

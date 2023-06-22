@@ -8,6 +8,7 @@ using LNK.MoreDeepFloor.InGame.Bullets;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.DamageTexts;
 using LNK.MoreDeepFloor.InGame.DataSchema;
+using LNK.MoreDeepFloor.InGame.Entitys.Defenders;
 using LNK.MoreDeepFloor.InGame.Entitys.Monsters;
 using LNK.MoreDeepFloor.InGame.MarketSystem;
 using LNK.MoreDeepFloor.InGame.Tiles;
@@ -29,8 +30,9 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
         private Animator animator;
         private Poolable poolable;
         private SpriteRenderer spriteRenderer;
-        [SerializeField] private SpriteRenderer innerHpBarRender;
-        [SerializeField] private TextMeshPro hpText;
+        [SerializeField] private HpBar hpBar;
+        /*[SerializeField] private SpriteRenderer innerHpBarRender;
+        [SerializeField] private TextMeshPro hpText;*/
         [SerializeField] private DefenderSearcher searcher;
 
         private Direction direction;
@@ -110,18 +112,20 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
         public void Init(MonsterData _monsterData , int _line)
         {
             transform.position = tileManager.battleFieldTiles[0][1].transform.position;
-            innerHpBarRender.size = new Vector2(1,0.125f);
+            //innerHpBarRender.size = new Vector2(1,0.125f);
             
             monsterData = _monsterData;
             animator.runtimeAnimatorController = monsterData.animatorOverrideController;
             animator.SetTrigger(Down);
-            hpText.text = monsterData.hp.ToString();
+            //hpText.text = monsterData.hp.ToString();
             
             status.SetStatus(monsterData , 0);
             
             //status = new MonsterStatus(monsterData);
             line = _line;
-
+            
+            hpBar.RefreshBar((int)status.maxHp.currentValue , (int)status.currentHp);
+            
             InitMover();
         }
 
@@ -236,7 +240,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
 
         void OnHpChanged(int value)
         {
-            innerHpBarRender.size = new Vector2((float)(status.currentHp / status.maxHp.currentValue), innerHpBarRender.size.y);
+            hpBar.RefreshBar((int)status.maxHp.currentValue ,(int)status.currentHp);
         }
 
        
