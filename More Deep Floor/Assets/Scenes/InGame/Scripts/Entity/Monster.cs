@@ -128,7 +128,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
         void InitMover()
         {
             mover.Init();
-            mover.SetSpeed(status.moveSpeed.currentValue);
+            mover.SetSpeed(status.moveSpeed);
             mover.SetRoute(
                 tileManager.monsterSpawnTiles[line].transform.position , 
                 tileManager.battleFieldTiles[line][0].transform.position);
