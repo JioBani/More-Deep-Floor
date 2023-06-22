@@ -137,6 +137,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             currentHp += value;
             if (currentHp > maxHp.currentValue) currentHp = maxHp.currentValue;
             else if (currentHp < 0) currentHp = 0;
+            OnHpChangedAction?.Invoke(maxHp.currentValue ,currentHp );
         }
 
         public void RefreshStatus()

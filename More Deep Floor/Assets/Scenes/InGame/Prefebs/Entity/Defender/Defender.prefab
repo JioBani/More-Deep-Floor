@@ -1206,7 +1206,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7055648406691505356}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.113, z: 0}
+  m_LocalPosition: {x: 0.311, y: 0.117, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8779739274292005886}
@@ -1236,7 +1236,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7, y: 0.7}
+  m_Size: {x: 0.1, y: 0.7}
   m_EdgeRadius: 0
 --- !u!50 &7222553931998093875
 Rigidbody2D:
@@ -1876,6 +1876,7 @@ MonoBehaviour:
   skillController: {fileID: 1126050928184956768}
   defenderVisual: {fileID: 484847192264780217}
   hpBar: {fileID: 1745209398837140630}
+  defenderTargetCol: {fileID: 1833295179201261296}
   status:
     level: 0
     attackSpeedTimer: 0

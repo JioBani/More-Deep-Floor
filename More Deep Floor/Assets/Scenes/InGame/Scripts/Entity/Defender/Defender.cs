@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using LNK.MoreDeepFloor.Common.Palettes;
+using LNK.MoreDeepFloor.Common.WaitForSecondsCache;
 using LNK.MoreDeepFloor.Data.Defenders;
 using LNK.MoreDeepFloor.Data.Defenders.States;
 using LNK.MoreDeepFloor.Data.DefenderTraits;
@@ -21,6 +22,13 @@ using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
 
 namespace LNK.MoreDeepFloor.InGame.Entitys
 {
+    public enum DefenderLifeState
+    {
+        None,
+        Default,
+        Die,
+    }
+
     public class Defender : Entity
     {
         private BulletManager bulletManager;
@@ -41,6 +49,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
         [SerializeField] private SkillController skillController;
         [SerializeField] private DefenderVisual defenderVisual;
         [SerializeField] private HpBar hpBar;
+        [SerializeField] private Collider2D defenderTargetCol;
 
         public delegate void OnSpawnEventHandler();
         public delegate void OnBeforeOriginalAttackEventHandler(Monster target,DefenderStateId from);
@@ -67,6 +76,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
         public double attackTimer = 0;
         private bool isOn = true;
         private bool isInSellZone = false;
+        private DefenderLifeState state = DefenderLifeState.None;
 
         #region #. 유니티 이벤트함수
 
@@ -98,7 +108,11 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
 
         void Update()
         {
-            if (isOn)
+            if (state == DefenderLifeState.None || state == DefenderLifeState.Die)
+            {
+                attackTimer = 0;
+            }
+            else if (isOn)
             {
                 attackTimer += Time.deltaTime;
                 if (attackTimer > status.attackSpeedTimer && !ReferenceEquals(target,null))
@@ -147,6 +161,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
         {
             defenderManager.OnDefenderEnterWaitingRoom(this);
             isOn = false;
+            state = DefenderLifeState.None;
         }
 
         public void ExitWaitingRoom()
@@ -160,6 +175,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             status.SetManaGain(true);
             defenderManager.OnDefenderEnterBattleField(this);
             isOn = true;
+            state = DefenderLifeState.Default;
         }
         
         public void ExitBattleField()
@@ -204,10 +220,13 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
 
         public void OnDie()
         {
+            state = DefenderLifeState.Die;
             Logger.Log($"{name} 죽음");
-            status.ChangeHp(status.maxHp.currentValue);
+            defenderTargetCol.gameObject.SetActive(false);
+            StartCoroutine(Revive());
+            //status.ChangeHp(status.maxHp.currentValue);
         }
-        
+
         public void OnKillTarget(Monster target)
         {
             OnKillAction?.Invoke(target);
@@ -301,7 +320,15 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             status.ChangeHp(-value);
             hpBar.RefreshBar((int)status.maxHp.currentValue, (int)status.currentHp);
         }
-        
+
+        IEnumerator Revive()
+        {
+            yield return YieldInstructionCache.WaitForSeconds(2f);
+            //defenderTargetCol.gameObject.layer = LayerMask.NameToLayer("DefenderSearcher");
+            defenderTargetCol.gameObject.SetActive(true);
+            status.ChangeHp(status.maxHp.currentValue);
+            state = DefenderLifeState.Default;
+        }        
 
         #endregion
 
