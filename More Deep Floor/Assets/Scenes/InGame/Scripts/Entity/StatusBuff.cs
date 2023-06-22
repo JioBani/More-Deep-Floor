@@ -2,22 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace LNK.MoreDeepFloor.InGame.Entitys.Defenders
-
+namespace LNK.MoreDeepFloor.InGame.Entitys
 {
     public class StatusBuff
     {
         public float value;
         public string name;
-        public float stack;
-
+        public int stack;
+        
         public StatusBuff(float _value , string _name)
         {
             value = _value;
             stack = 1;
             name = _name;
         }
-
+        
         public void AddStack()
         {
             stack++;
@@ -38,7 +37,6 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.Defenders
             return true;
         }
     }
+
 }
-
-
 

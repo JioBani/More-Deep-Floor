@@ -50,14 +50,14 @@ namespace LNK.MoreDeepFloor.InGame.DataSchema
 
         public void ModifyData(DefenderDataModifier modifier)
         {
-            for (var i = 0; i < currentDamages.Length; i++)
+            for (var i = 0; i < damages.currentValues.Length; i++)
             {
-                currentDamages[i] += modifier.damage;
+                damages.currentValues[i] += modifier.damage;
             }
 
-            for (var i = 0; i < currentAttackSpeeds.Length; i++)
+            for (var i = 0; i < attackSpeeds.currentValues.Length; i++)
             {
-                currentAttackSpeeds[i] += modifier.attackSpeed;
+                attackSpeeds.currentValues[i] += modifier.attackSpeed;
             }
         }
         

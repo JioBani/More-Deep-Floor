@@ -16,7 +16,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.Monsters
         private int pauseStack = 0;
 
 
-        public MonsterStatusValue speed;
+        public float speed;
 
         public delegate void ArriveAction();
 
@@ -28,7 +28,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.Monsters
             pauseStack = 0;
         }
 
-        public void SetSpeed(MonsterStatusValue _speed)
+        public void SetSpeed(float _speed)
         {
             speed = _speed;
         }
@@ -73,7 +73,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.Monsters
                 transform.position = Vector2.MoveTowards(
                     transform.position , 
                     endPos ,
-                    speed.currentValue);
+                    speed);
                 
                 if (Vector2.Distance(transform.position, endPos) < 0.01f)
                 {

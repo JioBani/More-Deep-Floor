@@ -17,8 +17,8 @@ namespace LNK.MoreDeepFloor.Data.Entity
         #region #. 스탯
 
         //#. 공격력
-        [SerializeField] private int[] damages;
-        public int[] Damages => damages;
+        [SerializeField] private float[] damages;
+        public float[] Damages => damages;
         
         
         //#. 공격속도
@@ -39,8 +39,8 @@ namespace LNK.MoreDeepFloor.Data.Entity
         
         
         //#. 체력
-        [SerializeField] private int[] heathPoints;
-        public int[] HeathPoints => heathPoints;
+        [SerializeField] private float[] heathPoints;
+        public float[] HeathPoints => heathPoints;
         
         //#. 물리방어력
         [SerializeField] private float[] physicalDefenses;
@@ -55,8 +55,8 @@ namespace LNK.MoreDeepFloor.Data.Entity
         public float[] MoveSpeeds => moveSpeeds;
 
         //#. 최대마나
-        [SerializeField] private int[] maxManas;
-        public int[] MaxManas => maxManas;
+        [SerializeField] private float[] maxManas;
+        public float[] MaxManas => maxManas;
 
         #endregion
     }

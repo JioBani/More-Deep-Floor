@@ -49,7 +49,7 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits //.
             {
                 if (target.gameObject.activeSelf)
                 {
-                    target.SetHitFinal(target.status.maxHp * maxHpPer[level] * 0.01f, caster);
+                    target.SetHitFinal(target.status.maxHp.currentValue * maxHpPer[level] * 0.01f, caster);
                 }
             });
         }

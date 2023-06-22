@@ -41,8 +41,8 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas //.
         {
             //Debug.Log("TraitState_Tenacious B: " + target.status.speed.currentValue);
 
-            MonsterStatusBuff statusBuff = target.status.speed.AddBuff(
-                -runtimeTraitData.currentPercent[traitController.GetTraitInfo(traitType).synergyLevel] * 0.01f *  target.status.speed.currentValue, 
+            StatusBuff statusBuff = target.status.moveSpeed.AddBuff(
+                -runtimeTraitData.currentPercent[traitController.GetTraitInfo(traitType).synergyLevel] * 0.01f *  target.status.moveSpeed.currentValue, 
                 id.ToString());
             
             //Debug.Log("TraitState_Tenacious A: " + target.status.speed.currentValue);
@@ -50,7 +50,7 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas //.
             
             TimerManager.instance.LateAction(3f , () =>
             {
-                target.status.speed.RemoveBuff(statusBuff);
+                target.status.moveSpeed.RemoveBuff(statusBuff);
             });
         }
     }

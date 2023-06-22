@@ -13,8 +13,57 @@ MonoBehaviour:
   m_Name: Monster01
   m_EditorClassIdentifier: 
   name: "\uBAAC\uC2A4\uD130 1"
-  hp: 200
-  moveSpeed: 0.04
+  sprite: {fileID: 0}
+  damages:
+  - 10
+  - 10
+  - 10
+  - 10
+  attackSpeeds:
+  - 1
+  - 1
+  - 1
+  - 1
+  ranges:
+  - 1
+  - 1
+  - 1
+  - 1
+  magicalPowers:
+  - 100
+  - 100
+  - 100
+  - 100
+  criticalRates:
+  - 10
+  - 10
+  - 10
+  - 10
+  heathPoints:
+  - 300
+  - 300
+  - 300
+  - 300
+  physicalDefenses:
+  - 50
+  - 50
+  - 50
+  - 50
+  magicalDefenses:
+  - 50
+  - 50
+  - 50
+  - 50
+  moveSpeeds:
+  - 0.05
+  - 0.05
+  - 0.05
+  - 0.05
+  maxManas:
+  - 100
+  - 100
+  - 100
+  - 100
   gold: 1
   animatorOverrideController: {fileID: 22100000, guid: 22a2fb6e4fdc5d3468a37d0dc9804bb9,
     type: 2}

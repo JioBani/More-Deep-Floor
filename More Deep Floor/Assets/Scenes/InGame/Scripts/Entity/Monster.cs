@@ -72,6 +72,8 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
 
             searcher.OnTargetSearchEvent += OnTargetSearch;
             searcher.OnTargetLostEvent += OnTargetLost;
+
+            status = new MonsterStatus();
         }
 
         private void Update()
@@ -115,7 +117,9 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             animator.SetTrigger(Down);
             hpText.text = monsterData.hp.ToString();
             
-            status = new MonsterStatus(monsterData);
+            status.SetStatus(monsterData , 0);
+            
+            //status = new MonsterStatus(monsterData);
             line = _line;
 
             InitMover();
@@ -124,7 +128,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
         void InitMover()
         {
             mover.Init();
-            mover.SetSpeed(status.speed);
+            mover.SetSpeed(status.moveSpeed.currentValue);
             mover.SetRoute(
                 tileManager.monsterSpawnTiles[line].transform.position , 
                 tileManager.battleFieldTiles[line][0].transform.position);
@@ -232,7 +236,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
 
         void OnHpChanged(int value)
         {
-            innerHpBarRender.size = new Vector2((float)(status.currentHp / status.maxHp), innerHpBarRender.size.y);
+            innerHpBarRender.size = new Vector2((float)(status.currentHp / status.maxHp.currentValue), innerHpBarRender.size.y);
         }
 
        

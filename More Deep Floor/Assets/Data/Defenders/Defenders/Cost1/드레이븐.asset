@@ -14,22 +14,57 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: " \uB4DC\uB808\uC774\uBE10"
   sprite: {fileID: 21300000, guid: 589f81d8fc9a41c4f8f3416e622b660f, type: 3}
-  damages: 00000000050000000f0000002d000000
+  damages:
+  - 10
+  - 10
+  - 10
+  - 10
   attackSpeeds:
   - 1
   - 1
   - 1
   - 1
-  ranges: []
-  magicalPowers: []
-  criticalRates: []
-  heathPoints: []
-  physicalDefenses: []
-  magicalDefenses: []
-  moveSpeeds: []
-  maxManas: 64000000
+  ranges:
+  - 3
+  - 3
+  - 3
+  - 3
+  magicalPowers:
+  - 100
+  - 100
+  - 100
+  - 100
+  criticalRates:
+  - 10
+  - 10
+  - 10
+  - 10
+  heathPoints:
+  - 100
+  - 100
+  - 100
+  - 100
+  physicalDefenses:
+  - 10
+  - 10
+  - 10
+  - 10
+  magicalDefenses:
+  - 10
+  - 10
+  - 10
+  - 10
+  moveSpeeds:
+  - 1
+  - 1
+  - 1
+  - 1
+  maxManas:
+  - 100
+  - 100
+  - 100
+  - 100
   id: 8
-  name: " \uB4DC\uB808\uC774\uBE10"
   cost: 1
   skillData: {fileID: 11400000, guid: 22bdf28b87864fe46be39299b5c81d4e, type: 2}
   job: {fileID: 11400000, guid: ba64404342474a242a5a88c1cb816a70, type: 2}

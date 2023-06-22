@@ -4,12 +4,39 @@ using UnityEngine;
 
 namespace LNK.MoreDeepFloor.Data.Entity
 {
-    public abstract class EntityData 
+
+    public struct EntityStatusArray
     {
-        public int cost;
         public string name;
+        public float[] values;
+        public float[] currentValues;
+
+        public EntityStatusArray(string _name, float[] _values)
+        {
+            name = _name;
+            values = _values.Clone() as float[];
+            currentValues = _values.Clone() as float[];
+        }
+    }
+    
+    public class EntityData 
+    {
+        //public int cost;
+        public string name;
+
+        public EntityStatusArray damages { get; private set; }
+        public EntityStatusArray attackSpeeds { get; private set; }
+        public EntityStatusArray ranges { get; private set; }
+        public EntityStatusArray magicalPowers { get; private set; }
+        public EntityStatusArray criticalRates { get; private set; }
         
-        public int[] damages;
+        public EntityStatusArray heathPoints { get; private set; }
+        public EntityStatusArray physicalDefenses { get; private set; }
+        public EntityStatusArray magicalDefenses { get; private set; }
+        public EntityStatusArray moveSpeeds { get; private set; }
+        public EntityStatusArray maxManas { get; private set; }
+
+        /*public int[] damages;
         public int[] currentDamages;
         
         public float[] attackSpeeds;
@@ -37,14 +64,43 @@ namespace LNK.MoreDeepFloor.Data.Entity
         public float[] currentMoveSpeeds;
         
         public int[] maxManas;
-        public int[] currentMaxManas;
+        public int[] currentMaxManas;*/
         
         public Sprite sprite;
+        public Dictionary<string, EntityStatusArray> statusDic { private set; get; }
 
         public EntityData(EntityOriginalData entityOriginalData)
         {
+            name = entityOriginalData.Name;
+
             //#. 공격
-            damages = (int[])entityOriginalData.Damages.Clone();
+            damages = new EntityStatusArray("데미지" ,entityOriginalData.Damages);
+            magicalPowers = new EntityStatusArray("마법력" ,entityOriginalData.MagicalPowers);
+            attackSpeeds = new EntityStatusArray("공격속도" ,entityOriginalData.AttackSpeeds);
+            ranges = new EntityStatusArray("사거리" ,entityOriginalData.Ranges);
+            criticalRates = new EntityStatusArray("치명타율" ,entityOriginalData.CriticalRates);
+            
+            heathPoints = new EntityStatusArray("체력" ,entityOriginalData.HeathPoints);
+            physicalDefenses = new EntityStatusArray("물리방어력" ,entityOriginalData.PhysicalDefense);
+            magicalDefenses = new EntityStatusArray("마법방어력" ,entityOriginalData.MagicalDefenses);
+            
+            moveSpeeds = new EntityStatusArray("이동속도" ,entityOriginalData.MoveSpeeds);
+            maxManas = new EntityStatusArray("최대마나" ,entityOriginalData.MaxManas);
+
+            statusDic = new Dictionary<string, EntityStatusArray>();
+            
+            statusDic.Add(damages.name , damages);
+            statusDic.Add(magicalPowers.name , magicalPowers);
+            statusDic.Add(attackSpeeds.name , attackSpeeds);
+            statusDic.Add(ranges.name , ranges);
+            statusDic.Add(criticalRates.name , criticalRates);
+            statusDic.Add(heathPoints.name , heathPoints);
+            statusDic.Add(physicalDefenses.name , physicalDefenses);
+            statusDic.Add(magicalDefenses.name , magicalDefenses);
+            statusDic.Add(moveSpeeds.name , moveSpeeds);
+            statusDic.Add(maxManas.name , maxManas);
+            
+            /*damages = (int[])entityOriginalData.Damages.Clone();
             currentDamages = (int[])entityOriginalData.Damages.Clone();
             
             attackSpeeds = (float[])entityOriginalData.AttackSpeeds.Clone();
@@ -74,7 +130,7 @@ namespace LNK.MoreDeepFloor.Data.Entity
             currentMoveSpeeds = (float[])entityOriginalData.MoveSpeeds.Clone();
 
             maxManas = (int[])entityOriginalData.MaxManas.Clone();
-            currentMaxManas = (int[])entityOriginalData.MaxManas.Clone();
+            currentMaxManas = (int[])entityOriginalData.MaxManas.Clone();*/
 
             sprite = entityOriginalData.Sprite;
 

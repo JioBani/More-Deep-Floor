@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using ExtensionMethods;
 using LNK.MoreDeepFloor.Common.TimerSystem;
+using LNK.MoreDeepFloor.Data.Entity;
 using LNK.MoreDeepFloor.InGame.DataSchema;
 using LNK.MoreDeepFloor.InGame.Entitys.Defenders;
 using UnityEngine;
@@ -13,38 +14,50 @@ using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
 namespace LNK.MoreDeepFloor.InGame.Entitys
 {
     [System.Serializable]
-    public class DefenderStatus
+    public class DefenderStatus : EntityStatus
     {
-        private TimerManager timerManager = null;
+        //private TimerManager timerManager = null;
         
-        public int level;
-        public float attackSpeedTimer;
+        //public int level;
+        //public float attackSpeedTimer;
         //public float maxMana;
-        public int currentMaxMana;
-        public int currentMana;
+        //ublic int currentMaxMana;
+        //public int currentMana;
 
-        public int isCanGainMana = 0;
+        //public int isCanGainMana = 0;
         
         public DefenderData defenderData;
-        public Dictionary<string, int> buffList;
 
-        public delegate void OnManaChangedEventHandler(int maxMana, int currentMana);
+        /*public DefenderStatus() : base()
+        {
+            
+        }*/
+
+        public void SetStatus(DefenderData data, int _level)
+        {
+            base.SetStatus(data, _level);
+            defenderData = data;
+        }
+        
+        //public Dictionary<string, int> buffList;
+
+        /*public delegate void OnManaChangedEventHandler(int maxMana, int currentMana);
         public delegate void OnHpChangedEventHandler(float maxHp, float currentHp);
 
         public OnManaChangedEventHandler OnManaChangedAction;
-        public OnHpChangedEventHandler OnHpChangedAction;
+        public OnHpChangedEventHandler OnHpChangedAction;*/
 
-        public DefenderStatusValue damage;
-        public DefenderStatusValue attackSpeed;
-        public DefenderStatusValue maxHp;
+        //public DefenderStatusValue damage;
+        //public DefenderStatusValue attackSpeed;
+        //public DefenderStatusValue maxHp;
 
-        public float currentHp
+        /*public float currentHp
         {
             get;
             private set;
-        }
+        }*/
 
-        public DefenderStatus(DefenderData _defenderData)
+        /*public DefenderStatus(DefenderData _defenderData)
         {
             if(timerManager == null)
                 timerManager = TimerManager.instance;
@@ -68,15 +81,15 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             currentMana = 0;
 
             buffList = new Dictionary<string, int>();
-        }
+        }*/
 
-        public void LevelUp()
+        /*public void LevelUp()
         {
             level++;
             RefreshStatus();
-        }
+        }*/
 
-        public bool ManaUp(int value)
+        /*public bool ManaUp(int value)
         {
             if (isCanGainMana != 0)
             {
@@ -96,8 +109,9 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
                 OnManaChangedAction?.Invoke(currentMaxMana , currentMana);
                 return false;
             }
-        }
+        }*/
 
+        /*
         public StatusBuff AddAttackSpeedBuff(float value, string name)
         {
             StatusBuff buff = attackSpeed.AddBuff(value , name);
@@ -116,9 +130,9 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             StatusBuff buff = attackSpeed.AddBuffWithModify(value , name);
             attackSpeedTimer = 1 / attackSpeed.currentValue;
             return buff;
-        }
+        }*/
 
-        public void SetManaGain(bool isGain)
+        /*public void SetManaGain(bool isGain)
         {
             if (isGain)
             {
@@ -130,22 +144,22 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
                 isCanGainMana--;
             }
                
-        }
+        }*/
 
-        public void ChangeHp(float value)
+        /*public void ChangeHp(float value)
         {
             currentHp += value;
             if (currentHp > maxHp.currentValue) currentHp = maxHp.currentValue;
             else if (currentHp < 0) currentHp = 0;
             OnHpChangedAction?.Invoke(maxHp.currentValue ,currentHp );
-        }
+        }*/
 
-        public void RefreshStatus()
+        /*public void RefreshStatus()
         {
             damage.SetOriginalValue(defenderData.currentDamages[level]);
             attackSpeed.SetOriginalValue(defenderData.currentAttackSpeeds[level]);
             attackSpeedTimer = 1 / attackSpeed.currentValue;
-        }
+        }*/
     }
 }
 

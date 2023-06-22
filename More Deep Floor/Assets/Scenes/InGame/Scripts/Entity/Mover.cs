@@ -154,11 +154,11 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             }
         }
 
-        public void Init(MonsterStatus status)
+        /*public void Init(float status)
         {
             speed = status.speed;
             SetPause(false);
-        }
+        }*/
         
         public void SetPause(bool _isPause)
         {

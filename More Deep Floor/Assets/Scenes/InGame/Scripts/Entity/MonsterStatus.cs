@@ -125,24 +125,24 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
         }
     }
     
-    public class MonsterStatus
+    public class MonsterStatus : EntityStatus
     {
         public delegate void OnSpeedChangeEventHandler(float speed);
 
         public OnSpeedChangeEventHandler OnSpeedChangeAction;
         
-        public float maxHp;
-        public float currentHp;
-        private Dictionary<int, float> speedBuffs;
+        //public float maxHp;
+        //public float currentHp;
+        //private Dictionary<int, float> speedBuffs;
 
-        public MonsterStatusValue speed;
+        //public MonsterStatusValue speed;
 
         public int gold;
         public int currentGold;
         
         public MonsterData monsterData;
 
-        public MonsterStatus(float maxHp, float speed, int gold)
+        /*public MonsterStatus(float maxHp, float speed, int gold)
         {
             this.maxHp = maxHp;
             this.currentHp = maxHp;
@@ -156,13 +156,13 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             this.currentGold = gold;
             
             speedBuffs = new Dictionary<int, float>();
-        }
+        }*/
 
-        public MonsterStatus(MonsterData monsterData) : this(
+        /*public MonsterStatus(MonsterData monsterData) : this(
             maxHp: monsterData.hp,
             speed: monsterData.moveSpeed,
             gold: monsterData.gold
-        ){ }
+        ){ }*/
 
         /*public int AddSpeedBuff(float value)
         {

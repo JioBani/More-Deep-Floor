@@ -3,20 +3,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace LNK.MoreDeepFloor.InGame.Entitys.Defenders
+namespace LNK.MoreDeepFloor.InGame.Entitys
 {
-
-    /*[Serializable]
-    public class DefenderStatusValue
+    [Serializable]
+    public class StatusValue
     {
         public float originalValue { get; private set; }
         public float currentValue { get; private set; }
+        
         private List<StatusBuff> buffList = new List<StatusBuff>();
-
-        public DefenderStatusValue(float value)
+        
+        /*public StatusValue(float value)
         {
             originalValue = value;
             currentValue = value;
+        }
+        */
+
+        public StatusValue Reset(float value)
+        {
+            originalValue = value;
+            currentValue = value;
+            buffList = new List<StatusBuff>();
+            return this;
         }
         
         public void Refresh()
@@ -30,7 +39,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.Defenders
                 str += $"{statusBuff.name} : {statusBuff.value} ,";
             }
         }
-
+        
         public StatusBuff AddBuff(float value, string name)
         {
             
@@ -90,7 +99,8 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.Defenders
             buff.value = value;
             Refresh();
         }
-    }*/
-}
 
+    }
+
+}
 

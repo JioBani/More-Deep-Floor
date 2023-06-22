@@ -15,7 +15,10 @@ namespace ExtensionMethods
             try
             {
                 if (array.Length <= index)
+                {
+                    //Logger.LogWarning($"[Array.SaveGet()] 배열 참조 오류 : [{index}]의 값이 ${defaultValue}로 리턴됨");
                     throw new IndexOutOfRangeException();
+                }
                 else
                     return array[index];
             }

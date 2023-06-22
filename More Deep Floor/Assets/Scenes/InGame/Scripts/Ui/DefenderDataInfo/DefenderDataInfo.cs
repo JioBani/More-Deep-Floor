@@ -49,8 +49,8 @@ namespace LNK.MoreDeepFloor.InGame.Ui.DefenderDataInfoUi
             characterImage.sprite = defenderData.character.Image;
             characterName.text = defenderData.character.TraitName;
 
-            damageText.text = MakeDamageValue(defenderData.currentDamages);
-            attackSpeedText.text = MakeAttackSpeedValue(defenderData.currentAttackSpeeds);
+            damageText.text = MakeDamageValue(defenderData.damages.currentValues);
+            attackSpeedText.text = MakeAttackSpeedValue(defenderData.attackSpeeds.currentValues);
             
             gameObject.SetActive(true);
             transform.position = pos;
@@ -62,12 +62,12 @@ namespace LNK.MoreDeepFloor.InGame.Ui.DefenderDataInfoUi
             gameObject.SetActive(false);
         }
 
-        string MakeDamageValue(int[] damages)
+        string MakeDamageValue(float[] damages)
         {
             string str = "";
             for (var i = 0; i < damages.Length - 1; i++)
             {
-                str += damages[i] + " /";
+                str += (int)damages[i] + " /";
             }
 
             str += " "+ damages[damages.Length - 1];

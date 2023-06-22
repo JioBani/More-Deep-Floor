@@ -185,7 +185,7 @@ namespace LNK.MoreDeepFloor.InGame
             defender.GetComponent<Placer>().Init();
             defenders.Add(defender);
             defender.SpawnAtWaitingRoom(tile);
-            defender.Init(defenderData);
+            defender.Init(defenderData , 1);
             SetDefenderSpawnId(defender);
             
             defender.OnSpawn();

@@ -103,6 +103,8 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
 
             entityCollide.OnTriggerEnter2DAciton += OnEntityTriggerEnter;
             entityCollide.OnTriggerExit2DAciton += OnEntityTriggerExit;
+
+            status = new DefenderStatus();
         }
         
 
@@ -194,12 +196,17 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
 
         #region #. 앤티티 이벤트 함수
 
-        public void Init(DefenderData _defenderData)
+        public void Init(DefenderData _defenderData , int level)
         {
-            status = new DefenderStatus(_defenderData);
+            //status.SetStatus(_defenderData , _defenderData.l);
+            //status = new DefenderStatus(_defenderData);
+            //status = new DefenderStatus();
+            
+            status.SetStatus(_defenderData , level);
+            
             spriteRenderer.sprite = _defenderData.sprite;
             frameSpriteRenderer.color = Palette.defenderCostColors[_defenderData.cost];
-            OnManaChanged(status.currentMaxMana , status.currentMana);
+            OnManaChanged(status.maxMana.currentValue , status.currentMana);
             
             status.OnManaChangedAction += OnManaChanged;
             status.OnHpChangedAction += OnHpChanged;
@@ -242,9 +249,9 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             placer.TryMove(tile);
         }
         
-        void OnManaChanged(int maxMana, int currentMana)
+        void OnManaChanged(float maxMana, float currentMana)
         {
-            manaInnerBarRenderer.size = new Vector2(status.currentMana / (float)status.currentMaxMana ,0.25f);
+            manaInnerBarRenderer.size = new Vector2(status.currentMana / status.maxMana.currentValue ,0.25f);
         }
 
         void OnHpChanged(float maxHp , float currentHp)
