@@ -19,12 +19,9 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.Monsters
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            Logger.Log($"[DefenderSearcher.OnTriggerEnter()] {other.gameObject.name}");
             if (ReferenceEquals(target, null))
             {
                 target = other.transform.parent.GetComponent<Defender>();
-                Logger.Log($"[DefenderSearcher.OnTriggerEnter()] {other.transform.parent}");
-                Logger.Log($"[DefenderSearcher.OnTriggerEnter()] 타겟설정 : {target.name}");
                 isTargetExist = true;
                 OnTargetSearchEvent?.Invoke();
             }
@@ -32,12 +29,10 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.Monsters
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            Logger.Log($"[DefenderSearcher.OnTriggerExit2D()] {other.gameObject.name}");
             
             if (ReferenceEquals(target.gameObject, other.transform.parent.gameObject))
             {
                 target = null;
-                Logger.Log($"[DefenderSearcher.OnTriggerEnter()] 타겟 로스트");
                 isTargetExist = false;
                 OnTargetLostEvent?.Invoke();
             }

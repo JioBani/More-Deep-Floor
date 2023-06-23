@@ -40,7 +40,7 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits //.
         public override void OnBeforeOriginalAttackAction(Monster target, DefenderStateId stateId)
         {
             int nums = targetNums[traitController.job.synergyLevel];
-            Debug.Log($"[TraitState_Circus] 발동 : {nums}");
+            //Debug.Log($"[TraitState_Circus] 발동 : {nums}");
             List<Monster> monsters = defender.TrySearchTargetsExpectTarget(3);
             if (stateId == DefenderStateId.Trait_Circus) return;
             

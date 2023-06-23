@@ -228,7 +228,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
         public void OnDie()
         {
             state = DefenderLifeState.Die;
-            Logger.Log($"{name} 죽음");
+            //Logger.Log($"{name} 죽음");
             defenderTargetCol.gameObject.SetActive(false);
             StartCoroutine(Revive());
             //status.ChangeHp(status.maxHp.currentValue);
