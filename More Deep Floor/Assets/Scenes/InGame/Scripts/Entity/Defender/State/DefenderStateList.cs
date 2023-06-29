@@ -66,6 +66,14 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.Defenders.States
             }
         }
 
+        public void OnKillAction(Monster target)
+        {
+            for (var i = 0; i < stateList.Count; i++)
+            {
+                stateList[i].OnKillAction(target);
+            }
+        }
+
         public void OnDefenderPlaceChange(Defender target)
         {
             for (var i = 0; i < stateList.Count; i++)
@@ -73,6 +81,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.Defenders.States
                 stateList[i].OnDefenderPlaceChange(target);
             }
         }
+
 
         public void Reset()
         {

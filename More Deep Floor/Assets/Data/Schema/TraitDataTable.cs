@@ -9,12 +9,13 @@ namespace LNK.MoreDeepFloor.Data.Schemas
 
     public class TraitDataTable : ScriptableObject
     {
+        
         [SerializeField] private List<TraitData> traitDataList;
         public List<TraitData> TraitDataList => traitDataList;
 
         private Dictionary<TraitId , RuntimeTraitData> runtimeTraitDataList;
 
-        public void Init()
+        /*public void Init()
         {
             runtimeTraitDataList = new Dictionary<TraitId , RuntimeTraitData>();
             
@@ -22,7 +23,7 @@ namespace LNK.MoreDeepFloor.Data.Schemas
             {
                 runtimeTraitDataList.Add(traitDataList[i].Id , traitDataList[i].GetRuntimeData());
             }
-        }
+        }*/
 
         public RuntimeTraitData FindRuntimeTrait(TraitId id)
         {
@@ -34,6 +35,21 @@ namespace LNK.MoreDeepFloor.Data.Schemas
             {
                 Debug.LogWarning($"[TraitDataTable.GetRuntimeTrait()] RuntimeTraitData를 찾을 수 없음 : {id}");
                 return null;
+            }
+        }
+        
+        void SetTraitList(List<TraitData> traits)
+        {
+            traitDataList = traits;
+        }
+
+        public void SetRunTimeTraitData()
+        {
+            runtimeTraitDataList = new Dictionary<TraitId , RuntimeTraitData>();
+            
+            for (var i = 0; i < traitDataList.Count; i++)
+            {
+                runtimeTraitDataList.Add(traitDataList[i].Id , traitDataList[i].GetRuntimeData());
             }
         }
     }

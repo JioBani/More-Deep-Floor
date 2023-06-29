@@ -7,14 +7,17 @@ using LNK.MoreDeepFloor.InGame.DataSchema;
 using LNK.MoreDeepFloor.InGame.Entitys;
 using LNK.MoreDeepFloor.InGame.Entitys.Defenders.States;
 using UnityEngine;
+using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
 
 namespace LNK.MoreDeepFloor.InGame.TraitSystem
 {
     public class TraitManager : MonoBehaviour
     {
+   
+        
         public Dictionary<TraitId, BattleFieldTraitInfo> currentTraits = new Dictionary<TraitId, BattleFieldTraitInfo>();
         public Dictionary<TraitId, List<DefenderOriginalData>> defenderSortByTrait;
-        
+
         public TraitDataTable traitDataTable;
         [SerializeField] private DefenderTableOriginalData defenderTableData;
         
@@ -62,31 +65,58 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
             }
             
             defenderManager = ReferenceManager.instance.defenderManager;
-            defenderManager.OnDefenderEnterBattleFieldAction += AddDefender;
-            defenderManager.OnDefenderExitBattleFieldAction += RemoveDefender;
+            defenderManager.OnDefenderEnterBattleFieldAction += OnAddDefender;
+            defenderManager.OnDefenderExitBattleFieldAction += OnRemoveDefender;
             
-            traitDataTable.Init();
+            traitDataTable.SetRunTimeTraitData();
+            
         }
 
-        void AddDefender(Defender defender)
+
+        /// <summary>
+        /// 수호자가 전투석에 추가될때 호출
+        /// </summary>
+        /// <param name="defender">수호자</param>
+        void OnAddDefender(Defender defender)
         {
             DefenderData data = defender.status.defenderData;
-            currentTraits[data.job.Id].AddDefender(defender , TraitType.Job);
-            currentTraits[data.character.Id].AddDefender(defender , TraitType.Character);
-            SetSynergyLevel(defender);
-            
-            OnTraitChangeAction?.Invoke(currentTraits);
+            try
+            {
+                currentTraits[data.job.Id].AddDefender(defender , TraitType.Job);
+                currentTraits[data.character.Id].AddDefender(defender , TraitType.Character);
+                SetSynergyLevel(defender);
+                OnTraitChangeAction?.Invoke(currentTraits);
+            }
+            catch (Exception e)
+            {
+                Logger.LogException(e);
+                throw;
+            }
         }
 
-        void RemoveDefender(Defender defender)
+        /// <summary>
+        /// 수호자가 전투석에서 제거될때 호출
+        /// </summary>
+        /// <param name="defender">수호자</param>
+        void OnRemoveDefender(Defender defender)
         {
-            DefenderData data = defender.status.defenderData;
-            currentTraits[data.job.Id].RemoveDefender(defender , TraitType.Job);
-            currentTraits[data.character.Id].RemoveDefender(defender , TraitType.Character);
-            SetSynergyLevel(defender);
-            defender.GetComponent<TraitController>().OnBattleFieldExit();
+            try
+            {
+                DefenderData data = defender.status.defenderData;
+                currentTraits[data.job.Id].RemoveDefender(defender , TraitType.Job);
+                currentTraits[data.character.Id].RemoveDefender(defender , TraitType.Character);
+                SetSynergyLevel(defender);
+                defender.GetComponent<TraitController>().OnBattleFieldExit();
 
-            OnTraitChangeAction?.Invoke(currentTraits);
+                OnTraitChangeAction?.Invoke(currentTraits);
+            }
+            catch (Exception e)
+            {
+                Logger.LogException(e);
+                throw;
+            }
+            
+      
         }
 
         void SetSynergyLevel(Defender defender)
@@ -104,6 +134,8 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
                 traitInfo.defenders[i].GetComponent<TraitController>().SetSynergyLevel(TraitType.Character , traitInfo.synergyLevel);
             }
         }
+         
+        
     }
 }
 

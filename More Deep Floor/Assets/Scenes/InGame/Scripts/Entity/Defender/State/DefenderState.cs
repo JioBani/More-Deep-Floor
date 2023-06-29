@@ -59,6 +59,8 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.Defenders.States
         
         public virtual void OnBeforeOriginalAttackAction(Monster target, DefenderStateId from){}
 
+        public virtual void OnKillAction(Monster target){}
+        
         public virtual void OnDefenderPlaceChange(Defender target)
         {
             Debug.LogWarning($"[DefenderState.OnDefenderPlaceChange()] 정상적이지 않은 접근 : {id}");

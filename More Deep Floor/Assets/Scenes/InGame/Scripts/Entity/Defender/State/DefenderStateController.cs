@@ -149,7 +149,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.Defenders.States
         
         void OnKill(Monster target)
         {
-            stateSortByType[DefenderStateType.OnKill].Action(defender , target);
+            stateSortByType[DefenderStateType.OnKill].OnKillAction(target);
         }
 
         void OnTargetHit(Monster target , int damage)
@@ -170,8 +170,8 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.Defenders.States
         void BeforeOriginalAttack(Monster target, DefenderStateId id)
         {
             stateSortByType[DefenderStateType.BeforeOriginalAttack].BeforeOriginalAttackAction(target,id);
-
         }
+
 
         void OnDefenderPlaceChange(Defender target)
         {

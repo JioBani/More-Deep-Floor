@@ -23,6 +23,8 @@ namespace LNK.MoreDeepFloor.InGame.DataSchema
         public SkillData skillData;
         public TraitData job;
         public TraitData character;
+        public TraitData summonerTrait;
+        public TraitData personality;
 
         public DefenderData(DefenderOriginalData defenderOriginalData) 
             : base(defenderOriginalData)
