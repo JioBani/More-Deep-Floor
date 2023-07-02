@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using ExtensionMethods;
 using LNK.MoreDeepFloor.Common.TimerSystem;
 using LNK.MoreDeepFloor.Data.Entity;
+using LNK.MoreDeepFloor.InGame.Entitys.Defenders.States;
 using UnityEngine;
+using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
 
 namespace LNK.MoreDeepFloor.InGame.Entitys
 {
@@ -34,6 +36,8 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
         public float currentMana;
         public float currentHp;
 
+        public ShieldController shieldController;
+
         private Dictionary<EntityStatusArray, StatusValue> statusDic;
         
         public delegate void OnManaChangedEventHandler(float maxMana, float currentMana);
@@ -59,6 +63,8 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             magicalDefense = new StatusValue();
             moveSpeed = new StatusValue();
             maxMana = new StatusValue();
+
+            shieldController = new ShieldController();
         }
 
         public virtual void SetStatus(EntityData data, int _level)
@@ -87,6 +93,8 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
 
             attackSpeedTimer = 1 / attackSpeed.currentValue;
             isCanGainMana = 0;
+            
+            shieldController.Init();
         }
         
         public void RefreshStatus()

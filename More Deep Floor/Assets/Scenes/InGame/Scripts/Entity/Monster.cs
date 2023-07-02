@@ -124,7 +124,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             //status = new MonsterStatus(monsterData);
             line = _line;
             
-            hpBar.RefreshBar((int)status.maxHp.currentValue , (int)status.currentHp);
+            hpBar.RefreshBar(status.maxHp.currentValue , status.currentHp,status.shieldController.amount);
             
             InitMover();
         }
@@ -240,7 +240,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
 
         void OnHpChanged(int value)
         {
-            hpBar.RefreshBar((int)status.maxHp.currentValue ,(int)status.currentHp);
+            hpBar.RefreshBar(status.maxHp.currentValue ,status.currentHp,status.shieldController.amount);
         }
 
        

@@ -11,6 +11,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.Defenders
         [SerializeField] private TextMeshPro hpText;
         [SerializeField] private SpriteRenderer hpBarSprite;
         [SerializeField] private SpriteRenderer hpBarBackGround;
+        [SerializeField] private SpriteRenderer shieldBar;
 
         private Vector2 maxSize;
         
@@ -19,10 +20,22 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.Defenders
             maxSize = hpBarBackGround.size;
         }
 
-        public void RefreshBar(int maxHp , int currentHp)
+        public void RefreshBar(float maxHp , float currentHp , float shield)
         {
-            hpBarSprite.size = new Vector2(maxSize.x * (currentHp / (float)maxHp), maxSize.y);
-            hpText.text = currentHp.ToString();
+            if (currentHp + shield <= maxHp)
+            {
+                hpBarSprite.size = new Vector2(maxSize.x * (currentHp / maxHp), maxSize.y);
+                shieldBar.size = new Vector2(maxSize.x * (shield / maxHp), maxSize.y);
+                shieldBar.transform.position = hpBarSprite.transform.position + new Vector3(hpBarSprite.size.x + shieldBar.size.x / 2,0);
+            }
+            else
+            {
+                hpBarSprite.size = new Vector2(maxSize.x * (currentHp / (currentHp + shield)), maxSize.y);
+                shieldBar.size = new Vector2(maxSize.x * (shield / (currentHp + shield)), maxSize.y);
+                shieldBar.transform.position = hpBarSprite.transform.position + new Vector3(hpBarSprite.size.x + shieldBar.size.x / 2,0);
+            }
+            Debug.Log($"[Hpbar.RefreshBar()] currentHp : {currentHp} , shield : {shield}");
+            hpText.text = ((int)(currentHp)).ToString();
         }
     }
 }

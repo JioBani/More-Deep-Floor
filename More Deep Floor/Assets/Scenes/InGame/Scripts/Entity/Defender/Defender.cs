@@ -50,6 +50,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
         [SerializeField] private DefenderVisual defenderVisual;
         [SerializeField] private HpBar hpBar;
         [SerializeField] private Collider2D defenderTargetCol;
+        [SerializeField] private TextMeshPro shieldText;
 
         public delegate void OnSpawnEventHandler();
         public delegate void OnBeforeOriginalAttackEventHandler(Monster target,DefenderStateId from);
@@ -216,6 +217,9 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             traitController.SetTrait(this);
             stateController.Init();
             defenderVisual.SetStar(_defenderData.cost , status.level);
+            
+            status.shieldController.AddListener(OnShieldChange);
+            hpBar.RefreshBar(status.maxHp.currentValue, status.currentHp,status.shieldController.amount);
         }
         
         public void OnSpawn()
@@ -223,6 +227,11 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             OnSpawnAction?.Invoke();
             
             defenderManager.CheckMerge(this);
+            
+            AddShield( id : "테스트쉴드" , 
+                maxAmount:100 ,
+                lateTime: 0,
+                state: stateController.AddState(DefenderStateId.Test_TestShield));
         }
 
         public void OnDie()
@@ -254,13 +263,23 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             manaInnerBarRenderer.size = new Vector2(status.currentMana / status.maxMana.currentValue ,0.25f);
         }
 
+        void OnShieldOfHpChanged()
+        {
+            hpBar.RefreshBar(status.maxHp.currentValue, status.currentHp,status.shieldController.amount);
+        }
+
         void OnHpChanged(float maxHp , float currentHp)
         {
-            hpBar.RefreshBar((int)maxHp , (int)currentHp);
+            hpBar.RefreshBar((int)maxHp , (int)currentHp,status.shieldController.amount);
             if (currentHp <= 0)
             {
                 OnDie();
             }
+        }
+
+        void OnShieldChange(float amount)
+        {
+            shieldText.text = amount.ToString();
         }
 
         #endregion
@@ -325,8 +344,9 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
 
         public void SetHit(int value , Monster firer)
         {
-            status.ChangeHp(-value);
-            hpBar.RefreshBar((int)status.maxHp.currentValue, (int)status.currentHp);
+            float leftValue = status.shieldController.SetDamage(value);
+            status.ChangeHp(-leftValue);
+            OnShieldOfHpChanged();
         }
 
         IEnumerator Revive()
@@ -336,7 +356,20 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             defenderTargetCol.gameObject.SetActive(true);
             status.ChangeHp(status.maxHp.currentValue);
             state = DefenderLifeState.Default;
-        }        
+        }
+
+        void AddShield(string id , float maxAmount , DefenderState state ,  float lateTime, bool isHasTimeoutAction = false)
+        {
+            status.shieldController.AddShield(
+                id ,
+                maxAmount ,
+                lateTime,
+                state,
+                isHasTimeoutAction
+                );
+            
+            OnShieldOfHpChanged();
+        }
 
         #endregion
 

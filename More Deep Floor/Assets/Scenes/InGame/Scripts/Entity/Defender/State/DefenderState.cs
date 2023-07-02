@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using LNK.MoreDeepFloor.Data.Defenders.States;
@@ -35,11 +36,6 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.Defenders.States
             OnGenerated();
         }
 
-        public DefenderState()
-        {
-            
-        }
-        
         public virtual void OnGenerated()
         {
             
@@ -66,7 +62,16 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.Defenders.States
             Debug.LogWarning($"[DefenderState.OnDefenderPlaceChange()] 정상적이지 않은 접근 : {id}");
         }
 
-        
+        public virtual void OnShieldBreakAction(float maxAmount)
+        {
+        }
+
+        public virtual void OnShieldTimeOutAction(float maxAmount , float leftAmount)
+        {
+            
+        }
+
+
         public bool RemoveStack()
         {
             stack--;

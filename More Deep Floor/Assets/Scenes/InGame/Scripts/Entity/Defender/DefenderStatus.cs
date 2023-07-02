@@ -16,17 +16,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
     [System.Serializable]
     public class DefenderStatus : EntityStatus
     {
-        //private TimerManager timerManager = null;
-        
-        //public int level;
-        //public float attackSpeedTimer;
-        //public float maxMana;
-        //ublic int currentMaxMana;
-        //public int currentMana;
-
-        //public int isCanGainMana = 0;
-        
-        public DefenderData defenderData;
+       public DefenderData defenderData;
 
         /*public DefenderStatus() : base()
         {

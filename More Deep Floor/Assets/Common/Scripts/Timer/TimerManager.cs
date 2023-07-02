@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using LNK.MoreDeepFloor.Common.WaitForSecondsCache;
 using UnityEngine;
+using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
 
 namespace LNK.MoreDeepFloor.Common.TimerSystem
 {
@@ -26,7 +28,19 @@ namespace LNK.MoreDeepFloor.Common.TimerSystem
 
         public void LateAction(float time , OnTimerEndEventHandler OnTimerEndAction)
         {
-            StartCoroutine(CheckTimerRoutine(time , OnTimerEndAction));
+            try
+            {
+                if (time <= 0)
+                {
+                    throw new Exception($"[TimerManager.LateAction()] 유효하지않은 time : {time}");
+                }
+                StartCoroutine(CheckTimerRoutine(time , OnTimerEndAction));
+            }
+            catch (Exception e)
+            {
+                Logger.LogException(e);
+                throw;
+            }
         }
 
         IEnumerator CheckTimerRoutine(float time , OnTimerEndEventHandler OnTimerEndAction)

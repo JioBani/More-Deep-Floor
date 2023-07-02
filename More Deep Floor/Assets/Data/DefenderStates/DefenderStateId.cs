@@ -42,11 +42,14 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States
         Job_Magician = 2003, //#. 마술사
         Job_Guard = 2004, //#. 기사
         Job_Knight = 2005, //#. 기사
-        Job_Thief = 2006 //#. 도적
+        Job_Thief = 2006, //#. 도적
 
         #endregion
 
         //#. 성격
+        
+        //#. Test
+        Test_TestShield = 10000
         
 
 
