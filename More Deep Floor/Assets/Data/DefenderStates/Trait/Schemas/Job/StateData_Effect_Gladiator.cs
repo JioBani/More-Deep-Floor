@@ -7,6 +7,7 @@ using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.Entitys;
 using LNK.MoreDeepFloor.InGame.Entitys.Defenders;
 using LNK.MoreDeepFloor.InGame.Entitys.Defenders.States;
+using LNK.MoreDeepFloor.InGame.Entitys.States;
 using UnityEngine;
 
 namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas
@@ -38,7 +39,7 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas
             attackSpeed = runtimeTraitGladiator.currentAttackSpeedUp;
         }
 
-        public override void OnAction(Defender caster, Monster target)
+        /*public override void OnAction(Defender caster, Monster target)
         {
             int level = traitController.job.synergyLevel;
             if(level < 0) return;
@@ -54,7 +55,7 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas
                 caster.status.RemoveAttackSpeedBuff(buff);
                 RemoveState();
             });
-        }
+        }*/
     }
 }
 

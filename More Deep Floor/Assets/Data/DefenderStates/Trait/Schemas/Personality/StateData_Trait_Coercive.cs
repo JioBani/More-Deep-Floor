@@ -42,7 +42,7 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits //.
             time = runtimeTraitData.currentTime;
         }
 
-        public override void OnTargetHitAction(Defender caster, Monster target, int damage)
+        /*public override void OnTargetHitAction(Defender caster, Monster target, int damage)
         {
             int level = traitController.character.synergyLevel;
             if (!ProbabilityCheck.Check((int)percents[level], 100))
@@ -54,6 +54,6 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits //.
             {
                 target.SetStun(false);
             });
-        }
+        }*/
     }
 }

@@ -20,7 +20,7 @@ namespace LNK.MoreDeepFloor.InGame.DataSchema
         public string spawnId;
         public int cost;
       
-        public SkillData skillData;
+        //public SkillData skillData;
         public TraitData job;
         public TraitData character;
         public TraitData summonerTrait;

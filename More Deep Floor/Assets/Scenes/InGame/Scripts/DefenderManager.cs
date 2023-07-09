@@ -11,6 +11,7 @@ using LNK.MoreDeepFloor.InGame.Entitys;
 using LNK.MoreDeepFloor.InGame.MarketSystem;
 using LNK.MoreDeepFloor.InGame.Tiles;
 using UnityEngine;
+using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
 
 namespace LNK.MoreDeepFloor.InGame
 {
@@ -114,8 +115,8 @@ namespace LNK.MoreDeepFloor.InGame
         //#. 수호자 검색
         public List<Defender> FindDefendersByTrait(TraitId traitId)
         {
-            return defenders.Filter((defender) => (defender.status.defenderData.character.Id == traitId) ||
-                                                  (defender.status.defenderData.job.Id == traitId));
+            return defenders.Filter((defender) => (defender.defenderData.character.Id == traitId) ||
+                                                  (defender.defenderData.job.Id == traitId));
             
         }
 
@@ -138,7 +139,7 @@ namespace LNK.MoreDeepFloor.InGame
             
             OnDefenderEnterBattleFieldAction?.Invoke(defender);
             OnBattleFieldDefenderChangeAction?.Invoke(battleDefenderLimit, battleDefenders);
-            Debug.Log($"[DefenderManager.OnDefenderEnterBattleField()] 전투석 입장 : {defender.status.defenderData.spawnId}");
+            Debug.Log($"[DefenderManager.OnDefenderEnterBattleField()] 전투석 입장 : {defender.defenderData.spawnId}");
         }
 
         public void OnDefenderEnterWaitingRoom(Defender defender)
@@ -152,7 +153,7 @@ namespace LNK.MoreDeepFloor.InGame
             
             OnDefenderExitBattleFieldAction?.Invoke(defender);
             OnBattleFieldDefenderChangeAction?.Invoke(battleDefenderLimit, battleDefenders);
-            Debug.Log($"[DefenderManager.OnDefenderEnterBattleField()] 전투석 퇴장 : {defender.status.defenderData.spawnId}");
+            Debug.Log($"[DefenderManager.OnDefenderEnterBattleField()] 전투석 퇴장 : {defender.defenderData.spawnId}");
             
         }
 
@@ -184,11 +185,11 @@ namespace LNK.MoreDeepFloor.InGame
             //tile.SetDefender(defender);
             defender.GetComponent<Placer>().Init();
             defenders.Add(defender);
-            defender.SpawnAtWaitingRoom(tile);
             defender.Init(defenderData , 1);
+            defender.SpawnAtWaitingRoom(tile);
             SetDefenderSpawnId(defender);
             
-            defender.OnSpawn();
+            //defender.OnSpawn();
             return defender;
         }
         #endregion
@@ -198,7 +199,11 @@ namespace LNK.MoreDeepFloor.InGame
         public void CheckMerge(Defender defender)
         {
             Defender[] mergeDefenders = new Defender[3];
-            DefenderId id = defender.status.defenderData.id;
+            DefenderId id = defender.defenderData.id;
+            
+            Logger.LogWarning($"[Defender.CheckMerge()] {defender.status} ");
+            Logger.LogWarning($"[Defender.CheckMerge()] {defender.status.level} ");
+            
             int level = defender.status.level;
             
             if (level >= 3) return;
@@ -209,7 +214,7 @@ namespace LNK.MoreDeepFloor.InGame
             
             for (int i = 0; i < defenders.Count; i++)
             {
-                if (defenders[i].status.defenderData.id == id && 
+                if (defenders[i].defenderData.id == id && 
                     defenders[i].status.level == level && 
                     defenders[i] != defender
                    )
@@ -220,12 +225,12 @@ namespace LNK.MoreDeepFloor.InGame
                     }
                     else
                     {
-                        Debug.Log($"[DefenderManager.CheckMerge()] 합성 주인 : {mergeDefenders[0].status.defenderData.spawnId}");
+                        Debug.Log($"[DefenderManager.CheckMerge()] 합성 주인 : {mergeDefenders[0].defenderData.spawnId}");
                         mergeDefenders[1] = defenders[i];
                         mergeDefenders[0].Merge();
                         Debug.Log($"[DefenderManager.CheckMerge()] 합성 재료 : " +
-                                  $"{mergeDefenders[1].status.defenderData.spawnId} , " +
-                                  $"{mergeDefenders[2].status.defenderData.spawnId}");
+                                  $"{mergeDefenders[1].defenderData.spawnId} , " +
+                                  $"{mergeDefenders[2].defenderData.spawnId}");
                         mergeDefenders[1].BeMerged(mergeDefenders[0]);
                         mergeDefenders[2].BeMerged(mergeDefenders[0]);
                         CheckMerge(mergeDefenders[0]);
@@ -257,10 +262,10 @@ namespace LNK.MoreDeepFloor.InGame
             
             foreach (var target in battleDefenders)
             {
-                str += target.status.defenderData.spawnId + " , ";
+                str += target.defenderData.spawnId + " , ";
             }
             
-            Debug.Log($"[DefenderManager.RemoveDefender()] 수호자 삭제 : {defender.status.defenderData.spawnId}");
+            Debug.Log($"[DefenderManager.RemoveDefender()] 수호자 삭제 : {defender.defenderData.spawnId}");
             Debug.Log($"[DefenderManager.RemoveDefender()] 현재 전투석 : {str}");
         }
         
@@ -272,9 +277,9 @@ namespace LNK.MoreDeepFloor.InGame
         //#. 수호자 id 생성
         public void SetDefenderSpawnId(Defender defender)
         {
-            int cost = defender.status.defenderData.cost;
+            int cost = defender.defenderData.cost;
             
-            defender.status.defenderData.spawnId = defender.status.defenderData.id + "_" + defenderIndex[cost];
+            defender.defenderData.spawnId = defender.defenderData.id + "_" + defenderIndex[cost];
             defenderIndex[cost]++;
         }
 

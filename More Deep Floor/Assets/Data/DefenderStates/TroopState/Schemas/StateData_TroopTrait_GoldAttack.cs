@@ -43,13 +43,13 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas //.
             marketManager = ReferenceManager.instance.marketManager;
         }
 
-        public override void OnTargetHitAction(Defender caster, Monster target, int damage)
+        /*public override void OnTargetHitAction(Defender caster, Monster target, int damage)
         {
             if (ProbabilityCheck.Check((int)(percents[level] * 0.01f * 1000),1000))
             {
                 marketManager.GoldChange(1 , "TroopTraitState_GoldAttack");
             }
-        }
+        }*/
 
         public void SetTroopTraitLevel(int _level)
         {

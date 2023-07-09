@@ -32,7 +32,7 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits //.
            
         }
         
-        public override void OnAction(Defender caster, Monster target)
+        /*public override void OnAction(Defender caster, Monster target)
         {
             //float attackSpeed = stateDataSpecific.percents[]
             statsBuff = defender.status.AddAttackSpeedBuff(defender.status.attackSpeed.originalValue * percent * 0.01f,"Effect_Encouraging" );
@@ -41,7 +41,7 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits //.
         public override void OffAction(Defender caster, Monster target)
         {
             defender.status.RemoveAttackSpeedBuff(statsBuff);
-        }
+        }*/
 
 
         public void SetPercent(int _percent)

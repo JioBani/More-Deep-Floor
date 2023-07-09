@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class InfinityTowerData
 {
-    public string name;
+    public string stageName;
     public int monsterNums;
     public MonsterOriginalData monsterOriginalData;
     public MonsterData currentMonsterData;
@@ -14,7 +14,7 @@ public class InfinityTowerData
 
     public InfinityTowerData(InfiniteTowerOriginalData infiniteTowerOriginalData)
     {
-        name = infiniteTowerOriginalData.Name;
+        stageName = infiniteTowerOriginalData.StageName;
         monsterNums = infiniteTowerOriginalData.MonsterNums;
         monsterOriginalData = infiniteTowerOriginalData.MonsterOriginalData;
         currentMonsterData = new MonsterData(infiniteTowerOriginalData.MonsterOriginalData);

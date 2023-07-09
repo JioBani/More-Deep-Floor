@@ -61,14 +61,14 @@ namespace LNK.MoreDeepFloor.InGame.TroopTraitSystem
     public class TroopTrait_GoldAttack : TroopTrait
     {
         private float[] percents;
-        private bool isPercentLoaded = true;
+        //private bool isPercentLoaded = true;
         
         public TroopTrait_GoldAttack(TroopTraitData _traitData, int _level) : base(_traitData, _level)
         {
             type = TroopTraitType.OnDataLoad;
             if (!traitData.GetAmounts("percent", out percents))
             {
-                isPercentLoaded = false;
+                //isPercentLoaded = false;
             }
         }
 
@@ -80,14 +80,14 @@ namespace LNK.MoreDeepFloor.InGame.TroopTraitSystem
 
         void AddState(Defender defender)
         {
-            TroopTraitState_GoldAttack state = 
+            /*TroopTraitState_GoldAttack state = 
                 (TroopTraitState_GoldAttack)defender.stateController.AddState(DefenderStateId.TroopTrait_GoldAttack);
 
             if (isPercentLoaded)
             {
                 state.percents = percents;
                 state.SetTroopTraitLevel(level);
-            }
+            }*/
         }
     }
 }

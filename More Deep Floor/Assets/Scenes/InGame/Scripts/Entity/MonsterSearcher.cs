@@ -5,24 +5,9 @@ using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame.Entitys
 {
-    public class MonsterSearcher : MonoBehaviour
+    public class MonsterSearcher : EntitySearcher
     {
-        private Defender defender;
         
-        private void Awake()
-        {
-            defender = transform.parent.GetComponent<Defender>();
-        }
-
-        private void OnTriggerStay2D(Collider2D other)
-        {
-            defender.TrySetTarget(other.transform.parent.GetComponent<Monster>());
-        }
-
-        private void OnTriggerExit2D(Collider2D other)
-        {
-            defender.TrySetUnTarget(other.transform.parent.GetComponent<Monster>());
-        }
     }
 
 }

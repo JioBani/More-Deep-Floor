@@ -38,11 +38,11 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas
             traitGladiator = _runTimeTraitData.traitData as Trait_Gladiator;
         }
         
-        public override void ActiveAction(Defender caster, Monster target)
+        /*public override void ActiveAction(Defender caster, Monster target)
         {
             Effect_Gladiator state = new Effect_Gladiator(traitGladiator.Effect , caster, runtimeTraitData);
             stateController.AddState(state);
-        }
+        }*/
     }
 }
 

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame.Entitys.Defenders.States
 {
-    public class DefenderStateList
+    /*public class DefenderStateList
     {
         private DefenderStateType type;
         private List<DefenderState> stateList;
@@ -92,6 +92,6 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.Defenders.States
         {
             return stateList.Count;
         }
-    }
+    }*/
 }
 

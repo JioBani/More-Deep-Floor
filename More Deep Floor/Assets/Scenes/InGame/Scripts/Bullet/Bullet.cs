@@ -22,7 +22,7 @@ namespace LNK.MoreDeepFloor.InGame.Bullets
         public float speed;
         private AttackType attackType;
 
-        private int damage;
+        private float damage;
         private bool isBulletActive;
 
         void Awake()
@@ -35,7 +35,7 @@ namespace LNK.MoreDeepFloor.InGame.Bullets
             Vector3 bulletPos = transform.position;
             Vector3 targetPos = target.transform.position;
 
-            if (target.gameObject.activeSelf == false)
+            if (target.gameObject.activeSelf == false || target.entityLifeState != EntityLifeState.Battle)
             {
                 SetOff();
             }
@@ -43,14 +43,15 @@ namespace LNK.MoreDeepFloor.InGame.Bullets
             {
                 if (Vector2.Distance(bulletPos, targetPos) < 0.05)
                 {
-                    if (attackType == AttackType.DefenderToMonster)
+                    target.SetHit(firer , damage);
+                    /*if (attackType == AttackType.DefenderToMonster)
                     {
-                        target.GetComponent<Monster>().SetHit(damage , firer as Defender);
+                        target.GetComponent<Monster>().SetHit(firer , damage);
                     }
                     else if(attackType == AttackType.MonsterToDefender)
                     {
-                        target.GetComponent<Defender>().SetHit(damage , firer as Monster);
-                    }
+                        target.GetComponent<Defender>().SetHit(firer , damage);
+                    }*/
                     SetOff();
                 }
                 else
@@ -62,7 +63,7 @@ namespace LNK.MoreDeepFloor.InGame.Bullets
             
         }
 
-        public void SetInfo(Entity _firer , Entity _target , int _damage, AttackType _attackType)
+        public void SetInfo(Entity _firer , Entity _target , float _damage, AttackType _attackType)
         {
             firer = _firer;
             target = _target;

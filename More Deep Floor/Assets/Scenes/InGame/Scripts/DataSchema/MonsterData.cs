@@ -9,9 +9,7 @@ namespace LNK.MoreDeepFloor.InGame.DataSchema
 {
     public class MonsterData : EntityData
     {
-        public string name;
         public int hp;
-        public float moveSpeed;
         public int gold;
         public AnimatorOverrideController animatorOverrideController;
 

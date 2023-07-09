@@ -25,7 +25,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.Defenders.States
             }
         }
         
-        void OnSpawn()
+        protected virtual void OnSpawn()
         {
             imageNumber = 0;
             states = new List<DefenderStateData>();

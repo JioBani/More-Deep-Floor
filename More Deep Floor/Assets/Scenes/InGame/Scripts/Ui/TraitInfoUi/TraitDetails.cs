@@ -16,7 +16,7 @@ namespace LNK.MoreDeepFloor.InGame.Ui.TraitInfoUi
         private DefenderImage[] defenderImages;
         private TraitManager traitManager;
         [SerializeField] private CommonPalette palette;
-        [SerializeField] private Text name;
+        [SerializeField] private Text traitName;
         [SerializeField] private TextMeshProUGUI description;
         [SerializeField] private TextMeshProUGUI[] effectTexts;
         [SerializeField] private Color traitOnColor;
@@ -52,7 +52,7 @@ namespace LNK.MoreDeepFloor.InGame.Ui.TraitInfoUi
                 }
             }
 
-            name.text = traitInfo.traitData.TraitName;
+            traitName.text = traitInfo.traitData.TraitName;
             description.text = traitInfo.traitData.Description;
             
             for (var i = 0; i < effectTexts.Length; i++)

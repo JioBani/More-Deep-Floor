@@ -17,7 +17,7 @@ namespace LNK.MoreDeepFloor.InGame.Ui.DefenderDataInfoUi
         private DefenderStatus defenderStatus;
         [SerializeField] private CommonPalette commonPalette;
 
-        private Camera camera;
+        private Camera mainCamera;
 
         [SerializeField] private Image defenderImage;
         [SerializeField] private Image defenderFrame;

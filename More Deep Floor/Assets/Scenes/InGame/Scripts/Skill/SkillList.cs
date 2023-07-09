@@ -4,6 +4,7 @@ using LNK.MoreDeepFloor.Data.Defenders;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.Entitys;
 using LNK.MoreDeepFloor.InGame.Entitys.Defenders.States;
+using LNK.MoreDeepFloor.InGame.Entitys.States;
 using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame.SkillSystem
@@ -12,8 +13,8 @@ namespace LNK.MoreDeepFloor.InGame.SkillSystem
     {
         public static SkillActionInfoBase Get(
             SkillData skillData,
-            Defender caster , 
-            DefenderStateController stateController
+            Entity caster , 
+            StateController stateController
         )
         {
             SkillActionInfoBase skillActionInfoBase;

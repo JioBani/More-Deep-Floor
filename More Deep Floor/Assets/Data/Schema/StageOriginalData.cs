@@ -8,8 +8,8 @@ namespace LNK.MoreDeepFloor.Data.Schemas
     
     public class StageOriginalData : ScriptableObject
     {
-        [SerializeField] private string name;
-        public string Name { get { return name; } }
+        [SerializeField] private string stageName;
+        public string StageName { get { return stageName; } }
 
         public bool isInfinity;
         

@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame.StateActions
 {
-    public class DefenderStateList : MonoBehaviour
+    /*public class DefenderStateList : MonoBehaviour
     {
         [SerializeField] private DefenderStateTable table;
 
@@ -24,7 +24,7 @@ namespace LNK.MoreDeepFloor.InGame.StateActions
             DefenderStateData stateData = table.Get(id);
             return stateData.GetState(defender);
         }
-    }
+    }*/
 }
 
 

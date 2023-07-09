@@ -41,7 +41,7 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits //.
             maxHpPer = runtimeTraitData.currentMaxHpPer;
         }
         
-        public override void OnTargetHitAction(Defender caster, Monster target, int damage)
+        /*public override void OnTargetHitAction(Defender caster, Monster target, int damage)
         {
             int level = traitController.GetTraitInfo(traitData.TraitType).synergyLevel;
             
@@ -52,6 +52,6 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits //.
                     target.SetHitFinal(target.status.maxHp.currentValue * maxHpPer[level] * 0.01f, caster);
                 }
             });
-        }
+        }*/
     }
 }

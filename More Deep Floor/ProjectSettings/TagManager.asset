@@ -21,8 +21,8 @@ TagManager:
   - MonsterCollideZone
   - DefenderTarget
   - DefenderSearcher
-  - 
-  - 
+  - MonsterSearcher
+  - MonsterTargeter
   - 
   - 
   - 

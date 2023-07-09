@@ -34,7 +34,7 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits //.
         private int level;
         
         private DefenderManager defenderManager;
-        private List<Defender> defenders = null;
+        //private List<Defender> defenders = null;
         
         public TraitState_Encouraging(DefenderStateData _stateData, RuntimeTrait_Encouraging _runtimeTraitData, Defender _defender)
             : base(_stateData, _runtimeTraitData,_defender)
@@ -49,7 +49,7 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits //.
             defenderManager = ReferenceManager.instance.defenderManager;
         }
         
-        public override void OnDefenderPlaceChange(Defender target)
+        /*public override void OnDefenderPlaceChange(Defender target)
         {
             Debug.Log("[TraitData_Encouraging.OnDefenderPlaceChange()]");
             level = traitController.GetTraitInfo(traitData.TraitType).synergyLevel;
@@ -78,7 +78,7 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits //.
             {
                 defenders[i].stateController.RemoveState(DefenderStateId.Effect_Encouraging);   
             }
-        }
+        }*/
         
     }
 }

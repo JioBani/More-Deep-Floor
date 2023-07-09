@@ -17,7 +17,7 @@ namespace LNK.MoreDeepFloor.Data.Upgrades
     //#. 공격시 대상 주변에 데미지
     public class Upgrade_Gladiator_Furious : UpgradeData
     {
-        public override void OnAddAction(UpgradeManager upgradeManager)
+        /*public override void OnAddAction(UpgradeManager upgradeManager)
         {
             List<Defender> defenders =
                 ReferenceManager.instance.defenderManager.FindDefendersByTrait(TraitId.Gladiator);
@@ -26,7 +26,7 @@ namespace LNK.MoreDeepFloor.Data.Upgrades
             {
                 defender.stateController.AddState(DefenderStateId.Upgrade_Gladiator_Furious);
             }
-        }
+        }*/
     }
 }
 

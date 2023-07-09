@@ -14,7 +14,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
     public class EntityStatus
     {
         private TimerManager timerManager = null;
-        public EntityData entityData { private set; get; }
+        public EntityData data { private set; get; }
 
         public float attackSpeedTimer;
         public int level { get; private set; }
@@ -41,7 +41,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
         private Dictionary<EntityStatusArray, StatusValue> statusDic;
         
         public delegate void OnManaChangedEventHandler(float maxMana, float currentMana);
-        public delegate void OnHpChangedEventHandler(float maxHp, float currentHp);
+        public delegate void OnHpChangedEventHandler(float maxHp, float currentHp , Entity caster);
 
         public OnManaChangedEventHandler OnManaChangedAction;
         public OnHpChangedEventHandler OnHpChangedAction;
@@ -69,7 +69,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
 
         public virtual void SetStatus(EntityData data, int _level)
         {
-            entityData = data;
+            this.data = data;
             
             level = _level;
 
@@ -136,12 +136,12 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
                
         }
         
-        public void ChangeHp(float value)
+        public void ChangeHp(float value , Entity caster)
         {
             currentHp += value;
             if (currentHp > maxHp.currentValue) currentHp = maxHp.currentValue;
             else if (currentHp < 0) currentHp = 0;
-            OnHpChangedAction?.Invoke(maxHp.currentValue ,currentHp );
+            OnHpChangedAction?.Invoke(maxHp.currentValue ,currentHp , caster);
         }
         
         public bool ManaUp(int value)

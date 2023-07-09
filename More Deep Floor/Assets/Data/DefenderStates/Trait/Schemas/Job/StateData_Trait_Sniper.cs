@@ -38,7 +38,7 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits
             percents = runtimeTraitData.percent;
         }
         
-        public override void OnTargetHitAction(Defender caster, Monster target, int damage)
+        /*public override void OnTargetHitAction(Defender caster, Monster target, int damage)
         {
             if (!target.gameObject.activeSelf) return;
             int level = traitController.job.synergyLevel;
@@ -47,7 +47,7 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits
             float value = distance / 5f;
             float addDamage = maxDamagePercent * value * 0.01f * damage;
             target.SetHitFinal(addDamage * damage, caster);
-        }
+        }*/
     }
 }
 

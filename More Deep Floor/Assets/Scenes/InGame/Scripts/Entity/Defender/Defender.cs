@@ -6,11 +6,13 @@ using LNK.MoreDeepFloor.Common.WaitForSecondsCache;
 using LNK.MoreDeepFloor.Data.Defenders;
 using LNK.MoreDeepFloor.Data.Defenders.States;
 using LNK.MoreDeepFloor.Data.DefenderTraits;
+using LNK.MoreDeepFloor.Data.Entity;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.Bullets;
 using LNK.MoreDeepFloor.InGame.DataSchema;
 using LNK.MoreDeepFloor.InGame.Entitys.Defenders;
 using LNK.MoreDeepFloor.InGame.Entitys.Defenders.States;
+using LNK.MoreDeepFloor.InGame.Entitys.States;
 using LNK.MoreDeepFloor.InGame.MarketSystem;
 using LNK.MoreDeepFloor.InGame.SkillSystem;
 using LNK.MoreDeepFloor.InGame.Tiles;
@@ -22,19 +24,16 @@ using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
 
 namespace LNK.MoreDeepFloor.InGame.Entitys
 {
-    public enum DefenderLifeState
-    {
-        None,
-        Default,
-        Die,
-    }
 
-    public class Defender : Entity
+
+    #region Old Defender
+
+    /*public class Defender : Entity
     {
         private BulletManager bulletManager;
         private DefenderManager defenderManager;
         private MarketManager marketManager;
-        private UiManager uiManager;
+        protected UiManager uiManager;
         
         private Dragger dragger;
         private Poolable poolable;
@@ -222,7 +221,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             hpBar.RefreshBar(status.maxHp.currentValue, status.currentHp,status.shieldController.amount);
         }
         
-        public void OnSpawn()
+        protected override void OnSpawn()
         {
             OnSpawnAction?.Invoke();
             
@@ -268,7 +267,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             hpBar.RefreshBar(status.maxHp.currentValue, status.currentHp,status.shieldController.amount);
         }
 
-        void OnHpChanged(float maxHp , float currentHp)
+        void OnHpChanged(float maxHp , float currentHp , Entity caster)
         {
             hpBar.RefreshBar((int)maxHp , (int)currentHp,status.shieldController.amount);
             if (currentHp <= 0)
@@ -305,7 +304,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             SetOff();
         }
 
-        public void SetOff()
+        public override void SetOff()
         {
             defenderManager.OnDefenderOff(this);
             placer.SetOff();
@@ -342,10 +341,10 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             OnUseSkillAction?.Invoke(target , true);
         }
 
-        public void SetHit(int value , Monster firer)
+        public void SetHit(float value , Monster firer)
         {
             float leftValue = status.shieldController.SetDamage(value);
-            status.ChangeHp(-leftValue);
+            status.ChangeHp(-leftValue , firer);
             OnShieldOfHpChanged();
         }
 
@@ -354,7 +353,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             yield return YieldInstructionCache.WaitForSeconds(4f);
             //defenderTargetCol.gameObject.layer = LayerMask.NameToLayer("DefenderSearcher");
             defenderTargetCol.gameObject.SetActive(true);
-            status.ChangeHp(status.maxHp.currentValue);
+            status.ChangeHp(status.maxHp.currentValue , null);
             state = DefenderLifeState.Default;
         }
 
@@ -450,13 +449,271 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
 
             return targets;
         }
+    }*/
 
+    #endregion
+    
+    /*enum DefenderLifeState
+    {
+        None = 0,
+        Wait = 1,
+        Battle = 2,
+        Die = 3,
+    }*/
+    
+    public class Defender : Entity
+    {
+        private MarketManager marketManager;
+        private DefenderManager defenderManager;
+
+        private Dragger dragger;
+        private Poolable poolable;
+        private Placer placer;
+        [SerializeField] private SpriteRenderer frameSpriteRenderer;
+        private TraitController traitController;
+        [SerializeField] private DefenderVisual defenderVisual;
+        [SerializeField] private Collider2D defenderTargetCol;
+        [SerializeField] private SpriteRenderer defenderImage;
+        private UiManager uiManager;
+        //public DefenderStatus defenderStatus;
+
+
+        public DefenderData defenderData;
+        private bool isInSellZone;
+
+        #region 이벤트 함수
+
+        public delegate void PlaceEventHandler();
+        public PlaceEventHandler OnEnterWaitingRoomAction;
+        public PlaceEventHandler OnEnterBattleFieldAction;
+        public PlaceEventHandler OnExitWaitingRoomAction;
+        public PlaceEventHandler OnExitBattleFieldAction;
+
+        #endregion
+
+        protected override void EntityAwake()
+        {
+            marketManager = ReferenceManager.instance.marketManager;
+            defenderManager = ReferenceManager.instance.defenderManager;
+            uiManager = ReferenceManager.instance.uiManager;
+            
+            traitController = GetComponent<TraitController>();
+            dragger = GetComponent<Dragger>();
+            poolable = GetComponent<Poolable>();
+            placer = GetComponent<Placer>();
+            
+            
+            dragger.OnDragEndAction += OnDragEnd;
+            dragger.OnSimpleClickAction += OnSimpleClick;
+
+            placer.OnEnterBattleFieldAction = EnterBattleField;
+            placer.OnEnterWaitingRoomAciton = EnterWaitingRoom;
+            placer.OnExitBattleFieldAction = ExitBattleField;
+            placer.OnExitWatingRoomAction = ExitWaitingRoom;
+            
+            //entityCollide.OnTriggerEnter2DAciton += OnEntityTriggerEnter;
+            //entityCollide.OnTriggerExit2DAciton += OnEntityTriggerExit;
+        }
+
+
+        public override float GetAttackDamage()
+        {
+            throw new System.NotImplementedException();
+        }
         
 
+        #region #. 라이프 이벤트 함수
 
+        protected override void SetDie(Entity killer)
+        {
+            
+        }
+
+        protected override void OnDie(Entity killer)
+        {
+            base.OnDie(killer);
+            defenderTargetCol.gameObject.SetActive(false);
+            attacker.AddAttackDisableStack("Die" , 1);
+            StartCoroutine(Revive());
+            Logger.Log("OnDie");
+        }
+        
+        protected override void OnInit(EntityData entityData, int level)
+        {
+            defenderData = entityData as DefenderData;
+            
+            Logger.Log($"[Defender.Init()] {defenderData}");
+
+            //defenderStatus = status as DefenderStatus;
+
+            frameSpriteRenderer.color = Palette.defenderCostColors[defenderData.cost];
+            traitController.SetTrait(this);
+            defenderVisual.SetStar(defenderData.cost , status.level);
+            
+            defenderImage.sprite = defenderData.sprite;
+            frameSpriteRenderer.color = Palette.defenderCostColors[defenderData.cost];
+            
+            
+            //status.OnManaChangedAction += OnManaChanged;
+        }
+
+        protected override void OnSpawn()
+        {
+            defenderManager.CheckMerge(this);
+            
+            /*AddShield( id : "테스트쉴드" , 
+                maxAmount:100 ,
+                lateTime: 0,
+                state: stateController.AddState(DefenderStateId.Test_TestShield));*/
+        }
+
+        void OnRevive()
+        {
+            defenderTargetCol.gameObject.SetActive(true);
+            status.ChangeHp(status.maxHp.currentValue , null);
+            attacker.RemoveAttackDisableStack("Die" , 0 , removeAll:true);
+            SetLifeState(EntityLifeState.Battle);
+            Logger.Log("OnRevive");
+        }
+
+        #endregion
+
+        #region #. 행동함수
+        
+        IEnumerator Revive()
+        {
+            yield return YieldInstructionCache.WaitForSeconds(4f);
+            OnRevive();
+        }
+
+        public override void SetOff(Entity killer , string msg = null)
+        {
+            defenderManager.OnDefenderOff(this);
+            placer.SetOff();
+            poolable.SetOff();
+        }
+        
+        void LevelUp()
+        {
+            if (status.level < 3)
+            {
+                status.LevelUp();
+                defenderVisual.SetStar(defenderData.cost , status.level);
+            }
+        }
+
+        public void Merge()
+        {
+            LevelUp();
+        }
+
+        public void BeMerged(Defender _defender)
+        {
+            SetOff(this);
+        }
+        
+        public void SpawnAtWaitingRoom(Tile tile)
+        {
+            placer.TryMove(tile);
+        }
+
+
+        #endregion
+
+
+        #region #. 드래그 및 클릭 이벤트 함수 
+
+        private void OnEntityTriggerEnter(Collider2D col)
+        {
+            if (col.CompareTag("SellZone"))
+            {
+                isInSellZone = true;
+            }
+        }
+        
+        private void OnEntityTriggerExit(Collider2D col)
+        {
+            if (col.CompareTag("SellZone"))
+            {
+                isInSellZone = false;
+            }
+        }
+        
+        void OnDragEnd()
+        {
+            if (isInSellZone)
+            {
+                marketManager.SellDefender(this);
+                SetOff(null , "판매");
+                Logger.Log($"[Defender.OnDragEnd()] 판매 : {defenderData.spawnId}");
+            }
+            else
+            {
+                placer.TryMove(SearchTile());
+            }
+            
+        }
+        
+        public void EnterWaitingRoom()
+        {
+            //Set
+            SetLifeState(EntityLifeState.Wait);
+            attacker.AddAttackDisableStack("wait" , 1);
+            status.SetManaGain(false);
+            //isOn = false;
+            //state = DefenderLifeState.None;
+            defenderManager.OnDefenderEnterWaitingRoom(this);  
+            //stateController.AddState();
+        }
+
+        public void ExitWaitingRoom()
+        {
+            //status.SetManaGain(false);
+            defenderManager.OnDefenderExitWaitingRoom(this);
+        }
+
+        public void EnterBattleField()
+        {
+            //isOn = true;
+            //state = DefenderLifeState.Default;
+            SetLifeState(EntityLifeState.Battle);
+            attacker.RemoveAttackDisableStack("wait" , 1, true);
+            status.SetManaGain(true);
+            
+            defenderManager.OnDefenderEnterBattleField(this);
+        }
+        
+        public void ExitBattleField()
+        {
+            defenderManager.OnDefenderExitBattleField(this);
+        }       
+        
+        void OnSimpleClick()
+        {
+            uiManager.OnClickDefender(this);
+        }
+        
+        Tile SearchTile()
+        {
+            int layerMask = 1 << LayerMask.NameToLayer("Tile");
+            Collider2D collider2D = Physics2D.OverlapPoint(transform.position,layerMask);
+
+            if (!ReferenceEquals(collider2D, null))
+            {
+                return collider2D.gameObject.GetComponent<Tile>();
+            }
+            else
+            {
+                return null;
+            }
+        }
+       
+
+        #endregion
 
         
     }
+    
 }
 
 

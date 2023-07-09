@@ -35,7 +35,7 @@ namespace LNK.MoreDeepFloor.InGame.Tiles
         {
             try
             {
-                Debug.Log($"[TileManager.LeftEntity()] {gameObject.name} : {placer.GetComponent<Defender>().status.defenderData.spawnId}");
+                Debug.Log($"[TileManager.LeftEntity()] {gameObject.name} : {placer.GetComponent<Defender>().defenderData.spawnId}");
                 placer = null;
                 isFull = false;
             }

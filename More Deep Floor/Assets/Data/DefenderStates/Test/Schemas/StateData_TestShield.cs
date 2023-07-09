@@ -25,7 +25,7 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas //.
 
         }
 
-        public override void OnShieldBreakAction(float maxAmount)
+        /*public override void OnShieldBreakAction(float maxAmount)
         {
             RemoveState();
         }
@@ -33,6 +33,6 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas //.
         public override void OnShieldTimeOutAction(float maxAmount, float leftAmount)
         {
             RemoveState();
-        }
+        }*/
     }
 }

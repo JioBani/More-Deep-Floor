@@ -1,14 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using LNK.MoreDeepFloor.Data.Schemas;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace LNK.MoreDeepFloor.Data.Entity
 {
     public abstract class EntityOriginalData : ScriptableObject
     {
-        [SerializeField]
-        private string name;
-        public string Name { get { return name; } }
+        
+        [SerializeField] private string entityName;
+        public string EntityName =>  entityName;
+
+        [SerializeField] private EntityType entityType;
+        public EntityType EntityType => entityType;
+        
+        [SerializeField] private SkillData skillData;
+        public SkillData SkillData => skillData;
 
             
         [SerializeField] private Sprite sprite;
@@ -59,5 +67,12 @@ namespace LNK.MoreDeepFloor.Data.Entity
         public float[] MaxManas => maxManas;
 
         #endregion
+    }
+    
+    public enum EntityType
+    {
+        None = 0,
+        Defender = 1,
+        Monster = 2,
     }
 }

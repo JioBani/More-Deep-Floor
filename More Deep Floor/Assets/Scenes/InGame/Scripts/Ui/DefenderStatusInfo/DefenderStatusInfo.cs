@@ -14,7 +14,7 @@ namespace LNK.MoreDeepFloor.InGame.Ui.DefenderStatusInfoUi
     {
         private Defender defender;
         private DefenderData defenderData;
-        private DefenderStatus defenderStatus;
+        private EntityStatus defenderStatus;
 
         private Camera mainCamera;
 
@@ -43,7 +43,7 @@ namespace LNK.MoreDeepFloor.InGame.Ui.DefenderStatusInfoUi
         public void SetOn(Defender _defender)
         {
             defender = _defender;
-            defenderData = _defender.status.defenderData;
+            defenderData = _defender.defenderData;
             defenderStatus = _defender.status;
 
             defenderImage.sprite = defenderData.sprite;

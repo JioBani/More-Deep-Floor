@@ -37,7 +37,7 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas //.
             traitType = traitData.TraitType;
         }
 
-        public override void OnTargetHitAction(Defender caster, Monster target, int damage)
+        /*public override void OnTargetHitAction(Defender caster, Monster target, int damage)
         {
             //Debug.Log("TraitState_Tenacious B: " + target.status.speed.currentValue);
 
@@ -52,6 +52,6 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas //.
             {
                 target.status.moveSpeed.RemoveBuff(statusBuff);
             });
-        }
+        }*/
     }
 }

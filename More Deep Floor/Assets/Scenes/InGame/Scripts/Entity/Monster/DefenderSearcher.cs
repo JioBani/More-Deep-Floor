@@ -5,9 +5,9 @@ using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
 
 namespace LNK.MoreDeepFloor.InGame.Entitys.Monsters
 {
-    public class DefenderSearcher : MonoBehaviour
+    public class DefenderSearcher : EntitySearcher
     {
-        public delegate void OnTargetSearchEventHandler();
+        /*public delegate void OnTargetSearchEventHandler();
 
         public delegate void OnTargetLostEventHandler();
 
@@ -36,7 +36,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.Monsters
                 isTargetExist = false;
                 OnTargetLostEvent?.Invoke();
             }
-        }
+        }*/
     }
 }
 

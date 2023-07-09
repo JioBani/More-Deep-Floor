@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using LNK.MoreDeepFloor.Data.Schemas;
 using UnityEngine;
 
 namespace LNK.MoreDeepFloor.Data.Entity
 {
+ 
 
     public struct EntityStatusArray
     {
@@ -23,6 +25,7 @@ namespace LNK.MoreDeepFloor.Data.Entity
     {
         //public int cost;
         public string name;
+        public  EntityType entityType { get; private set; }
 
         public EntityStatusArray damages { get; private set; }
         public EntityStatusArray attackSpeeds { get; private set; }
@@ -35,6 +38,9 @@ namespace LNK.MoreDeepFloor.Data.Entity
         public EntityStatusArray magicalDefenses { get; private set; }
         public EntityStatusArray moveSpeeds { get; private set; }
         public EntityStatusArray maxManas { get; private set; }
+        
+        public SkillData skillData;
+
 
         /*public int[] damages;
         public int[] currentDamages;
@@ -71,7 +77,8 @@ namespace LNK.MoreDeepFloor.Data.Entity
 
         public EntityData(EntityOriginalData entityOriginalData)
         {
-            name = entityOriginalData.Name;
+            name = entityOriginalData.EntityName;
+            skillData = entityOriginalData.SkillData;
 
             //#. 공격
             damages = new EntityStatusArray("데미지" ,entityOriginalData.Damages);
@@ -133,6 +140,7 @@ namespace LNK.MoreDeepFloor.Data.Entity
             currentMaxManas = (int[])entityOriginalData.MaxManas.Clone();*/
 
             sprite = entityOriginalData.Sprite;
+            entityType = entityOriginalData.EntityType;
 
         }
     }

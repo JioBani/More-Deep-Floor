@@ -8,6 +8,7 @@ using LNK.MoreDeepFloor.InGame.DataSchema;
 using LNK.MoreDeepFloor.InGame.Entitys;
 using LNK.MoreDeepFloor.InGame.Entitys.Defenders;
 using LNK.MoreDeepFloor.InGame.Entitys.Defenders.States;
+using LNK.MoreDeepFloor.InGame.Entitys.States;
 using TMPro;
 using UnityEngine;
 
@@ -54,7 +55,7 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
     public class TraitController : MonoBehaviour
     {
         private Defender defender;
-        private DefenderStateController defenderStateController;
+        private StateController defenderStateController;
         private TraitManager traitManager;
         public TraitInfo job;
         public TraitInfo character;
@@ -65,18 +66,18 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
 
         void Awake()
         {
-            defenderStateController = GetComponent<DefenderStateController>();
+            defenderStateController = GetComponent<StateController>();
             traitManager = ReferenceManager.instance.traitManager;
             defender = GetComponent<Defender>();
         }
 
         public void SetTrait(Defender defender)
         {
-            job = new TraitInfo(traitManager.traitDataTable.FindRuntimeTrait(defender.status.defenderData.job.Id));
-            character = new TraitInfo(traitManager.traitDataTable.FindRuntimeTrait(defender.status.defenderData.character.Id));
+            job = new TraitInfo(traitManager.traitDataTable.FindRuntimeTrait(defender.defenderData.job.Id));
+            character = new TraitInfo(traitManager.traitDataTable.FindRuntimeTrait(defender.defenderData.character.Id));
             defender.OnKillAction += OnKill;
         }
-
+        
 
         public void OnBattleFieldExit()
         {
@@ -105,7 +106,7 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
 
             if (result == -1)
             {
-                defenderStateController.RemoveState(target.traitData.TraitStateData.Id);
+                defenderStateController.RemoveState(target.traitData.TraitStateData.Id.ToString());
             }
             else if (result == 1)
             {
@@ -116,7 +117,7 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
             RefreshText();
         }
 
-        void OnKill(Monster target)
+        void OnKill(Entity killer, Entity target)
         {
             
         }

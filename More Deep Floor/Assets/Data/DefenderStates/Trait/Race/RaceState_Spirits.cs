@@ -30,7 +30,7 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits //.
         private RuntimeRace_Spirits runtimeData;
         private Race_SpiritsData raceData;
         private TimerManager timerManager;
-        private bool isCoolTimeOver = true;
+        //private bool isCoolTimeOver = true;
 
         public TraitState_Spirits(DefenderStateData _stateData, RuntimeRace_Spirits _runtimeData, Defender _defender) :
             base(_stateData, _runtimeData, _defender)
@@ -39,10 +39,10 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits //.
             raceData = _runtimeData.traitData as Race_SpiritsData;
         }
 
-        public override void OnAction(Defender caster, Monster target)
+        /*public override void OnAction(Defender caster, Monster target)
         {
             
-        }
+        }*/
 
         //#. 이벤트 함수 구현 필요
         void OnHealthChanged(Defender defender)

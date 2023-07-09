@@ -7,6 +7,7 @@ using LNK.MoreDeepFloor.InGame.Entitys;
 using LNK.MoreDeepFloor.InGame.MarketSystem;
 using LNK.MoreDeepFloor.InGame.Tiles;
 using UnityEngine;
+using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
 using Random = UnityEngine.Random;
 
 namespace LNK.MoreDeepFloor.InGame
@@ -48,11 +49,9 @@ namespace LNK.MoreDeepFloor.InGame
             for (int i = 0; i < monsterPool.transform.childCount; i++)
             {
                 Monster monster =  monsterPool.transform.GetChild(i).GetComponent<Monster>();
-                monster.SetActions(
-                    ()=>OnMonsterDie(monster),
-                    ()=>OnMonsterPass(monster),
-                    ()=>OnMonsterOff(monster)
-                    );
+                monster.OnDieAction += OnMonsterDie;
+                monster.OnPassAction += OnMonsterPass;
+                monster.OnOffAction += OnMonsterOff;
             }
 
 
@@ -111,10 +110,8 @@ namespace LNK.MoreDeepFloor.InGame
         {
             
             Monster monster = objectPooler.Pool(monsterParent).GetComponent<Monster>();
-            monster.OnDieAction = () => OnMonsterDie(monster);
-            monster.OnPassAction = () => OnMonsterPass(monster);
-            monster.OnOffAction = () => OnMonsterOff(monster);
-            monster.Init(currentMonsterData, line);
+            monster.Init(currentMonsterData, 0);
+            monster.SetLine(line);
             monster.SetMove();
             monsters.Add(monster.GetComponent<Monster>());
 
@@ -122,23 +119,31 @@ namespace LNK.MoreDeepFloor.InGame
             OnMonsterNumberChangeAction?.Invoke(monsterNumber);
         }
 
-        void OnMonsterDie(Monster monster)
+        void OnMonsterDie(Entity monster , Entity killer)
         {
-            _marketManager.GoldChange(monster.status.currentGold , "몬스터 처치");
+            try
+            {
+                _marketManager.GoldChange(((Monster)monster).monsterStatus.currentGold , "몬스터 처치");
             
-            monsterNumber--;
-            OnMonsterNumberChangeAction?.Invoke(monsterNumber);
+                monsterNumber--;
+                OnMonsterNumberChangeAction?.Invoke(monsterNumber);
+            }
+            catch (NullReferenceException e)
+            {
+                Logger.LogException(e);
+                throw;
+            }
         }
 
-        void OnMonsterPass(Monster monster)
+        void OnMonsterPass(Entity monster)
         {
             
         }
         
-        void OnMonsterOff(Monster monster)
+        void OnMonsterOff(Entity monster , Entity killer)
         {
             roundOffMonsterNums++;
-            monsters.Remove(monster);
+            monsters.Remove(monster as Monster);
             /*if (roundOffMonsterNums == roundMonsterNums)
             {
                 stageManager.SetRoundEnd();

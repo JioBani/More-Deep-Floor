@@ -16,18 +16,31 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
     [System.Serializable]
     public class DefenderStatus : EntityStatus
     {
-       public DefenderData defenderData;
+        public DefenderData defenderData { get; private set; }
+
+        public override void SetStatus(EntityData data, int _level)
+        {
+            base.SetStatus(data, _level);
+            defenderData = data as DefenderData;
+        }
+
+        //public DefenderData defenderData;
 
         /*public DefenderStatus() : base()
         {
             
         }*/
 
+        /*public override void SetStatus(EntityData data, int _level)
+        {
+            base.SetStatus(data, _level);
+        }
+
         public void SetStatus(DefenderData data, int _level)
         {
             base.SetStatus(data, _level);
             defenderData = data;
-        }
+        }*/
         
         //public Dictionary<string, int> buffList;
 

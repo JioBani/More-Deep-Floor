@@ -37,7 +37,7 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits //.
             targetNums = runtimeTraitData.currentTargetNumber;
         }
         
-        public override void OnBeforeOriginalAttackAction(Monster target, DefenderStateId stateId)
+        /*public override void OnBeforeOriginalAttackAction(Monster target, DefenderStateId stateId)
         {
             int nums = targetNums[traitController.job.synergyLevel];
             //Debug.Log($"[TraitState_Circus] 발동 : {nums}");
@@ -49,6 +49,6 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits //.
                 if(i >= nums) break;
                 defender.SetExtraAttack(monsters[i] , DefenderStateId.Trait_Circus);
             }
-        }
+        }*/
     }
 }

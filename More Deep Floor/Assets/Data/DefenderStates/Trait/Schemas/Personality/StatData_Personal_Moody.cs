@@ -41,9 +41,9 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits //.
 
         //#. 효과 구현
 
-        public override void OnKillAction(Monster target)
-        {
-            
-        }
+        /*public override void OnKillAction(Monster target)
+                 {
+                     
+                 }*/
     }
 }

@@ -43,7 +43,7 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas //.
             marketManager = ReferenceManager.instance.marketManager;
         }
         
-        public override void ActiveAction(Defender caster, Monster target)
+        /*public override void ActiveAction(Defender caster, Monster target)
         {
             int level = traitController.character.synergyLevel;
             if (level < 0) return;
@@ -52,6 +52,6 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas //.
             {
                 marketManager.GoldChange(1 , "탐욕적인");
             }
-        }
+        }*/
     }
 }

@@ -38,7 +38,7 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits
             percents = runtimeTraitData.currentPercent;
         }
         
-        public override void OnUseSkillAction(Defender caster, Monster target, bool isFinal)
+        /*public override void OnUseSkillAction(Defender caster, Monster target, bool isFinal)
         {
             if(isFinal) return;
             
@@ -54,7 +54,7 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas.Traits
                     caster.UseSkillFinal();
                 });
             }
-        }
+        }*/
         
     }
 }

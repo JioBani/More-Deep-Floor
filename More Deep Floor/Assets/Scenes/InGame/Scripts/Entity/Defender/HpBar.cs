@@ -34,7 +34,6 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.Defenders
                 shieldBar.size = new Vector2(maxSize.x * (shield / (currentHp + shield)), maxSize.y);
                 shieldBar.transform.position = hpBarSprite.transform.position + new Vector3(hpBarSprite.size.x + shieldBar.size.x / 2,0);
             }
-            Debug.Log($"[Hpbar.RefreshBar()] currentHp : {currentHp} , shield : {shield}");
             hpText.text = ((int)(currentHp)).ToString();
         }
     }

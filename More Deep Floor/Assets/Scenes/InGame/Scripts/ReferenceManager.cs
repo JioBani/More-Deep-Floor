@@ -36,7 +36,7 @@ namespace LNK.MoreDeepFloor.InGame
         public UpgradeManager upgradeManager;
         public DebugController debugController;
 
-        public DefenderStateList defenderStateList;
+        //public DefenderStateList defenderStateList;
 
         private void Awake()
         {

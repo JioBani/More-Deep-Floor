@@ -26,9 +26,6 @@ namespace LNK.MoreDeepFloor.Data.Schemas
         public int Cost => cost;
         
 
-        [SerializeField] private SkillData skillData;
-        public SkillData SkillData => skillData;
-
         //#. 직업과 특성 
         [SerializeField] private TraitData job;
         public TraitData Job =>job;

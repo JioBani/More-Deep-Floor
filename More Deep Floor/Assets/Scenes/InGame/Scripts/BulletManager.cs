@@ -27,7 +27,7 @@ namespace LNK.MoreDeepFloor.InGame
             objectPoolingManager = ReferenceManager.instance.objectPoolingManager;
         }
 
-        public void Fire(Entity firer, Entity target, int damage ,AttackType attackType)
+        public void Fire(Entity firer, Entity target, float damage ,AttackType attackType)
         {
             Bullet bullet = objectPoolingManager.PoolBullet();
             bullet.transform.position = firer.transform.position;

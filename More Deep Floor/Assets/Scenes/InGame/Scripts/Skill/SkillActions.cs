@@ -50,7 +50,7 @@ namespace LNK.MoreDeepFloor.InGame.SkillSystem
         private float slowTime;
         private ObjectPooler rangeSkillBulletPooler;
 
-        public override void Set(SkillData _skillData, Defender _caster, DefenderStateController _stateController)
+        /*public override void Set(SkillData _skillData, Defender _caster, DefenderStateController _stateController)
         {
             base.Set(_skillData , _caster,_stateController);
             if (skillData.GetParameter("RangeDamage", out float _rangeDamage))
@@ -64,7 +64,7 @@ namespace LNK.MoreDeepFloor.InGame.SkillSystem
                 slowTime = 0;
 
             rangeSkillBulletPooler = ReferenceManager.instance.objectPoolingManager.rangeSkillBulletPooler;
-        }
+        }*/
 
         public override void Act(List<Monster> targets)
         {
@@ -81,7 +81,7 @@ namespace LNK.MoreDeepFloor.InGame.SkillSystem
                 2f, 
                 LayerMask.GetMask("MonsterCollideZone"));
 
-            for (int i = 0; i < cols.Length; i++)
+            /*for (int i = 0; i < cols.Length; i++)
             {
                 Monster monster = cols[i].transform.parent.GetComponent<Monster>();
                 if(monster == null) continue;
@@ -100,7 +100,7 @@ namespace LNK.MoreDeepFloor.InGame.SkillSystem
                         });
                     }
                 ));
-            }
+            }*/
         }
     }
     
@@ -109,22 +109,22 @@ namespace LNK.MoreDeepFloor.InGame.SkillSystem
     {
         private DefenderManager defenderManager;
       
-        public override void Set(SkillData _skillData, Defender _caster, DefenderStateController _stateController)
+        /*public override void Set(SkillData _skillData, Defender _caster, DefenderStateController _stateController)
         {
             base.Set(_skillData, _caster, _stateController);
             defenderManager = ReferenceManager.instance.defenderManager;
-        }
+        }*/
 
         public override void Act(List<Monster> targets = null)
         {
-            List<Defender> defenders = defenderManager.GetNearDefenders(caster , 2);
+            /*List<Defender> defenders = defenderManager.GetNearDefenders(caster , 2);
             
             for (int i = 0; i < defenders.Count; i++)
             {
                 Defender defender = defenders[i];
                 DefenderStateController state = defender.GetComponent<DefenderStateController>();
                 //state.AddState(DefenderStateId.Skill_Bishop01 );
-            }
+            }*/
         }
     }
 }

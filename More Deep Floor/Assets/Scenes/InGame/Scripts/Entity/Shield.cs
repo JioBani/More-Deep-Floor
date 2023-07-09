@@ -6,6 +6,7 @@ using LNK.MoreDeepFloor.InGame.Entitys.Defenders.States;
 using UnityEngine;
 using LNK.MoreDeepFloor.Common.Loggers;
 using LNK.MoreDeepFloor.Data.Schemas;
+using LNK.MoreDeepFloor.InGame.Entitys.States;
 
 namespace LNK.MoreDeepFloor.InGame.Entitys
 {
@@ -18,13 +19,13 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
         public float maintainTime;
         public DefenderState state;
 
-        public ShieldState(string id , float amount, float maintainTime, DefenderState state)
+        public ShieldState(string id , float amount, float maintainTime, EntityState state)
         {
             this.id = id;
             this.amount = amount;
             this.leftAmount = amount;
             this.maintainTime = maintainTime;
-            this.state = state;
+            this.state = state as DefenderState;
         }
     }
     
@@ -51,7 +52,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             string id, 
             float maxAmount, 
             float lateTime,
-            DefenderState state,
+            EntityState state,
             bool isHasTimeoutAction = false
             )
         {
@@ -70,7 +71,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
                         RemoveShield(shield);
                         if (!isHasTimeoutAction)
                         {
-                            state.OnShieldTimeOutAction(maxAmount , shield.leftAmount);
+                            //TODO state.OnShieldTimeOutAction(maxAmount , shield.leftAmount);
                         }
                     }
                 });
@@ -79,7 +80,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             Refresh();
         }
 
-        ShieldState? FindShieldState(string id)
+        ShieldState FindShieldState(string id)
         {
             if (shieldDic.TryGetValue(id, out var result))
             {
@@ -152,7 +153,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
                     var shield = shieldList[i];
                     shieldDic.Remove(shieldList[i].id);
                     shieldList.RemoveAt(i);
-                    shield.state.OnShieldBreakAction(shield.amount);
+                    //TODO shield.state.OnShieldBreakAction(shield.amount);
                 }
             }
             

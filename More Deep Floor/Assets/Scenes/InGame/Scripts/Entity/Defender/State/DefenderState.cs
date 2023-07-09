@@ -4,33 +4,39 @@ using System.Collections.Generic;
 using LNK.MoreDeepFloor.Data.Defenders.States;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.DataSchema;
+using LNK.MoreDeepFloor.InGame.Entitys.States;
 using LNK.MoreDeepFloor.InGame.TraitSystem;
 using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame.Entitys.Defenders.States
 {
-    public abstract class DefenderState
+    public abstract class DefenderState : EntityState
     {
         public DefenderStateId id;
         public DefenderStateData stateData;
         public Defender defender;
         public DefenderStateType actionType;
 
-        public int stack { protected set; get; }
-        protected DefenderStateController stateController;
+        //public int stack { protected set; get; }
+        //protected StateController stateController;
         protected TraitController traitController;
+
+        public DefenderState(string id, Entity _self) : base(id , _self)
+        {
+            
+        }
         
         public DefenderState(
             DefenderStateData _stateData, 
             Defender _defender
-            )
+            ) : base(_id:_stateData.StateName , _self:_defender)
         {
             stateData = _stateData;
             stack = 1;
             defender = _defender;
             id = _stateData.Id;
             actionType = _stateData.ActionType;
-            stateController = defender.stateController;
+            //stateController = defender.stateController;
             traitController = defender.GetComponent<TraitController>();
             
             OnGenerated();
@@ -41,7 +47,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.Defenders.States
             
         }
 
-        public virtual void OnAction(Defender caster, Monster target){ }
+        /*public virtual void OnAction(Defender caster, Monster target){ }
 
         public virtual void OffAction(Defender caster, Monster target){ }
 
@@ -86,12 +92,12 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.Defenders.States
         public void AddStack()
         {
             stack++;
-        }
+        }*/
         
-        public void RemoveState()
+        /*public void RemoveState()
         {
             stateController.RemoveState(id);
-        }
+        }*/
     }
 }
 

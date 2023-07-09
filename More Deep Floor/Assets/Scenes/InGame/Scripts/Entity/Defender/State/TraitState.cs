@@ -13,10 +13,10 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.Defenders.States
             
         }
         
-        public override void OnDefenderPlaceChange(Defender target)
+        /*public override void OnDefenderPlaceChange(Defender target)
         {
             Debug.LogWarning($"[DefenderState.OnDefenderPlaceChange()] 정상적이지 않은 접근 : {id}");
-        }
+        }*/
     }
 }
 

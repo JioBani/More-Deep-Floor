@@ -15,7 +15,7 @@ namespace LNK.MoreDeepFloor.InGame.DataSchema
 
         public RoundData(RoundOriginalData roundOriginalData)
         {
-            name = roundOriginalData.Name;
+            name = roundOriginalData.RoundName;
             monsterData = roundOriginalData.MonsterOriginal;
             monsterNums = roundOriginalData.MonsterNums;
         }

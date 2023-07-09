@@ -6,7 +6,6 @@ using UnityEngine;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.Entitys;
 using LNK.MoreDeepFloor.InGame.Entitys.Defenders.States;
-using UnityEngine;
 
 namespace LNK.MoreDeepFloor.Data.DefenderTraits.Schemas
 {

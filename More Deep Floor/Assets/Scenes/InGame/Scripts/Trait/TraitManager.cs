@@ -79,7 +79,7 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
         /// <param name="defender">수호자</param>
         void OnAddDefender(Defender defender)
         {
-            DefenderData data = defender.status.defenderData;
+            DefenderData data = defender.defenderData;
             try
             {
                 currentTraits[data.job.Id].AddDefender(defender , TraitType.Job);
@@ -102,7 +102,7 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
         {
             try
             {
-                DefenderData data = defender.status.defenderData;
+                DefenderData data = defender.defenderData;
                 currentTraits[data.job.Id].RemoveDefender(defender , TraitType.Job);
                 currentTraits[data.character.Id].RemoveDefender(defender , TraitType.Character);
                 SetSynergyLevel(defender);
@@ -121,7 +121,7 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
 
         void SetSynergyLevel(Defender defender)
         {
-            DefenderData data = defender.status.defenderData;
+            DefenderData data = defender.defenderData;
             for (int i = 0; i < currentTraits[data.job.Id].defenders.Count; i++)
             {
                 var traitInfo = currentTraits[data.job.Id];

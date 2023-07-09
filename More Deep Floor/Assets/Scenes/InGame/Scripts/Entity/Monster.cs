@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using LNK.MoreDeepFloor.Common;
 using LNK.MoreDeepFloor.Common.Direction;
 using LNK.MoreDeepFloor.Common.EventHandlers;
+using LNK.MoreDeepFloor.Data.Entity;
 using LNK.MoreDeepFloor.InGame.Bullets;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.DamageTexts;
@@ -25,37 +26,38 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
         private ObjectPooler textPooler;
         private BulletManager bulletManager;
         
-        //private Mover mover;
         private MonsterMover mover;
         private Animator animator;
         private Poolable poolable;
         private SpriteRenderer spriteRenderer;
-        [SerializeField] private HpBar hpBar;
-        /*[SerializeField] private SpriteRenderer innerHpBarRender;
-        [SerializeField] private TextMeshPro hpText;*/
         [SerializeField] private DefenderSearcher searcher;
 
+
+        #region #. 이벤트 핸들러
+        public delegate void OnPassEventHandler(Monster self);
+        public OnPassEventHandler OnPassAction;
+        
+
+        #endregion
+        
+        
         private Direction direction;
         private List<Tile> route;
         public MonsterData monsterData;
-
-        public Void_EventHandler OnDieAction;
-        public Void_EventHandler OnPassAction;
-        public Void_EventHandler OnOffAction;
 
         private static readonly int Down = Animator.StringToHash("Down");
         private static readonly int Up = Animator.StringToHash("Up");
         private static readonly int Side = Animator.StringToHash("Side");
 
-        public MonsterStatus status;
-        
+        public MonsterStatus monsterStatus;
+
         public bool isStun = false;
         private int line;
-        private Defender target;
+        //private Defender target;
 
-        private float attackTimer = 0;
+        //private float attackTimer = 0;
 
-        void Awake()
+        protected override void EntityAwake()
         {
             tileManager = ReferenceManager.instance.tileManager;
             _marketManager = ReferenceManager.instance.marketManager;
@@ -70,15 +72,15 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             mover.OnArriveEvent = () =>
             {
                 poolable.SetOff();
+                OnPassAction?.Invoke(this);
             };
 
-            searcher.OnTargetSearchEvent += OnTargetSearch;
-            searcher.OnTargetLostEvent += OnTargetLost;
-
-            status = new MonsterStatus();
+            monsterStatus = status as MonsterStatus;
         }
 
-        private void Update()
+    
+
+        /*private void Update()
         {
             if (searcher.isTargetExist)
             {
@@ -91,7 +93,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
                     Attack();
                 }
             }
-        }
+        }*/
         
         /*public void FixedUpdate()
         {
@@ -106,15 +108,12 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
                 mover.SetPause(false);
             }
         }*/
-
-
-
-        public void Init(MonsterData _monsterData , int _line)
+        protected override void OnInit(EntityData entityData, int level)
         {
             transform.position = tileManager.battleFieldTiles[0][1].transform.position;
             //innerHpBarRender.size = new Vector2(1,0.125f);
             
-            monsterData = _monsterData;
+            monsterData = entityData as MonsterData;
             animator.runtimeAnimatorController = monsterData.animatorOverrideController;
             animator.SetTrigger(Down);
             //hpText.text = monsterData.hp.ToString();
@@ -122,11 +121,22 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             status.SetStatus(monsterData , 0);
             
             //status = new MonsterStatus(monsterData);
-            line = _line;
-            
             hpBar.RefreshBar(status.maxHp.currentValue , status.currentHp,status.shieldController.amount);
             
+            //searcher.OnTargetSearchEvent += OnTargetSearch;
+            //searcher.OnTargetLostEvent += OnTargetLost;
+            
+            searcher.AddSearchListener(OnTargetSearch);
+            searcher.AddLostListener(OnTargetLost);
+            
+            SetLifeState(EntityLifeState.Battle);
+
             InitMover();
+        }
+
+        public void SetLine(int _line)
+        {
+            line = _line;
         }
 
         void InitMover()
@@ -156,7 +166,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             line = _line;
         }*/
 
-        public void SetActions(
+        /*public void SetActions(
             Void_EventHandler onDieAction,
             Void_EventHandler onPassAction,
             Void_EventHandler onOffAction)
@@ -164,66 +174,75 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             OnOffAction = onDieAction;
             OnDieAction = onPassAction;
             OnPassAction = onOffAction;
-        }
-        
-        void SetDie()
+        }*/
+
+        public override float GetAttackDamage()
         {
-            OnDie();
+            return status.damage.currentValue;
         }
 
-        void SetOff()
+        /*protected override void SetDie()
         {
-            OnOff();
+            OnDie();
+        }*/
+
+        protected override void SetDie(Entity killer)
+        {
+            SetOff(killer);
+        }
+
+        public override void SetOff(Entity killer , string msg = null)
+        {
             poolable.SetOff();
         }
         
 
-        public void SetHit(int damage, Defender caster)
+        /*public void SetHit(int damage, Defender caster)
         {
             ChangeHp(-damage , caster);
             caster.OnTargetHit(this, damage);
-        }
+        }*/
 
-        public void SetHit(float damage, Defender caster) => SetHit((int)damage, caster);
+        //public void SetHit(float damage, Defender caster) => SetHit((int)damage, caster);
 
-        public void SetHitFinal(int damage, Defender caster)
+        /*public void SetHitFinal(int damage, Defender caster)
         {
             ChangeHp(-damage , caster);
-        }
+        }*/
 
-        public void SetHitFinal(float damage, Defender caster) => SetHitFinal((int)damage, caster);
+        //public void SetHitFinal(float damage, Defender caster) => SetHitFinal((int)damage, caster);
         
-        public void SetHitWithBuff(AttackInfo attackInfo)
+        /*public void SetHitWithBuff(AttackInfo attackInfo)
         {
             SetHit(attackInfo.damage, attackInfo.caster);
             attackInfo.OnMonsterHitAction?.Invoke(this);
-        }
+        }*/
 
-        public void SetStun(bool _isStun)
+        /*public void SetStun(bool _isStun)
         {
             isStun = _isStun;
             //mover.SetPause(isStun);
             mover.UpPauseStack();
-        }
+        }*/
 
-        void OnDie()
+        /*void OnDie()
         {
             OnDieAction?.Invoke();
             SetOff();
-        }
+        }*/
 
-        void OnPass()
+        /*void OnPass()
         {
             OnPassAction?.Invoke();
             SetOff();
-        }
+        }*/
 
-        void OnOff()
+        /*void OnOff()
         {
             OnOffAction?.Invoke();
-        }
+        }*/
 
-        void ChangeHp(int value , Defender caster)
+        /*void ChangeHp(int value , Defender caster)
         {
             status.currentHp += value;
             if (value < 0)
@@ -236,31 +255,33 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
                 caster.OnKillTarget(this);
                 SetDie();
             }
-        }
+        }*/
 
-        void OnHpChanged(int value)
+        /*void OnHpChanged(int value)
         {
             hpBar.RefreshBar(status.maxHp.currentValue ,status.currentHp,status.shieldController.amount);
-        }
+        }*/
 
        
-        void Attack()
+        /*void Attack()
         {
             if (!ReferenceEquals(searcher.target, null))
             {
                 bulletManager.Fire(this , searcher.target, 10,AttackType.MonsterToDefender);
                 attackTimer = 0;
             }
-        }
+        }*/
 
-        void OnTargetSearch()
+        void OnTargetSearch(Entity entity)
         {
             mover.UpPauseStack();
+            //Logger.Log("OnTargetSearch");
         }
 
-        void OnTargetLost()
+        void OnTargetLost(Entity entity)
         {
             mover.DownPauseStack();
+            //Logger.Log("OnTargetLost");
         }
     }
     

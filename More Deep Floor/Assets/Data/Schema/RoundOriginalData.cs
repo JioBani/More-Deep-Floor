@@ -8,8 +8,8 @@ namespace LNK.MoreDeepFloor.Data.Schemas
     
     public class RoundOriginalData : ScriptableObject
     {
-        [SerializeField] private string name;
-        public string Name { get { return name; }}
+        [SerializeField] private string roundName;
+        public string RoundName => roundName;
 
         [SerializeField] private MonsterOriginalData monsterOriginal;
         public MonsterOriginalData MonsterOriginal { get { return monsterOriginal; } }

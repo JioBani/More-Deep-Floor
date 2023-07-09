@@ -224,8 +224,8 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
 
         public void SellDefender(Defender defender)
         {
-            GoldChange(defender.status.defenderData.cost * defender.status.level , "수호자 판매");
-            Debug.Log($"[MarketManager.SellDefender()] 수호자 판매 : {defender.status.defenderData.cost * defender.status.level}");
+            GoldChange(defender.defenderData.cost * defender.status.level , "수호자 판매");
+            Debug.Log($"[MarketManager.SellDefender()] 수호자 판매 : {defender.defenderData.cost * defender.status.level}");
         }
         
         

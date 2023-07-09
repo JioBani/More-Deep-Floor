@@ -14,8 +14,8 @@ namespace LNK.MoreDeepFloor.Data.Schemas
         [SerializeField] private DefenderId id;
         public DefenderId Id => id;
 
-        [SerializeField] private string name;
-        public string Name => name;
+        [SerializeField] private string skillName;
+        public string SkillName => skillName;
     }
 }
 

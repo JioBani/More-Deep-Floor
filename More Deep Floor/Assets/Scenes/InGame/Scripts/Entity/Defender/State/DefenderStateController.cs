@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame.Entitys.Defenders.States
 {
-    public class DefenderStateController : MonoBehaviour
+    /*public class DefenderStateController : MonoBehaviour
     {
         private DebugController debugController;
         
@@ -178,6 +178,6 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.Defenders.States
             stateSortByType[DefenderStateType.OnDefenderPlaceChange].OnDefenderPlaceChange(target);
 
         }
-    }
+    }*/
 }
 

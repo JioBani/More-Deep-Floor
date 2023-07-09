@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using LNK.MoreDeepFloor.Data.Schemas;
@@ -5,6 +6,7 @@ using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame.DataSchema
 {
+    [Serializable]
     public class StageData
     {
         public string name;
@@ -16,7 +18,7 @@ namespace LNK.MoreDeepFloor.InGame.DataSchema
         
         public StageData(StageOriginalData stageOriginalData)
         {
-            name = stageOriginalData.Name;
+            name = stageOriginalData.StageName;
             isInfinity = stageOriginalData.isInfinity;
             rounds = stageOriginalData.Rounds;
             roundOriginalDatas = stageOriginalData.RoundsDatas;

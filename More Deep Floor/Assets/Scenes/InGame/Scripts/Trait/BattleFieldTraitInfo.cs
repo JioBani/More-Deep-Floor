@@ -32,7 +32,7 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
  
          public void AddDefender(Defender defender, TraitType type)
          {
-             DefenderData data = defender.status.defenderData;
+             DefenderData data = defender.defenderData;
              
              if (type == TraitType.Job && data.job.Id != traitData.Id)
              {
@@ -71,7 +71,7 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
  
          public void RemoveDefender(Defender defender, TraitType type)
          {
-             DefenderData data = defender.status.defenderData;
+             DefenderData data = defender.defenderData;
              
              if (type == TraitType.Job && data.job.Id != traitData.Id)
              {
