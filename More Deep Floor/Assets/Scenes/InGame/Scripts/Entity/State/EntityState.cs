@@ -22,6 +22,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.States
             stack = 1;
             stateController = self.stateController;
         }
+        
 
         #region #. 이벤트 함수
 

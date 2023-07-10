@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.Entitys;
 using LNK.MoreDeepFloor.InGame.Entitys.Defenders.States;
@@ -16,6 +18,7 @@ namespace LNK.MoreDeepFloor.Data.Defenders.States.Schemas //.
         {
             return new TestShield(this , defender);
         }
+
     }
 
     public class TestShield : DefenderState

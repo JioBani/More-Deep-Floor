@@ -7,6 +7,7 @@ using LNK.MoreDeepFloor.Data.Defenders.States;
 using LNK.MoreDeepFloor.InGame.Entitys;
 using LNK.MoreDeepFloor.InGame.Entitys.Defenders.States;
 using LNK.MoreDeepFloor.InGame.Entitys.Defenders;
+using LNK.MoreDeepFloor.InGame.Entitys.States;
 using UnityEditor;
 using UnityEngine;
 
@@ -40,6 +41,9 @@ namespace LNK.MoreDeepFloor.Data.Schemas
         [SerializeField] private bool isNeedStack;
         public bool IsNeedStack => isNeedStack;
 
+        [SerializeField] private List<ActionType> actionTypes;
+        public List<ActionType> ActionTypes => actionTypes;
+        
         public abstract DefenderState GetState(Defender defender);
     }
 }
