@@ -2121,11 +2121,11 @@ GameObject:
   - component: {fileID: 7232693495670424752}
   - component: {fileID: -5228965445191305615}
   - component: {fileID: 1126050928184956768}
-  - component: {fileID: 8190202866586570423}
   - component: {fileID: 1459265977548175983}
   - component: {fileID: 484847192264780217}
   - component: {fileID: 6429203313790942760}
   - component: {fileID: 7817789241652453333}
+  - component: {fileID: 6104217920267266249}
   m_Layer: 8
   m_Name: Defender
   m_TagString: Untagged
@@ -2230,6 +2230,16 @@ MonoBehaviour:
   defenderVisual: {fileID: 484847192264780217}
   defenderTargetCol: {fileID: 1833295179201261296}
   defenderImage: {fileID: 4190561260083354093}
+  defenderData:
+    name: 
+    skillData: {fileID: 0}
+    sprite: {fileID: 0}
+    id: 0
+    spawnId: 
+    cost: 0
+    corpsData: {fileID: 0}
+    personalityData: {fileID: 0}
+    originalData: {fileID: 0}
 --- !u!114 &2575986696016358432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2279,20 +2289,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c03fd2a2d5739a41ad9511eca92dddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8190202866586570423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8779739274292005856}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 163806c5ed4b1c54b8f71838059f8fca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jobText: {fileID: 5541434942091919476}
-  characterText: {fileID: 8406106383729193209}
 --- !u!61 &1459265977548175983
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2362,6 +2358,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetSearcher: {fileID: 3780879652945769688}
   attackSpeed: 0
+--- !u!114 &6104217920267266249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8779739274292005856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a82aca6d42f55f542a1d87f1415bbd16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9100392775990257838
 GameObject:
   m_ObjectHideFlags: 0
@@ -2413,6 +2421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 035803031d97cb04f904f1ac1a1dcf10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateController: {fileID: 6429203313790942760}
   defender: {fileID: 8779739274292005887}
 --- !u!1001 &528161373664847859
 PrefabInstance:

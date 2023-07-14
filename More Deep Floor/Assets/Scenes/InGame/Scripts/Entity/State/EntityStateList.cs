@@ -25,19 +25,20 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
 
         #region #. 이벤트 함수
 
-        public void OnSpawnAction()
+        public void OnOnAction(Entity self)
         {
             foreach (var entityState in list)
             {
-                entityState.OnSpawnAction();
+                entityState.OnOnAction(self);
             }
         }
 
+        // 엔티티 삭제가 아니고 State 삭제
         public virtual void OnOffAction(Entity self , Entity killer)
         {
             foreach (var entityState in list)
             {
-                entityState.OnOffAction(killer);
+                entityState.OnOffAction();
             }
         }
 

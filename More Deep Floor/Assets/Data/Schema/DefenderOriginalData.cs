@@ -1,8 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using LNK.MoreDeepFloor.Data.Corps;
 using LNK.MoreDeepFloor.Data.Defenders;
 using LNK.MoreDeepFloor.Data.DefenderTraits;
 using LNK.MoreDeepFloor.Data.Entity;
+using LNK.MoreDeepFloor.Data.Traits.Corps;
+using LNK.MoreDeepFloor.Data.Traits.Personalities;
+using LNK.MoreDeepFloor.Data.Troops;
 using UnityEngine;
 
 
@@ -27,12 +31,21 @@ namespace LNK.MoreDeepFloor.Data.Schemas
         
 
         //#. 직업과 특성 
-        [SerializeField] private TraitData job;
+        /*[SerializeField] private TraitData job;
         public TraitData Job =>job;
         
         [SerializeField] private TraitData character ;
-        public TraitData Character  => character ;
+        public TraitData Character  => character ;*/
+
+        [SerializeField] private CorpsData corpsData;
+        public CorpsData CorpsData => corpsData;
+
+        [SerializeField] private CorpsId corpsId; 
+        public CorpsId CorpsId => corpsId;
         
+        [SerializeField] private PersonalityData personalityData;
+        public PersonalityData PersonalityData => personalityData;
+
     }
 }
 

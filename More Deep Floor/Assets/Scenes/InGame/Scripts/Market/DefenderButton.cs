@@ -43,10 +43,10 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
                 backgroundImage.color = uiAssetManager.merchandiseBackgroundColors[defenderData.cost];
                 nameText.text = defenderData.name;
                 goldText.text = defenderData.cost.ToString();
-                jobText.text = defenderData.job.TraitName;
-                characterText.text = defenderData.character.TraitName;
-                jobSprite.sprite = defenderData.job.Image;
-                characterSprite.sprite = defenderData.character.Image;
+                //jobText.text = defenderData.job.TraitName;
+                //characterText.text = defenderData.character.TraitName;
+                //jobSprite.sprite = defenderData.job.Image;
+                //characterSprite.sprite = defenderData.character.Image;
             }
             catch (Exception e)
             {

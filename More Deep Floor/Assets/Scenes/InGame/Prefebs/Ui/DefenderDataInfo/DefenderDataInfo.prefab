@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6364441038582448408}
   - component: {fileID: 6364441038582448411}
   m_Layer: 5
-  m_Name: Image
+  m_Name: PersonalityImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -313,7 +313,7 @@ GameObject:
   - component: {fileID: 6364441039172363551}
   - component: {fileID: 6364441039172363550}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: CorpsName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -446,7 +446,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6364441039329609243}
   m_Layer: 5
-  m_Name: Job
+  m_Name: Corps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -620,7 +620,7 @@ GameObject:
   - component: {fileID: 6364441039582978229}
   - component: {fileID: 6364441039582978228}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: PersonalityName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -753,7 +753,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6364441039617965895}
   m_Layer: 5
-  m_Name: Job (1)
+  m_Name: Personality
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1069,10 +1069,10 @@ MonoBehaviour:
   defenderImage: {fileID: 6364441038795844324}
   defenderFrame: {fileID: 5934518196737877476}
   nameText: {fileID: 6364441039548512066}
-  jobImage: {fileID: 6364441040559754974}
-  jobName: {fileID: 6364441039172363550}
-  characterImage: {fileID: 6364441038582448411}
-  characterName: {fileID: 6364441039582978228}
+  corpsImage: {fileID: 6364441040559754974}
+  corpsName: {fileID: 6364441039172363550}
+  personalityImage: {fileID: 0}
+  personalityName: {fileID: 0}
   damageText: {fileID: 6364441039914305853}
   attackSpeedText: {fileID: 8451434791049318137}
   rangeText: {fileID: 5766659948471748091}
@@ -1224,7 +1224,7 @@ GameObject:
   - component: {fileID: 6364441040559754975}
   - component: {fileID: 6364441040559754974}
   m_Layer: 5
-  m_Name: Image
+  m_Name: CorpsImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

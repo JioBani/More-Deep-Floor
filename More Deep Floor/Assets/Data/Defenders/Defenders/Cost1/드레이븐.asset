@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb95dc27746f76d4dac76cf0d98a2ce5, type: 3}
   m_Name: "\uB4DC\uB808\uC774\uBE10"
   m_EditorClassIdentifier: 
-  name: " \uB4DC\uB808\uC774\uBE10"
+  entityName: "\uB4DC\uB808\uC774\uBE10"
+  entityType: 1
+  skillData: {fileID: 11400000, guid: 43fcc9762829b634dbe833772f269f5e, type: 2}
   sprite: {fileID: 21300000, guid: 589f81d8fc9a41c4f8f3416e622b660f, type: 3}
   damages:
   - 10
@@ -66,6 +68,6 @@ MonoBehaviour:
   - 100
   id: 8
   cost: 1
-  skillData: {fileID: 11400000, guid: 22bdf28b87864fe46be39299b5c81d4e, type: 2}
-  job: {fileID: 11400000, guid: ba64404342474a242a5a88c1cb816a70, type: 2}
-  character: {fileID: 11400000, guid: f4f9e2d85dfca4b4780634aca4b95d28, type: 2}
+  corpsData: {fileID: 11400000, guid: cfce1cf1538d87f4eba8c789eeb18c68, type: 2}
+  corpsId: 1
+  personalityData: {fileID: 11400000, guid: 9313796e9e109d94ea58c1d88da988ce, type: 2}

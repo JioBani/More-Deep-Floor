@@ -1,34 +1,40 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using LNK.MoreDeepFloor.Data.EntityStates;
 using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame.Entitys.States
 {
 
+    [Serializable]
     public abstract class EntityState
     {
-        public string id { protected set; get; }
+        //public EntityStateId id { protected set; get; }
         public Entity self { protected set; get; }
         public int stack { protected set; get; }
 
-        public List<ActionType> actionTypes { protected set; get; }
+        public EntityStateData entityStateData { get; private set; }
+
+        [SerializeField] public List<ActionType> actionTypes { protected set; get; }
         private StateController stateController;
 
-        public EntityState(string _id , Entity _self)
+        public EntityState(EntityStateData _entityStateData ,Entity _self)
         {
-            id = _id;
             self = _self;
+            entityStateData = _entityStateData;
+            actionTypes = entityStateData.ActionTypes;
             stack = 1;
-            stateController = self.stateController;
+            stateController = _self.stateController;
         }
-        
+
 
         #region #. 이벤트 함수
 
-        public virtual void OnSpawnAction(){ }
+        public virtual void OnOnAction(Entity _self){ }
 
-        public virtual void OnOffAction(Entity killer){ }
+        public virtual void OnOffAction(){ }
 
         //public virtual void ActiveAction(Defender caster, Monster target){ }
 

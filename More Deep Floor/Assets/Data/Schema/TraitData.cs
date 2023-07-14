@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using LNK.MoreDeepFloor.Common.SerializableDictionarys;
-using LNK.MoreDeepFloor.Data.Defenders.States;
+using System.Linq;
+using LNK.MoreDeepFloor.Common.Loggers;
 using LNK.MoreDeepFloor.Data.DefenderTraits;
-using LNK.MoreDeepFloor.InGame.Entitys;
-using LNK.MoreDeepFloor.InGame.Entitys.Defenders.States;
-using LNK.MoreDeepFloor.InGame.TroopTraitSystem;
+using LNK.MoreDeepFloor.Data.EntityStates;
+using LNK.MoreDeepFloor.Data.Traits;
 using UnityEngine;
 
 namespace LNK.MoreDeepFloor.Data.Schemas
@@ -22,8 +21,12 @@ namespace LNK.MoreDeepFloor.Data.Schemas
     
     public abstract class TraitData : ScriptableObject
     {
+        [SerializeField] private TraitType traitType;
+        public TraitType TraitType => traitType;
+        
         [SerializeField] private TraitId id;
         public TraitId Id => id;
+        
         
         [SerializeField] private string traitName;
         public string TraitName => traitName;
@@ -31,12 +34,15 @@ namespace LNK.MoreDeepFloor.Data.Schemas
         [SerializeField] private Sprite image;
         public Sprite Image => image;
         
-        [SerializeField] private TraitStateData traitStateData;
-        public TraitStateData TraitStateData => traitStateData;
         
-        [SerializeField] private TraitType traitType;
-        public TraitType TraitType => traitType;
-        
+
+        [SerializeField] private EntityStateData traitStateData;
+        public EntityStateData TraitStateData => traitStateData;
+
+
+        [SerializeField] private List<DefenderOriginalData> members;
+        public List<DefenderOriginalData> Members => members;
+
         [SerializeField] private int[] synergyTrigger;
         public int[] SynergyTrigger => synergyTrigger;
         
@@ -45,7 +51,35 @@ namespace LNK.MoreDeepFloor.Data.Schemas
         public string Description => description;
         
         [Space()] [Space()] [SerializeField] private string[] effects;
-        public string[] Effects => effects;
+        
+        [SerializeField] private List<Property> properties;
+        
+        private Dictionary<string, List<float>> propertiesDictionary;
+        public Dictionary<string, List<float>> PropertiesDictionary => propertiesDictionary;
+        private void OnValidate()
+        {
+            try
+            {
+                propertiesDictionary = GetData();
+                traitStateData.SetProperties(propertiesDictionary);
+            }
+            catch (Exception e)
+            {
+                CustomLogger.LogException(e);
+                throw;
+            }
+            
+        }
+
+        Dictionary<string, List<float>> GetData()
+        {
+            return properties.ToDictionary(keySelector:p => p.key , elementSelector: p=>p.values);
+        }
+
+        
+
+        
+        /*public string[] Effects => effects;
 
         public void SetTraitId(TraitId _traitId)
         {
@@ -72,8 +106,15 @@ namespace LNK.MoreDeepFloor.Data.Schemas
         public DefenderState GetTraitState(Defender defender)
         {
             return traitStateData.GetState(defender);
-        }
+        }*/
 
-        public abstract RuntimeTraitData GetRuntimeData();
+        //public abstract RuntimeTraitData GetRuntimeData();
+    }
+    
+    [Serializable]
+    public struct Property
+    {
+        public string key;
+        public List<float> values;
     }
 }

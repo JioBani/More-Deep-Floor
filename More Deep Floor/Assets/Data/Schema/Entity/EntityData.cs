@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using LNK.MoreDeepFloor.Data.Schemas;
@@ -21,6 +22,7 @@ namespace LNK.MoreDeepFloor.Data.Entity
         }
     }
     
+    [Serializable]
     public class EntityData 
     {
         //public int cost;

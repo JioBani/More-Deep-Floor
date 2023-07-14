@@ -1,3 +1,4 @@
+/*
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -69,7 +70,7 @@ namespace LNK.MoreDeepFloor.TroopTraitSelect
                     if(button.traitData.TraitId != TroopTraitId.None)
                         troopTraitButtons.Add(button.traitData.TraitId , button);
                 }
-            }*/
+            }#1#
             
             
             for (var i = 0; i < troopTraitButtons.Count; i++)
@@ -122,7 +123,7 @@ namespace LNK.MoreDeepFloor.TroopTraitSelect
                 button.SetData(trait);
                 Debug.Log($"[TroopTraitManager.SetTraitButtonData()] {trait.traitData.TraitId} : Lv {trait.level}");
 
-                /#1#/TroopTraitData traitData = traitsData.Find(data => data.TraitId == troopTraitsSaveData.data[i].id);
+                /#2#/TroopTraitData traitData = traitsData.Find(data => data.TraitId == troopTraitsSaveData.data[i].id);
                     
                 if (traitData == null)
                 {
@@ -130,9 +131,9 @@ namespace LNK.MoreDeepFloor.TroopTraitSelect
                 }
 
                     
-                //TraitSelectButton button = traitsSelectButtonParent.transform.GetChild(i).GetComponent<TraitSelectButton>();#1#
+                //TraitSelectButton button = traitsSelectButtonParent.transform.GetChild(i).GetComponent<TraitSelectButton>();#2#
                     
-            }*/
+            }#1#
         }
 
         public bool TryUpgrade(TroopTrait data)
@@ -151,5 +152,6 @@ namespace LNK.MoreDeepFloor.TroopTraitSelect
         
     }
 }
+*/
 
 

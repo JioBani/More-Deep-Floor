@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using LNK.MoreDeepFloor.InGame.DataSchema;
@@ -10,11 +11,11 @@ using UnityEngine.UI;
 
 namespace LNK.MoreDeepFloor.InGame.Ui.DefenderDataInfoUi
 {
+    [Serializable]
     public class DefenderDataInfo : MonoBehaviour
     {
         
         private DefenderData defenderData;
-        private DefenderStatus defenderStatus;
         [SerializeField] private CommonPalette commonPalette;
 
         private Camera mainCamera;
@@ -24,11 +25,11 @@ namespace LNK.MoreDeepFloor.InGame.Ui.DefenderDataInfoUi
         
         [SerializeField] private TextMeshProUGUI nameText;
         
-        [SerializeField] private Image jobImage;
-        [SerializeField] private TextMeshProUGUI jobName;
+        [SerializeField] private Image corpsImage;
+        [SerializeField] private TextMeshProUGUI corpsName;
         
-        [SerializeField] private Image characterImage;
-        [SerializeField] private TextMeshProUGUI characterName;
+        [SerializeField] private Image personalityImage;
+        [SerializeField] private TextMeshProUGUI personalityName;
         
         [SerializeField] private TextMeshProUGUI damageText;
         [SerializeField] private TextMeshProUGUI attackSpeedText;
@@ -43,12 +44,12 @@ namespace LNK.MoreDeepFloor.InGame.Ui.DefenderDataInfoUi
             defenderFrame.color = commonPalette.CostColors[defenderData.cost];
             nameText.text = defenderData.name;
 
-            jobImage.sprite = defenderData.job.Image;
-            jobName.text = defenderData.job.TraitName;
+            corpsImage.sprite = defenderData.corpsData.Image;
+            corpsName.text = defenderData.corpsData.CopsName;
             
-            characterImage.sprite = defenderData.character.Image;
-            characterName.text = defenderData.character.TraitName;
-
+            personalityImage.sprite = defenderData.personalityData.Image;
+            personalityName.text = defenderData.personalityData.PersonalityName;
+            
             damageText.text = MakeDamageValue(defenderData.damages.currentValues);
             attackSpeedText.text = MakeAttackSpeedValue(defenderData.attackSpeeds.currentValues);
             

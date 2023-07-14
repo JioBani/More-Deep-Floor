@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f5deec0dc4f8bb409e83c0231f70664, type: 3}
+  m_Name: Test
+  m_EditorClassIdentifier: 
+  traitType: 1
+  id: 100
+  traitName: "\uC131\uACA9_\uD14C\uC2A4\uD2B8"
+  image: {fileID: 21300000, guid: 8a815da4eaad99547862e01a90ade1d1, type: 3}
+  traitStateData: {fileID: 11400000, guid: 348b4b7af1b5f894e841c09daa4f5b73, type: 2}
+  members:
+  - {fileID: 11400000, guid: 68f62bc160ae85143afab1501b628fbf, type: 2}
+  - {fileID: 11400000, guid: 0d4771707ef05764a806e2e6225c14f5, type: 2}
+  - {fileID: 11400000, guid: 856355538ff63354d955c503a3582690, type: 2}
+  - {fileID: 11400000, guid: 074e695760e6d864aa3c3186b544908b, type: 2}
+  - {fileID: 11400000, guid: 2b13e264fb8608a4a840e43a0d33d2ec, type: 2}
+  - {fileID: 11400000, guid: 2d64b652192be004b8a70bf13fb074d9, type: 2}
+  - {fileID: 11400000, guid: c772d0a4f8faa554abb12806af710a9e, type: 2}
+  - {fileID: 11400000, guid: 6302fe7cc560ed54e9f9e60a3b98c74c, type: 2}
+  synergyTrigger: 000000000100000002000000030000000400000005000000
+  description: "\uD14C\uC2A4\uD2B8\uC6A9"
+  effects: []
+  properties: []
+  personalityId: 100
+  personalityName: "\uD14C\uC2A4\uD2B8"

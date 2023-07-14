@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using LNK.MoreDeepFloor.Common.TimerSystem;
 using LNK.MoreDeepFloor.InGame.DebugSystem;
 using LNK.MoreDeepFloor.InGame.Entitys.Defenders;
+using LNK.MoreDeepFloor.InGame.Entitys.States;
 using LNK.MoreDeepFloor.InGame.MarketSystem;
 using LNK.MoreDeepFloor.InGame.SkillSystem;
-using LNK.MoreDeepFloor.InGame.StateActions;
 using LNK.MoreDeepFloor.InGame.TraitSystem;
 using LNK.MoreDeepFloor.InGame.Ui;
 using LNK.MoreDeepFloor.InGame.Upgrade;
@@ -34,6 +34,8 @@ namespace LNK.MoreDeepFloor.InGame
         public TraitManager traitManager;
         public UiManager uiManager;
         public UpgradeManager upgradeManager;
+        public EntityStateGenerator entityStateGenerator;
+        
         public DebugController debugController;
 
         //public DefenderStateList defenderStateList;

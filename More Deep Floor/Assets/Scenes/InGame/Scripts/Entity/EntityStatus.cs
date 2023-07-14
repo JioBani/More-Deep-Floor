@@ -6,7 +6,6 @@ using LNK.MoreDeepFloor.Common.TimerSystem;
 using LNK.MoreDeepFloor.Data.Entity;
 using LNK.MoreDeepFloor.InGame.Entitys.Defenders.States;
 using UnityEngine;
-using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
 
 namespace LNK.MoreDeepFloor.InGame.Entitys
 {

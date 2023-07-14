@@ -1,26 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using LNK.MoreDeepFloor.Common.Loggers;
 using LNK.MoreDeepFloor.Common.Palettes;
-using LNK.MoreDeepFloor.Common.WaitForSecondsCache;
-using LNK.MoreDeepFloor.Data.Defenders;
-using LNK.MoreDeepFloor.Data.Defenders.States;
-using LNK.MoreDeepFloor.Data.DefenderTraits;
 using LNK.MoreDeepFloor.Data.Entity;
-using LNK.MoreDeepFloor.Data.Schemas;
-using LNK.MoreDeepFloor.InGame.Bullets;
 using LNK.MoreDeepFloor.InGame.DataSchema;
 using LNK.MoreDeepFloor.InGame.Entitys.Defenders;
-using LNK.MoreDeepFloor.InGame.Entitys.Defenders.States;
-using LNK.MoreDeepFloor.InGame.Entitys.States;
 using LNK.MoreDeepFloor.InGame.MarketSystem;
-using LNK.MoreDeepFloor.InGame.SkillSystem;
 using LNK.MoreDeepFloor.InGame.Tiles;
 using LNK.MoreDeepFloor.InGame.TraitSystem;
 using LNK.MoreDeepFloor.InGame.Ui;
 using TMPro;
 using UnityEngine;
-using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
 
 namespace LNK.MoreDeepFloor.InGame.Entitys
 {
@@ -453,14 +444,6 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
 
     #endregion
     
-    /*enum DefenderLifeState
-    {
-        None = 0,
-        Wait = 1,
-        Battle = 2,
-        Die = 3,
-    }*/
-    
     public class Defender : Entity
     {
         private MarketManager marketManager;
@@ -469,8 +452,9 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
         private Dragger dragger;
         private Poolable poolable;
         private Placer placer;
+        public TraitAdapter traitAdapter { get; private set; }
         [SerializeField] private SpriteRenderer frameSpriteRenderer;
-        private TraitController traitController;
+        //private TraitController traitController;
         [SerializeField] private DefenderVisual defenderVisual;
         [SerializeField] private Collider2D defenderTargetCol;
         [SerializeField] private SpriteRenderer defenderImage;
@@ -480,7 +464,9 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
 
         public DefenderData defenderData;
         private bool isInSellZone;
+        private readonly WaitForSecondsRealtime reviveWaitForSecondsRealtime = new WaitForSecondsRealtime(4f);
 
+        
         #region 이벤트 함수
 
         public delegate void PlaceEventHandler();
@@ -497,10 +483,11 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             defenderManager = ReferenceManager.instance.defenderManager;
             uiManager = ReferenceManager.instance.uiManager;
             
-            traitController = GetComponent<TraitController>();
+            //traitController = GetComponent<TraitController>();
             dragger = GetComponent<Dragger>();
             poolable = GetComponent<Poolable>();
             placer = GetComponent<Placer>();
+            traitAdapter = GetComponent<TraitAdapter>();
             
             
             dragger.OnDragEndAction += OnDragEnd;
@@ -535,19 +522,16 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             defenderTargetCol.gameObject.SetActive(false);
             attacker.AddAttackDisableStack("Die" , 1);
             StartCoroutine(Revive());
-            Logger.Log("OnDie");
         }
         
         protected override void OnInit(EntityData entityData, int level)
         {
             defenderData = entityData as DefenderData;
             
-            Logger.Log($"[Defender.Init()] {defenderData}");
-
             //defenderStatus = status as DefenderStatus;
 
             frameSpriteRenderer.color = Palette.defenderCostColors[defenderData.cost];
-            traitController.SetTrait(this);
+            //traitController.SetTrait(this);
             defenderVisual.SetStar(defenderData.cost , status.level);
             
             defenderImage.sprite = defenderData.sprite;
@@ -573,7 +557,6 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             status.ChangeHp(status.maxHp.currentValue , null);
             attacker.RemoveAttackDisableStack("Die" , 0 , removeAll:true);
             SetLifeState(EntityLifeState.Battle);
-            Logger.Log("OnRevive");
         }
 
         #endregion
@@ -582,7 +565,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
         
         IEnumerator Revive()
         {
-            yield return YieldInstructionCache.WaitForSeconds(4f);
+            yield return reviveWaitForSecondsRealtime;
             OnRevive();
         }
 
@@ -645,7 +628,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             {
                 marketManager.SellDefender(this);
                 SetOff(null , "판매");
-                Logger.Log($"[Defender.OnDragEnd()] 판매 : {defenderData.spawnId}");
+                CustomLogger.Log($"[Defender.OnDragEnd()] 판매 : {defenderData.spawnId}");
             }
             else
             {

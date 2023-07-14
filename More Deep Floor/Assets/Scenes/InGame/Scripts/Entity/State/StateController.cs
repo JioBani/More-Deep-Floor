@@ -1,10 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using LNK.MoreDeepFloor.Common.Loggers;
 using UnityEngine;
-using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
 
 namespace LNK.MoreDeepFloor.InGame.Entitys.States
 {
+    [Serializable]
     public class StateController : MonoBehaviour
     {
         private Entity self;
@@ -13,11 +15,14 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.States
 
         private Dictionary<ActionType, EntityStateList> stateDic;
 
+        public delegate void OnStateChangeEventHandler(List<EntityState> states);
+        public OnStateChangeEventHandler OnStateChangeAction;
+
         public void Awake()
         {
             stateDic = new Dictionary<ActionType, EntityStateList>
             {
-                [ActionType.OnSpawn] = new EntityStateList(),
+                [ActionType.OnOn] = new EntityStateList(),
                 [ActionType.OnOff] = new EntityStateList(),
                 [ActionType.OnUseSkill] = new EntityStateList(),
                 [ActionType.OnTargetHit] = new EntityStateList(),
@@ -43,13 +48,22 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.States
             }
         }
 
-        public void AddState(EntityState state)
+        public EntityState AddState(EntityState state)
         {
+            CustomLogger.Log($"[StateController.AddState()] state = {state.entityStateData.StateId}");
             states.Add(state);
             foreach (var actionType in state.actionTypes)
             {
                 stateDic[actionType].Add(state);
             }
+
+            if (state.actionTypes.Contains(ActionType.OnOn))
+            {
+                state.OnOnAction(self);
+            }
+            
+            OnStateChangeAction?.Invoke(states);
+            return state;
         }
 
         public void RemoveState(EntityState state)
@@ -59,16 +73,21 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.States
             {
                 entityStateList.Value.Remove(state);
             }
+            
+            state.OnOffAction();
+            
+            OnStateChangeAction?.Invoke(states);
+            CustomLogger.Log($"[StateController.RemoveState()] {states.Count}");
         }
         
         public void RemoveState(string id)
         {
-            EntityState entityState = states.Find((state) => state.id == id);
+            /*EntityState entityState = states.Find((state) => state.id == id);
             states.Remove(entityState);
             foreach (var entityStateList in stateDic)
             {
                 entityStateList.Value.Remove(entityState);
-            }
+            }*/
         }
 
 

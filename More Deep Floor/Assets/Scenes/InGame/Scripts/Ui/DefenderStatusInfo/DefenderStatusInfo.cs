@@ -49,11 +49,11 @@ namespace LNK.MoreDeepFloor.InGame.Ui.DefenderStatusInfoUi
             defenderImage.sprite = defenderData.sprite;
             nameText.text = defenderData.name;
 
-            jobImage.sprite = defenderData.job.Image;
-            jobName.text = defenderData.job.TraitName;
+            //jobImage.sprite = defenderData.job.Image;
+            //jobName.text = defenderData.job.TraitName;
             
-            characterImage.sprite = defenderData.character.Image;
-            characterName.text = defenderData.character.TraitName;
+            //characterImage.sprite = defenderData.character.Image;
+            //characterName.text = defenderData.character.TraitName;
 
             isOn = true;
             gameObject.SetActive(true);

@@ -17,7 +17,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
         public float amount;
         public float leftAmount;
         public float maintainTime;
-        public DefenderState state;
+        //public DefenderState state;
 
         public ShieldState(string id , float amount, float maintainTime, EntityState state)
         {
@@ -25,7 +25,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             this.amount = amount;
             this.leftAmount = amount;
             this.maintainTime = maintainTime;
-            this.state = state as DefenderState;
+            //this.state = state as DefenderState;
         }
     }
     
@@ -103,26 +103,23 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             }
             catch (Exception e)
             {
-                Common.Loggers.Logger.LogException(e);
+                Common.Loggers.CustomLogger.LogException(e);
                 throw;
             }
         }
 
         public float SetDamage(float damage)
         {
-            Debug.Log($"[SetDamage] damage : {damage} , amount : {amount}");
             
             if (amount == 0) return damage;
             
             foreach (var shieldState in shieldList)
             {
-                Debug.Log($"[SetDamage] leftAmount : {damage}");
 
                 if (shieldState.leftAmount > damage)
                 {
                     shieldState.leftAmount -= damage;
                     Refresh();
-                    Debug.Log($"[SetDamage.(shieldState.leftAmount > damage)] leftAmount : {shieldState.leftAmount} , damage : {damage} ");
                     return 0;
                 }
                 else
@@ -130,7 +127,6 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
                     float temp = shieldState.leftAmount;
                     shieldState.leftAmount = 0;
                     damage -= temp;
-                    Debug.Log($"[SetDamage.(shieldState.leftAmount <= damage)] : {shieldState.leftAmount} , damage : {damage} ");
                 }
             }
             
@@ -146,7 +142,6 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             {
                 amount += shieldList[i].leftAmount;
                 
-                Debug.Log($"[Refresh] leftAmount : {shieldList[i].leftAmount} , amount : {amount} ");
                 
                 if (shieldList[i].leftAmount == 0)
                 {

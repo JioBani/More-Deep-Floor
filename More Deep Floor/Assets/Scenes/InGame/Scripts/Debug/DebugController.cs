@@ -1,18 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using LNK.MoreDeepFloor.Common.Loggers;
 using UnityEngine;
-using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
 
 namespace LNK.MoreDeepFloor.InGame.DebugSystem
 {
     public class DebugController : MonoBehaviour
     {
-        public bool showDefenderState ;
+        //public bool showDefenderState ;
 
         private void Awake()
         {
-            Logger.SetLogger(true);
+            CustomLogger.SetLogger(true);
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using LNK.MoreDeepFloor.Common.DataSave.DataSchema;
 using LNK.MoreDeepFloor.Data.Schemas;
-using LNK.MoreDeepFloor.Data.TroopTraits;
+//using LNK.MoreDeepFloor.Data.TroopTraits;
 using LNK.MoreDeepFloor.TroopTraitSelect;
 using UnityEngine;
 
@@ -76,7 +76,7 @@ namespace LNK.MoreDeepFloor.Common.DataSave
             }
         }
 
-        public bool SaveTroopTraitsData(List<TroopTrait> saveTraits)
+        /*public bool SaveTroopTraitsData(List<TroopTrait> saveTraits)
         {
             if (DataSaver.CheckData(troopTraitsDataFileName))
             {
@@ -116,9 +116,9 @@ namespace LNK.MoreDeepFloor.Common.DataSave
 
                 return SaveData<TroopTraitsSaveData>(new TroopTraitsSaveData(newData), troopTraitsDataFileName);
             }
-        }
+        }*/
         
-        public bool LoadTroopTraitsData(out TroopTraitsSaveData traitsData)
+        /*public bool LoadTroopTraitsData(out TroopTraitsSaveData traitsData)
         {
             if (DataSaver.CheckData(troopTraitsDataFileName))
             {
@@ -152,7 +152,7 @@ namespace LNK.MoreDeepFloor.Common.DataSave
             }
             
            
-        }
+        }*/
 
         public bool IsTroopTraitSavaDataExist()
         {

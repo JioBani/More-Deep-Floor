@@ -1,3 +1,4 @@
+/*
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -30,7 +31,7 @@ namespace LNK.MoreDeepFloor.TroopTraitSelect
         /*public virtual void OnStageStartAction()
         {
             
-        }*/
+        }#1#
 
         public virtual void OnDataLoadAction()
         {
@@ -46,4 +47,5 @@ namespace LNK.MoreDeepFloor.TroopTraitSelect
         
     }
 }
+*/
 

@@ -1,13 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using LNK.MoreDeepFloor.Common.Loggers;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.DataSchema;
 using LNK.MoreDeepFloor.InGame.Entitys;
 using LNK.MoreDeepFloor.InGame.MarketSystem;
 using LNK.MoreDeepFloor.InGame.Tiles;
 using UnityEngine;
-using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
 using Random = UnityEngine.Random;
 
 namespace LNK.MoreDeepFloor.InGame
@@ -130,7 +130,7 @@ namespace LNK.MoreDeepFloor.InGame
             }
             catch (NullReferenceException e)
             {
-                Logger.LogException(e);
+                CustomLogger.LogException(e);
                 throw;
             }
         }

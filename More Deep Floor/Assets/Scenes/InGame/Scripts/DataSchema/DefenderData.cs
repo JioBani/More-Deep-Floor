@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using LNK.MoreDeepFloor.Data.Defenders;
 using LNK.MoreDeepFloor.Data.DefenderTraits;
 using LNK.MoreDeepFloor.Data.Entity;
 using LNK.MoreDeepFloor.Data.Schemas;
+using LNK.MoreDeepFloor.Data.Traits.Personalities;
+using LNK.MoreDeepFloor.Data.Troops;
 using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame.DataSchema
@@ -14,6 +17,7 @@ namespace LNK.MoreDeepFloor.InGame.DataSchema
         public float attackSpeed;
     }
     
+    [Serializable]
     public class DefenderData : EntityData
     {
         public DefenderId id;
@@ -21,10 +25,13 @@ namespace LNK.MoreDeepFloor.InGame.DataSchema
         public int cost;
       
         //public SkillData skillData;
-        public TraitData job;
-        public TraitData character;
-        public TraitData summonerTrait;
-        public TraitData personality;
+        //public TraitData job;
+        //public TraitData character;
+        //public TraitData summonerTrait;
+        //public TraitData personality;
+        public CorpsData corpsData;
+        public PersonalityData personalityData;
+        public DefenderOriginalData originalData;
 
         public DefenderData(DefenderOriginalData defenderOriginalData) 
             : base(defenderOriginalData)
@@ -33,8 +40,11 @@ namespace LNK.MoreDeepFloor.InGame.DataSchema
             id = defenderOriginalData.Id;
             cost = defenderOriginalData.Cost;
             skillData = defenderOriginalData.SkillData;
-            job = defenderOriginalData.Job;
-            character = defenderOriginalData.Character;
+            //job = defenderOriginalData.Job;
+            //character = defenderOriginalData.Character;
+            originalData = defenderOriginalData;
+            corpsData = defenderOriginalData.CorpsData;
+            personalityData = defenderOriginalData.PersonalityData;
         }
 
         /*public DefenderData(DefenderOriginalData defenderOriginalData, DefenderDataModifier modifier) : this(defenderOriginalData)

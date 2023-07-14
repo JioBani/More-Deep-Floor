@@ -1,10 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using LNK.MoreDeepFloor.Common.Loggers;
 using LNK.MoreDeepFloor.InGame.Entitys;
 using LNK.MoreDeepFloor.InGame.Tiles;
 using UnityEngine;
-using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
 
 namespace LNK.MoreDeepFloor.InGame
 {
@@ -42,7 +42,7 @@ namespace LNK.MoreDeepFloor.InGame
                     tile.type = TileType.BattleField;
                     battleFieldTiles[y][x] = tile;
                     tileIndex++;
-                    Logger.Log(tileIndex);
+                    CustomLogger.Log(tileIndex);
                 }
             }
 

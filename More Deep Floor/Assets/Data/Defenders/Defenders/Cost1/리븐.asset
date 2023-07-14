@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb95dc27746f76d4dac76cf0d98a2ce5, type: 3}
   m_Name: "\uB9AC\uBE10"
   m_EditorClassIdentifier: 
-  name: "\uB9AC\uBE10"
+  entityName: 
+  entityType: 0
+  skillData: {fileID: 11400000, guid: 22bdf28b87864fe46be39299b5c81d4e, type: 2}
   sprite: {fileID: 21300000, guid: 1473a938c034e01489395563d25b0264, type: 3}
   damages:
   - 10
@@ -66,6 +68,6 @@ MonoBehaviour:
   - 100
   id: 2
   cost: 1
-  skillData: {fileID: 11400000, guid: 22bdf28b87864fe46be39299b5c81d4e, type: 2}
-  job: {fileID: 11400000, guid: 0b30fd65ab4dfa644a2f4b789b73a970, type: 2}
-  character: {fileID: 11400000, guid: 00f4a8185f0c9194d80d28e56f6caade, type: 2}
+  corpsData: {fileID: 11400000, guid: cfce1cf1538d87f4eba8c789eeb18c68, type: 2}
+  corpsId: 1
+  personalityData: {fileID: 11400000, guid: 9313796e9e109d94ea58c1d88da988ce, type: 2}

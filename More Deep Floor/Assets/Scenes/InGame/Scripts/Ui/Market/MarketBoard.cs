@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using LNK.MoreDeepFloor.Common.Loggers;
 using UnityEngine.UI;
-using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
 
 namespace LNK.MoreDeepFloor.InGame.Ui.Market
 {
@@ -36,7 +36,7 @@ namespace LNK.MoreDeepFloor.InGame.Ui.Market
             openButton.SetActive(!isOpen);
             closeButton.SetActive(isOpen);
             
-            Logger.Log($"[MarketBoard] factor = {scaler.scaleFactor} , width = {width} , length = {length}");
+            CustomLogger.Log($"[MarketBoard] factor = {scaler.scaleFactor} , width = {width} , length = {length}");
         }
         
 
@@ -44,7 +44,7 @@ namespace LNK.MoreDeepFloor.InGame.Ui.Market
         {
             if(!isOpen) return;
             
-            Logger.Log($"[MarketBoard] length = {length}");
+            CustomLogger.Log($"[MarketBoard] length = {length}");
             transform.DOMove(transform.position + new Vector3(length,0,0) , 1f);
             openButton.SetActive(true);
             closeButton.SetActive(false);

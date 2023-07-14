@@ -2,9 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using LNK.MoreDeepFloor.Common.Loggers;
 using LNK.MoreDeepFloor.Common.WaitForSecondsCache;
 using UnityEngine;
-using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
 
 namespace LNK.MoreDeepFloor.Common.TimerSystem
 {
@@ -38,7 +38,7 @@ namespace LNK.MoreDeepFloor.Common.TimerSystem
             }
             catch (Exception e)
             {
-                Logger.LogException(e);
+                CustomLogger.LogException(e);
                 throw;
             }
         }

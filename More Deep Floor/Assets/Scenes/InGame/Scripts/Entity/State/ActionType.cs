@@ -7,7 +7,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.States
     public enum ActionType
     {
         None = 0,
-        OnSpawn = 1,
+        OnOn = 1,
         OnOff = 2,
         OnUseSkill = 3,
         OnTargetHit = 4,

@@ -1,20 +1,22 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using ExtensionMethods;
+using LNK.MoreDeepFloor.Common.Loggers;
+using LNK.MoreDeepFloor.Data.Corps;
 using LNK.MoreDeepFloor.Data.DefenderTraits;
 using LNK.MoreDeepFloor.Data.Schemas;
+using LNK.MoreDeepFloor.Data.Traits;
+using LNK.MoreDeepFloor.Data.Troops;
 using LNK.MoreDeepFloor.InGame.DataSchema;
 using LNK.MoreDeepFloor.InGame.Entitys;
 using LNK.MoreDeepFloor.InGame.Entitys.Defenders.States;
 using UnityEngine;
-using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
 
 namespace LNK.MoreDeepFloor.InGame.TraitSystem
 {
-    public class TraitManager : MonoBehaviour
+    /*public class TraitManager : MonoBehaviour
     {
-   
-        
         public Dictionary<TraitId, BattleFieldTraitInfo> currentTraits = new Dictionary<TraitId, BattleFieldTraitInfo>();
         public Dictionary<TraitId, List<DefenderOriginalData>> defenderSortByTrait;
 
@@ -89,7 +91,7 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
             }
             catch (Exception e)
             {
-                Logger.LogException(e);
+                CustomLogger.LogException(e);
                 throw;
             }
         }
@@ -112,7 +114,7 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
             }
             catch (Exception e)
             {
-                Logger.LogException(e);
+                CustomLogger.LogException(e);
                 throw;
             }
             
@@ -137,5 +139,117 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
          
         
     }
+    */
+
+    public class TraitManager : MonoBehaviour
+    {
+        private DefenderManager defenderManager;
+        [SerializeField] private TraitDataBase traitDataBase;
+        //private Stage
+
+        public Dictionary<TraitId, ActiveTraitInfo> activeTraitInfoPool  { get; private set; }
+        public Dictionary<TraitId, ActiveTraitInfo> battleFieldTraits { get; private set; }
+
+        public delegate void OnTraitChangeEventHandler(Dictionary<TraitId, ActiveTraitInfo> battleFieldCrops);
+
+        public OnTraitChangeEventHandler OnTraitChangeAction;
+
+        private void Awake()
+        {
+            defenderManager = ReferenceManager.instance.defenderManager;
+
+            activeTraitInfoPool = new Dictionary<TraitId, ActiveTraitInfo>();
+            battleFieldTraits = new Dictionary<TraitId, ActiveTraitInfo>();
+            
+            foreach (var traitData in traitDataBase.TraitDatas)
+            {
+                var activeTraitInfo = new ActiveTraitInfo(traitData);
+                activeTraitInfo.OnTraitChangeAction += OnTraitChange;
+                activeTraitInfoPool[traitData.Id] = activeTraitInfo;
+            }
+            
+            //defenderManager.OnBattleFieldDefenderChangeAction += OnBattleFieldDefenderChange;
+            
+            defenderManager.OnDefenderEnterBattleFieldAction += OnDefenderEnterBattleField;
+            defenderManager.OnDefenderExitBattleFieldAction += OnDefenderExitBattleField;
+        }
+
+        private void OnDefenderEnterBattleField(List<Defender> defenders,  Defender defender)
+        {
+            CustomLogger.Log($"[TraitManager.OnDefenderEnterBattleField()] {defender.defenderData.id} 입장");
+            AddDefender(defender.defenderData.originalData.CorpsData, defender);
+            AddDefender(defender.defenderData.originalData.PersonalityData,  defender);
+        }
+
+        private void AddDefender(TraitData traitData , Defender defender)
+        {
+            CustomLogger.Log($"[TraitManager.AddDefender()] {defender.defenderData.id} : {traitData.Id} 추가");
+            
+            if(battleFieldTraits.TryGetValue(traitData.Id , out var result))
+            {
+                result.AddDefender(defender);
+            }
+            else
+            {
+                battleFieldTraits.Add(traitData.Id , activeTraitInfoPool[traitData.Id]);
+                battleFieldTraits[traitData.Id].AddDefender(defender);
+            }
+        }
+        
+        private void OnDefenderExitBattleField(List<Defender> defenders, Defender defender)
+        {
+
+            if (battleFieldTraits[defender.defenderData.originalData.CorpsData.Id].Remove(defender))
+            {
+                battleFieldTraits.Remove(defender.defenderData.originalData.CorpsData.Id);
+            }
+
+            if (battleFieldTraits[defender.defenderData.originalData.PersonalityData.Id].Remove(defender))
+            {
+                battleFieldTraits.Remove(defender.defenderData.originalData.PersonalityData.Id);
+            }
+            
+            OnTraitChangeAction?.Invoke(battleFieldTraits);
+        }
+
+        void OnTraitChange(ActiveTraitInfo activeTraitInfo)
+        {
+            OnTraitChangeAction?.Invoke(battleFieldTraits);
+        }
+
+
+        private void OnBattleFieldDefenderChange(int limit , List<Defender> defenders , Defender add, Defender remove)
+        {
+            void OnAdd(TraitId traitId)
+            {
+                if(battleFieldTraits.TryGetValue(traitId , out var result))
+                {
+                    result.AddDefender(add);
+                }
+                else
+                {
+                    battleFieldTraits[traitId] = new ActiveTraitInfo(add.defenderData.corpsData);
+                }
+            }
+
+            void OnRemove(TraitId traitId)
+            {
+                battleFieldTraits[traitId].Remove(remove);
+            }
+            
+            
+            //TODO 성격도 적용되게
+            if (!ReferenceEquals(add, null))
+            {
+                OnAdd(add.defenderData.originalData.CorpsData.Id);
+            }
+            else
+            {
+                OnRemove(remove.defenderData.originalData.CorpsData.Id);
+            }
+        }
+    }
+
+    
 }
 

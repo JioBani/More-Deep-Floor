@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
-using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
+using LNK.MoreDeepFloor.Common.Loggers;
 using Object = System.Object;
 
 namespace ExtensionMethods
@@ -24,8 +24,8 @@ namespace ExtensionMethods
             }
             catch (Exception e)
             {
-                Logger.LogException(e);
-                Logger.LogWarning($"[Array.SaveGet()] 배열 참조 오류 : [{index}]의 값이 ${defaultValue}로 리턴됨");
+                CustomLogger.LogException(e);
+                CustomLogger.LogWarning($"[Array.SaveGet()] 배열 참조 오류 : [{index}]의 값이 ${defaultValue}로 리턴됨");
                 return defaultValue;
             }
         }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ExtensionMethods;
+using LNK.MoreDeepFloor.Common.Loggers;
 using LNK.MoreDeepFloor.Data.Defenders;
 using LNK.MoreDeepFloor.Data.DefenderTraits;
 using LNK.MoreDeepFloor.Data.Schemas;
@@ -11,7 +12,6 @@ using LNK.MoreDeepFloor.InGame.Entitys;
 using LNK.MoreDeepFloor.InGame.MarketSystem;
 using LNK.MoreDeepFloor.InGame.Tiles;
 using UnityEngine;
-using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
 
 namespace LNK.MoreDeepFloor.InGame
 {
@@ -89,8 +89,8 @@ namespace LNK.MoreDeepFloor.InGame
         public DefenderDataModifier defenderDataModifier = new DefenderDataModifier();
         
         public delegate void OnBattleLimitInitEventHandler(int limit);
-        public delegate void OnBattleFieldDefenderChangeEventHandler(int limit , List<Defender> defenders);
-        public delegate void OnDefenderInOutEventHandler(Defender defender);
+        public delegate void OnBattleFieldDefenderChangeEventHandler(int limit , List<Defender> defenders , Defender add, Defender remove);
+        public delegate void OnDefenderInOutEventHandler(List<Defender> defenders , Defender defender);
         public delegate void OnDefenderPlaceChangeEventHandler(Defender defender);
         public delegate void OnDefenderSpawnEventHandler(Defender defender);
         
@@ -113,12 +113,12 @@ namespace LNK.MoreDeepFloor.InGame
         }
         
         //#. 수호자 검색
-        public List<Defender> FindDefendersByTrait(TraitId traitId)
+        /*public List<Defender> FindDefendersByTrait(TraitId traitId)
         {
             return defenders.Filter((defender) => (defender.defenderData.character.Id == traitId) ||
                                                   (defender.defenderData.job.Id == traitId));
             
-        }
+        }*/
 
         #region #. 커스텀 이벤트 
         void OnInitLevel(int level)
@@ -130,15 +130,15 @@ namespace LNK.MoreDeepFloor.InGame
         void OnLevelUp(int level)
         {
             battleDefenderLimit = level;
-            OnBattleFieldDefenderChangeAction?.Invoke(battleDefenderLimit , battleDefenders);
+            OnBattleFieldDefenderChangeAction?.Invoke(battleDefenderLimit , battleDefenders , null , null);
         }
         
         public void OnDefenderEnterBattleField(Defender defender)
         {
             battleDefenders.Add(defender);
             
-            OnDefenderEnterBattleFieldAction?.Invoke(defender);
-            OnBattleFieldDefenderChangeAction?.Invoke(battleDefenderLimit, battleDefenders);
+            OnDefenderEnterBattleFieldAction?.Invoke( defenders , defender);
+            OnBattleFieldDefenderChangeAction?.Invoke(battleDefenderLimit, battleDefenders , add:defender , null);
             Debug.Log($"[DefenderManager.OnDefenderEnterBattleField()] 전투석 입장 : {defender.defenderData.spawnId}");
         }
 
@@ -151,8 +151,8 @@ namespace LNK.MoreDeepFloor.InGame
         {
             RemoveDefenderAtBattleList(defender);
             
-            OnDefenderExitBattleFieldAction?.Invoke(defender);
-            OnBattleFieldDefenderChangeAction?.Invoke(battleDefenderLimit, battleDefenders);
+            OnDefenderExitBattleFieldAction?.Invoke(defenders, defender);
+            OnBattleFieldDefenderChangeAction?.Invoke(battleDefenderLimit, battleDefenders , add:null , remove: defender);
             Debug.Log($"[DefenderManager.OnDefenderEnterBattleField()] 전투석 퇴장 : {defender.defenderData.spawnId}");
             
         }
@@ -201,8 +201,8 @@ namespace LNK.MoreDeepFloor.InGame
             Defender[] mergeDefenders = new Defender[3];
             DefenderId id = defender.defenderData.id;
             
-            Logger.LogWarning($"[Defender.CheckMerge()] {defender.status} ");
-            Logger.LogWarning($"[Defender.CheckMerge()] {defender.status.level} ");
+            CustomLogger.LogWarning($"[Defender.CheckMerge()] {defender.status} ");
+            CustomLogger.LogWarning($"[Defender.CheckMerge()] {defender.status.level} ");
             
             int level = defender.status.level;
             

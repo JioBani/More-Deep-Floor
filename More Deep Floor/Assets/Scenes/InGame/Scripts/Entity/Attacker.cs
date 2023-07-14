@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using LNK.MoreDeepFloor.Common.Loggers;
 using LNK.MoreDeepFloor.InGame.Bullets;
 using UnityEngine;
-using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
 
 namespace LNK.MoreDeepFloor.InGame.Entitys
 {
@@ -23,7 +23,6 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
 
         public delegate void BeforeAttackEventHandler(Entity target, float damage);
         public delegate void AfterAttackEventHandler(Entity target , float damage);
-
         public delegate void OnTargetHitEventHandler(Entity target , float damage);
 
         public BeforeAttackEventHandler BeforeAttackAction;
@@ -97,7 +96,6 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
 
         public bool RemoveAttackDisableStack(string id , int value , bool removeAll = false)
         {
-            Logger.Log("RemoveAttackDisableStack");
             if (attackDisableStateDic.ContainsKey(id))
             {
                 if (removeAll)
@@ -124,7 +122,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             }
             else
             {
-                Logger.LogWarning($"[Attacker.RemoveAttackDisableStack()] 스택이 존재하지 않음 : ( id  : {id})");
+                CustomLogger.LogWarning($"[Attacker.RemoveAttackDisableStack()] 스택이 존재하지 않음 : ( id  : {id})");
                 return false;
             }
         }

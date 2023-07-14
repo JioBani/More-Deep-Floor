@@ -7,7 +7,6 @@ using LNK.MoreDeepFloor.InGame.Entitys.Defenders;
 using LNK.MoreDeepFloor.InGame.Entitys.States;
 using LNK.MoreDeepFloor.InGame.SkillSystem;
 using UnityEngine;
-using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
 
 namespace LNK.MoreDeepFloor.InGame.Entitys
 {
@@ -36,10 +35,11 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
 
         public EntityLifeState entityLifeState { get; private set; }
 
+        //#. Init -> Spawn
         #region #. 이벤트 핸들러
 
         //#. OnSpawn
-        public delegate void OnSpawnEventHandler();
+        public delegate void OnSpawnEventHandler(Entity self);
 
         public OnSpawnEventHandler OnSpawnAction;
 
@@ -171,7 +171,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
 
         void AddStateControllerListener()
         {
-            OnSpawnAction += stateController.EntityStateList(ActionType.OnSpawn).OnSpawnAction;
+            //OnSpawnAction += stateController.EntityStateList(ActionType.OnOn).OnOnAction;
             OnOffAction += stateController.EntityStateList(ActionType.OnOff).OnOffAction;
             OnUseSkillAction += stateController.EntityStateList(ActionType.OnUseSkill).OnUseSkillAction;
             OnTargetHitAction += stateController.EntityStateList(ActionType.OnTargetHit).OnTargetHitAction;
@@ -187,7 +187,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
         void BaseOnSpawn()
         {
             OnSpawn();
-            OnSpawnAction?.Invoke();
+            OnSpawnAction?.Invoke(this);
         }
 
         protected virtual void OnSpawn()

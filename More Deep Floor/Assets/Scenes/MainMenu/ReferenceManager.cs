@@ -10,7 +10,7 @@ namespace LNK.MoreDeepFloor.TroopTraitSelect
     {
         public static ReferenceManager instance;
         
-        public TroopTraitManager troopTraitManager;
+        //public TroopTraitManager troopTraitManager;
         public GoodsManager goodsManager;
 
         public void Awake()

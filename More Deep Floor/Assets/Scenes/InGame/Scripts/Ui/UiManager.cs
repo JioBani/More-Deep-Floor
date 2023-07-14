@@ -15,7 +15,7 @@ namespace LNK.MoreDeepFloor.InGame.Ui
     public class UiManager : MonoBehaviour
     {
         [FormerlySerializedAs("defenderInfo")] [SerializeField] private DefenderStatusInfo defenderStatusInfo;
-        [SerializeField] private TraitDetails traitDetails;
+        [SerializeField] private TraitDetailsView traitDetailsView;
         [SerializeField] private DefenderDataInfo defenderDataInfo;
 
         public void OnClickDefender(Defender defender)
@@ -31,16 +31,16 @@ namespace LNK.MoreDeepFloor.InGame.Ui
             }
         }
 
-        public void OnClickTrait(Vector2 pos , BattleFieldTraitInfo battleFieldTraitInfo)
+        public void OnClickTrait(Vector2 pos , ActiveTraitInfo activeTraitInfo)
         {
-            if (traitDetails.gameObject.activeSelf)
+            if (traitDetailsView.gameObject.activeSelf)
             {
-                traitDetails.SetOff();
-                traitDetails.SetOn(pos , battleFieldTraitInfo);
+                traitDetailsView.SetOff();
+                traitDetailsView.SetOn(pos , activeTraitInfo);
             }
             else
             {
-                traitDetails.SetOn(pos , battleFieldTraitInfo);
+                traitDetailsView.SetOn(pos , activeTraitInfo);
             }
         }
 

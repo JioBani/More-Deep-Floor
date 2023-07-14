@@ -15,14 +15,17 @@ namespace LNK.MoreDeepFloor.InGame.Ui.TraitInfoUi
     {
         [SerializeField] private Image image;
         [SerializeField] private Text nameText;
+
+        [SerializeField] private TextMeshProUGUI activeMemberNumsText;
         [SerializeField] private Text[] statusTexts;
 
         [SerializeField] private Color[] colors;
         [SerializeField] private Color noneColor;
+        //[SerializeField] private Color highlightColor;
 
         private TraitManager traitManager;
         private UiManager uiManager;
-        private BattleFieldTraitInfo battleFieldTraitInfo;
+        private ActiveTraitInfo activeTraitInfo;
 
         public void Awake()
         {
@@ -30,27 +33,29 @@ namespace LNK.MoreDeepFloor.InGame.Ui.TraitInfoUi
             uiManager = ReferenceManager.instance.uiManager;
         }
 
-        public void RefreshTrait(BattleFieldTraitInfo traitInfo)
+        public void RefreshTrait(ActiveTraitInfo traitInfoInfo)
         {
-            battleFieldTraitInfo = traitInfo;
-            
-            image.sprite = traitInfo.traitData.Image;
-            nameText.text = traitInfo.traitData.TraitName;
+            activeTraitInfo = traitInfoInfo;
+            image.sprite = traitInfoInfo.traitData.Image;
+            nameText.text = traitInfoInfo.traitData.name;
+            activeMemberNumsText.text = traitInfoInfo.activeNumber.ToString();
 
 
             for (int i = 0; i < statusTexts.Length; i++)
             {
-                if (i < traitInfo.traitData.SynergyTrigger.Length)
+                if (i < traitInfoInfo.traitData.SynergyTrigger.Length - 1)
                 {
                     statusTexts[i].gameObject.SetActive(true);
-                    if (i == traitInfo.synergyLevel)
+                    statusTexts[i].text = traitInfoInfo.traitData.SynergyTrigger[i + 1].ToString();
+                    
+                    if (i == traitInfoInfo.synergyLevel - 1)
                     {
-                        statusTexts[i].text = $"{traitInfo.nums}/{traitInfo.traitData.SynergyTrigger[i]}";
-                        statusTexts[i].color = colors[traitInfo.synergyLevel];
+                        //statusTexts[i].text = $"{traitInfoInfo.activeNumber}/{traitInfoInfo.traitData.SynergyTrigger[i]}";
+                        statusTexts[i].color = GetSynergyColor(traitInfoInfo.synergyLevel);
                     }
                     else
                     {
-                        statusTexts[i].text = traitInfo.traitData.SynergyTrigger[i].ToString();
+                        //statusTexts[i].text = traitInfoInfo.traitData.SynergyTrigger[i].ToString();
                         statusTexts[i].color = Color.white;
                     }
                 }
@@ -60,19 +65,25 @@ namespace LNK.MoreDeepFloor.InGame.Ui.TraitInfoUi
                 }
             }
 
-            if (traitInfo.synergyLevel == -1)
+            if (traitInfoInfo.synergyLevel == -1)
             {
                 image.color = noneColor;
             }
             else
             {
-                image.color = colors[traitInfo.synergyLevel];
+                image.color = GetSynergyColor(traitInfoInfo.synergyLevel);
             }
+        }
+
+        Color GetSynergyColor(int synergyLevel)
+        {
+            if (synergyLevel >= colors.Length) return colors[colors.Length - 1];
+            else return colors[synergyLevel];
         }
 
         public void OnClick()
         {
-            uiManager.OnClickTrait(transform.position , battleFieldTraitInfo);
+            uiManager.OnClickTrait(transform.position , activeTraitInfo);
         }
     }
 }

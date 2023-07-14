@@ -19,14 +19,18 @@ namespace LNK.MoreDeepFloor.Data.DefenderTraits
         Greedy,
         Encouraging,
         Tenacious,
+        Personality_Test = 100,
+        
+        //#. 부대
+        Corps_비취기사단 = 1000,
 
     }
 
-    public enum TraitType
+    /*public enum TraitType
     {
         Job,
         Character
-    }
+    }*/
 }
 
 

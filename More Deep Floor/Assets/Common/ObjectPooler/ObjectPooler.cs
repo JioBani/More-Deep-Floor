@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using LNK.MoreDeepFloor.Common.Loggers;
 using UnityEngine;
-using Logger = LNK.MoreDeepFloor.Common.Loggers.Logger;
 
 public class ObjectPooler : MonoBehaviour
 {
@@ -57,7 +57,7 @@ public class ObjectPooler : MonoBehaviour
          }
       }
       
-      Logger.Log($"[ObjectPooler] 풀링할 오브젝트가 없습니다. : {gameObject.name}");
+      CustomLogger.Log($"[ObjectPooler] 풀링할 오브젝트가 없습니다. : {gameObject.name}");
       
       Poolable newPoolable = Instantiate(objectOrigin , objectPool.transform).GetComponent<Poolable>();
       newPoolable.objectPool = objectPool;

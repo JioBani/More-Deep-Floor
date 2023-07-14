@@ -26,7 +26,7 @@ namespace LNK.MoreDeepFloor.InGame.Field.Ui
             limitText.text = "0 / " + limit;
         }
 
-        void Refresh(int limit, List<Defender> defenders)
+        void Refresh(int limit, List<Defender> defenders , Defender add, Defender remove)
         {
             limitText.text = defenders.Count + " / " + limit;
         }
