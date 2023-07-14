@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame.Tiles
 {
+
     [Flags]
     public enum TileType
     {
