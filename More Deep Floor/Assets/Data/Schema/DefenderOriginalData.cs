@@ -37,8 +37,8 @@ namespace LNK.MoreDeepFloor.Data.Schemas
         [SerializeField] private TraitData character ;
         public TraitData Character  => character ;*/
 
-        [SerializeField] private CorpsData corpsData;
-        public CorpsData CorpsData => corpsData;
+        [SerializeField] private CorpsTraitData corpsTraitData;
+        public CorpsTraitData CorpsTraitData => corpsTraitData;
 
         [SerializeField] private CorpsId corpsId; 
         public CorpsId CorpsId => corpsId;

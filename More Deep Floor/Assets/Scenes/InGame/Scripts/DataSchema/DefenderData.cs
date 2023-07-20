@@ -29,7 +29,7 @@ namespace LNK.MoreDeepFloor.InGame.DataSchema
         //public TraitData character;
         //public TraitData summonerTrait;
         //public TraitData personality;
-        public CorpsData corpsData;
+        public CorpsTraitData corpsTraitData;
         public PersonalityData personalityData;
         public DefenderOriginalData originalData;
 
@@ -43,7 +43,7 @@ namespace LNK.MoreDeepFloor.InGame.DataSchema
             //job = defenderOriginalData.Job;
             //character = defenderOriginalData.Character;
             originalData = defenderOriginalData;
-            corpsData = defenderOriginalData.CorpsData;
+            corpsTraitData = defenderOriginalData.CorpsTraitData;
             personalityData = defenderOriginalData.PersonalityData;
         }
 

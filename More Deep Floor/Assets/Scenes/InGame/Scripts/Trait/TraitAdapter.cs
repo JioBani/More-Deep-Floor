@@ -60,7 +60,7 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
         {
             defender = self as Defender;
             traitData = new TraitData[2];
-            traitData[(int)TraitType.Corps] = defender.defenderData.originalData.CorpsData;
+            traitData[(int)TraitType.Corps] = defender.defenderData.originalData.CorpsTraitData;
             traitData[(int)TraitType.Personality] = defender.defenderData.originalData.PersonalityData;
             activeTraitInfos = new ActiveTraitInfo[2];
             traitState = new TraitState[2];

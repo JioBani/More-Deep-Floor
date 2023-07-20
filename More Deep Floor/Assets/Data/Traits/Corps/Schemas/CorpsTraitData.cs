@@ -16,7 +16,7 @@ namespace LNK.MoreDeepFloor.Data.Troops
         order = int.MaxValue)]
     
     
-    public class CorpsData : TraitData
+    public class CorpsTraitData : TraitData
     {
         [SerializeField] private CorpsId corpsId;
         public CorpsId CorpsId => corpsId;

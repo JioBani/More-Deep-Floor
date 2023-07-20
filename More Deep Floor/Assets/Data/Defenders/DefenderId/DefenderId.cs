@@ -6,7 +6,23 @@ namespace LNK.MoreDeepFloor.Data.Defenders
 {
     public enum DefenderId
     {
-        None,
+        None = 0,
+        
+        //#. 지휘관
+        루리엘 = 10,
+        
+        
+        //#. elf
+        엘프_None = 100,
+        엘프_소서러 = 101,
+        엘프_수호자 = 102,
+        엘프_사냥꾼 = 103,
+        엘프_사제 = 104,
+        엘프_그림자 = 105,
+        숲지기 = 107,
+        비취전차 = 108,
+        엘프_워리어 = 109,
+        
         
         //#. 1코스트
         아트록스,

@@ -9,8 +9,8 @@ using UnityEngine;
 namespace LNK.MoreDeepFloor.Data.Corps
 {
     [CreateAssetMenu(
-        fileName = "Crops Database",
-        menuName = "Scriptable Object/Crops/Crops Database",
+        fileName = "Trait Database",
+        menuName = "Scriptable Object/Trait/Trait Database",
         order = int.MaxValue)]
     
     public class TraitDataBase : ScriptableObject

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0316168bbd4330443a232829e8ed4b86, type: 3}
+  m_Name: Corps Database
+  m_EditorClassIdentifier: 
+  corpsDatas:
+  - {fileID: 11400000, guid: 366c0272215b13e419f4b677b41b82de, type: 2}
+  - {fileID: 11400000, guid: 0e46adfd5b26791478871cc1f6702971, type: 2}
+  - {fileID: 11400000, guid: 89be13c7d93b82c48b0c58f05bef0b9e, type: 2}
+  - {fileID: 11400000, guid: 76a06d97364f79c4eae9b8f64079eb79, type: 2}
+  - {fileID: 11400000, guid: e050fa303d12db1478c3c718d3a2c7c2, type: 2}

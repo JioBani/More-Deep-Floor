@@ -177,7 +177,7 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
         private void OnDefenderEnterBattleField(List<Defender> defenders,  Defender defender)
         {
             CustomLogger.Log($"[TraitManager.OnDefenderEnterBattleField()] {defender.defenderData.id} 입장");
-            AddDefender(defender.defenderData.originalData.CorpsData, defender);
+            AddDefender(defender.defenderData.originalData.CorpsTraitData, defender);
             AddDefender(defender.defenderData.originalData.PersonalityData,  defender);
         }
 
@@ -199,9 +199,9 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
         private void OnDefenderExitBattleField(List<Defender> defenders, Defender defender)
         {
 
-            if (battleFieldTraits[defender.defenderData.originalData.CorpsData.Id].Remove(defender))
+            if (battleFieldTraits[defender.defenderData.originalData.CorpsTraitData.Id].Remove(defender))
             {
-                battleFieldTraits.Remove(defender.defenderData.originalData.CorpsData.Id);
+                battleFieldTraits.Remove(defender.defenderData.originalData.CorpsTraitData.Id);
             }
 
             if (battleFieldTraits[defender.defenderData.originalData.PersonalityData.Id].Remove(defender))
@@ -228,7 +228,7 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
                 }
                 else
                 {
-                    battleFieldTraits[traitId] = new ActiveTraitInfo(add.defenderData.corpsData);
+                    battleFieldTraits[traitId] = new ActiveTraitInfo(add.defenderData.corpsTraitData);
                 }
             }
 
@@ -241,11 +241,11 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
             //TODO 성격도 적용되게
             if (!ReferenceEquals(add, null))
             {
-                OnAdd(add.defenderData.originalData.CorpsData.Id);
+                OnAdd(add.defenderData.originalData.CorpsTraitData.Id);
             }
             else
             {
-                OnRemove(remove.defenderData.originalData.CorpsData.Id);
+                OnRemove(remove.defenderData.originalData.CorpsTraitData.Id);
             }
         }
     }

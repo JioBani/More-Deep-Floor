@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using LNK.MoreDeepFloor.Common.DataSave.DataSchema;
 using LNK.MoreDeepFloor.Data.Schemas;
+using LNK.MoreDeepFloor.Data.Traits.Corps;
 //using LNK.MoreDeepFloor.Data.TroopTraits;
 using LNK.MoreDeepFloor.TroopTraitSelect;
 using UnityEngine;
@@ -16,12 +17,14 @@ namespace LNK.MoreDeepFloor.Common.DataSave
         private string savePath;
         private string goodsDataFileName;
         private string troopTraitsDataFileName;
+        private string corpsFormationFileName;
 
         public GameDataSaver()
         {
             savePath = Application.persistentDataPath    + "/" + "GameSaveData";
             goodsDataFileName = Application.persistentDataPath    + "/GameSaveData/GoodsData.dat";
             troopTraitsDataFileName = Application.persistentDataPath    + "/GameSaveData/TroopTraitsData.dat";
+            corpsFormationFileName = Application.persistentDataPath + "/GameSaveData/CorpsFormation.dat";
         }
         
         /*
@@ -71,6 +74,36 @@ namespace LNK.MoreDeepFloor.Common.DataSave
                 else
                 {
                     goodsData = newGoodsData;
+                    return true;
+                }
+            }
+        }
+        
+        public bool SaveCorpsFormationData(List<CorpsId> corps)
+        {
+            return SaveData(corps, corpsFormationFileName);
+        }
+
+        public bool LoadFormationData(out List<CorpsId> corps)
+        {
+            if (DataSaver.CheckData(corpsFormationFileName))
+            {
+                bool flag = LoadData(corpsFormationFileName, out corps);
+                Debug.Log($"[GameDataSaver.LoadGoodsData()] 데이터 불러오기 성공 : {corps.Count}");
+                return flag;
+            }
+            else
+            {
+                Debug.Log("[GameDataSaver.LoadGoodsData()] 데이터가 존재하지 않습니다. 새로 생성합니다.");
+                List<CorpsId> newCorps = new List<CorpsId>() { CorpsId.None  , CorpsId.None,CorpsId.None,CorpsId.None};
+                if (!SaveCorpsFormationData(newCorps))
+                {
+                    corps = null;
+                    return false;
+                }
+                else
+                {
+                    corps = newCorps;
                     return true;
                 }
             }

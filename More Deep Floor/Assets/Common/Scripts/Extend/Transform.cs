@@ -14,5 +14,13 @@ namespace ExtensionMethods
                 check(t.GetChild(i));
             }
         }
+        
+        public static void EachChildIndex(this Transform t , Action<Transform , int> check)
+        {
+            for (int i = 0; i < t.childCount; i++)
+            {
+                check(t.GetChild(i) , i);
+            }
+        }
     }
 }

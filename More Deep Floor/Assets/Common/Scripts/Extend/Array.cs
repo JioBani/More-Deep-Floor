@@ -29,6 +29,40 @@ namespace ExtensionMethods
                 return defaultValue;
             }
         }
+        
+        public static bool HaveConditions <T>(this T[] array, Func<T , bool> check)
+        {
+            foreach (var e in array)
+            {
+                if (check(e)) return true;
+            }
+            return false;
+        }
+        
+        public static List<TResult> MakeToList<TOriginal , TResult>(this TOriginal[] array, Func<TOriginal , TResult> make)
+        {
+            List<TResult> result = new List<TResult>();
+
+            foreach (var e in array)
+            {
+                result.Add(make(e));
+            }
+
+            return result;
+        }
+        
+        /*public static List<TResult> MakeToList<TResult , TOriginal>(this TOriginal[] array, Func<TOriginal , TResult> make)
+        {
+            List<TResult> result = new List<TResult>();
+
+            foreach (var e in array)
+            {
+                result.Add(make(e));
+            }
+
+            return result;
+        }*/
+
 
     }
 }

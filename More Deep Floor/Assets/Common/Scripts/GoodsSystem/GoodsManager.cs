@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using LNK.MoreDeepFloor.Common.DataSave;
 using LNK.MoreDeepFloor.Common.DataSave.DataSchema;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace LNK.MoreDeepFloor.Common.GoodsSystyem
 {
