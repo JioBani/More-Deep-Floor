@@ -5,12 +5,18 @@ using UnityEngine;
 
 namespace LNK.MoreDeepFloor.Data.Schemas
 {
-    [CreateAssetMenu(fileName = "Defender Table Original Data", menuName = "Scriptable Object/Defender Table Original Data", order = int.MaxValue)]
-    
-    public class DefenderTableOriginalData : ScriptableObject
+    /*public class DefenderTableOriginalData
     {
-        [SerializeField] public List<DefenderOriginalData> defenders;
-        public  List<DefenderOriginalData> Defenders { get { return defenders; } }
-    }
+        /*[SerializeField] public List<DefenderOriginalData> defenders;
+        public  List<DefenderOriginalData> Defenders { get { return defenders; } }#1#
+
+
+        public List<DefenderOriginalData> defenders { private set; get; }
+
+        public void SetMembers(List<DefenderOriginalData> _members)
+        {
+            defenders = _members;
+        }
+    }*/
 }
 

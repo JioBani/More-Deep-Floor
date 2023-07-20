@@ -8,16 +8,16 @@ using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame.DataSchema
 {
-    public class DefenderTableData
+    /*public class DefenderTableData
     {
         private List<DefenderOriginalData>[] defenderSortByCost;
         private Dictionary<DefenderId, DefenderOriginalData> defendersSortById;
 
-        public DefenderTableData(DefenderTableOriginalData originalData)
+        public DefenderTableData(List<DefenderOriginalData> defenders)
         {
             defendersSortById = new Dictionary<DefenderId, DefenderOriginalData>();
             
-            foreach (var originalDataDefender in originalData.Defenders)
+            foreach (var originalDataDefender in defenders)
             {
                 defendersSortById.Add(originalDataDefender.Id , originalDataDefender);
             }
@@ -27,7 +27,7 @@ namespace LNK.MoreDeepFloor.InGame.DataSchema
                 defenderSortByCost[i] = new List<DefenderOriginalData>();
             }
             
-            foreach (var defender in originalData.Defenders)
+            foreach (var defender in defenders)
             {
                 defenderSortByCost[defender.Cost].Add(defender);
             }
@@ -50,7 +50,7 @@ namespace LNK.MoreDeepFloor.InGame.DataSchema
         {
             return defenderSortByCost[cost];
         }
-    }
+    }*/
 }
 
 

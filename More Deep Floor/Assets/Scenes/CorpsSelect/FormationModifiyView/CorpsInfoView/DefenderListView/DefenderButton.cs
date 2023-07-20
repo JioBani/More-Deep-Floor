@@ -27,6 +27,11 @@ namespace LNK.MoreDeepFloor.CorpsSelectScene.FormationModifyViews
             frame.color = Palette.defenderCostColors[_defenderOriginalData.Cost];
         }
 
+        public void SetBlank()
+        {
+            defenderImage.sprite = null;
+        }
+
         public void OnClick()
         {
             eventManager.SetOnClickDefenderAction(defenderOriginalData);

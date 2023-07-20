@@ -8,7 +8,7 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
 {
     public class MerchandiseInfo
     {
-        private DefenderTableData defenderTableData;
+        private DefenderDataTable defenderDataTable;
         public CostProbability[] costProbabilities =
         {
             new CostProbability(new double[]{ 75, 25, 0, 0, 0 }) ,
@@ -22,9 +22,9 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
             new CostProbability(new double[]{ 10, 15, 30, 35, 10 }) ,
         };
 
-        public MerchandiseInfo(DefenderTableOriginalData defenderTableOriginalData)
+        public MerchandiseInfo(DefenderDataTable defenderDataTable)
         {
-            defenderTableData = new DefenderTableData(defenderTableOriginalData);
+            this.defenderDataTable = defenderDataTable;
         }
 
         public int SelectCost(int level)
@@ -54,10 +54,10 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
             } 
         }
 
-        public DefenderOriginalData GetDefender(int level)
+        public DefenderData GetDefender(int level)
         {
             int cost = SelectCost(level);
-            List<DefenderOriginalData> list = defenderTableData.GetDefendersByCost(cost);
+            List<DefenderData> list = defenderDataTable.defenderSortByCost[cost];
             return list[Random.Range(0, list.Count)];
         }
     }

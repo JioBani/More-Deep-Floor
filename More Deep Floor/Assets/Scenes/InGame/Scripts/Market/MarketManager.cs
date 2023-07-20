@@ -1,6 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using LNK.MoreDeepFloor.Common.DataSave;
+using LNK.MoreDeepFloor.Common.Loggers;
+using LNK.MoreDeepFloor.Data.Corps;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.DataSchema;
 using LNK.MoreDeepFloor.InGame.Entitys;
@@ -16,9 +19,12 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
         private StageManager stageManager;
         private InGameStateManager inGameStateManager;
         private Camera mainCamera;
+        public List<DefenderOriginalData> members;
+        private GameDataSaver gameDataSaver;
 
         [SerializeField] private GameObject defenderButtonParent;
-        [SerializeField] private DefenderTableOriginalData defenderTableOriginalData;
+        //[SerializeField] private DefenderTableOriginalData defenderTableOriginalData;
+        [SerializeField] private CorpsDataBase corpsDataBase;
 
         private MerchandiseInfo merchandiseInfo;
 
@@ -53,7 +59,8 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
             stageManager = ReferenceManager.instance.stageManager;
             
             defenderButtons = new DefenderButton[defenderButtonParent.transform.childCount];
-            merchandiseInfo = new MerchandiseInfo(defenderTableOriginalData);
+            //merchandiseInfo = new MerchandiseInfo(defenderTableOriginalData);
+            gameDataSaver = new GameDataSaver();
 
             for (int i = 0; i < defenderButtonParent.transform.childCount; i++)
             {
@@ -64,22 +71,13 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
             inGameStateManager.OnDataLoadAction += OnDataLoad;
             inGameStateManager.OnRoundStartAction += OnRoundStart;
             inGameStateManager.OnRoundEndAction += OnRoundEnd;
+            inGameStateManager.AddDefenderDataLoadAction(OnDefenderDataLoaded);
 
-           
         }
 
         void Start()
         {
             levelInfo.Init();
-
-            foreach (var defenderButton in defenderButtons)
-            {
-                //int cost = merchandiseInfo.SelectCost(level);
-                defenderButton.SetDefender(new DefenderData(merchandiseInfo.GetDefender(levelInfo.level)));
-            }
-            
-            OnInitEventAction?.Invoke(levelInfo.level,levelInfo.currentExp,levelInfo.maxExp);
-            onInitLevelAction?.Invoke(levelInfo.level);
         }
         
         
@@ -88,6 +86,22 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
         void OnSceneLoad()
         {
             gold = 0;
+        }
+
+        void OnDefenderDataLoaded(DefenderDataTable defenderDataTable)
+        {
+            CustomLogger.Log("[MarketManager.OnDefenderDataLoaded()]");
+            merchandiseInfo = new MerchandiseInfo(defenderDataTable);
+            
+            foreach (var defenderButton in defenderButtons)
+            {
+                //int cost = merchandiseInfo.SelectCost(level);
+                defenderButton.SetDefender(merchandiseInfo.GetDefender(levelInfo.level));
+            }
+            
+            OnInitEventAction?.Invoke(levelInfo.level,levelInfo.currentExp,levelInfo.maxExp);
+            onInitLevelAction?.Invoke(levelInfo.level);
+
         }
         
         void OnDataLoad()
@@ -135,7 +149,7 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
             foreach (var defenderButton in defenderButtons)
             {
                 int cost = merchandiseInfo.SelectCost(levelInfo.level);
-                defenderButton.SetDefender(new DefenderData(merchandiseInfo.GetDefender(levelInfo.level)));
+                defenderButton.SetDefender(merchandiseInfo.GetDefender(levelInfo.level));
             }
             
         }

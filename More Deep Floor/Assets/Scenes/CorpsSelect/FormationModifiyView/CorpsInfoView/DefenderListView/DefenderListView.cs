@@ -57,9 +57,21 @@ namespace LNK.MoreDeepFloor.CorpsSelectScene
 
         public void SetDefenders(CorpsData corpsData)
         {
-            for (var i = 0; i < defenderButtons.Length; i++)
+            /*for (var i = 0; i < defenderButtons.Length; i++)
             {
                 defenderButtons[i].SetData(corpsData.Members[i]);
+            }*/
+
+            int i = 0;
+            
+            for (; i < corpsData.Members.Count; i++)
+            {
+                defenderButtons[i].SetData(corpsData.Members[i]);
+            }
+            
+            for (; i < defenderButtons.Length; i++)
+            {
+                defenderButtons[i].SetBlank();
             }
         }
     }

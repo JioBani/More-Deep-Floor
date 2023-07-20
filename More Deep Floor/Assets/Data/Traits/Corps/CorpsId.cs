@@ -12,5 +12,9 @@ namespace LNK.MoreDeepFloor.Data.Traits.Corps
         Test_3 = 3,
         Test_4 = 4,
         Test_5 = 5,
+        Test_6 = 6,
+        Test_7 = 7,
+        Test_8 = 8,
+        Test_9 = 9,
     }
 }

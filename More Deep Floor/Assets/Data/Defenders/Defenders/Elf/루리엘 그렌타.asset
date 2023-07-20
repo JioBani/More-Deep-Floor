@@ -66,7 +66,7 @@ MonoBehaviour:
   - 100
   - 100
   - 100
-  id: 15
+  id: 110
   cost: 5
   corpsTraitData: {fileID: 11400000, guid: cfce1cf1538d87f4eba8c789eeb18c68, type: 2}
   corpsId: 1

@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb95dc27746f76d4dac76cf0d98a2ce5, type: 3}
   m_Name: "\uB7FC\uBE14"
   m_EditorClassIdentifier: 
-  name: "\uB7FC\uBE14"
+  entityName: "\uB7FC\uBE14"
+  entityType: 1
+  skillData: {fileID: 11400000, guid: 43fcc9762829b634dbe833772f269f5e, type: 2}
   sprite: {fileID: 21300000, guid: 644d1b5306d05204b806b09576162158, type: 3}
-  damages: 000000000a0000001e00000064000000
+  damages: []
   attackSpeeds:
   - 0
   - 1
@@ -27,10 +29,9 @@ MonoBehaviour:
   physicalDefenses: []
   magicalDefenses: []
   moveSpeeds: []
-  maxManas: 64000000
-  id: 14
-  name: "\uB7FC\uBE14"
+  maxManas: []
+  id: 1110
   cost: 3
-  skillData: {fileID: 11400000, guid: 43fcc9762829b634dbe833772f269f5e, type: 2}
-  job: {fileID: 11400000, guid: 0b30fd65ab4dfa644a2f4b789b73a970, type: 2}
-  character: {fileID: 11400000, guid: 10d60ec9d5999e440a844f96a3c2b05c, type: 2}
+  corpsTraitData: {fileID: 11400000, guid: cfce1cf1538d87f4eba8c789eeb18c68, type: 2}
+  corpsId: 1
+  personalityData: {fileID: 11400000, guid: 9313796e9e109d94ea58c1d88da988ce, type: 2}

@@ -31,6 +31,8 @@ namespace LNK.MoreDeepFloor.InGame
 
         public delegate void OnGameOverEventHandler();
 
+        public delegate void OnDefenderDataLoaded(DefenderDataTable defenderDataTable);
+
 
         public OnSceneLoadEventHandler OnSceneLoadAction;
         public OnDataLoadEventHandler OnDataLoadAction;
@@ -39,6 +41,21 @@ namespace LNK.MoreDeepFloor.InGame
         public OnRoundStartEventHandler OnRoundStartAction;
         public OnRoundEndEventHandler OnRoundEndAction;
         public OnGameOverEventHandler OnGameOverAction;
+        
+        private OnDefenderDataLoaded OnDefenderDataLoadedAction;
+
+        public void AddDefenderDataLoadAction(OnDefenderDataLoaded action)
+        {
+            OnDefenderDataLoadedAction += action;
+        }
+        
+        public void SetDefenderDataLoadAction(DefenderDataTable defenderDataTable)
+        {
+            OnDefenderDataLoadedAction?.Invoke(defenderDataTable);
+        }
+        
+
+        
 
         [SerializeField] private ResultWindow resultWindow;
         public GameState gameState;

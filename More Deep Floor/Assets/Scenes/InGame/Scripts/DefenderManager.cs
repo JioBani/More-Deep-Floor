@@ -2,8 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using ExtensionMethods;
+using LNK.MoreDeepFloor.Common.DataSave;
 using LNK.MoreDeepFloor.Common.Loggers;
+using LNK.MoreDeepFloor.Data.Corps;
 using LNK.MoreDeepFloor.Data.Defenders;
 using LNK.MoreDeepFloor.Data.DefenderTraits;
 using LNK.MoreDeepFloor.Data.Schemas;
@@ -11,6 +14,7 @@ using LNK.MoreDeepFloor.InGame.DataSchema;
 using LNK.MoreDeepFloor.InGame.Entitys;
 using LNK.MoreDeepFloor.InGame.MarketSystem;
 using LNK.MoreDeepFloor.InGame.Tiles;
+using TMPro;
 using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame
@@ -29,7 +33,7 @@ namespace LNK.MoreDeepFloor.InGame
         public Dictionary<DefenderId, DefenderData> defenderSortById { private set; get; }
         public List<DefenderData>[] defenderSortByCost { private set; get; }
 
-        public DefenderDataTable(DefenderTableOriginalData defenderTableOriginalData)
+        public DefenderDataTable(List<DefenderOriginalData> members)
         {
             defenderDatas = new List<DefenderData>();
             defenderSortById = new Dictionary<DefenderId, DefenderData>();
@@ -40,9 +44,9 @@ namespace LNK.MoreDeepFloor.InGame
                 defenderSortByCost[i] = new List<DefenderData>();
             }
             
-            for (var i = 0; i < defenderTableOriginalData.defenders.Count; i++)
+            for (var i = 0; i < members.Count; i++)
             {
-                DefenderData defenderData = new DefenderData(defenderTableOriginalData.defenders[i]);
+                DefenderData defenderData = new DefenderData(members[i]);
                 defenderDatas.Add(defenderData);
                 defenderSortById.Add(defenderData.id, defenderData);
                 defenderSortByCost[defenderData.cost].Add(defenderData);
@@ -74,15 +78,18 @@ namespace LNK.MoreDeepFloor.InGame
     public class DefenderManager : MonoBehaviour
     {
         private MarketManager marketManager;
+        private InGameStateManager inGameStateManager;
         [SerializeField] private ObjectPooler defenderPooler;
-        [SerializeField] private DefenderTableOriginalData defenderTableOriginalData;
+        private GameDataSaver gameDataSaver;
+        [SerializeField] private CorpsDataBase corpsDataBase;
+        [SerializeField] private TextMeshProUGUI corpsText;
         
         private List<Defender> defenders = new List<Defender>();
         public List<Defender> battleDefenders = new List<Defender>();
         private int[] defenderIndex = {0,0,0,0,0,0};
 
         //public DefenderTableData defenderTableData;
-        public DefenderDataTable defenderDataTable;
+        //public DefenderDataTable defenderDataTable;
         public int battleDefender = 0;
         public int battleDefenderLimit = 0;
 
@@ -94,22 +101,59 @@ namespace LNK.MoreDeepFloor.InGame
         public delegate void OnDefenderPlaceChangeEventHandler(Defender defender);
         public delegate void OnDefenderSpawnEventHandler(Defender defender);
         
+        
         public OnBattleLimitInitEventHandler OnBattleLimitInitAction;
         public OnBattleFieldDefenderChangeEventHandler OnBattleFieldDefenderChangeAction;
         public OnDefenderInOutEventHandler OnDefenderEnterBattleFieldAction;
         public OnDefenderInOutEventHandler OnDefenderExitBattleFieldAction;
         public OnDefenderPlaceChangeEventHandler OnDefenderPlaceChangeAction;
         public OnDefenderSpawnEventHandler OnDefenderSpawnAction;
-        
+
+        public DefenderDataTable defenderDataTable { private set; get; }
+
         //#. 이벤트 함수
         private void Awake()
         {
             marketManager = ReferenceManager.instance.marketManager;
+            inGameStateManager = ReferenceManager.instance.inGameStateManager;
+
+            gameDataSaver = new GameDataSaver();
             //defenderTableData = new DefenderTableData(defenderTableOriginalData);
-            defenderDataTable = new DefenderDataTable(defenderTableOriginalData);
 
             marketManager.onInitLevelAction += OnInitLevel;
             marketManager.OnLevelUpAction += OnLevelUp;
+            
+            inGameStateManager.OnSceneLoadAction += OnSceneLoad;
+        }
+
+        void OnSceneLoad()
+        {
+            var members = new List<DefenderOriginalData>();
+            List<CorpsData> corpsDatas = new List<CorpsData>();
+
+            if (!gameDataSaver.LoadFormationData(out var corps))
+            {
+                CustomLogger.LogWarning("[MarketManager.OnSceneLoad()] 편성 데이터를 불러올 수 없음");
+            }
+            
+            foreach (var corpsId in corps)
+            {
+                corpsDatas.Add(corpsDataBase.CorpsDic[corpsId]);
+                members.AddRange(corpsDataBase.CorpsDic[corpsId].Members);
+            }
+
+            defenderDataTable = new DefenderDataTable(members);
+            
+            inGameStateManager.SetDefenderDataLoadAction(defenderDataTable);
+
+            StringBuilder stringBuilder = new StringBuilder();
+            
+            foreach (var corpsData in corpsDatas)
+            {
+                stringBuilder.Append(corpsData.CommanderName);
+            }
+
+            corpsText.text = stringBuilder.ToString();
         }
         
         //#. 수호자 검색
