@@ -77,7 +77,7 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
 
         void Start()
         {
-            levelInfo.Init();
+            
         }
         
         
@@ -85,7 +85,7 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
 
         void OnSceneLoad()
         {
-            gold = 0;
+            
         }
 
         void OnDefenderDataLoaded(DefenderDataTable defenderDataTable)
@@ -99,9 +99,10 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
                 defenderButton.SetDefender(merchandiseInfo.GetDefender(levelInfo.level));
             }
             
-            OnInitEventAction?.Invoke(levelInfo.level,levelInfo.currentExp,levelInfo.maxExp);
+            gold = 0;
+            levelInfo.Init();
             onInitLevelAction?.Invoke(levelInfo.level);
-
+            OnInitEventAction?.Invoke(levelInfo.level,levelInfo.currentExp,levelInfo.maxExp);
         }
         
         void OnDataLoad()

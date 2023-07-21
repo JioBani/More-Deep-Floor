@@ -49,7 +49,7 @@ namespace LNK.MoreDeepFloor.InGame
             OnDefenderDataLoadedAction += action;
         }
         
-        public void SetDefenderDataLoadAction(DefenderDataTable defenderDataTable)
+        public void RunDefenderDataLoadAction(DefenderDataTable defenderDataTable)
         {
             OnDefenderDataLoadedAction?.Invoke(defenderDataTable);
         }

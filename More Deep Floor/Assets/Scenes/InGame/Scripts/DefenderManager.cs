@@ -118,7 +118,6 @@ namespace LNK.MoreDeepFloor.InGame
             inGameStateManager = ReferenceManager.instance.inGameStateManager;
 
             gameDataSaver = new GameDataSaver();
-            //defenderTableData = new DefenderTableData(defenderTableOriginalData);
 
             marketManager.onInitLevelAction += OnInitLevel;
             marketManager.OnLevelUpAction += OnLevelUp;
@@ -144,7 +143,7 @@ namespace LNK.MoreDeepFloor.InGame
 
             defenderDataTable = new DefenderDataTable(members);
             
-            inGameStateManager.SetDefenderDataLoadAction(defenderDataTable);
+            inGameStateManager.RunDefenderDataLoadAction(defenderDataTable);
 
             StringBuilder stringBuilder = new StringBuilder();
             

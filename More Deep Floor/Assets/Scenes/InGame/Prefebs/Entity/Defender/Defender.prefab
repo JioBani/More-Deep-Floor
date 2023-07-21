@@ -904,7 +904,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1362110567587228535}
+  - component: {fileID: 1430279033251879970}
   - component: {fileID: 4190561260083354093}
   m_Layer: 8
   m_Name: Image
@@ -913,7 +913,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1362110567587228535
+--- !u!4 &1430279033251879970
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -967,7 +967,7 @@ SpriteRenderer:
   m_SortingLayerID: -44025399
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a1e0ae15e86640b409d688ea0bb32fc7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b260694571e3d2e469c587d3ce116fd7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2145,7 +2145,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4664890635261555897}
-  - {fileID: 1362110567587228535}
+  - {fileID: 1430279033251879970}
   - {fileID: 8779739273147546353}
   - {fileID: 2007896262160260543}
   - {fileID: 826194422382618943}
@@ -2237,7 +2237,7 @@ MonoBehaviour:
     id: 0
     spawnId: 
     cost: 0
-    corpsData: {fileID: 0}
+    corpsTraitData: {fileID: 0}
     personalityData: {fileID: 0}
     originalData: {fileID: 0}
 --- !u!114 &2575986696016358432

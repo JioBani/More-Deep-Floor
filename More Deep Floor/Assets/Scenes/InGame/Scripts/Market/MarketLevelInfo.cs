@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using LNK.MoreDeepFloor.Common.Loggers;
 using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame.MarketSystem
@@ -20,6 +21,7 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
             level = 3;
             currentExp = 0;
             maxExp = maxExpList[level];
+            CustomLogger.Log("MarketLevelInfo");
         }
 
         //#. Out Index 문제 있음

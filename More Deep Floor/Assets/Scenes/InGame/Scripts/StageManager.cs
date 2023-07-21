@@ -29,13 +29,6 @@ namespace LNK.MoreDeepFloor.InGame
 
         private bool isGameOver = false;
 
-        //public delegate void RoundEvent(int round);
-        //public delegate void OnStageStartEventHandler();
-
-        //public RoundEvent OnRoundStartAction;
-        //public RoundEvent OnRoundEndAction;
-        //public OnStageStartEventHandler OnStageStartAction;
-
         void Awake()
         {
             inGameStateManager = ReferenceManager.instance.inGameStateManager;
@@ -47,7 +40,6 @@ namespace LNK.MoreDeepFloor.InGame
 
         void Start()
         {
-            //stageOriginalData = SceneDataManager.instance.stageOriginalData;
             stageData = new StageData(SceneDataManager.instance.GetStageData());
                 
             for (int i = 0; i < route.Count; i++)
@@ -75,15 +67,9 @@ namespace LNK.MoreDeepFloor.InGame
             monsterManager.StartStage();
             Debug.Log("[StageManager.StartStage()] 스테이지 시작");
 
-            /*if(stageData.isInfinity)
-                Invoke(nameof(StartInfinityTowerRound) , 3.0f);
-            else
-                Invoke(nameof(StartNormalRound) , 3.0f);*/
             isStageStarted = true;
             inGameStateManager.SetStageStart();
             StartCoroutine(RoundRoutine());
-
-            //OnStageStartAction?.Invoke();
         }
 
         IEnumerator RoundRoutine()
