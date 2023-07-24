@@ -23,8 +23,8 @@ TagManager:
   - DefenderSearcher
   - MonsterSearcher
   - MonsterTargeter
-  - 
-  - 
+  - PathTile
+  - PathEntity
   - 
   - 
   - 
