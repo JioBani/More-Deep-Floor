@@ -49,6 +49,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
             currentTileHistory = new List<Vector2Int>();
             routeFindCount = 0;
             routeFindTime = 0;
+            routeFindStd = 0;
         }
         
         void Update()
@@ -140,7 +141,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
                 }
                 else
                 {
-                    routes = pathFinder.GetRoute(this, currentTile, finalDes.index,mode);
+                    routes = pathFinder.PathFindingWithPerformanceTest(this, finalDes.index,mode);
             
                     if (routes.Count > 1)
                     {

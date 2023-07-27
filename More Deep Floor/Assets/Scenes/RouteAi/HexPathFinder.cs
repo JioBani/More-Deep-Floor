@@ -2,96 +2,338 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using ExtensionMethods;
+using LNK.MoreDeepFloor.Common.Loggers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using Debug = UnityEngine.Debug;
 
 namespace LNK.MoreDeepFloor.RouteAiScene
 {
     public class HexPathFinder : MonoBehaviour
     {
-        //1. current tile 이 현재 위치를 반영해야함
-        //2. current tile 이 반드시 존재해야함
-        //3. 각 current tile은 서로 유일해야함
-        
-        public List<HexNode> FinalNodeList = new List<HexNode>();
-        public bool allowDiagonal, dontCrossCorner;
-        [SerializeField] private GameObject tileParent;
-        public HexTile[ , ] tiles;
-        public int tileX, tileY;
-        HexNode[,] NodeArray;
-        HexNode StartNode, TargetNode, CurNode;
-        List<HexNode> OpenList = new List<HexNode>(), ClosedList = new List<HexNode>();
-        private List<RouteDetectors> routeDetectorsList;
-        private bool isStart = false;
-
-        private List<Mover> entities;
+        //#. 참조
+        [SerializeField] private GameObject tileMother;
         [SerializeField] private GameObject entityMother;
-        private Stopwatch stopwatch = new Stopwatch();
-        [SerializeField] private HexTileManager hexTileManager;
+        [SerializeField] private GameObject routeTileMother;
+
+        [SerializeField ]private TextMeshProUGUI stdText;
+        [SerializeField] private Tilemap tilemap;
+
+        //#. 변수
+        [SerializeField] private Vector3Int size;
+        private List<Vector3> tileWorldLocations = new List<Vector3>();
+
+        private HexTile[ , ] tiles;
+        private HexNode[,] nodeArray;
+        List<HexNode> openList = new List<HexNode>(), closedList = new List<HexNode>();
+        
+        private List<HexTile> hexTileList = new List<HexTile>();
         private Dictionary<HexTile, HexNode> nodeDic;
 
+        private Stopwatch stopwatch = new Stopwatch();
         private long std = 0;
         private int n = 0;
         private long sum = 0;
-        [SerializeField ]private TextMeshProUGUI stdText;
+        
+        //#. 프로퍼티
+        private bool isStart = false;
+
+
+
 
         private void Awake()
         {
-            tiles = hexTileManager.tiles;
-            entities = new List<Mover>();
-            NodeArray = new HexNode[tiles.GetLength(0), tiles.GetLength(1)];
-            nodeDic = new Dictionary<HexTile, HexNode>();
+            SetTile();
             
-            entityMother.transform.EachChild((c) =>
-            {
-                entities.Add(c.GetComponent<Mover>());
-            });
+            nodeArray = new HexNode[tiles.GetLength(0), tiles.GetLength(1)];
+            nodeDic = new Dictionary<HexTile, HexNode>();
 
-            for (int i = 0 , y = 0; i < tileParent.transform.childCount; y++)
-            {
-                for (int x = 0; i < tileParent.transform.childCount && x < tileX; x++ , i++)
+            SetNode();
+        }
+
+        #region #. 타일 설정
+
+        void SetTile()
+        {
+            tilemap.CompressBounds();
+            size = tilemap.size;
+            tiles = new HexTile[size.x, size.y];
+            
+            foreach (var pos in tilemap.cellBounds.allPositionsWithin)
+            {   
+                Vector3Int localPlace = new Vector3Int(pos.x, pos.y, pos.z);
+                Vector3 place = tilemap.CellToWorld(localPlace);
+                if (tilemap.HasTile(localPlace))
                 {
-                    NodeArray[x, y] = new HexNode(
-                        tiles[x, y].isWall,
-                        x,y,
-                        tiles[x, y]);
-                    
-                    nodeDic[tiles[x, y]] = NodeArray[x, y];
+                    tileWorldLocations.Add(place);
                 }
             }
             
-            for (int i = 0 , y = 0; i < tileParent.transform.childCount; y++)
+            routeTileMother.transform.EachChild((child) =>
             {
-                for (int x = 0; i < tileParent.transform.childCount && x < tileX; x++ , i++)
+                hexTileList.Add(child.gameObject.GetComponent<HexTile>());
+            });
+
+            for (var i = 0; i < hexTileList.Count; i++)
+            {
+                hexTileList[i].transform.position = tileWorldLocations[i];
+            }
+            
+            for (int y = 0; y < size.y; y++)
+            {
+                for (int x = 0; x < size.x; x++)
                 {
-                    foreach (var hexTile in tiles[x, y].neighbors)
+                    tiles[x, y] = hexTileList[size.x * y + x];
+                    tiles[x, y].SetIndex(new Vector2Int(x , y));
+                }
+            }
+            
+            SetNeighbors();
+        }
+        
+        void SetNeighbors()
+        {
+            for (int y = 0; y < size.y; y++)
+            {
+                for (int x = 0; x < size.x; x++)
+                {
+                    HexTile tile = tiles[x , y];
+                    if ((y + size.y + 1) % 2 == 1)
                     {
-                        NodeArray[x, y].SetNeighbors(NodeArray[hexTile.index.x, hexTile.index.y]);
+                        //#. y + 1 : x - 1, x
+                        if (y != size.y - 1)
+                        {
+                            if(x != 0) tile.AddNeighbor(tiles[x - 1, y + 1]);
+                            tile.AddNeighbor(tiles[x, y + 1]);
+                        }
+
+                        //#. y : x - 1, x + 1 
+                        if (y != 0)
+                        {
+                            if(x != 0) tile.AddNeighbor(tiles[x - 1, y - 1]);
+                            tile.AddNeighbor(tiles[x, y - 1]);
+                        }
+                        
+                        //#. y - 1 : x - 1 , x 
+                        if(x != 0) tile.AddNeighbor(tiles[x - 1, y]);
+                        if(x != size.x - 1) tile.AddNeighbor(tiles[x + 1, y]);
+                    }
+                    else
+                    {
+                        //#. y + 1 : x + 1, x
+                        if (y != size.y - 1)
+                        {
+                            if(x != size.x - 1) tile.AddNeighbor(tiles[x + 1, y + 1]);
+                            tile.AddNeighbor(tiles[x, y + 1]);
+                        }
+
+                        //#. y : x - 1, x + 1 
+                        if (y != 0)
+                        {
+                            if(x != size.x - 1) tile.AddNeighbor(tiles[x + 1, y - 1]);
+                            tile.AddNeighbor(tiles[x, y - 1]);
+                        }
+                        
+                        //#. y - 1 : x + 1 , x 
+                        if(x != 0) tile.AddNeighbor(tiles[x - 1, y]);
+                        if(x != size.x - 1) tile.AddNeighbor(tiles[x + 1, y]);
                     }
                 }
             }
         }
 
-        public void Start()
+        void SetNode()
         {
-            /*List<HexTile> hexTiles = PathFinding(null, tiles, new Vector2Int(0, 0), new Vector2Int(7, 3));
-            //Debug.Log(hexTiles.Count);
-            foreach (var hexTile in hexTiles)
+            for (int i = 0 , y = 0; i < tileMother.transform.childCount; y++)
             {
-                //Debug.Log(hexTile.index);
-                hexTile.isRoute = true;
-            }*/
-
-            foreach (var entity in entities)
+                for (int x = 0; i < tileMother.transform.childCount && x < size.x; x++ , i++)
+                {
+                    nodeArray[x, y] = new HexNode(
+                        tiles[x, y].isWall,
+                        x,y,
+                        tiles[x, y]);
+                    
+                    nodeDic[tiles[x, y]] = nodeArray[x, y];
+                }
+            }
+            
+            for (int i = 0 , y = 0; i < tileMother.transform.childCount; y++)
             {
-                entity.SetRoute();
+                for (int x = 0; i < tileMother.transform.childCount && x < size.x; x++ , i++)
+                {
+                    foreach (var hexTile in tiles[x, y].neighbors)
+                    {
+                        nodeArray[x, y].SetNeighbors(nodeArray[hexTile.index.x, hexTile.index.y]);
+                    }
+                }
             }
         }
 
-        //해야할일
-        // 벽 처리의 옵션화를 통한 실시간 반응 감지 : 함수에 mode 넣기
-        public List<HexTile> PathFinding(
+
+        #endregion
+
+        public List<HexTile> PathFinding(Mover mover , Vector2Int targetPos, int mode = 0)
+        {
+            
+            Debug.Log(mode);
+            List<HexNode> finalNodeList = new List<HexNode>();
+            HexNode startNode, targetNode, curNode;
+            
+            int sizeX = size.x , sizeY = size.y;
+            if (ReferenceEquals(mover.currentTile , null))
+            {
+                CustomLogger.LogWarning("[PathFindingManager.PathFinding()] currentNode 가 존재하지 않음" , mover.gameObject);
+            }
+            Vector2Int startPos = mover.currentTile.index;
+            Vector2Int bottomLeft = new Vector2Int(0, 0);
+            Vector2Int topRight = new Vector2Int(sizeX - 1, sizeY - 1);
+            
+
+            if (mode == 0)
+            {
+                for (int i = 0; i < sizeX; i++)
+                {
+                    for (int j = 0; j < sizeY; j++)
+                    {
+                        nodeArray[i, j].isWall = 
+                            tiles[i,j].isWall || (!ReferenceEquals(tiles[i,j].desOf , null) && tiles[i,j].desOf != mover);;
+                    }
+                }
+            }
+            else if (mode == 1)
+            {
+                for (int i = 0; i < sizeX; i++)
+                {
+                    for (int j = 0; j < sizeY; j++)
+                    {
+                        HexNode node = nodeArray[i, j];
+                        HexTile tile = tiles[i,j];
+                        int l = Math.Abs(mover.currentTile.index.x - i) + Math.Abs(mover.currentTile.index.y - j);
+                        if (l <= 4)
+                            node.isWall = tile.isWall;
+                        if (l <= 2 &&  node.isWall == false)
+                        {
+                            node.isWall = !tile.desNotNeeded && !ReferenceEquals(tile.desOf , null) && tile.desOf != mover;
+                        }
+                    }
+                }
+            }
+            else if (mode == 2)
+            {
+                for (var i = 0; i < mover.currentTile.neighbors.Count; i++)
+                {
+                    HexTile neighbor = mover.currentTile.neighbors[i];
+                    nodeDic[neighbor].isWall = 
+                        neighbor.isWall || (!ReferenceEquals(neighbor.desOf , null) && neighbor.desOf != mover);
+                }
+            }
+
+            nodeArray[targetPos.x, targetPos.y].isWall = false;
+            nodeArray[startPos.x, startPos.y].isWall = false;
+
+            // 시작과 끝 노드, 열린리스트와 닫힌리스트, 마지막리스트 초기화
+            startNode = nodeArray[startPos.x - bottomLeft.x, startPos.y - bottomLeft.y];
+            targetNode = nodeArray[targetPos.x - bottomLeft.x, targetPos.y - bottomLeft.y];
+
+            openList.Clear();
+            openList.Add(startNode);
+            closedList.Clear();
+            //FinalNodeList.Clear();
+
+            
+            while (openList.Count > 0)
+            {
+                //Debug.Log("while");
+                // 열린리스트 중 가장 F가 작고 F가 같다면 H가 작은 걸 현재노드로 하고 열린리스트에서 닫힌리스트로 옮기기
+                curNode = openList[0];
+                for (int i = 1; i < openList.Count; i++)
+                    if (openList[i].F <= curNode.F && openList[i].H < curNode.H) curNode = openList[i];
+
+                openList.Remove(curNode);
+                closedList.Add(curNode);
+
+
+                // 마지막
+                if (curNode == targetNode)
+                {
+                    HexNode TargetCurNode = targetNode;
+                    while (TargetCurNode != startNode)
+                    {
+                        finalNodeList.Add(TargetCurNode);
+                        TargetCurNode = TargetCurNode.ParentNode;
+                    }
+                    finalNodeList.Add(startNode);
+                    finalNodeList.Reverse();
+
+                    return finalNodeList.Make((node) => node.hexTile);
+                }
+
+                for (int i = 0; i < curNode.neighbors.Count; i++)
+                {
+                    OpenListAdd(curNode.neighbors[i].x, curNode.neighbors[i].y);
+                }
+
+            }
+
+            return new List<HexTile>();
+            
+            void OpenListAdd(int checkX, int checkY)
+            {
+                //Debug.Log("OpenListAdd");
+                try
+                {
+                    if (checkX >= bottomLeft.x && checkX < topRight.x + 1 && checkY >= bottomLeft.y && checkY < topRight.y + 1 && !nodeArray[checkX - bottomLeft.x, checkY - bottomLeft.y].isWall && !closedList.Contains(nodeArray[checkX - bottomLeft.x, checkY - bottomLeft.y]))
+                    {
+                        // 대각선 허용시, 벽 사이로 통과 안됨
+                        //if (allowDiagonal) if (NodeArray[CurNode.x - bottomLeft.x, checkY - bottomLeft.y].isWall && NodeArray[checkX - bottomLeft.x, CurNode.y - bottomLeft.y].isWall) return;
+
+                        // 코너를 가로질러 가지 않을시, 이동 중에 수직수평 장애물이 있으면 안됨
+                        //if (dontCrossCorner) if (NodeArray[CurNode.x - bottomLeft.x, checkY - bottomLeft.y].isWall || NodeArray[checkX - bottomLeft.x, CurNode.y - bottomLeft.y].isWall) return;
+
+                
+                        // 이웃노드에 넣고, 직선은 10, 대각선은 14비용
+                        HexNode NeighborNode = nodeArray[checkX - bottomLeft.x, checkY - bottomLeft.y];
+                        int MoveCost = 10;
+
+
+                        // 이동비용이 이웃노드G보다 작거나 또는 열린리스트에 이웃노드가 없다면 G, H, ParentNode를 설정 후 열린리스트에 추가
+                        if (MoveCost < NeighborNode.G || !openList.Contains(NeighborNode))
+                        {
+                            NeighborNode.G = MoveCost;
+                            NeighborNode.H = (Mathf.Abs(NeighborNode.x - targetNode.x) + Mathf.Abs(NeighborNode.y - targetNode.y)) * 10;
+                            NeighborNode.ParentNode = curNode;
+
+                            openList.Add(NeighborNode);
+                        }
+                    }
+
+                }
+                catch (Exception e)
+                {
+                    Debug.LogWarning($"[Exception] checkX : {checkX} , checkY : {checkY} , bottomLeft.y : {bottomLeft.y} , topRight.y : {topRight.y}");
+                }
+                // 상하좌우 범위를 벗어나지 않고, 벽이 아니면서, 닫힌리스트에 없다면
+            }
+        }
+
+        public List<HexTile> PathFindingWithPerformanceTest(Mover mover , Vector2Int targetPos, int mode = 0)
+        {
+            n++;
+            stopwatch.Reset();
+            stopwatch.Start();
+
+            var result = PathFinding(mover, targetPos, mode);
+
+            sum += stopwatch.ElapsedTicks;
+            std = sum / n;
+
+            stdText.text = std + " ticks / " + n;
+            return result;
+        }
+
+
+        /*public List<HexTile> PathFinding(
             Mover mover ,
             HexTile[,] _tiles , 
             Vector2Int startPos , 
@@ -111,7 +353,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
                 {
                     for (int j = 0; j < sizeY; j++)
                     {
-                        NodeArray[i, j].isWall = 
+                        nodeArray[i, j].isWall = 
                             _tiles[i,j].isWall || (!ReferenceEquals(_tiles[i,j].desOf , null) && _tiles[i,j].desOf != mover);;
                     }
                 }
@@ -122,7 +364,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
                 {
                     for (int j = 0; j < sizeY; j++)
                     {
-                        HexNode node = NodeArray[i, j];
+                        HexNode node = nodeArray[i, j];
                         HexTile tile = _tiles[i,j];
                         int l = Math.Abs(mover.currentTile.index.x - i) + Math.Abs(mover.currentTile.index.y - j);
                         if (l <= 4)
@@ -143,31 +385,13 @@ namespace LNK.MoreDeepFloor.RouteAiScene
                         neighbor.isWall || (!ReferenceEquals(neighbor.desOf , null) && neighbor.desOf != mover);
                 }
             }
-            
-            
-            
-            /*for (int i = 0; i < sizeX; i++)
-            {
-                for (int j = 0; j < sizeY; j++)
-                {
-                    NodeArray[i, j].isWall = 
-                            _tiles[i,j].isWall || (!ReferenceEquals(_tiles[i,j].desOf , null) && _tiles[i,j].desOf != entity);;
-                }
-            }*/
-            
-            /*for (var i = 0; i < entity.currentTile.neighbors.Count; i++)
-            {
-                HexTile neighbor = entity.currentTile.neighbors[i];
-                nodeDic[neighbor].isWall = 
-                    neighbor.isWall || (!ReferenceEquals(neighbor.desOf , null) && neighbor.desOf != entity);
-            }*/
 
-            NodeArray[targetPos.x, targetPos.y].isWall = false;
-            NodeArray[startPos.x, startPos.y].isWall = false;
+            nodeArray[targetPos.x, targetPos.y].isWall = false;
+            nodeArray[startPos.x, startPos.y].isWall = false;
 
             // 시작과 끝 노드, 열린리스트와 닫힌리스트, 마지막리스트 초기화
-            StartNode = NodeArray[startPos.x - bottomLeft.x, startPos.y - bottomLeft.y];
-            TargetNode = NodeArray[targetPos.x - bottomLeft.x, targetPos.y - bottomLeft.y];
+            StartNode = nodeArray[startPos.x - bottomLeft.x, startPos.y - bottomLeft.y];
+            TargetNode = nodeArray[targetPos.x - bottomLeft.x, targetPos.y - bottomLeft.y];
 
             OpenList.Clear();
             OpenList.Add(StartNode);
@@ -221,7 +445,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
                 //Debug.Log("OpenListAdd");
                 try
                 {
-                    if (checkX >= bottomLeft.x && checkX < topRight.x + 1 && checkY >= bottomLeft.y && checkY < topRight.y + 1 && !NodeArray[checkX - bottomLeft.x, checkY - bottomLeft.y].isWall && !ClosedList.Contains(NodeArray[checkX - bottomLeft.x, checkY - bottomLeft.y]))
+                    if (checkX >= bottomLeft.x && checkX < topRight.x + 1 && checkY >= bottomLeft.y && checkY < topRight.y + 1 && !nodeArray[checkX - bottomLeft.x, checkY - bottomLeft.y].isWall && !ClosedList.Contains(nodeArray[checkX - bottomLeft.x, checkY - bottomLeft.y]))
                     {
                         // 대각선 허용시, 벽 사이로 통과 안됨
                         //if (allowDiagonal) if (NodeArray[CurNode.x - bottomLeft.x, checkY - bottomLeft.y].isWall && NodeArray[checkX - bottomLeft.x, CurNode.y - bottomLeft.y].isWall) return;
@@ -231,7 +455,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
 
                 
                         // 이웃노드에 넣고, 직선은 10, 대각선은 14비용
-                        HexNode NeighborNode = NodeArray[checkX - bottomLeft.x, checkY - bottomLeft.y];
+                        HexNode NeighborNode = nodeArray[checkX - bottomLeft.x, checkY - bottomLeft.y];
                         int MoveCost = 10;
 
 
@@ -274,7 +498,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
             /*for (var i = 0; i < routes.Count; i++)
             {
                 routes[i].SetRoute();
-            }*/
+            }#1#
 
             sum += stopwatch.ElapsedTicks;
             std = sum / n;
@@ -282,7 +506,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
             
             stdText.text = std + " ticks / " + n;
             return routes;
-        }
+        }*/
     }
 }
 

@@ -12,57 +12,10 @@ namespace LNK.MoreDeepFloor.RouteAiScene
         public List<HexTile> neighbors { private set; get; } = new List<HexTile>();
         public Vector2Int index;
         public bool isWall;
-        public bool isRoute = false;
         public int wallStack = 0;
         public Mover desOf;
 
         public bool desNotNeeded = false;
-        //public bool isEntityExist;
-        
-        public void AddNeighbor(HexTile neighbor)
-        {
-            neighbors.Add(neighbor);
-        }
-
-        private void OnDrawGizmos()
-        {
-            
-
-            if (show)
-            {
-                Gizmos.color = Color.cyan;
-
-                foreach (var hexTile in neighbors)
-                {
-                    Gizmos.DrawSphere(hexTile.transform.position , 0.2f);
-                }
-            }
-            
-            if (isRoute)
-            {
-                Gizmos.color = Color.cyan;
-
-                Gizmos.DrawSphere(transform.position , 0.2f);
-            }
-
-            if (isWall)
-            {
-                Gizmos.color = Color.grey;
-                Gizmos.DrawSphere(transform.position , 0.2f);
-            }
-
-        }
-
-        public void SetIndex(Vector2Int index)
-        {
-            this.index = index;
-        }
-        
-        public void SetWall()
-        {
-            isWall = true;
-            //spriteRenderer.color = Color.grey;
-        }
 
         private void OnTriggerEnter2D(Collider2D col)
         {
@@ -75,15 +28,22 @@ namespace LNK.MoreDeepFloor.RouteAiScene
             wallStack--;
             if (wallStack < 1) isWall = false;
         }
-
-        public void AddWallStack()
+        
+        public void Init()
         {
-            
+            isWall = false;
+            desOf = null;
+            neighbors = new List<HexTile>();
         }
-
-        public void RemoveWallStack()
+        
+        public void AddNeighbor(HexTile neighbor)
         {
-            
+            neighbors.Add(neighbor);
+        }
+        
+        public void SetIndex(Vector2Int index)
+        {
+            this.index = index;
         }
 
         public void SetDesOfEntity(Mover mover)

@@ -48,15 +48,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityManager: {fileID: 0}
-  tileSearcher: {fileID: 0}
   pathFinder: {fileID: 0}
-  mover: {fileID: 0}
   speed: 0
   range: 0
   isActive: 0
   teamNumber: 0
   code: 0
-  mode: 2
+  mode: 1
   gizmoColor: {r: 0, g: 0, b: 0, a: 0}
   routeFindTimer: 0.5
   currentTile: {fileID: 0}

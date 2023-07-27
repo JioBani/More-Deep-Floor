@@ -33,6 +33,12 @@ namespace LNK.MoreDeepFloor.Common.Loggers
                 Debug.LogWarning(msg);
         }
         
+        public static void LogWarning(object msg , GameObject gameObject)
+        {
+            if(isLoggerOn)
+                Debug.LogWarning(msg , gameObject);
+        }
+        
         public static void LogException(Exception e)
         {
             if(isLoggerOn)
