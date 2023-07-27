@@ -7,11 +7,11 @@ namespace LNK.MoreDeepFloor.RouteAiScene
 {
     public class RouteCol : MonoBehaviour
     {
-        [SerializeField] private Entity entity;
+        [SerializeField] private Mover mover;
 
-        public void SetEntity(Entity _entity)
+        public void SetEntity(Mover mover)
         {
-            entity = _entity;
+            this.mover = mover;
         }
         
         /*private void OnTriggerEnter2D(Collider2D other)

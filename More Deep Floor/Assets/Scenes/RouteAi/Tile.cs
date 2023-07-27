@@ -14,8 +14,8 @@ namespace LNK.MoreDeepFloor.RouteAiScene
         private SpriteRenderer spriteRenderer;
         public int wallStack = 0;
 
-        private List<Entity> usingEntities = new List<Entity>();
-        public Entity desOf;
+        private List<Mover> usingEntities = new List<Mover>();
+        public Mover desOf;
         
         private void Awake()
         {
@@ -43,14 +43,14 @@ namespace LNK.MoreDeepFloor.RouteAiScene
             spriteRenderer.color = Color.white;
         }
 
-        public void AddEntity(Entity _entity)
+        public void AddEntity(Mover mover)
         {
-            usingEntities.Add(_entity);
+            usingEntities.Add(mover);
         }
 
-        public void RemoveEntity(Entity _entity)
+        public void RemoveEntity(Mover mover)
         {
-            usingEntities.Remove(_entity);
+            usingEntities.Remove(mover);
         }
         
         private void OnTriggerEnter2D(Collider2D col)
@@ -75,9 +75,9 @@ namespace LNK.MoreDeepFloor.RouteAiScene
             
         }
 
-        public void SetDesOfEntity(Entity _entity)
+        public void SetDesOfEntity(Mover mover)
         {
-            desOf = _entity;
+            desOf = mover;
         }
 
         public void RemoveDesOfEntity()

@@ -7,21 +7,21 @@ namespace LNK.MoreDeepFloor.RouteAiScene
 {
     public class EntityManager : MonoBehaviour
     {
-        [SerializeField] private List<Entity> teamA;
-        [SerializeField] private List<Entity> teamB;
+        [SerializeField] private List<Mover> teamA;
+        [SerializeField] private List<Mover> teamB;
 
-        public Entity Search(int teamNums , Entity entity)
+        public Mover Search(int teamNums , Mover mover)
         {
-            List<Entity> enemys;
+            List<Mover> enemys;
             
             enemys = teamNums == 0 ? teamB : teamA;
 
             float dis = 99999;
-            Entity minEnemy = null;
+            Mover minEnemy = null;
             
             foreach (var enemy in enemys)
             {
-                float temp = Vector2.SqrMagnitude(enemy.transform.position - entity.transform.position);
+                float temp = Vector2.SqrMagnitude(enemy.transform.position - mover.transform.position);
                 if (dis > temp)
                 {
                     dis = temp;
@@ -32,19 +32,19 @@ namespace LNK.MoreDeepFloor.RouteAiScene
             return minEnemy;
         }
 
-        public List<Entity> SearchEnemies(int teamNums , Entity entity)
+        public List<Mover> SearchEnemies(int teamNums , Mover mover)
         {
-            List<Entity> enemys;
+            List<Mover> enemys;
 
             enemys = teamNums == 0 ? teamB : teamA;
 
             float dis = 99999;
-            Entity minEnemy = null;
-            var position = entity.transform.position;
+            Mover minEnemy = null;
+            var position = mover.transform.position;
 
             foreach (var enemy in enemys)
             {
-                float temp = Vector2.SqrMagnitude(enemy.transform.position - entity.transform.position);
+                float temp = Vector2.SqrMagnitude(enemy.transform.position - mover.transform.position);
                 if (dis > temp)
                 {
                     dis = temp;

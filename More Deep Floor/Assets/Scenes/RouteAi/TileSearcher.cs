@@ -7,11 +7,11 @@ namespace LNK.MoreDeepFloor.RouteAiScene
 {
     public class TileSearcher : MonoBehaviour
     {
-        [SerializeField] private Entity entity;
+        [SerializeField] private Mover mover;
         
         private void OnTriggerEnter2D(Collider2D col)
         {
-            entity.SetCurrentTile(col);
+            mover.SetCurrentTile(col);
         }
     }
 }

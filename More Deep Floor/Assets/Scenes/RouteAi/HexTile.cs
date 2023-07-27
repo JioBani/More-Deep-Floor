@@ -14,7 +14,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
         public bool isWall;
         public bool isRoute = false;
         public int wallStack = 0;
-        public Entity desOf;
+        public Mover desOf;
 
         public bool desNotNeeded = false;
         //public bool isEntityExist;
@@ -86,9 +86,9 @@ namespace LNK.MoreDeepFloor.RouteAiScene
             
         }
 
-        public void SetDesOfEntity(Entity _entity)
+        public void SetDesOfEntity(Mover mover)
         {
-            desOf = _entity;
+            desOf = mover;
             desNotNeeded = false;
         }
 

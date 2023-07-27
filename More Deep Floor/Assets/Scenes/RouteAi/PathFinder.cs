@@ -27,7 +27,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
         private List<RouteDetectors> routeDetectorsList;
         private bool isStart = false;
 
-        private List<Entity> entities;
+        private List<Mover> entities;
         [SerializeField] private GameObject entityMother;
         private Stopwatch stopwatch = new Stopwatch();
 
@@ -38,11 +38,11 @@ namespace LNK.MoreDeepFloor.RouteAiScene
 
         private void Awake()
         {
-            entities = new List<Entity>();
+            entities = new List<Mover>();
             
             entityMother.transform.EachChild((c) =>
             {
-                entities.Add(c.GetComponent<Entity>());
+                entities.Add(c.GetComponent<Mover>());
             });
             
             tiles = new Tile[tileX, tileY];
@@ -57,7 +57,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
             }
         }
 
-        public List<Tile> PathFinding(Entity entity , Tile[,] _tiles , Vector2Int startPos , Vector2Int targetPos)
+        public List<Tile> PathFinding(Mover mover , Tile[,] _tiles , Vector2Int startPos , Vector2Int targetPos)
         {
             int sizeX = _tiles.GetLength(0);
             int sizeY = _tiles.GetLength(1);
@@ -71,7 +71,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
             {
                 for (int j = 0; j < sizeY; j++)
                 {
-                    bool isWall = _tiles[i, j].isWall || (!ReferenceEquals(_tiles[i, j].desOf , null) && _tiles[i, j].desOf != entity);
+                    bool isWall = _tiles[i, j].isWall || (!ReferenceEquals(_tiles[i, j].desOf , null) && _tiles[i, j].desOf != mover);
                     NodeArray[i, j] = new Node(isWall, i + bottomLeft.x, j + bottomLeft.y);
                 }
             }
@@ -172,7 +172,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
             }
         }
 
-        public List<Tile> GetRoute(Entity entity , Tile currentTile , Vector2Int end)
+        public List<Tile> GetRoute(Mover mover , Tile currentTile , Vector2Int end)
         {
             n++;
             stopwatch.Reset();
@@ -181,7 +181,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
             if (ReferenceEquals(currentTile,null)) return new List<Tile>();
             
             List<Tile> routes = PathFinding(
-                entity,
+                mover,
                 tiles , 
                 currentTile.index, 
                 end);

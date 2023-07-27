@@ -22,7 +22,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
         {
             entities.transform.EachChild((c) =>
             {
-                Entity e = c.GetComponent<Entity>();
+                Mover e = c.GetComponent<Mover>();
                 e.isActive = true;
                 e.SetRoute();
 

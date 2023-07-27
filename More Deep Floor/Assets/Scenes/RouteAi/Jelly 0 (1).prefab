@@ -47,21 +47,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f3cc8735811bea47955ad926f54a3d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  currentTile: {fileID: 0}
-  currentTileObject: {fileID: 0}
-  currentDes: {fileID: 0}
-  finalDes: {fileID: 0}
-  isActive: 0
+  entityManager: {fileID: 0}
   tileSearcher: {fileID: 0}
   pathFinder: {fileID: 0}
-  entityManager: {fileID: 0}
-  teamNumber: 0
-  target: {fileID: 0}
+  mover: {fileID: 0}
+  speed: 0
   range: 0
-  gizmoColor: {r: 0, g: 0, b: 0, a: 0}
+  isActive: 0
+  teamNumber: 0
   code: 0
   mode: 2
+  gizmoColor: {r: 0, g: 0, b: 0, a: 0}
+  routeFindTimer: 0.5
+  currentTile: {fileID: 0}
+  currentDes: {fileID: 0}
+  finalDes: {fileID: 0}
+  target: {fileID: 0}
   currentTileHistory: []
 --- !u!50 &1237961390274726091
 Rigidbody2D:
@@ -218,7 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33fb8ba20b195bb4c8a563de899858bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entity: {fileID: 1237961390274726093}
+  mover: {fileID: 1237961390274726093}
 --- !u!58 &582526468378286829
 CircleCollider2D:
   m_ObjectHideFlags: 0

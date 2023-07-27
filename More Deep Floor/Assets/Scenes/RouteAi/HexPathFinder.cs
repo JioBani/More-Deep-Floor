@@ -25,7 +25,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
         private List<RouteDetectors> routeDetectorsList;
         private bool isStart = false;
 
-        private List<Entity> entities;
+        private List<Mover> entities;
         [SerializeField] private GameObject entityMother;
         private Stopwatch stopwatch = new Stopwatch();
         [SerializeField] private HexTileManager hexTileManager;
@@ -39,13 +39,13 @@ namespace LNK.MoreDeepFloor.RouteAiScene
         private void Awake()
         {
             tiles = hexTileManager.tiles;
-            entities = new List<Entity>();
+            entities = new List<Mover>();
             NodeArray = new HexNode[tiles.GetLength(0), tiles.GetLength(1)];
             nodeDic = new Dictionary<HexTile, HexNode>();
             
             entityMother.transform.EachChild((c) =>
             {
-                entities.Add(c.GetComponent<Entity>());
+                entities.Add(c.GetComponent<Mover>());
             });
 
             for (int i = 0 , y = 0; i < tileParent.transform.childCount; y++)
@@ -92,7 +92,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
         //해야할일
         // 벽 처리의 옵션화를 통한 실시간 반응 감지 : 함수에 mode 넣기
         public List<HexTile> PathFinding(
-            Entity entity ,
+            Mover mover ,
             HexTile[,] _tiles , 
             Vector2Int startPos , 
             Vector2Int targetPos,
@@ -112,7 +112,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
                     for (int j = 0; j < sizeY; j++)
                     {
                         NodeArray[i, j].isWall = 
-                            _tiles[i,j].isWall || (!ReferenceEquals(_tiles[i,j].desOf , null) && _tiles[i,j].desOf != entity);;
+                            _tiles[i,j].isWall || (!ReferenceEquals(_tiles[i,j].desOf , null) && _tiles[i,j].desOf != mover);;
                     }
                 }
             }
@@ -124,23 +124,23 @@ namespace LNK.MoreDeepFloor.RouteAiScene
                     {
                         HexNode node = NodeArray[i, j];
                         HexTile tile = _tiles[i,j];
-                        int l = Math.Abs(entity.currentTile.index.x - i) + Math.Abs(entity.currentTile.index.y - j);
+                        int l = Math.Abs(mover.currentTile.index.x - i) + Math.Abs(mover.currentTile.index.y - j);
                         if (l <= 4)
                             node.isWall = tile.isWall;
                         if (l <= 2 &&  node.isWall == false)
                         {
-                            node.isWall = !tile.desNotNeeded && !ReferenceEquals(tile.desOf , null) && tile.desOf != entity;
+                            node.isWall = !tile.desNotNeeded && !ReferenceEquals(tile.desOf , null) && tile.desOf != mover;
                         }
                     }
                 }
             }
             else if (mode == 2)
             {
-                for (var i = 0; i < entity.currentTile.neighbors.Count; i++)
+                for (var i = 0; i < mover.currentTile.neighbors.Count; i++)
                 {
-                    HexTile neighbor = entity.currentTile.neighbors[i];
+                    HexTile neighbor = mover.currentTile.neighbors[i];
                     nodeDic[neighbor].isWall = 
-                        neighbor.isWall || (!ReferenceEquals(neighbor.desOf , null) && neighbor.desOf != entity);
+                        neighbor.isWall || (!ReferenceEquals(neighbor.desOf , null) && neighbor.desOf != mover);
                 }
             }
             
@@ -255,7 +255,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
             }
         }
 
-        public List<HexTile> GetRoute(Entity entity , HexTile currentTile , Vector2Int end,int mode)
+        public List<HexTile> GetRoute(Mover mover , HexTile currentTile , Vector2Int end,int mode)
         {
             n++;
             stopwatch.Reset();
@@ -264,7 +264,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
             if (ReferenceEquals(currentTile,null)) return new List<HexTile>();
             
             List<HexTile> routes = PathFinding(
-                entity,
+                mover,
                 tiles , 
                 currentTile.index, 
                 end

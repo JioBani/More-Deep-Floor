@@ -19,11 +19,11 @@ namespace LNK.MoreDeepFloor.RouteAiScene
             });
         }
 
-        public void SetEntity(Entity entity)
+        public void SetEntity(Mover mover)
         {
             foreach (var routeCol in routeCols)
             {
-                routeCol.SetEntity(entity);
+                routeCol.SetEntity(mover);
             }
         }
 
