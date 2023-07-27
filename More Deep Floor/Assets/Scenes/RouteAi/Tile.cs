@@ -10,14 +10,9 @@ namespace LNK.MoreDeepFloor.RouteAiScene
     public class Tile : MonoBehaviour
     {
         public Vector2Int index;
-        public Entity entity = null;
-        public bool isSomeoneExist = false;
-        public PathFinder pathFinder;
         public bool isWall = false;
         private SpriteRenderer spriteRenderer;
-        [SerializeField] private bool isDesti = false;
         public int wallStack = 0;
-        public Entity owner;
 
         private List<Entity> usingEntities = new List<Entity>();
         public Entity desOf;

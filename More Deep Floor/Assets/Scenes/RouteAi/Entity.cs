@@ -12,15 +12,14 @@ namespace LNK.MoreDeepFloor.RouteAiScene
     public class Entity : MonoBehaviour
     {
         [SerializeField] private float speed;
-        public Tile currentTile;
+        public HexTile currentTile;
         public GameObject currentTileObject;
-        public Tile nextTile;
-        public Tile currentDes;
-        public Tile finalDes;
+        public HexTile currentDes;
+        public HexTile finalDes;
         public bool isActive;
         [SerializeField] private TileSearcher tileSearcher;
-        [SerializeField] private PathFinder pathFinder;
-        private List<Tile> routes = new List<Tile>();  
+        [SerializeField] private HexPathFinder pathFinder;
+        private List<HexTile> routes = new List<HexTile>();  
         private float routeTimer = 0;
         [SerializeField] private EntityManager entityManager;
         public int teamNumber;
@@ -28,49 +27,53 @@ namespace LNK.MoreDeepFloor.RouteAiScene
         [SerializeField] private float range;
         [SerializeField] private Color gizmoColor;
         public int code;
+        public int mode;
+        [SerializeField] private List<Vector2Int> currentTileHistory = new List<Vector2Int>();
 
         public void Update()
         {
             if (isActive)
             {
-                if (Vector2.SqrMagnitude(transform.position - target.transform.position) <= range)
+                if (ReferenceEquals(currentDes, null))
                 {
-                    code = 2;
+                    code = 4;
                 }
-                else if (ReferenceEquals(currentDes, null))
+                else if (Vector2.SqrMagnitude(transform.position - target.transform.position) <= range)
                 {
-                    code = 1;
+                    code = 3;
+                    currentDes.desNotNeeded = true;
+                }
+                else
+                {
+                    currentDes.desNotNeeded = false;
+                    if(Vector2.SqrMagnitude(transform.position - currentDes.transform.position) > 0.001f)
+                    {
+                        code = 1;
+                        transform.position = Vector2.MoveTowards(
+                            transform.position, 
+                            currentDes.transform.position, 
+                            speed * Time.deltaTime);
+                    }
+                    else
+                    {
+                        code = 2;
+                        if (routes.Count == 0)
+                        {
+                            currentDes.RemoveDesOfEntity();
+                            currentDes = null;
+                        }
+                        else
+                        {
+                            currentDes.RemoveDesOfEntity();
+                            //currentTile = currentDes;
+                            SetRoute();
+                        }
+                    }
+                    routeTimer += Time.deltaTime;
                     if (routeTimer > 0.5f)
                     {
                         SetRoute();
                         routeTimer = 0;
-                    }
-                    else
-                    {
-                        routeTimer += Time.deltaTime;
-                    }
-                }
-                else if(Vector2.SqrMagnitude(transform.position - currentDes.transform.position) > 0.001f)
-                {
-                    code = 3;
-                    transform.position = Vector2.MoveTowards(
-                        transform.position, 
-                        currentDes.transform.position, 
-                        speed * Time.deltaTime);
-                }
-                else
-                {
-                    code = 4;
-                    if (routes.Count == 0)
-                    {
-                        currentDes.RemoveDesOfEntity();
-                        currentDes = null;
-                    }
-                    else
-                    {
-                        currentDes.RemoveDesOfEntity();
-                        //currentTile = currentDes;
-                        SetRoute();
                     }
                 }
             }
@@ -79,28 +82,49 @@ namespace LNK.MoreDeepFloor.RouteAiScene
         public void SetCurrentTile(Collider2D collider2D)
         {
             currentTileObject = collider2D.gameObject;
-            currentTile = currentTileObject.GetComponent<Tile>();
+            currentTile = currentTileObject.GetComponent<HexTile>();
+            currentTileHistory.Add(currentTile.index);
+            if (currentTileHistory.Count == 5)
+            {
+                if (currentTileHistory[0] == currentTile.index &&
+                    currentTileHistory[2] == currentTile.index
+                   )
+                {
+                    mode = 0;
+                    SetRoute();
+                    mode = 2;
+                    Debug.Log("재시도");
+                }
+                currentTileHistory.RemoveAt(0);
+            }
         }
 
         public void SetRoute()
         {
-            target = entityManager.Search(teamNumber, this);
-            finalDes = target.currentTile;
-            
-            if (ReferenceEquals(finalDes, null))
+            List<Entity> entities = entityManager.SearchEnemies(teamNumber, this);
+
+            for (int i = 0; i < 3 || i < entities.Count; i++)
             {
-                routes = new List<Tile>();
-                return;
+                target = entities[i];
+                finalDes = target.currentTile;
+            
+                if (ReferenceEquals(finalDes, null))
+                {
+                    routes = new List<HexTile>();
+                    return;
+                }
+            
+                currentTile = currentTileObject.GetComponent<HexTile>();
+                routes = pathFinder.GetRoute(this, currentTile, finalDes.index,mode);
+            
+                if (routes.Count > 1)
+                {
+                    currentDes = routes[1];
+                    currentDes.SetDesOfEntity(this);
+                    return;
+                }
             }
             
-            currentTile = currentTileObject.GetComponent<Tile>();
-            routes = pathFinder.GetRoute(this, currentTile, finalDes.index);
-            
-            if (routes.Count > 1)
-            {
-                currentDes = routes[1];
-                currentDes.SetDesOfEntity(this);
-            }
         }
 
         public void OnDrawGizmos()
@@ -110,7 +134,10 @@ namespace LNK.MoreDeepFloor.RouteAiScene
             {
                 Gizmos.DrawSphere(route.transform.position , 0.2f);
             }
-        }
+            
+            if(code == 2)
+                Gizmos.DrawIcon(transform.position, code+".png", true);
+        }   
     }
 }
 

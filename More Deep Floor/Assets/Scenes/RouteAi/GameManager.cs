@@ -5,24 +5,28 @@ using System.Diagnostics;
 using ExtensionMethods;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
-using Random = UnityEngine.Random;
 
 namespace LNK.MoreDeepFloor.RouteAiScene
 {
 
     public class GameManager : MonoBehaviour
     {
-        public List<Entity> entities;
+        public GameObject entities;
+
+        private void Awake()
+        {
+            //Time.timeScale = 0.1f;
+        }
 
         public void OnClickStart()
         {
-            foreach (var entity in entities)
+            entities.transform.EachChild((c) =>
             {
-                //entity.isStarted = true;
-                entity.isActive = true;
-                entity.SetRoute();
-                //entity.StartCoroutine(entity.SetRouteRoutine());
-            }
+                Entity e = c.GetComponent<Entity>();
+                e.isActive = true;
+                e.SetRoute();
+
+            });
         }
     }
 }
