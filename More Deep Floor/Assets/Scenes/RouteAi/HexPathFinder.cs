@@ -16,17 +16,18 @@ namespace LNK.MoreDeepFloor.RouteAiScene
         [SerializeField] private GameObject tileMother;
         [SerializeField] private GameObject routeTileMother;
 
-        [SerializeField ]private TextMeshProUGUI stdText;
+        [SerializeField] private TextMeshProUGUI stdText;
         [SerializeField] private Tilemap tilemap;
 
         //#. 변수
         [SerializeField] private Vector3Int size;
-        private List<Vector3> tileWorldLocations = new List<Vector3>();
+        [SerializeField] private int useTileNums;
+        [SerializeField] private List<Vector3> tileWorldLocations = new List<Vector3>();
 
-        private RouteTile[ , ] tiles;
+        private RouteTile[,] tiles;
         private HexNode[,] nodeArray;
         List<HexNode> openList = new List<HexNode>(), closedList = new List<HexNode>();
-        
+
         private List<RouteTile> hexTileList = new List<RouteTile>();
         private Dictionary<RouteTile, HexNode> nodeDic;
 
@@ -34,7 +35,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
         private long std = 0;
         private int n = 0;
         private long sum = 0;
-        
+
         //#. 프로퍼티
         private bool isStart = false;
 
@@ -44,8 +45,8 @@ namespace LNK.MoreDeepFloor.RouteAiScene
         private void Awake()
         {
             SetTile();
-            
-            nodeArray = new HexNode[tiles.GetLength(0), tiles.GetLength(1)];
+
+            nodeArray = new HexNode[size.x, size.y];
             nodeDic = new Dictionary<RouteTile, HexNode>();
 
             SetNode();
@@ -53,14 +54,58 @@ namespace LNK.MoreDeepFloor.RouteAiScene
 
         #region #. 타일 설정
 
+        public TileBase[] allTiles;
+        public List<Vector3> availablePlaces;
+        void Temp()
+        {
+            /*tilemap.CompressBounds();
+            
+            foreach (var position in tilemap.cellBounds.allPositionsWithin)
+            {
+                if (!tilemap.HasTile(position))
+                {
+                    continue;
+                }
+
+                else if(position == activeTileCoordinate)
+                {
+                    Sprite otherTiles = tilemap.GetSprite(position);
+                    Debug.Log("Active tile is at " + position + " and is " + otherTiles.name);
+                }
+
+                else
+                {
+                    Sprite otherTile = tilemap.GetSprite(position);
+
+                    if(otherTile.name == tilemap.name)
+                    {
+                        tilemap.SetTile(position, null);
+                    }
+
+                }
+            }*/
+        }
+
         void SetTile()
         {
+            Temp();
+            
+            hexTileList = new List<RouteTile>();
+            
             tilemap.CompressBounds();
             size = tilemap.size;
             tiles = new RouteTile[size.x, size.y];
+            useTileNums = size.x * size.y;
+
+            BoundsInt tmpSize = tilemap.cellBounds;
+            allTiles = tilemap.GetTilesBlock(tmpSize);
             
+            
+            
+            //#. 타일맵 타일 위치 리스트 만들기
             foreach (var pos in tilemap.cellBounds.allPositionsWithin)
-            {   
+            {
+                
                 Vector3Int localPlace = new Vector3Int(pos.x, pos.y, pos.z);
                 Vector3 place = tilemap.CellToWorld(localPlace);
                 if (tilemap.HasTile(localPlace))
@@ -69,16 +114,28 @@ namespace LNK.MoreDeepFloor.RouteAiScene
                 }
             }
             
+            Debug.Log(tileWorldLocations.Count);
             routeTileMother.transform.EachChild((child) =>
             {
                 hexTileList.Add(child.gameObject.GetComponent<RouteTile>());
             });
 
+            Debug.Log(3);
             for (var i = 0; i < hexTileList.Count; i++)
             {
-                hexTileList[i].transform.position = tileWorldLocations[i];
+                Debug.Log(i);
+                if (i < useTileNums)
+                {
+                    hexTileList[i].transform.position = tileWorldLocations[i];
+                    hexTileList[i].gameObject.SetActive(true);
+                }
+                else
+                {
+                    hexTileList[i].gameObject.SetActive(false);
+                }
             }
             
+            Debug.Log(4);
             for (int y = 0; y < size.y; y++)
             {
                 for (int x = 0; x < size.x; x++)
@@ -144,9 +201,9 @@ namespace LNK.MoreDeepFloor.RouteAiScene
 
         void SetNode()
         {
-            for (int i = 0 , y = 0; i < tileMother.transform.childCount; y++)
+            for (int i = 0 , y = 0; i < useTileNums; y++)
             {
-                for (int x = 0; i < tileMother.transform.childCount && x < size.x; x++ , i++)
+                for (int x = 0; i < useTileNums && x < size.x; x++ , i++)
                 {
                     nodeArray[x, y] = new HexNode(
                         tiles[x, y].isWall,
@@ -157,9 +214,9 @@ namespace LNK.MoreDeepFloor.RouteAiScene
                 }
             }
             
-            for (int i = 0 , y = 0; i < tileMother.transform.childCount; y++)
+            for (int i = 0 , y = 0; i < useTileNums; y++)
             {
-                for (int x = 0; i < tileMother.transform.childCount && x < size.x; x++ , i++)
+                for (int x = 0; i < useTileNums && x < size.x; x++ , i++)
                 {
                     foreach (var hexTile in tiles[x, y].neighbors)
                     {

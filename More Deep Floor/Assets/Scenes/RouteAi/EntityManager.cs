@@ -63,6 +63,26 @@ namespace LNK.MoreDeepFloor.RouteAiScene
             
             return enemys;
         }
+        
+        public void OnClickStart()
+        {
+            foreach (var mover in teamA)
+            {
+                mover.isActive = true;
+                mover.SetRoute();
+            }
+            
+            foreach (var mover in teamB)
+            {
+                mover.isActive = true;
+                mover.SetRoute();
+            }
+        }
+
+        void SetEntities()
+        {
+            
+        }
     }
 }
 

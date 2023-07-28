@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using ExtensionMethods;
+using LNK.MoreDeepFloor.Data.Entity;
+using LNK.MoreDeepFloor.InGame.Entitys;
 using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -15,6 +17,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
         //#. 참조
         [SerializeField] private EntityManager entityManager;
         [SerializeField] private HexPathFinder pathFinder;
+        [SerializeField] private Entity entity;
         
         //#. 프로퍼티
         [SerializeField] private float speed;
@@ -25,6 +28,8 @@ namespace LNK.MoreDeepFloor.RouteAiScene
         public int mode;
         [SerializeField] private Color gizmoColor;
         [SerializeField] private float routeFindTimer = 0.5f;
+        [SerializeField] private bool show;
+        [SerializeField] private EntityType entityType;
 
         //#. 변수
         private List<RouteTile> routes = new List<RouteTile>();
@@ -53,7 +58,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
             routeFindTime = 0;
             routeFindStd = 0;
         }
-        
+
         void Update()
         {
             if (isActive)
@@ -64,7 +69,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
                 }
                 else if (
                     !ReferenceEquals(target , null) && 
-                    Vector2.SqrMagnitude(transform.position - target.transform.position) <= range)
+                    Vector2.SqrMagnitude(entity.transform.position - target.transform.position) <= range)
                 {
                     code = 3;
                     currentDes.desNotNeeded = true;
@@ -72,11 +77,11 @@ namespace LNK.MoreDeepFloor.RouteAiScene
                 else
                 {
                     currentDes.desNotNeeded = false;
-                    if(Vector2.SqrMagnitude(transform.position - currentDes.transform.position) > 0.001f)
+                    if(Vector2.SqrMagnitude(entity.transform.position - currentDes.transform.position) > 0.001f)
                     {
                         code = 1;
-                        transform.position = Vector2.MoveTowards(
-                            transform.position, 
+                        entity.transform.position = Vector2.MoveTowards(
+                            entity.transform.position, 
                             currentDes.transform.position, 
                             speed * Time.deltaTime);
                     }
@@ -103,7 +108,19 @@ namespace LNK.MoreDeepFloor.RouteAiScene
                 }
             }
         }
-        
+
+        private void OnDrawGizmos()
+        {
+            if (show)
+            {
+                Gizmos.color = gizmoColor;
+                foreach (var routeTile in routes)
+                {
+                    Gizmos.DrawSphere(routeTile.transform.position , 0.1f);
+                }
+            }
+        }
+
         public void SetCurrentTile(Collider2D collider2D)
         {
             currentTile = collider2D.GetComponent<RouteTile>();

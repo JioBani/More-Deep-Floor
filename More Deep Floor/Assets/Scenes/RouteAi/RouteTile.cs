@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace LNK.MoreDeepFloor.RouteAiScene
@@ -26,6 +27,18 @@ namespace LNK.MoreDeepFloor.RouteAiScene
         {
             wallStack--;
             if (wallStack < 1) isWall = false;
+        }
+        
+        private void OnDrawGizmos()
+        {
+            if (show)
+            {
+                Gizmos.color = Color.cyan;
+                foreach (var routeTile in neighbors)
+                {
+                    Gizmos.DrawSphere(routeTile.transform.position , 0.1f);
+                }
+            }
         }
         
         public void Init()

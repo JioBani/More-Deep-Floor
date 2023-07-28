@@ -17,17 +17,6 @@ namespace LNK.MoreDeepFloor.RouteAiScene
         {
             //Time.timeScale = 0.1f;
         }
-
-        public void OnClickStart()
-        {
-            entities.transform.EachChild((c) =>
-            {
-                Mover e = c.GetComponent<Mover>();
-                e.isActive = true;
-                e.SetRoute();
-
-            });
-        }
     }
 }
 
