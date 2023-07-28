@@ -27,10 +27,10 @@ namespace LNK.MoreDeepFloor.RouteAiScene
         [SerializeField] private float routeFindTimer = 0.5f;
 
         //#. 변수
-        private List<HexTile> routes = new List<HexTile>();
-        public HexTile currentTile;
-        public HexTile currentDes;
-        public HexTile finalDes;
+        private List<RouteTile> routes = new List<RouteTile>();
+        public RouteTile currentTile;
+        public RouteTile currentDes;
+        public RouteTile finalDes;
         private float routeTimer = 0;
         [SerializeField] private Mover target;
         [SerializeField] private List<Vector2Int> currentTileHistory = new List<Vector2Int>();
@@ -38,10 +38,12 @@ namespace LNK.MoreDeepFloor.RouteAiScene
         private float routeFindTime = 0;
         private int routeFindCount = 0;
         private float routeFindStd = 0;
+        private float similaritySum = 0;
+        private float similarityStd = 0;
         
         public void Init()
         {
-            routes = new List<HexTile>();
+            routes = new List<RouteTile>();
             currentTile = null;
             currentDes = null;
             finalDes = null;
@@ -104,7 +106,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
         
         public void SetCurrentTile(Collider2D collider2D)
         {
-            currentTile = collider2D.GetComponent<HexTile>();
+            currentTile = collider2D.GetComponent<RouteTile>();
             currentTileHistory.Add(currentTile.index);
             if (currentTileHistory.Count == 5)
             {
@@ -136,7 +138,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
             
                 if (ReferenceEquals(finalDes, null))
                 {
-                    routes = new List<HexTile>();
+                    routes = new List<RouteTile>();
                     break;
                 }
                 else
@@ -152,19 +154,53 @@ namespace LNK.MoreDeepFloor.RouteAiScene
                 }
             }
             stopwatch.Stop();
-            if (routeFindCount == 1)
-            {
-                //routeFindTime = stopwatch.ElapsedTicks;
-            }
-            else
-            {
-                //routeFindTime = routeFindTime * (routeFindCount - 1) / routeFindCount + (stopwatch.ElapsedTicks / (float)routeFindCount);
-            }
-
-            //routeFindTime += stopwatch.ElapsedTicks / 10000f;
-            //routeFindStd = routeFindTime / routeFindCount;
             routeFindTime += ((float)stopwatch.ElapsedTicks / (float)Stopwatch.Frequency) * 1000;
             routeFindStd = routeFindTime / routeFindCount;
+        }
+
+        public void SetRouteWithSimilarityAnalytics()
+        {
+            routeFindCount++;
+            
+            stopwatch.Reset();
+            stopwatch.Start();
+            
+            List<Mover> entities = entityManager.SearchEnemies(teamNumber, this);
+            RouteTile lastDes = currentDes;
+
+            for (int i = 0; i < 3 || i < entities.Count; i++)
+            {
+                target = entities[i];
+                finalDes = target.currentTile;
+            
+                if (ReferenceEquals(finalDes, null))
+                {
+                    routes = new List<RouteTile>();
+                    break;
+                }
+                else
+                {
+                    routes = pathFinder.PathFindingWithPerformanceTest(this, finalDes.index,mode);
+            
+                    if (routes.Count > 1)
+                    {
+                        currentDes = routes[1];
+                        currentDes.SetDesOfEntity(this);
+                        break;
+                    }
+                }
+            }
+            stopwatch.Stop();
+        
+            routeFindTime += ((float)stopwatch.ElapsedTicks / (float)Stopwatch.Frequency) * 1000;
+            routeFindStd = routeFindTime / routeFindCount;
+            
+            if (ReferenceEquals(lastDes ,currentDes))
+            {
+                similaritySum++;
+                similarityStd = similaritySum / routeFindCount;
+            }
+            
         }
     }
 }

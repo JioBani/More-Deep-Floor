@@ -13,8 +13,8 @@ namespace LNK.MoreDeepFloor.RouteAiScene
         [SerializeField] private GameObject customTileMother;
         [SerializeField] private Tilemap tilemap;
         public List<Vector3> tileWorldLocations;
-        public List<HexTile> hexTileList = new List<HexTile>();
-        public HexTile[,] tiles;
+        public List<RouteTile> hexTileList = new List<RouteTile>();
+        public RouteTile[,] tiles;
         [SerializeField] private int column;
         [SerializeField] private Vector3Int size;
 
@@ -22,7 +22,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
         {
             tilemap.CompressBounds();
             size = tilemap.size;
-            tiles = new HexTile[size.x, size.y];
+            tiles = new RouteTile[size.x, size.y];
             
             foreach (var pos in tilemap.cellBounds.allPositionsWithin)
             {   
@@ -63,7 +63,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
             
             customTileMother.transform.EachChild((child) =>
             {
-                hexTileList.Add(child.gameObject.GetComponent<HexTile>());
+                hexTileList.Add(child.gameObject.GetComponent<RouteTile>());
             });
 
             for (var i = 0; i < hexTileList.Count; i++)
@@ -90,7 +90,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
             {
                 for (int x = 0; x < size.x; x++)
                 {
-                    HexTile tile = tiles[x , y];
+                    RouteTile tile = tiles[x , y];
                     if ((y + size.y + 1) % 2 == 1)
                     {
                         //#. y + 1 : x - 1, x

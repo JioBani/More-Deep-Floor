@@ -54,7 +54,7 @@ MonoBehaviour:
   isActive: 0
   teamNumber: 0
   code: 0
-  mode: 1
+  mode: 0
   gizmoColor: {r: 0, g: 0, b: 0, a: 0}
   routeFindTimer: 0.5
   currentTile: {fileID: 0}

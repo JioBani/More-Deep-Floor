@@ -5,11 +5,10 @@ using UnityEngine;
 
 namespace LNK.MoreDeepFloor.RouteAiScene
 {
-    //[Serializable]
-    public class HexTile : MonoBehaviour
+    public class RouteTile : MonoBehaviour
     {
         public bool show;
-        public List<HexTile> neighbors { private set; get; } = new List<HexTile>();
+        public List<RouteTile> neighbors { private set; get; } = new List<RouteTile>();
         public Vector2Int index;
         public bool isWall;
         public int wallStack = 0;
@@ -33,10 +32,10 @@ namespace LNK.MoreDeepFloor.RouteAiScene
         {
             isWall = false;
             desOf = null;
-            neighbors = new List<HexTile>();
+            neighbors = new List<RouteTile>();
         }
         
-        public void AddNeighbor(HexTile neighbor)
+        public void AddNeighbor(RouteTile neighbor)
         {
             neighbors.Add(neighbor);
         }

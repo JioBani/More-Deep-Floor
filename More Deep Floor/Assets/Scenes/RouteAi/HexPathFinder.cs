@@ -14,7 +14,6 @@ namespace LNK.MoreDeepFloor.RouteAiScene
     {
         //#. 참조
         [SerializeField] private GameObject tileMother;
-        [SerializeField] private GameObject entityMother;
         [SerializeField] private GameObject routeTileMother;
 
         [SerializeField ]private TextMeshProUGUI stdText;
@@ -24,12 +23,12 @@ namespace LNK.MoreDeepFloor.RouteAiScene
         [SerializeField] private Vector3Int size;
         private List<Vector3> tileWorldLocations = new List<Vector3>();
 
-        private HexTile[ , ] tiles;
+        private RouteTile[ , ] tiles;
         private HexNode[,] nodeArray;
         List<HexNode> openList = new List<HexNode>(), closedList = new List<HexNode>();
         
-        private List<HexTile> hexTileList = new List<HexTile>();
-        private Dictionary<HexTile, HexNode> nodeDic;
+        private List<RouteTile> hexTileList = new List<RouteTile>();
+        private Dictionary<RouteTile, HexNode> nodeDic;
 
         private Stopwatch stopwatch = new Stopwatch();
         private long std = 0;
@@ -47,7 +46,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
             SetTile();
             
             nodeArray = new HexNode[tiles.GetLength(0), tiles.GetLength(1)];
-            nodeDic = new Dictionary<HexTile, HexNode>();
+            nodeDic = new Dictionary<RouteTile, HexNode>();
 
             SetNode();
         }
@@ -58,7 +57,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
         {
             tilemap.CompressBounds();
             size = tilemap.size;
-            tiles = new HexTile[size.x, size.y];
+            tiles = new RouteTile[size.x, size.y];
             
             foreach (var pos in tilemap.cellBounds.allPositionsWithin)
             {   
@@ -72,7 +71,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
             
             routeTileMother.transform.EachChild((child) =>
             {
-                hexTileList.Add(child.gameObject.GetComponent<HexTile>());
+                hexTileList.Add(child.gameObject.GetComponent<RouteTile>());
             });
 
             for (var i = 0; i < hexTileList.Count; i++)
@@ -98,7 +97,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
             {
                 for (int x = 0; x < size.x; x++)
                 {
-                    HexTile tile = tiles[x , y];
+                    RouteTile tile = tiles[x , y];
                     if ((y + size.y + 1) % 2 == 1)
                     {
                         //#. y + 1 : x - 1, x
@@ -173,13 +172,14 @@ namespace LNK.MoreDeepFloor.RouteAiScene
 
         #endregion
 
-        public List<HexTile> PathFinding(Mover mover , Vector2Int targetPos, int mode = 0)
+        
+
+        public List<RouteTile> PathFinding(Mover mover , Vector2Int targetPos, int mode = 0)
         {
-            
-            Debug.Log(mode);
-            List<HexNode> finalNodeList = new List<HexNode>();
+            //Debug.Log(mode);
             HexNode startNode, targetNode, curNode;
-            
+            List<HexNode> finalNodeList = new List<HexNode>();
+
             int sizeX = size.x , sizeY = size.y;
             if (ReferenceEquals(mover.currentTile , null))
             {
@@ -208,7 +208,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
                     for (int j = 0; j < sizeY; j++)
                     {
                         HexNode node = nodeArray[i, j];
-                        HexTile tile = tiles[i,j];
+                        RouteTile tile = tiles[i,j];
                         int l = Math.Abs(mover.currentTile.index.x - i) + Math.Abs(mover.currentTile.index.y - j);
                         if (l <= 4)
                             node.isWall = tile.isWall;
@@ -223,7 +223,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
             {
                 for (var i = 0; i < mover.currentTile.neighbors.Count; i++)
                 {
-                    HexTile neighbor = mover.currentTile.neighbors[i];
+                    RouteTile neighbor = mover.currentTile.neighbors[i];
                     nodeDic[neighbor].isWall = 
                         neighbor.isWall || (!ReferenceEquals(neighbor.desOf , null) && neighbor.desOf != mover);
                 }
@@ -266,7 +266,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
                     finalNodeList.Add(startNode);
                     finalNodeList.Reverse();
 
-                    return finalNodeList.Make((node) => node.hexTile);
+                    return finalNodeList.Make((node) => node.RouteTile);
                 }
 
                 for (int i = 0; i < curNode.neighbors.Count; i++)
@@ -276,7 +276,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
 
             }
 
-            return new List<HexTile>();
+            return new List<RouteTile>();
             
             void OpenListAdd(int checkX, int checkY)
             {
@@ -317,7 +317,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
             }
         }
 
-        public List<HexTile> PathFindingWithPerformanceTest(Mover mover , Vector2Int targetPos, int mode = 0)
+        public List<RouteTile> PathFindingWithPerformanceTest(Mover mover , Vector2Int targetPos, int mode = 0)
         {
             n++;
             stopwatch.Reset();

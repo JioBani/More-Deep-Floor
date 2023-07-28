@@ -9,15 +9,15 @@ namespace LNK.MoreDeepFloor.RouteAiScene
     //[Serializable]
     public class HexNode
     {
-        public HexNode(bool _isWall, int _x, int _y, HexTile hexTile) { 
+        public HexNode(bool _isWall, int _x, int _y, RouteTile routeTile) { 
             isWall = _isWall; 
             x = _x;
             y = _y;
-            this.hexTile = hexTile;
+            this.RouteTile = routeTile;
         }
 
         public List<HexNode> neighbors = new List<HexNode>();
-        public HexTile hexTile;
+        public RouteTile RouteTile;
         public bool isWall;
         public HexNode ParentNode;
 

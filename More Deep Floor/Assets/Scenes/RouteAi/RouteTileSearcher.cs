@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace LNK.MoreDeepFloor.RouteAiScene
 {
-    public class TileSearcher : MonoBehaviour
+    public class RouteTileSearcher : MonoBehaviour
     {
         [SerializeField] private Mover mover;
         
