@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using ExtensionMethods;
 using LNK.MoreDeepFloor.Common.Loggers;
+using LNK.MoreDeepFloor.InGame;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -114,16 +115,13 @@ namespace LNK.MoreDeepFloor.RouteAiScene
                 }
             }
             
-            Debug.Log(tileWorldLocations.Count);
             routeTileMother.transform.EachChild((child) =>
             {
                 hexTileList.Add(child.gameObject.GetComponent<RouteTile>());
             });
 
-            Debug.Log(3);
             for (var i = 0; i < hexTileList.Count; i++)
             {
-                Debug.Log(i);
                 if (i < useTileNums)
                 {
                     hexTileList[i].transform.position = tileWorldLocations[i];
@@ -135,7 +133,6 @@ namespace LNK.MoreDeepFloor.RouteAiScene
                 }
             }
             
-            Debug.Log(4);
             for (int y = 0; y < size.y; y++)
             {
                 for (int x = 0; x < size.x; x++)

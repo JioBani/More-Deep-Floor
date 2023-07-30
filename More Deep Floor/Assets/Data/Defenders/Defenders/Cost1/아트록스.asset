@@ -22,15 +22,15 @@ MonoBehaviour:
   - 10
   - 10
   attackSpeeds:
-  - 1
-  - 1
-  - 1
-  - 1
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0.2
   ranges:
-  - 3
-  - 3
-  - 3
-  - 3
+  - 1
+  - 1
+  - 1
+  - 1
   magicalPowers:
   - 100
   - 100
@@ -68,6 +68,6 @@ MonoBehaviour:
   - 100
   id: 1
   cost: 1
-  corpsData: {fileID: 11400000, guid: cfce1cf1538d87f4eba8c789eeb18c68, type: 2}
+  corpsTraitData: {fileID: 0}
   corpsId: 1
   personalityData: {fileID: 11400000, guid: 9313796e9e109d94ea58c1d88da988ce, type: 2}

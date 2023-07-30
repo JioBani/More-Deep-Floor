@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using LNK.MoreDeepFloor.Common.Loggers;
+using LNK.MoreDeepFloor.Data.Entity;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.DataSchema;
 using UnityEngine;
@@ -131,16 +133,18 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
 
         public OnSpeedChangeEventHandler OnSpeedChangeAction;
         
-        //public float maxHp;
-        //public float currentHp;
-        //private Dictionary<int, float> speedBuffs;
-
-        //public MonsterStatusValue speed;
-
         public int gold;
         public int currentGold;
         
         public MonsterData monsterData;
+
+        public override void SetStatus(EntityData data, int _level)
+        {
+            base.SetStatus(data, _level);
+            monsterData = data as MonsterData;
+            currentGold = monsterData.gold; 
+            CustomLogger.Log("Monster SetStatus");
+        }
 
         /*public MonsterStatus(float maxHp, float speed, int gold)
         {

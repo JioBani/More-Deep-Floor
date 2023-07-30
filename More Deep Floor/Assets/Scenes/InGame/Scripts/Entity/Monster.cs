@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using LNK.MoreDeepFloor.Common;
 using LNK.MoreDeepFloor.Common.Direction;
 using LNK.MoreDeepFloor.Common.EventHandlers;
+using LNK.MoreDeepFloor.Common.Loggers;
 using LNK.MoreDeepFloor.Data.Entity;
 using LNK.MoreDeepFloor.InGame.Bullets;
 using LNK.MoreDeepFloor.Data.Schemas;
@@ -74,39 +75,11 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
                 OnPassAction?.Invoke(this);
             };
 
-            monsterStatus = status as MonsterStatus;
+            monsterStatus = new MonsterStatus();
+            status = monsterStatus;
+            //monsterStatus = status as MonsterStatus;
         }
-
-    
-
-        /*private void Update()
-        {
-            if (searcher.isTargetExist)
-            {
-                if (attackTimer < 1)
-                {
-                    attackTimer += Time.deltaTime;
-                }
-                else
-                {
-                    Attack();
-                }
-            }
-        }*/
         
-        /*public void FixedUpdate()
-        {
-            if (!ReferenceEquals(searcher.target, null))
-            {
-                Logger.Log($"[Monster.Attack()] 타겟 있음");
-                mover.U(true);
-            }
-            else 
-            {
-                Logger.Log($"[Monster.Attack()] 타겟 없음");
-                mover.SetPause(false);
-            }
-        }*/
         protected override void OnInit(EntityData entityData, int level)
         {
             transform.position = tileManager.battleFieldTiles[0][1].transform.position;
@@ -118,6 +91,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             //hpText.text = monsterData.hp.ToString();
             
             status.SetStatus(monsterData , 0);
+            CustomLogger.Log("[Monster.OnInit()] SetStatus");
             
             //status = new MonsterStatus(monsterData);
             hpBar.RefreshBar(status.maxHp.currentValue , status.currentHp,status.shieldController.amount);

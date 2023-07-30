@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame.Entitys
 {
-    public class Mover : MonoBehaviour
+    /*public class Mover : MonoBehaviour
     {
         private List<Tile> destinations;
         private int currentDestiIndex = -1;
@@ -84,7 +84,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
                 currentDesti = destinations[currentDestiIndex];
                 OnDepartAction?.Invoke(currentDesti);
             }
-        }*/
+        }#1#
 
         public void Depart()
         {
@@ -158,12 +158,12 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
         {
             speed = status.speed;
             SetPause(false);
-        }*/
+        }#1#
         
         public void SetPause(bool _isPause)
         {
             pause = _isPause;
         }
-    }
+    }*/
 }
 

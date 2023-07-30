@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using LNK.MoreDeepFloor.Common.Loggers;
 using LNK.MoreDeepFloor.Data.Entity;
 using LNK.MoreDeepFloor.InGame.Bullets;
 using LNK.MoreDeepFloor.InGame.Entitys.Defenders;
@@ -25,15 +26,19 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
         [SerializeField] protected EntitySearcher entitySearcher;
         [SerializeField] protected HpBar hpBar;
         [SerializeField] private EntityTarget entityTarget;
+        [SerializeField] public Mover mover;
 
         //#. 컨트롤러
         public StateController stateController { get; private set; }
         protected SkillController skillController { get; private set; }
         
-        public EntityStatus status { private set; get; }
+        public EntityStatus status { protected set; get; }
         public EntityData data { private set; get; }
 
         public EntityLifeState entityLifeState { get; private set; }
+        
+        //#. 변수 
+        public Entity target { protected set; get; }
 
         //#. Init -> Spawn
         #region #. 이벤트 핸들러
@@ -135,7 +140,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             data = entityData;
             //Logger.Log($"[Entity.Init()] : {status}");
             status.SetStatus(entityData, level);
-
+            CustomLogger.Log("[Entity.OnInit()] SetStatus");
 
             AddStateControllerListener();
             skillController.SetSkillData(this, entityData.skillData, stateController);
@@ -160,6 +165,9 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             status.OnHpChangedAction += OnHpChanged;
 
             hpBar.RefreshBar(status.maxHp.currentValue, status.currentHp, status.shieldController.amount);
+            
+            CustomLogger.Log($"[Entity.OnInit()] Range : {status.range.currentValue}");
+            mover.Init();
             
             SetLifeState(EntityLifeState.None);
 
@@ -340,6 +348,11 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
         public void SetLifeState(EntityLifeState _entityLifeState)
         {
             entityLifeState = _entityLifeState;
+        }
+
+        public void SetTarget(Entity _target)
+        {
+            target = _target;
         }
     }
 

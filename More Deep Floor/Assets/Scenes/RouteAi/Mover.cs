@@ -3,20 +3,29 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using ExtensionMethods;
 using LNK.MoreDeepFloor.Data.Entity;
 using LNK.MoreDeepFloor.InGame.Entitys;
-using UnityEditor;
+using LNK.MoreDeepFloor.RouteAiScene;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
-namespace LNK.MoreDeepFloor.RouteAiScene
+namespace LNK.MoreDeepFloor.InGame
 {
+    public enum MoverState
+    {
+        None = 0,
+        목적지_없음 = 1,
+        이동중 = 2,
+        도착 = 3,
+        타겟없음 = 4,
+        타겟죽음 = 5,
+        공격중 = 6,
+        
+    }
     public class Mover : MonoBehaviour
     {
         //#. 참조
         [SerializeField] private EntityManager entityManager;
-        [SerializeField] private HexPathFinder pathFinder;
+        private HexPathFinder pathFinder;
         [SerializeField] private Entity entity;
         
         //#. 프로퍼티
@@ -29,7 +38,6 @@ namespace LNK.MoreDeepFloor.RouteAiScene
         [SerializeField] private Color gizmoColor;
         [SerializeField] private float routeFindTimer = 0.5f;
         [SerializeField] private bool show;
-        [SerializeField] private EntityType entityType;
 
         //#. 변수
         private List<RouteTile> routes = new List<RouteTile>();
@@ -37,7 +45,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
         public RouteTile currentDes;
         public RouteTile finalDes;
         private float routeTimer = 0;
-        [SerializeField] private Mover target;
+        //[SerializeField] private Entity target;
         [SerializeField] private List<Vector2Int> currentTileHistory = new List<Vector2Int>();
         private readonly Stopwatch stopwatch = new Stopwatch();
         private float routeFindTime = 0;
@@ -45,7 +53,14 @@ namespace LNK.MoreDeepFloor.RouteAiScene
         private float routeFindStd = 0;
         private float similaritySum = 0;
         private float similarityStd = 0;
-        
+        private MoverState moverState;
+
+        public void Awake()
+        {
+            entityManager = ReferenceManager.instance.entityManager;
+            pathFinder = ReferenceManager.instance.hexPathFinder;
+        }
+
         public void Init()
         {
             routes = new List<RouteTile>();
@@ -57,48 +72,71 @@ namespace LNK.MoreDeepFloor.RouteAiScene
             routeFindCount = 0;
             routeFindTime = 0;
             routeFindStd = 0;
+            speed = entity.status.moveSpeed.currentValue;
+            range = entity.status.range.currentValue;
         }
 
         void Update()
         {
             if (isActive)
             {
-                if (ReferenceEquals(currentDes, null))
+                if (!ReferenceEquals(entity.target, null))
                 {
-                    code = 4;
-                }
-                else if (
-                    !ReferenceEquals(target , null) && 
-                    Vector2.SqrMagnitude(entity.transform.position - target.transform.position) <= range)
-                {
-                    code = 3;
-                    currentDes.desNotNeeded = true;
-                }
-                else
-                {
-                    currentDes.desNotNeeded = false;
-                    if(Vector2.SqrMagnitude(entity.transform.position - currentDes.transform.position) > 0.001f)
+                    if (entity.target.gameObject.activeSelf)
                     {
-                        code = 1;
-                        entity.transform.position = Vector2.MoveTowards(
-                            entity.transform.position, 
-                            currentDes.transform.position, 
-                            speed * Time.deltaTime);
-                    }
-                    else
-                    {
-                        code = 2;
-                        if (routes.Count == 0)
+                        if (Vector2.SqrMagnitude(entity.transform.position - entity.target.transform.position) <= range)
                         {
-                            currentDes.RemoveDesOfEntity();
-                            currentDes = null;
+                            moverState = MoverState.공격중;
+                            currentDes.desNotNeeded = true;
                         }
                         else
                         {
-                            currentDes.RemoveDesOfEntity();
-                            SetRoute();
+                            if (!ReferenceEquals(currentDes, null))
+                            {
+                                currentDes.desNotNeeded = false;
+                                if(Vector2.SqrMagnitude(entity.transform.position - currentDes.transform.position) > 0.001f)
+                                {
+                                    moverState = MoverState.이동중;
+                                    entity.transform.position = Vector2.MoveTowards(
+                                        entity.transform.position, 
+                                        currentDes.transform.position, 
+                                        speed * Time.deltaTime);
+                                }
+                                else
+                                {
+                                    moverState = MoverState.도착;
+                                    if (routes.Count == 0)
+                                    {
+                                        currentDes.RemoveDesOfEntity();
+                                        currentDes = null;
+                                    }
+                                    else
+                                    {
+                                        currentDes.RemoveDesOfEntity();
+                                        SetRoute();
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                moverState = MoverState.목적지_없음;
+                                routeTimer += Time.deltaTime;
+                                if (routeTimer > routeFindTimer)
+                                {
+                                    SetRoute();
+                                    routeTimer = 0;
+                                }
+                            }
                         }
                     }
+                    else
+                    {
+                        entity.SetTarget(null);
+                    }
+                }
+                else
+                {
+                    moverState = MoverState.타겟없음;
                     routeTimer += Time.deltaTime;
                     if (routeTimer > routeFindTimer)
                     {
@@ -146,12 +184,12 @@ namespace LNK.MoreDeepFloor.RouteAiScene
             stopwatch.Reset();
             stopwatch.Start();
             
-            List<Mover> entities = entityManager.SearchEnemies(teamNumber, this);
-
-            for (int i = 0; i < 3 || i < entities.Count; i++)
+            //List<Mover> entities = entityManager.SearchEnemies(teamNumber, this);
+            List<Entity> entities = entityManager.SearchEnemies(entity);
+            for (int i = 0; (i < 3 && i < entities.Count); i++)
             {
-                target = entities[i];
-                finalDes = target.currentTile;
+                entity.SetTarget(entities[i]);
+                finalDes = entity.target.mover.currentTile;
             
                 if (ReferenceEquals(finalDes, null))
                 {
@@ -162,7 +200,7 @@ namespace LNK.MoreDeepFloor.RouteAiScene
                 {
                     routes = pathFinder.PathFindingWithPerformanceTest(this, finalDes.index,mode);
             
-                    if (routes.Count > 1)
+                    if (routes.Count > 2)
                     {
                         currentDes = routes[1];
                         currentDes.SetDesOfEntity(this);
@@ -182,13 +220,13 @@ namespace LNK.MoreDeepFloor.RouteAiScene
             stopwatch.Reset();
             stopwatch.Start();
             
-            List<Mover> entities = entityManager.SearchEnemies(teamNumber, this);
+            List<Entity> entities = entityManager.SearchEnemies(entity);
             RouteTile lastDes = currentDes;
 
             for (int i = 0; i < 3 || i < entities.Count; i++)
             {
-                target = entities[i];
-                finalDes = target.currentTile;
+                entity.SetTarget(entities[i]);
+                finalDes = entity.target.mover.currentTile;
             
                 if (ReferenceEquals(finalDes, null))
                 {

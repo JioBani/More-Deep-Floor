@@ -17,7 +17,7 @@ namespace LNK.MoreDeepFloor.InGame
         
         public ObjectPooler objectPooler;
         public GameObject monsterPool;
-        private MarketManager _marketManager;
+        private MarketManager marketManager;
         private TileManager tileManager;
         
         public GameObject monsterParent;
@@ -29,6 +29,7 @@ namespace LNK.MoreDeepFloor.InGame
 
         
         private MonsterData currentMonsterData;
+        [SerializeField] private MonsterOriginalData testMonsterOriginalData;
 
         public int monsterNumber { get; private set; }
 
@@ -38,7 +39,7 @@ namespace LNK.MoreDeepFloor.InGame
 
         private void Awake()
         {
-            _marketManager = ReferenceManager.instance.marketManager;
+            marketManager = ReferenceManager.instance.marketManager;
             tileManager = ReferenceManager.instance.tileManager;
 
             ReferenceManager.instance.inGameStateManager.OnDataLoadAction += OnDataLoad;
@@ -121,18 +122,23 @@ namespace LNK.MoreDeepFloor.InGame
 
         void OnMonsterDie(Entity monster , Entity killer)
         {
-            try
-            {
-                _marketManager.GoldChange(((Monster)monster).monsterStatus.currentGold , "몬스터 처치");
+            CustomLogger.Log((Monster)monster);
+            CustomLogger.Log(((Monster)monster).monsterStatus);
+            CustomLogger.Log(((Monster)monster).monsterStatus.currentGold);
+            marketManager.GoldChange(((Monster)monster).monsterStatus.currentGold , "몬스터 처치");
+            monsterNumber--;
+            monsters.Remove((Monster)monster);
+            OnMonsterNumberChangeAction?.Invoke(monsterNumber);
             
-                monsterNumber--;
-                OnMonsterNumberChangeAction?.Invoke(monsterNumber);
+            /*try
+            {
+                
             }
             catch (NullReferenceException e)
             {
                 CustomLogger.LogException(e);
                 throw;
-            }
+            }*/
         }
 
         void OnMonsterPass(Entity monster)
@@ -144,10 +150,16 @@ namespace LNK.MoreDeepFloor.InGame
         {
             roundOffMonsterNums++;
             monsters.Remove(monster as Monster);
-            /*if (roundOffMonsterNums == roundMonsterNums)
-            {
-                stageManager.SetRoundEnd();
-            }*/
+        }
+
+        public void GenerateTestMonster()
+        {
+            Monster monster = objectPooler.Pool(monsterParent).GetComponent<Monster>();
+            monsters.Add(monster);
+            monster.Init(new MonsterData(testMonsterOriginalData), 0);
+
+            monsterNumber++;
+            OnMonsterNumberChangeAction?.Invoke(monsterNumber);
         }
     }
 

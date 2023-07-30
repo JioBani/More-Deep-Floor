@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using ExtensionMethods;
+using LNK.MoreDeepFloor.InGame;
 using TMPro;
 using UnityEngine;
 using UnityEditor;

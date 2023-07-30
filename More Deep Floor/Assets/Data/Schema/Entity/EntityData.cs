@@ -81,6 +81,7 @@ namespace LNK.MoreDeepFloor.Data.Entity
         {
             name = entityOriginalData.EntityName;
             skillData = entityOriginalData.SkillData;
+            entityType = entityOriginalData.EntityType;
 
             //#. 공격
             damages = new EntityStatusArray("데미지" ,entityOriginalData.Damages);

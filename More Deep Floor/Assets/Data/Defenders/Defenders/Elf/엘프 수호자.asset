@@ -17,20 +17,20 @@ MonoBehaviour:
   skillData: {fileID: 11400000, guid: 43fcc9762829b634dbe833772f269f5e, type: 2}
   sprite: {fileID: 21300000, guid: b260694571e3d2e469c587d3ce116fd7, type: 3}
   damages:
-  - 0
-  - 5
-  - 10
-  - 20
+  - 100
+  - 100
+  - 100
+  - 100
   attackSpeeds:
   - 0.5
   - 0.7
   - 0.7
   - 0.7
   ranges:
-  - 3
-  - 3
-  - 3
-  - 3
+  - 1
+  - 1
+  - 1
+  - 1
   magicalPowers:
   - 100
   - 100

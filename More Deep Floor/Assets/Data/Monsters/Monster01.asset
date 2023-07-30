@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79d8097903f6e534b830731d05f12557, type: 3}
   m_Name: Monster01
   m_EditorClassIdentifier: 
-  name: "\uBAAC\uC2A4\uD130 1"
-  entityType: 0
+  entityName: 
+  entityType: 2
   skillData: {fileID: 11400000, guid: 43fcc9762829b634dbe833772f269f5e, type: 2}
   sprite: {fileID: 0}
   damages:
@@ -42,10 +42,10 @@ MonoBehaviour:
   - 10
   - 10
   heathPoints:
-  - 300
-  - 300
-  - 300
-  - 300
+  - 100
+  - 100
+  - 100
+  - 100
   physicalDefenses:
   - 50
   - 50
@@ -57,10 +57,10 @@ MonoBehaviour:
   - 50
   - 50
   moveSpeeds:
-  - 0.05
-  - 0.05
-  - 0.05
-  - 0.05
+  - 3
+  - 3
+  - 3
+  - 3
   maxManas:
   - 100
   - 100

@@ -10,6 +10,7 @@ using LNK.MoreDeepFloor.InGame.SkillSystem;
 using LNK.MoreDeepFloor.InGame.TraitSystem;
 using LNK.MoreDeepFloor.InGame.Ui;
 using LNK.MoreDeepFloor.InGame.Upgrade;
+using LNK.MoreDeepFloor.RouteAiScene;
 using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame
@@ -35,6 +36,8 @@ namespace LNK.MoreDeepFloor.InGame
         public UiManager uiManager;
         public UpgradeManager upgradeManager;
         public EntityStateGenerator entityStateGenerator;
+        public EntityManager entityManager;
+        public HexPathFinder hexPathFinder;
         
         public DebugController debugController;
 
