@@ -22,8 +22,8 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
 
         public StatusValue damage;
         public StatusValue magicalPower;
-        public StatusValue attackSpeed;
-        public StatusValue range;
+        public AttackSpeedValue attackSpeed;
+        public RangeValue range;
         public StatusValue criticalRate;
         
         public StatusValue maxHp;
@@ -54,8 +54,8 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             level = 0;
             damage = new StatusValue();
             magicalPower = new StatusValue();
-            attackSpeed = new StatusValue();
-            range = new StatusValue();
+            attackSpeed = new AttackSpeedValue();
+            range = new RangeValue();
             criticalRate = new StatusValue();
             maxHp = new StatusValue();
             physicalDefense = new StatusValue();

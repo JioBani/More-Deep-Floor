@@ -22,7 +22,6 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
     public abstract class Entity : MonoBehaviour , IAttackInfoProvider
     {
         //#. 컴포넌트
-        protected Attacker attacker;
         [SerializeField] protected EntitySearcher entitySearcher;
         [SerializeField] protected HpBar hpBar;
         [SerializeField] private EntityTarget entityTarget;
@@ -123,7 +122,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             status = new EntityStatus();
             stateController = GetComponent<StateController>();
             skillController = GetComponent<SkillController>();
-            attacker = GetComponent<Attacker>();
+            //attacker = GetComponent<Attacker>();
             
             entityTarget.AddOnHitListener(BaseOnHit);
             
@@ -140,7 +139,6 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             data = entityData;
             //Logger.Log($"[Entity.Init()] : {status}");
             status.SetStatus(entityData, level);
-            CustomLogger.Log("[Entity.OnInit()] SetStatus");
 
             AddStateControllerListener();
             skillController.SetSkillData(this, entityData.skillData, stateController);
@@ -148,26 +146,16 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             entitySearcher.Init();
             stateController.Reset();
 
-            if (entityData.entityType == EntityType.Defender)
-            {
-                attacker.Init(status.attackSpeed.currentValue, this, AttackType.DefenderToMonster);
-            }
-            else
-            {
-                attacker.Init(status.attackSpeed.currentValue, this, AttackType.MonsterToDefender);
-            }
-
-            attacker.BeforeAttackAction += BaseOnBeforeAttack;
+            /*attacker.BeforeAttackAction += BaseOnBeforeAttack;
             attacker.AfterAttackAction += BaseOnAfterAttack;
-            attacker.OnTargetHitAction += BaseOnTargetHit;
+            attacker.OnTargetHitAction += BaseOnTargetHit;*/
             //status.shieldController.AddListener(OnSh);
 
             status.OnHpChangedAction += OnHpChanged;
 
             hpBar.RefreshBar(status.maxHp.currentValue, status.currentHp, status.shieldController.amount);
             
-            CustomLogger.Log($"[Entity.OnInit()] Range : {status.range.currentValue}");
-            mover.Init();
+            mover.Init(this);
             
             SetLifeState(EntityLifeState.None);
 
@@ -301,7 +289,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
 
 
         //#. Stun
-        public void SetStun()
+        /*public void SetStun()
         {
             attacker.AddAttackDisableStack("stun", 1);
         }
@@ -309,7 +297,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
         public void RemoveStun()
         {
             attacker.RemoveAttackDisableStack("stun", 1);
-        }
+        }*/
 
         //#. Die
         protected abstract void SetDie(Entity killer);

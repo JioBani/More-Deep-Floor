@@ -25,10 +25,11 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             originalValue = value;
             currentValue = value;
             buffList = new List<StatusBuff>();
+            Refresh();
             return this;
         }
         
-        public void Refresh()
+        public virtual void Refresh()
         {
             currentValue = originalValue;
             string str = "";
@@ -100,6 +101,34 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             Refresh();
         }
 
+    }
+    
+    
+    [Serializable]
+    public class AttackSpeedValue : StatusValue
+    {
+        public float timerPerAttack { private set; get; }
+
+        public override void Refresh()
+        {
+            base.Refresh();
+            if (currentValue > 0)
+            {
+                timerPerAttack = 1 / currentValue;
+            }
+        }
+    }
+    
+    [Serializable]
+    public class RangeValue : StatusValue
+    {
+        public float square { private set; get; }
+
+        public override void Refresh()
+        {
+            base.Refresh();
+            square = currentValue * currentValue;
+        }
     }
 
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using LNK.MoreDeepFloor.Data.Schemas;
+using LNK.MoreDeepFloor.InGame.Bullets;
 using UnityEngine;
 
 namespace LNK.MoreDeepFloor.Data.Entity
@@ -40,6 +41,8 @@ namespace LNK.MoreDeepFloor.Data.Entity
         public EntityStatusArray magicalDefenses { get; private set; }
         public EntityStatusArray moveSpeeds { get; private set; }
         public EntityStatusArray maxManas { get; private set; }
+
+        public AttackType attackType { get; private set; }
         
         public SkillData skillData;
 
@@ -82,6 +85,7 @@ namespace LNK.MoreDeepFloor.Data.Entity
             name = entityOriginalData.EntityName;
             skillData = entityOriginalData.SkillData;
             entityType = entityOriginalData.EntityType;
+            attackType = entityOriginalData.EntityType == EntityType.Defender ? AttackType.DefenderToMonster : AttackType.MonsterToDefender;
 
             //#. 공격
             damages = new EntityStatusArray("데미지" ,entityOriginalData.Damages);

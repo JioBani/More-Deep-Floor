@@ -21,6 +21,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
         private Dictionary<string, int> attackDisableStateDic;
         private bool attackable = true;
 
+        /*
         public delegate void BeforeAttackEventHandler(Entity target, float damage);
         public delegate void AfterAttackEventHandler(Entity target , float damage);
         public delegate void OnTargetHitEventHandler(Entity target , float damage);
@@ -28,6 +29,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
         public BeforeAttackEventHandler BeforeAttackAction;
         public AfterAttackEventHandler AfterAttackAction;
         public OnTargetHitEventHandler OnTargetHitAction;
+        */
 
         private IAttackInfoProvider attackInfoProvider;
 
@@ -57,12 +59,12 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
         {
             //float damage = attackInfoProvider.GetAttackDamage();
             float damage = 10;
-            BeforeAttackAction?.Invoke(targetSearcher.target , damage);
+            //BeforeAttackAction?.Invoke(targetSearcher.target , damage);
             
             bulletManager.Fire(firer , targetSearcher.target , damage , attackType);
             attackTimer = 0;
             
-            AfterAttackAction?.Invoke(targetSearcher.target , damage);
+            //AfterAttackAction?.Invoke(targetSearcher.target , damage);
             
         }
 

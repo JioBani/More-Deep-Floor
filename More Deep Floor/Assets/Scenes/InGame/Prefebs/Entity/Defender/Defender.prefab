@@ -2124,7 +2124,6 @@ GameObject:
   - component: {fileID: 1459265977548175983}
   - component: {fileID: 484847192264780217}
   - component: {fileID: 6429203313790942760}
-  - component: {fileID: 7817789241652453333}
   - component: {fileID: 6104217920267266249}
   m_Layer: 8
   m_Name: Defender
@@ -2346,20 +2345,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2daec4950d003a458c5e347a63ef2d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7817789241652453333
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8779739274292005856}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d17d1dee18444e048ae00f15ce5d5482, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetSearcher: {fileID: 3780879652945769688}
-  attackSpeed: 0
 --- !u!114 &6104217920267266249
 MonoBehaviour:
   m_ObjectHideFlags: 0

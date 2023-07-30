@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using LNK.MoreDeepFloor.Common.Loggers;
 using LNK.MoreDeepFloor.Data.Entity;
 using LNK.MoreDeepFloor.InGame.Entitys;
 using LNK.MoreDeepFloor.RouteAiScene;
@@ -25,12 +26,15 @@ namespace LNK.MoreDeepFloor.InGame
     {
         //#. 참조
         [SerializeField] private EntityManager entityManager;
+        [SerializeField] private BulletManager bulletManager;
         private HexPathFinder pathFinder;
         [SerializeField] private Entity entity;
         
         //#. 프로퍼티
-        [SerializeField] private float speed;
-        [SerializeField] private float range;
+        [SerializeField] private StatusValue damage;
+        [SerializeField] private StatusValue moveSpeed;
+        [SerializeField] private AttackSpeedValue attackSpeed;
+        [SerializeField] private RangeValue range;
         public bool isActive;
         public int teamNumber;
         public int code;
@@ -45,7 +49,6 @@ namespace LNK.MoreDeepFloor.InGame
         public RouteTile currentDes;
         public RouteTile finalDes;
         private float routeTimer = 0;
-        //[SerializeField] private Entity target;
         [SerializeField] private List<Vector2Int> currentTileHistory = new List<Vector2Int>();
         private readonly Stopwatch stopwatch = new Stopwatch();
         private float routeFindTime = 0;
@@ -54,15 +57,29 @@ namespace LNK.MoreDeepFloor.InGame
         private float similaritySum = 0;
         private float similarityStd = 0;
         private MoverState moverState;
+        private float attackTimer;
+        
+        //#. 이벤트 
+        public delegate void BeforeAttackEventHandler(Entity target, float damage);
+        public delegate void AfterAttackEventHandler(Entity target , float damage);
+        public delegate void OnTargetHitEventHandler(Entity target , float damage);
+
+        public BeforeAttackEventHandler BeforeAttackAction;
+        public AfterAttackEventHandler AfterAttackAction;
+        public OnTargetHitEventHandler OnTargetHitAction;
+
 
         public void Awake()
         {
             entityManager = ReferenceManager.instance.entityManager;
             pathFinder = ReferenceManager.instance.hexPathFinder;
+            bulletManager = ReferenceManager.instance.bulletManager;
         }
 
-        public void Init()
+        public void Init(Entity _entity)
         {
+            entity = _entity;
+            isActive = false;
             routes = new List<RouteTile>();
             currentTile = null;
             currentDes = null;
@@ -72,8 +89,11 @@ namespace LNK.MoreDeepFloor.InGame
             routeFindCount = 0;
             routeFindTime = 0;
             routeFindStd = 0;
-            speed = entity.status.moveSpeed.currentValue;
-            range = entity.status.range.currentValue;
+            moveSpeed = entity.status.moveSpeed;
+            attackSpeed = entity.status.attackSpeed;
+            range = entity.status.range;
+            damage = entity.status.damage;
+
         }
 
         void Update()
@@ -84,10 +104,19 @@ namespace LNK.MoreDeepFloor.InGame
                 {
                     if (entity.target.gameObject.activeSelf)
                     {
-                        if (Vector2.SqrMagnitude(entity.transform.position - entity.target.transform.position) <= range)
+                        if (Vector2.SqrMagnitude(entity.transform.position - entity.target.transform.position) <= range.square)
                         {
                             moverState = MoverState.공격중;
                             currentDes.desNotNeeded = true;
+                            if (attackTimer > attackSpeed.timerPerAttack)
+                            {
+                                Attack();
+                                
+                            }
+                            else
+                            {
+                                attackTimer += Time.deltaTime;
+                            }
                         }
                         else
                         {
@@ -100,7 +129,7 @@ namespace LNK.MoreDeepFloor.InGame
                                     entity.transform.position = Vector2.MoveTowards(
                                         entity.transform.position, 
                                         currentDes.transform.position, 
-                                        speed * Time.deltaTime);
+                                        moveSpeed.currentValue * Time.deltaTime);
                                 }
                                 else
                                 {
@@ -159,7 +188,9 @@ namespace LNK.MoreDeepFloor.InGame
             }
         }
 
-        public void SetCurrentTile(Collider2D collider2D)
+        #region #. 길찾기
+
+          public void SetCurrentTile(Collider2D collider2D)
         {
             currentTile = collider2D.GetComponent<RouteTile>();
             currentTileHistory.Add(currentTile.index);
@@ -257,6 +288,21 @@ namespace LNK.MoreDeepFloor.InGame
             }
             
         }
+
+        #endregion
+
+        #region #. 행동함수
+
+        void Attack()
+        {
+            BeforeAttackAction?.Invoke(entity.target , damage.currentValue);
+            attackTimer = 0;
+            bulletManager.Fire(entity , entity.target, damage.currentValue , entity.data.attackType);
+            AfterAttackAction?.Invoke(entity.target , damage.currentValue);
+        }
+
+        #endregion
+      
     }
 }
 

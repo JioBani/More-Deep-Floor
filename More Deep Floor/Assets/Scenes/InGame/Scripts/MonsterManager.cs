@@ -122,23 +122,10 @@ namespace LNK.MoreDeepFloor.InGame
 
         void OnMonsterDie(Entity monster , Entity killer)
         {
-            CustomLogger.Log((Monster)monster);
-            CustomLogger.Log(((Monster)monster).monsterStatus);
-            CustomLogger.Log(((Monster)monster).monsterStatus.currentGold);
             marketManager.GoldChange(((Monster)monster).monsterStatus.currentGold , "몬스터 처치");
             monsterNumber--;
             monsters.Remove((Monster)monster);
             OnMonsterNumberChangeAction?.Invoke(monsterNumber);
-            
-            /*try
-            {
-                
-            }
-            catch (NullReferenceException e)
-            {
-                CustomLogger.LogException(e);
-                throw;
-            }*/
         }
 
         void OnMonsterPass(Entity monster)

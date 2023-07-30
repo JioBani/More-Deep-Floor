@@ -91,7 +91,6 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             //hpText.text = monsterData.hp.ToString();
             
             status.SetStatus(monsterData , 0);
-            CustomLogger.Log("[Monster.OnInit()] SetStatus");
             
             //status = new MonsterStatus(monsterData);
             hpBar.RefreshBar(status.maxHp.currentValue , status.currentHp,status.shieldController.amount);

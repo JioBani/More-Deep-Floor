@@ -143,7 +143,6 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             base.SetStatus(data, _level);
             monsterData = data as MonsterData;
             currentGold = monsterData.gold; 
-            CustomLogger.Log("Monster SetStatus");
         }
 
         /*public MonsterStatus(float maxHp, float speed, int gold)

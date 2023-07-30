@@ -520,7 +520,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
         {
             base.OnDie(killer);
             defenderTargetCol.gameObject.SetActive(false);
-            attacker.AddAttackDisableStack("Die" , 1);
+            //attacker.AddAttackDisableStack("Die" , 1);
             StartCoroutine(Revive());
         }
         
@@ -555,7 +555,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
         {
             defenderTargetCol.gameObject.SetActive(true);
             status.ChangeHp(status.maxHp.currentValue , null);
-            attacker.RemoveAttackDisableStack("Die" , 0 , removeAll:true);
+            //attacker.RemoveAttackDisableStack("Die" , 0 , removeAll:true);
             SetLifeState(EntityLifeState.Battle);
         }
 
@@ -641,7 +641,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
         {
             //Set
             SetLifeState(EntityLifeState.Wait);
-            attacker.AddAttackDisableStack("wait" , 1);
+            //attacker.AddAttackDisableStack("wait" , 1);
             status.SetManaGain(false);
             //isOn = false;
             //state = DefenderLifeState.None;
@@ -660,7 +660,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             //isOn = true;
             //state = DefenderLifeState.Default;
             SetLifeState(EntityLifeState.Battle);
-            attacker.RemoveAttackDisableStack("wait" , 1, true);
+            //attacker.RemoveAttackDisableStack("wait" , 1, true);
             status.SetManaGain(true);
             
             defenderManager.OnDefenderEnterBattleField(this);
