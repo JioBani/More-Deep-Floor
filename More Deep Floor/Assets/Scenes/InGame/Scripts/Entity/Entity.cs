@@ -25,7 +25,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
         [SerializeField] protected EntitySearcher entitySearcher;
         [SerializeField] protected HpBar hpBar;
         [SerializeField] private EntityTarget entityTarget;
-        [SerializeField] public Mover mover;
+        [SerializeField] public EntityBehavior entityBehavior;
 
         //#. 컨트롤러
         public StateController stateController { get; private set; }
@@ -155,7 +155,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
 
             hpBar.RefreshBar(status.maxHp.currentValue, status.currentHp, status.shieldController.amount);
             
-            mover.Init(this);
+            entityBehavior.Init(this);
             
             SetLifeState(EntityLifeState.None);
 

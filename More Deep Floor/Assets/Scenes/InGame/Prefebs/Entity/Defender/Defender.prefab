@@ -2226,7 +2226,7 @@ MonoBehaviour:
   entitySearcher: {fileID: 3780879652945769688}
   hpBar: {fileID: 1745209398837140630}
   entityTarget: {fileID: 7310882143021277525}
-  mover: {fileID: 1554419539245673802}
+  entityBehavior: {fileID: 1554419539245673802}
   frameSpriteRenderer: {fileID: 5995374057409935663}
   defenderVisual: {fileID: 484847192264780217}
   defenderTargetCol: {fileID: 1833295179201261296}
@@ -2937,6 +2937,11 @@ PrefabInstance:
       propertyPath: entity
       value: 
       objectReference: {fileID: 8779739274292005887}
+    - target: {fileID: 9112767698357429870, guid: 8937c966258317543b6561d7ef38b271,
+        type: 3}
+      propertyPath: entityBehavior
+      value: 
+      objectReference: {fileID: 1554419539245673802}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8937c966258317543b6561d7ef38b271, type: 3}
 --- !u!4 &4987592784542215816 stripped

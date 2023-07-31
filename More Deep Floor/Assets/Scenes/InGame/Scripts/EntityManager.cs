@@ -60,12 +60,12 @@ namespace LNK.MoreDeepFloor.InGame
         {
             foreach (var battleDefender in battleDefenders)
             {
-                battleDefender.mover.isActive = true;
+                battleDefender.entityBehavior.isActive = true;
             }
             
             foreach (var battleMonster in battleMonsters)
             {
-                battleMonster.mover.isActive = true;
+                battleMonster.entityBehavior.isActive = true;
             }
         }
     }

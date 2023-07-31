@@ -421,7 +421,7 @@ MonoBehaviour:
   entitySearcher: {fileID: 1519257115759814330}
   hpBar: {fileID: 588580583511307032}
   entityTarget: {fileID: 8728171885924404064}
-  mover: {fileID: 354519469588671060}
+  entityBehavior: {fileID: 354519469588671060}
   searcher: {fileID: 1519257115759814330}
   isStun: 0
 --- !u!114 &4722430359953838567
@@ -903,6 +903,11 @@ PrefabInstance:
       propertyPath: entity
       value: 
       objectReference: {fileID: 5417994061228683496}
+    - target: {fileID: 9112767698357429870, guid: 8937c966258317543b6561d7ef38b271,
+        type: 3}
+      propertyPath: entityBehavior
+      value: 
+      objectReference: {fileID: 354519469588671060}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8937c966258317543b6561d7ef38b271, type: 3}
 --- !u!4 &6074956739446335894 stripped
