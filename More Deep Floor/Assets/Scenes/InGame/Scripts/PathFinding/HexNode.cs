@@ -13,7 +13,7 @@ namespace LNK.MoreDeepFloor.InGame.PathFinding
             isWall = _isWall; 
             x = _x;
             y = _y;
-            this.RouteTile = routeTile;
+            RouteTile = routeTile;
         }
 
         public List<HexNode> neighbors = new List<HexNode>();

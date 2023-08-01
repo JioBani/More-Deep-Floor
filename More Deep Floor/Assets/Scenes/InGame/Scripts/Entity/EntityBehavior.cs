@@ -2,9 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using LNK.MoreDeepFloor.Common.Loggers;
-using LNK.MoreDeepFloor.Data.Entity;
 using LNK.MoreDeepFloor.InGame.Entitys;
 using LNK.MoreDeepFloor.InGame.PathFinding;
 using UnityEngine;
@@ -36,8 +33,6 @@ namespace LNK.MoreDeepFloor.InGame
         [SerializeField] private AttackSpeedValue attackSpeed;
         [SerializeField] private RangeValue range;
         public bool isActive;
-        public int teamNumber;
-        public int code;
         public int mode;
         [SerializeField] private Color gizmoColor;
         [SerializeField] private float routeFindTimer = 0.5f;

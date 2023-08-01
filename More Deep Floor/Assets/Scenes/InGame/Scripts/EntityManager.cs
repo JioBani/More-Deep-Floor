@@ -10,10 +10,6 @@ namespace LNK.MoreDeepFloor.InGame
 {
     public class EntityManager : MonoBehaviour
     {
-        //#. 참조
-        //[SerializeField] private DefenderManager defenderManager;
-        //[SerializeField] private MonsterManager monsterManager;
-
         //#. 변수
         [SerializeField] private List<Defender> battleDefenders;
         [SerializeField] private List<Monster> battleMonsters;
