@@ -31,7 +31,7 @@ namespace LNK.MoreDeepFloor.Common
         
         private InGameResult inGameResult;
 
-        private void Awake()
+        private void Awake()    
         {
             if (instance != null)
             {

@@ -307,9 +307,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 167064286}
-        m_TargetAssemblyTypeName: LNK.MoreDeepFloor.MainMenu.PlayButton, Assembly-CSharp
-        m_MethodName: OnClickPlay
+      - m_Target: {fileID: 2092235740}
+        m_TargetAssemblyTypeName: LNK.MoreDeepFloor.Common.SceneController, Assembly-CSharp
+        m_MethodName: MoveToInGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -399,7 +399,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cacf235320330c944b90c68c9be21b99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  troopTraitManager: {fileID: 446787842}
   goodsManager: {fileID: 958481740}
 --- !u!4 &332923138
 Transform:
@@ -2108,6 +2107,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   traitButtonObject: {fileID: 5691286374683067255}
   upgradeViewer: {fileID: 5691286374235021995}
+--- !u!1 &2092235738
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2092235739}
+  - component: {fileID: 2092235740}
+  m_Layer: 0
+  m_Name: SceneController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2092235739
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092235738}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1558.1664, y: 529.5702, z: -209.98096}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2092235740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092235738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b30e36055749f5f4d8aa80a144c8a275, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &2126613509 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1254868355692804213, guid: 7862bc7be298b6c428c35511cd8203b9,
