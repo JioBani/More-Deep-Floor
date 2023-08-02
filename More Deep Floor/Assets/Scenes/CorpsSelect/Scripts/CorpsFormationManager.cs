@@ -73,8 +73,11 @@ namespace LNK.MoreDeepFloor.CorpsSelectScene
             {
                 CustomLogger.LogWarning("[CorpsFormationManager.OnAdapt()] 편성을 저장하지 못함");
             }
-            
-            
+        }
+
+        private void OnDisable()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
         }
     }
 }
