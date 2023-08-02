@@ -12,16 +12,6 @@ namespace LNK.MoreDeepFloor.InGame
         public ObjectPooler objectPooler;
         public ObjectPoolingManager objectPoolingManager;
 
-        /*
-        public void Fire(GameObject firer , GameObject target)
-        {
-            //objectPooler.Pool();
-            Bullet bullet = objectPooler.Pool().GetComponent<Bullet>();
-            bullet.transform.position = firer.transform.position;
-            bullet.Fire(firer.GetComponent<Defender>() , target);
-        }
-        */
-
         void Awake()
         {
             objectPoolingManager = ReferenceManager.instance.objectPoolingManager;

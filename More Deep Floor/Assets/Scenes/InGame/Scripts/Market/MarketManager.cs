@@ -8,13 +8,14 @@ using LNK.MoreDeepFloor.Data.Corps;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.DataSchema;
 using LNK.MoreDeepFloor.InGame.Entitys;
+using LNK.MoreDeepFloor.InGame.Entitys.Defenders;
 using LNK.MoreDeepFloor.InGame.Tiles;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace LNK.MoreDeepFloor.InGame.MarketSystem
 {
-    public class MarketManager : SceneBehaviour
+    public class MarketManager : MonoBehaviour
     {
         private DefenderManager defenderManager;
         private TileManager tileManager;
@@ -60,7 +61,6 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
             stageManager = ReferenceManager.instance.stageManager;
             
             defenderButtons = new DefenderButton[defenderButtonParent.transform.childCount];
-            //merchandiseInfo = new MerchandiseInfo(defenderTableOriginalData);
             gameDataSaver = new GameDataSaver();
 
             for (int i = 0; i < defenderButtonParent.transform.childCount; i++)
@@ -68,27 +68,16 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
                 defenderButtons[i] = defenderButtonParent.transform.GetChild(i).GetComponent<DefenderButton>();
             }
 
-            // inGameStateManager.OnSceneLoadAction += OnSceneLoad;
             inGameStateManager.OnDataLoadAction += OnDataLoad;
             inGameStateManager.OnRoundStartAction += OnRoundStart;
             inGameStateManager.OnRoundEndAction += OnRoundEnd;
             inGameStateManager.AddDefenderDataLoadAction(OnDefenderDataLoaded);
 
         }
-
-        void Start()
-        {
-            
-        }
+        
         
         
         //#. 이벤트 함수
-
-        protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-        {
-            base.OnSceneLoaded(scene, mode);
-            
-        }
 
         void OnDefenderDataLoaded(DefenderDataTable defenderDataTable)
         {
@@ -97,7 +86,6 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
             
             foreach (var defenderButton in defenderButtons)
             {
-                //int cost = merchandiseInfo.SelectCost(level);
                 defenderButton.SetDefender(merchandiseInfo.GetDefender(levelInfo.level));
             }
             

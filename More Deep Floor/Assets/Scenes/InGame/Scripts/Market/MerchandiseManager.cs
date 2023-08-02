@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using LNK.MoreDeepFloor.Data.Schemas;
 using LNK.MoreDeepFloor.InGame.DataSchema;
+using LNK.MoreDeepFloor.InGame.Entitys.Defenders;
 using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame.MarketSystem
