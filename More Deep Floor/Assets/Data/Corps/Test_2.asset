@@ -12,12 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91277a2c9bf22bf468002c1c96970495, type: 3}
   m_Name: Test_2
   m_EditorClassIdentifier: 
-  corpsId: 2
-  corpsName: Test_2
-  commanderName: Test_2
-  commanderImage: {fileID: 1660957820977104790, guid: f1d5fb7cfd5815645b8b6ab7ed21f42b,
+  corpsId: 3
+  corpsName: Test_3
+  commanderName: Test_3
+  commanderImage: {fileID: -5063555655813669412, guid: f1d5fb7cfd5815645b8b6ab7ed21f42b,
     type: 3}
-  commanderTileImage: {fileID: 1660957820977104790, guid: f1d5fb7cfd5815645b8b6ab7ed21f42b,
+  commanderTileImage: {fileID: -5063555655813669412, guid: f1d5fb7cfd5815645b8b6ab7ed21f42b,
     type: 3}
   members:
-  - {fileID: 11400000, guid: 68f62bc160ae85143afab1501b628fbf, type: 2}
+  - {fileID: 11400000, guid: 1dc5f960790ea34439d7bb084a998b45, type: 2}
+  - {fileID: 11400000, guid: 0d4771707ef05764a806e2e6225c14f5, type: 2}
+  - {fileID: 11400000, guid: ddf146f6f41041548b2d2fd1d7a03d1e, type: 2}
+  - {fileID: 11400000, guid: 2fcec2473a9f9ae4bb70b888f735f669, type: 2}
+  - {fileID: 11400000, guid: 0cc6b462e759222438668279b34adb52, type: 2}

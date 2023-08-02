@@ -42,7 +42,6 @@ namespace LNK.MoreDeepFloor.InGame
                     tile.type = TileType.BattleField;
                     battleFieldTiles[y][x] = tile;
                     tileIndex++;
-                    CustomLogger.Log(tileIndex);
                 }
             }
 

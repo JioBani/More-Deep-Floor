@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using LNK.MoreDeepFloor.Common;
 using LNK.MoreDeepFloor.Common.DataSave;
 using LNK.MoreDeepFloor.Common.Loggers;
 using LNK.MoreDeepFloor.Data.Corps;
@@ -9,10 +10,11 @@ using LNK.MoreDeepFloor.InGame.DataSchema;
 using LNK.MoreDeepFloor.InGame.Entitys;
 using LNK.MoreDeepFloor.InGame.Tiles;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace LNK.MoreDeepFloor.InGame.MarketSystem
 {
-    public class MarketManager : MonoBehaviour
+    public class MarketManager : SceneBehaviour
     {
         private DefenderManager defenderManager;
         private TileManager tileManager;
@@ -23,7 +25,6 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
         private GameDataSaver gameDataSaver;
 
         [SerializeField] private GameObject defenderButtonParent;
-        //[SerializeField] private DefenderTableOriginalData defenderTableOriginalData;
         [SerializeField] private CorpsDataBase corpsDataBase;
 
         private MerchandiseInfo merchandiseInfo;
@@ -67,7 +68,7 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
                 defenderButtons[i] = defenderButtonParent.transform.GetChild(i).GetComponent<DefenderButton>();
             }
 
-            inGameStateManager.OnSceneLoadAction += OnSceneLoad;
+            // inGameStateManager.OnSceneLoadAction += OnSceneLoad;
             inGameStateManager.OnDataLoadAction += OnDataLoad;
             inGameStateManager.OnRoundStartAction += OnRoundStart;
             inGameStateManager.OnRoundEndAction += OnRoundEnd;
@@ -83,8 +84,9 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
         
         //#. 이벤트 함수
 
-        void OnSceneLoad()
+        protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
+            base.OnSceneLoaded(scene, mode);
             
         }
 

@@ -62,6 +62,11 @@ namespace LNK.MoreDeepFloor.InGame
 
         private void Awake()
         {
+            
+        }
+        
+        void OnEnable()
+        {
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
@@ -122,6 +127,11 @@ namespace LNK.MoreDeepFloor.InGame
             gameState = GameState.GameOver;
             OnGameOverAction?.Invoke();
             Debug.Log("[InGameStateManager.SetGameOver()] 게임 오버");
+        }
+        
+        void OnDisable()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
         }
     }
 }
