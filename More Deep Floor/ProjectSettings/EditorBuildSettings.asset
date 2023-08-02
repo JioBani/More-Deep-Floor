@@ -17,7 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/InGame/InGame.unity
     guid: b38fe6e90cc374a4c9a0c89131214fa5
-  - enabled: 1
-    path: Assets/Scenes/RouteAi/RouteAi.unity
-    guid: 23232196dff97c84b9c7585514c712b4
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects: {}

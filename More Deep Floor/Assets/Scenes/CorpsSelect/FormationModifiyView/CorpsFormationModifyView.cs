@@ -17,8 +17,10 @@ namespace LNK.MoreDeepFloor.CorpsSelectScene.FormationModifyViews
         public GameObject openButton;
         public GameObject closeButton;
         
-        private bool isOpen = true;
-
+        [SerializeField] private bool isOpen = true;
+        public const float offset = 0;
+        private float length;
+        private float width;
         
         private void Awake()
         {
@@ -27,10 +29,12 @@ namespace LNK.MoreDeepFloor.CorpsSelectScene.FormationModifyViews
             scaler = uiCanvas.GetComponent<CanvasScaler>();
         }
 
-        public const float offset = 0;
-        private float length;
-        private float width;
-        
+        private void OnEnable()
+        {
+            closeButton.SetActive(isOpen);
+            openButton.SetActive(!isOpen);
+        }
+
         private void Start()
         {
             width =  uiCanvas.pixelRect.width;
