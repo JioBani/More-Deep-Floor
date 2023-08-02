@@ -559,13 +559,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e43745354979c64ebd056da9cf593af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  traitsSelectButtonParent: {fileID: 5691286374683067255}
-  traitsData:
-  - {fileID: 11400000, guid: 468e1a496630cda49995f93b9e3d0e64, type: 2}
-  - {fileID: 11400000, guid: 8a695f68a0b23c244bc55d7b1758e059, type: 2}
-  - {fileID: 11400000, guid: b2ab6b76e31a2d744ba1c2f58dbd2b72, type: 2}
-  - {fileID: 11400000, guid: db7c1d0c4eb1b274a92154beb3a6f8d8, type: 2}
-  noneTraitData: {fileID: 11400000, guid: eb731bea9a04b2b499c30c7e124c3956, type: 2}
 --- !u!1 &518626152
 GameObject:
   m_ObjectHideFlags: 0
@@ -636,7 +629,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uD50C\uB808\uC774"
+  m_Text: "\uC9C0\uD718\uAD00\uD3B8\uC131"
 --- !u!222 &518626155
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2065,7 +2058,7 @@ GameObject:
   - component: {fileID: 1899972497}
   - component: {fileID: 1899972496}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2331,8 +2324,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b44673dfc47832c4088f45ec8ebbf2ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  traitButtonObject: {fileID: 5691286374683067255}
-  upgradeViewer: {fileID: 5691286374235021995}
 --- !u!1 &2092235738
 GameObject:
   m_ObjectHideFlags: 0
@@ -4302,10 +4293,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29001f5631dd02942bc414c47bb9a64d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLevel: {fileID: 5691286374410582667}
-  currentDescription: {fileID: 5691286375039104268}
-  nextLevel: {fileID: 5691286373628216907}
-  nextDescription: {fileID: 5691286374377718665}
 --- !u!224 &5691286374235021996
 RectTransform:
   m_ObjectHideFlags: 0
