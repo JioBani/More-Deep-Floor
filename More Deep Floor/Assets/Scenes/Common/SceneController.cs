@@ -33,6 +33,11 @@ namespace LNK.MoreDeepFloor.Common
         {
             SceneManager.LoadScene("MainMenu");
         }
+
+        public void MoveToCorpsSelect()
+        {
+            SceneManager.LoadScene("CorpsSelect");
+        }
     }
 }
 
