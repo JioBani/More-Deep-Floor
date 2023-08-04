@@ -64,12 +64,12 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.States
             
             switch (stateData.StateId)
             {
-                case EntityStateId.Corps_JadeKnights : return new CorpsState_JadeKnights(stateData, self) as T;
+                case EntityStateId.Corps_JadeKnights : return new CS_JadeKnights(stateData, self) as T;
                 case EntityStateId.Personality_Test : return new PersonalityState_Test(stateData, self) as T;
             }
 
             CustomLogger.LogWarning($"[EntityStateGenerator.GenerateToSpecificType()] Entity State가 존재하지 않음 : id = {stateData.StateId}");
-            return null;
+            return new EntityState_None(stateData , self) as T;
         }
         
         

@@ -13,5 +13,10 @@ MonoBehaviour:
   m_Name: Traits Database
   m_EditorClassIdentifier: 
   traitDatas:
-  - {fileID: 11400000, guid: cfce1cf1538d87f4eba8c789eeb18c68, type: 2}
+  - {fileID: 11400000, guid: 366c0272215b13e419f4b677b41b82de, type: 2}
   - {fileID: 11400000, guid: 9313796e9e109d94ea58c1d88da988ce, type: 2}
+  - {fileID: 11400000, guid: 0e46adfd5b26791478871cc1f6702971, type: 2}
+  - {fileID: 11400000, guid: 89be13c7d93b82c48b0c58f05bef0b9e, type: 2}
+  - {fileID: 11400000, guid: 76a06d97364f79c4eae9b8f64079eb79, type: 2}
+  - {fileID: 11400000, guid: e050fa303d12db1478c3c718d3a2c7c2, type: 2}
+  - {fileID: 11400000, guid: 49a4cde55938c1245b80336a390bc640, type: 2}

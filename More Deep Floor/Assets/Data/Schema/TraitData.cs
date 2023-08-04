@@ -24,8 +24,8 @@ namespace LNK.MoreDeepFloor.Data.Schemas
         [SerializeField] private TraitType traitType;
         public TraitType TraitType => traitType;
         
-        [SerializeField] private TraitId id;
-        public TraitId Id => id;
+        [SerializeField] private TraitId traitId;
+        public TraitId TraitId => traitId;
         
         
         [SerializeField] private string traitName;
@@ -40,8 +40,8 @@ namespace LNK.MoreDeepFloor.Data.Schemas
         public EntityStateData TraitStateData => traitStateData;
 
 
-        [SerializeField] private List<DefenderOriginalData> members;
-        public List<DefenderOriginalData> Members => members;
+        [SerializeField] private List<DefenderOriginalData> tempMembers;
+        public List<DefenderOriginalData> TempMembers => tempMembers;
 
         [SerializeField] private int[] synergyTrigger;
         public int[] SynergyTrigger => synergyTrigger;

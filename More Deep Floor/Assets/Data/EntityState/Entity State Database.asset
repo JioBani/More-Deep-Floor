@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Entity State Database
   m_EditorClassIdentifier: 
   entityStates:
-  - {fileID: 11400000, guid: ab194936c5c0a8e4bb6d79d3a219291d, type: 2}
+  - {fileID: 11400000, guid: c902c5e6e410f504bac78680c0756e21, type: 2}
   - {fileID: 11400000, guid: ed67aad669ec41e4eb3857fc4ec19bb0, type: 2}
+  - {fileID: 11400000, guid: 348b4b7af1b5f894e841c09daa4f5b73, type: 2}

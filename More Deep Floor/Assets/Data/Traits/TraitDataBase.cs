@@ -20,7 +20,7 @@ namespace LNK.MoreDeepFloor.Data.Corps
         
         public Dictionary<TraitId, TraitData> GetDic()
         {
-            return traitDatas.ToDictionary(keySelector: data => data.Id, elementSelector: data => data);
+            return traitDatas.ToDictionary(keySelector: data => data.TraitId, elementSelector: data => data);
         }
     }
 }

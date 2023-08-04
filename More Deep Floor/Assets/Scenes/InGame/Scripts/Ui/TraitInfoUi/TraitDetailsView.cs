@@ -43,7 +43,7 @@ namespace LNK.MoreDeepFloor.InGame.Ui.TraitInfoUi
         public void SetOn(Vector2 pos ,ActiveTraitInfo activeTraitInfo)
         {
             //List<DefenderOriginalData> defenders = traitManager.defenderSortByTrait[traitInfo.traitData.Id];
-            List<DefenderOriginalData> defenders = activeTraitInfo.traitData.Members;
+            List<DefenderOriginalData> defenders = activeTraitInfo.traitData.TempMembers;
 
             for (var i = 0; i < defenderImages.Length; i++)
             {

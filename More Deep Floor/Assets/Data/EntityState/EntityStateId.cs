@@ -11,6 +11,7 @@ namespace LNK.MoreDeepFloor.Data.EntityStates
         //#. Corps
         Corps_None = 1000,
         Corps_JadeKnights = 1001,
+        Corps_Test = 1100,
         
         //#. Personality
         Personality_None = 2000,

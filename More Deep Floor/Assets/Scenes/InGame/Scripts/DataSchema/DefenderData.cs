@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using LNK.MoreDeepFloor.Data.Corps;
 using LNK.MoreDeepFloor.Data.Defenders;
 using LNK.MoreDeepFloor.Data.DefenderTraits;
 using LNK.MoreDeepFloor.Data.Entity;
@@ -29,7 +30,7 @@ namespace LNK.MoreDeepFloor.InGame.DataSchema
         //public TraitData character;
         //public TraitData summonerTrait;
         //public TraitData personality;
-        public CorpsTraitData corpsTraitData;
+        public CorpsData corpsData;
         public PersonalityData personalityData;
         public DefenderOriginalData originalData;
 
@@ -43,7 +44,7 @@ namespace LNK.MoreDeepFloor.InGame.DataSchema
             //job = defenderOriginalData.Job;
             //character = defenderOriginalData.Character;
             originalData = defenderOriginalData;
-            corpsTraitData = defenderOriginalData.CorpsTraitData;
+            corpsData = defenderOriginalData.CorpsTraitData;
             personalityData = defenderOriginalData.PersonalityData;
         }
 

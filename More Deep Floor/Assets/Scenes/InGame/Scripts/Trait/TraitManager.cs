@@ -165,7 +165,7 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
             {
                 var activeTraitInfo = new ActiveTraitInfo(traitData);
                 activeTraitInfo.OnTraitChangeAction += OnTraitChange;
-                activeTraitInfoPool[traitData.Id] = activeTraitInfo;
+                activeTraitInfoPool[traitData.TraitId] = activeTraitInfo;
             }
             
             //defenderManager.OnBattleFieldDefenderChangeAction += OnBattleFieldDefenderChange;
@@ -181,32 +181,35 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
             AddDefender(defender.defenderData.originalData.PersonalityData,  defender);
         }
 
+        
+        //#. TraitType이 지휘관인지 성격인지에 따라서 나눔
         private void AddDefender(TraitData traitData , Defender defender)
         {
-            CustomLogger.Log($"[TraitManager.AddDefender()] {defender.defenderData.id} : {traitData.Id} 추가");
+            CustomLogger.Log($"[TraitManager.AddDefender()] {defender.defenderData.id}");
+            CustomLogger.Log($"[TraitManager.AddDefender()] {defender.defenderData.id} : {traitData.TraitId} 추가");
             
-            if(battleFieldTraits.TryGetValue(traitData.Id , out var result))
+            if(battleFieldTraits.TryGetValue(traitData.TraitId , out var result))
             {
                 result.AddDefender(defender);
             }
             else
             {
-                battleFieldTraits.Add(traitData.Id , activeTraitInfoPool[traitData.Id]);
-                battleFieldTraits[traitData.Id].AddDefender(defender);
+                battleFieldTraits.Add(traitData.TraitId , activeTraitInfoPool[traitData.TraitId]);
+                battleFieldTraits[traitData.TraitId].AddDefender(defender);
             }
         }
         
         private void OnDefenderExitBattleField(List<Defender> defenders, Defender defender)
         {
 
-            if (battleFieldTraits[defender.defenderData.originalData.CorpsTraitData.Id].Remove(defender))
+            if (battleFieldTraits[defender.defenderData.originalData.CorpsTraitData.TraitId].Remove(defender))
             {
-                battleFieldTraits.Remove(defender.defenderData.originalData.CorpsTraitData.Id);
+                battleFieldTraits.Remove(defender.defenderData.originalData.CorpsTraitData.TraitId);
             }
 
-            if (battleFieldTraits[defender.defenderData.originalData.PersonalityData.Id].Remove(defender))
+            if (battleFieldTraits[defender.defenderData.originalData.PersonalityData.TraitId].Remove(defender))
             {
-                battleFieldTraits.Remove(defender.defenderData.originalData.PersonalityData.Id);
+                battleFieldTraits.Remove(defender.defenderData.originalData.PersonalityData.TraitId);
             }
             
             OnTraitChangeAction?.Invoke(battleFieldTraits);
@@ -228,7 +231,7 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
                 }
                 else
                 {
-                    battleFieldTraits[traitId] = new ActiveTraitInfo(add.defenderData.corpsTraitData);
+                    battleFieldTraits[traitId] = new ActiveTraitInfo(add.defenderData.corpsData);
                 }
             }
 
@@ -241,11 +244,11 @@ namespace LNK.MoreDeepFloor.InGame.TraitSystem
             //TODO 성격도 적용되게
             if (!ReferenceEquals(add, null))
             {
-                OnAdd(add.defenderData.originalData.CorpsTraitData.Id);
+                OnAdd(add.defenderData.originalData.CorpsTraitData.TraitId);
             }
             else
             {
-                OnRemove(remove.defenderData.originalData.CorpsTraitData.Id);
+                OnRemove(remove.defenderData.originalData.CorpsTraitData.TraitId);
             }
         }
     }

@@ -12,6 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91277a2c9bf22bf468002c1c96970495, type: 3}
   m_Name: Test_3
   m_EditorClassIdentifier: 
+  traitType: 0
+  traitId: 1004
+  traitName: "\uD14C\uC2A4\uD2B8"
+  image: {fileID: 1660957820977104790, guid: f1d5fb7cfd5815645b8b6ab7ed21f42b, type: 3}
+  traitStateData: {fileID: 11400000, guid: f29fc142015608d45aa536aefb3f1f02, type: 2}
+  tempMembers:
+  - {fileID: 11400000, guid: 856355538ff63354d955c503a3582690, type: 2}
+  - {fileID: 11400000, guid: fbc30a52f42d8b949b4ad4ab10650fdc, type: 2}
+  - {fileID: 11400000, guid: 7945184b1c6515344920afdf67d130e0, type: 2}
+  synergyTrigger: 00000000010000000200000003000000
+  description: 
+  effects: []
+  properties: []
   corpsId: 4
   corpsName: Test_4
   commanderName: Test_4

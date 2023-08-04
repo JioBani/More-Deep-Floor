@@ -68,6 +68,6 @@ MonoBehaviour:
   - 100
   id: 109
   cost: 4
-  corpsTraitData: {fileID: 11400000, guid: cfce1cf1538d87f4eba8c789eeb18c68, type: 2}
+  corpsData: {fileID: 11400000, guid: 366c0272215b13e419f4b677b41b82de, type: 2}
   corpsId: 1
   personalityData: {fileID: 11400000, guid: 9313796e9e109d94ea58c1d88da988ce, type: 2}

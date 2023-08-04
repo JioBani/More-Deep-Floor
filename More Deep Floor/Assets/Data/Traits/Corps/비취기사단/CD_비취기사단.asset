@@ -10,8 +10,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91277a2c9bf22bf468002c1c96970495, type: 3}
-  m_Name: "\uBE44\uCDE8\uAE30\uC0AC\uB2E8"
+  m_Name: "CD_\uBE44\uCDE8\uAE30\uC0AC\uB2E8"
   m_EditorClassIdentifier: 
+  traitType: 0
+  traitId: 1001
+  traitName: "\uBE44\uCDE8\uAE30\uC0AC\uB2E8"
+  image: {fileID: -5063555655813669412, guid: f1d5fb7cfd5815645b8b6ab7ed21f42b, type: 3}
+  traitStateData: {fileID: 11400000, guid: c902c5e6e410f504bac78680c0756e21, type: 2}
+  tempMembers: []
+  synergyTrigger: 000000000200000004000000060000000800000009000000
+  description: 
+  effects: []
+  properties:
+  - key: "\uAE30\uBCF8_\uB9C8\uBC95\uB825"
+    values:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+  - key: "\uCD94\uAC00_\uB9C8\uBC95\uB825"
+    values:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
   corpsId: 1
   corpsName: "\uBE44\uCDE8\uAE30\uC0AC\uB2E8"
   commanderName: "\uB8E8\uB9AC\uC5D8 \uADF8\uB80C\uD0C0"

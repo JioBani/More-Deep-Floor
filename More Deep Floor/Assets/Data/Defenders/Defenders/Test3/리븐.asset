@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "\uB9AC\uBE10"
   m_EditorClassIdentifier: 
   entityName: 
-  entityType: 0
+  entityType: 1
   skillData: {fileID: 11400000, guid: 22bdf28b87864fe46be39299b5c81d4e, type: 2}
   sprite: {fileID: 21300000, guid: 1473a938c034e01489395563d25b0264, type: 3}
   damages:
@@ -66,8 +66,8 @@ MonoBehaviour:
   - 100
   - 100
   - 100
-  id: 2
+  id: 1002
   cost: 1
-  corpsTraitData: {fileID: 0}
-  corpsId: 1
+  corpsData: {fileID: 11400000, guid: 366c0272215b13e419f4b677b41b82de, type: 2}
+  corpsId: 3
   personalityData: {fileID: 11400000, guid: 9313796e9e109d94ea58c1d88da988ce, type: 2}

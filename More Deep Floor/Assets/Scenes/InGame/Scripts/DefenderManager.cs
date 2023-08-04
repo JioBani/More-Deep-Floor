@@ -8,8 +8,8 @@ using LNK.MoreDeepFloor.Common.DataSave;
 using LNK.MoreDeepFloor.Common.Loggers;
 using LNK.MoreDeepFloor.Data.Corps;
 using LNK.MoreDeepFloor.Data.Defenders;
-using LNK.MoreDeepFloor.Data.DefenderTraits;
 using LNK.MoreDeepFloor.Data.Schemas;
+using LNK.MoreDeepFloor.Data.Traits.Corps;
 using LNK.MoreDeepFloor.InGame.DataSchema;
 using LNK.MoreDeepFloor.InGame.Entitys;
 using LNK.MoreDeepFloor.InGame.Entitys.Defenders;
@@ -22,24 +22,28 @@ namespace LNK.MoreDeepFloor.InGame
 {
     public class DefenderManager : MonoBehaviour
     {
+        //#. 참조
         private MarketManager marketManager;
         private InGameStateManager inGameStateManager;
         [SerializeField] private ObjectPooler defenderPooler;
-        private GameDataSaver gameDataSaver;
         [SerializeField] private CorpsDataBase corpsDataBase;
         [SerializeField] private TextMeshProUGUI corpsText;
+        public DefenderDataTable defenderDataTable { private set; get; }
+
+        //#. 프로퍼티
         
+        //#. 변수
+        private GameDataSaver gameDataSaver;
         private List<Defender> defenders = new List<Defender>();
         public List<Defender> battleDefenders = new List<Defender>();
         private int[] defenderIndex = {0,0,0,0,0,0};
-
-        //public DefenderTableData defenderTableData;
-        //public DefenderDataTable defenderDataTable;
         public int battleDefender = 0;
         public int battleDefenderLimit = 0;
-
         public DefenderDataModifier defenderDataModifier = new DefenderDataModifier();
-        
+
+        private Dictionary<CorpsId, CorpsData> corpsDic;
+
+        //#. 이벤트
         public delegate void OnBattleLimitInitEventHandler(int limit);
         public delegate void OnBattleFieldDefenderChangeEventHandler(int limit , List<Defender> defenders , Defender add, Defender remove);
         public delegate void OnDefenderInOutEventHandler(List<Defender> defenders , Defender defender);
@@ -54,7 +58,6 @@ namespace LNK.MoreDeepFloor.InGame
         public OnDefenderPlaceChangeEventHandler OnDefenderPlaceChangeAction;
         public OnDefenderSpawnEventHandler OnDefenderSpawnAction;
 
-        public DefenderDataTable defenderDataTable { private set; get; }
 
         //#. 이벤트 함수
         private void Awake()
@@ -68,6 +71,12 @@ namespace LNK.MoreDeepFloor.InGame
             marketManager.OnLevelUpAction += OnLevelUp;
             
             inGameStateManager.OnSceneLoadAction += OnSceneLoad;
+            corpsDic = new Dictionary<CorpsId, CorpsData>();
+            
+            for (var i = 0; i < corpsDataBase.CorpsDatas.Count; i++)
+            {
+                corpsDic[corpsDataBase.CorpsDatas[i].CorpsId] = corpsDataBase.CorpsDatas[i];
+            }
         }
 
         void OnSceneLoad()
@@ -79,11 +88,12 @@ namespace LNK.MoreDeepFloor.InGame
             {
                 CustomLogger.LogWarning("[MarketManager.OnSceneLoad()] 편성 데이터를 불러올 수 없음");
             }
-            
+           
             foreach (var corpsId in corps)
             {
-                corpsDatas.Add(corpsDataBase.CorpsDic[corpsId]);
-                members.AddRange(corpsDataBase.CorpsDic[corpsId].Members);
+                CustomLogger.Log($"{corpsId}");
+                corpsDatas.Add(corpsDic[corpsId]);
+                members.AddRange(corpsDic[corpsId].Members);
             }
 
             defenderDataTable = new DefenderDataTable(members);

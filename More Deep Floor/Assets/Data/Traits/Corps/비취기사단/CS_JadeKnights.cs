@@ -8,12 +8,12 @@ using UnityEngine;
 
 namespace LNK.MoreDeepFloor.Data.EntityStates.Trait.Crops
 {
-    public class CorpsState_JadeKnights : TraitState
+    public class CS_JadeKnights : TraitState
     {
         private List<float> basicSp; //#. 기본_마법력
         private List<float> extraSp; //#. 추가_마법력
 
-        public CorpsState_JadeKnights(EntityStateData _entityStateData, InGame.Entitys.Entity _self) 
+        public CS_JadeKnights(EntityStateData _entityStateData, InGame.Entitys.Entity _self) 
             : base(_entityStateData, _self)
         {
             SetData(_entityStateData.properties);

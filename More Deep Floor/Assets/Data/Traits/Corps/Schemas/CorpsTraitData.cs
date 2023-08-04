@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace LNK.MoreDeepFloor.Data.Troops
 {
-    [CreateAssetMenu(
+    /*[CreateAssetMenu(
         fileName = "CorpsData",
         menuName = "Scriptable Object/Traits/Corps/CorpsData",
         order = int.MaxValue)]
@@ -28,11 +28,14 @@ namespace LNK.MoreDeepFloor.Data.Troops
         [SerializeField] private string copsCommander;  
         public string CopsCommander => copsCommander;
 
+        [SerializeField] private CorpsData corpsData;
+        public CorpsData CorpsData => corpsData;
+
         /*public override RuntimeTraitData GetRuntimeData()
         {
             throw new NotImplementedException();
-        }*/
-    }
+        }#1#
+    }*/
     
    
 }

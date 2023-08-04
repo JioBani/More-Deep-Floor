@@ -44,8 +44,8 @@ namespace LNK.MoreDeepFloor.InGame.Ui.DefenderDataInfoUi
             defenderFrame.color = commonPalette.CostColors[defenderData.cost];
             nameText.text = defenderData.name;
 
-            corpsImage.sprite = defenderData.corpsTraitData.Image;
-            corpsName.text = defenderData.corpsTraitData.CopsName;
+            corpsImage.sprite = defenderData.corpsData.Image;
+            corpsName.text = defenderData.corpsData.CorpsName;
             
             personalityImage.sprite = defenderData.personalityData.Image;
             personalityName.text = defenderData.personalityData.PersonalityName;
