@@ -47,21 +47,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityManager: {fileID: 0}
+  bulletManager: {fileID: 0}
   entity: {fileID: 0}
-  speed: 0
-  range: 0
-  isActive: 0
-  teamNumber: 0
-  code: 0
   mode: 2
   gizmoColor: {r: 0, g: 0, b: 0, a: 0}
   routeFindTimer: 0.5
   show: 1
-  entityType: 0
   currentTile: {fileID: 0}
   currentDes: {fileID: 0}
   finalDes: {fileID: 0}
-  target: {fileID: 0}
   currentTileHistory: []
 --- !u!50 &4585091610803760778
 Rigidbody2D:
@@ -166,7 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33fb8ba20b195bb4c8a563de899858bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mover: {fileID: 5893280912234396183}
+  entityBehavior: {fileID: 0}
 --- !u!58 &7016352094916981295
 CircleCollider2D:
   m_ObjectHideFlags: 0

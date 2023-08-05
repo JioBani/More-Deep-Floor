@@ -11,61 +11,39 @@ namespace LNK.MoreDeepFloor.InGame
 {
     public enum GameState
     {
-        BeforeStartStage,
-        Playing,
-        GameOver
+        StageSetting = 1,
+        RoundWaiting = 2,
+        RoundPlaying = 3,
+        StageFinished = 4,
     }
     
     public class InGameStateManager : MonoBehaviour
     {
-        public delegate void OnSceneLoadEventHandler();
+        //#. 참조
+        [SerializeField] private ResultWindow resultWindow;
 
-        public delegate void OnDataLoadEventHandler();
+        //#. 변수
+        public GameState gameState { private set; get; }
 
-        public delegate void OnStageStartEventHandler();
+        //#. 프로퍼티
 
-        public delegate void OnStageEndEventHandler();
+        #region #. 이벤트
 
+        public delegate void OnSettingCompletedEventHandler();
+        public OnSettingCompletedEventHandler OnSettingCompletedAction;
+        
         public delegate void OnRoundStartEventHandler(int round);
-
+        public OnRoundStartEventHandler OnRoundStartAction;
+        
         public delegate void OnRoundEndEventHandler(int round);
 
-        public delegate void OnGameOverEventHandler();
-
-        public delegate void OnDefenderDataLoaded(DefenderDataTable defenderDataTable);
-
-
-        public OnSceneLoadEventHandler OnSceneLoadAction;
-        public OnDataLoadEventHandler OnDataLoadAction;
-        public OnStageStartEventHandler OnStageStartAction;
-        public OnStageEndEventHandler OnStageEndAction;
-        public OnRoundStartEventHandler OnRoundStartAction;
         public OnRoundEndEventHandler OnRoundEndAction;
-        public OnGameOverEventHandler OnGameOverAction;
-        
-        private OnDefenderDataLoaded OnDefenderDataLoadedAction;
 
-        public void AddDefenderDataLoadAction(OnDefenderDataLoaded action)
-        {
-            OnDefenderDataLoadedAction += action;
-        }
-        
-        public void RunDefenderDataLoadAction(DefenderDataTable defenderDataTable)
-        {
-            OnDefenderDataLoadedAction?.Invoke(defenderDataTable);
-        }
-        
+        public delegate void OnStageFinishedEventHandler();
+        public OnStageFinishedEventHandler OnStageFinishedAction;
 
-        
+        #endregion
 
-        [SerializeField] private ResultWindow resultWindow;
-        public GameState gameState;
-
-        private void Awake()
-        {
-            
-        }
-        
         void OnEnable()
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
@@ -73,66 +51,48 @@ namespace LNK.MoreDeepFloor.InGame
 
         void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            gameState = GameState.BeforeStartStage;
-
-            Debug.Log("[InGameStateManager] 씬 로드");
-            OnSceneLoadAction?.Invoke();
-
-            Debug.Log("[InGameStateManager] 데이터 로드");
-            OnDataLoadAction?.Invoke();
-
-        }
-
-        public void SetStageStart()
-        {
-            Debug.Log("[InGameStateManager] 스테이지 시작");
-
-            gameState = GameState.Playing;
-            OnStageStartAction?.Invoke();
-        }
-
-        public void SetStageEnd()
-        {
-            Debug.Log("[InGameStateManager] 스테이지 끝");
+            gameState = GameState.StageSetting;
             
-            OnStageEndAction?.Invoke();
+            LoadData();
+            StartSetting();
+            gameState = GameState.RoundWaiting;
+            OnSettingCompletedAction?.Invoke();
+        }
+        
+        void OnDisable()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
         }
 
-        public void SetRoundStart(int round)
+       
+        void LoadData()
+        {
+            ReferenceManager.instance.defenderManager.SetData();
+        }
+        
+        //#. 매니저들 세팅하기
+        void StartSetting()
+        {
+            ReferenceManager.instance.marketManager.Setting();
+            ReferenceManager.instance.monsterManager.Setting();
+        }
+
+        public void NotifyRoundStart(int round)
         {
             Debug.Log("[InGameStateManager] 라운드 시작");
-
+            gameState = GameState.RoundPlaying;
             OnRoundStartAction?.Invoke(round);
         }
 
         public void SetRoundEnd(int round)
         {
             Debug.Log("[InGameStateManager] 라운드 끝");
-
             OnRoundEndAction?.Invoke(round);
         }
 
-        public void SetGameOver()
+        public void NotifyGameOver()
         {
-            var stageManager = ReferenceManager.instance.stageManager;
-            
-            var resultData = new InGameResult(
-                stageManager.stageData.stageOriginalData,
-                stageManager.round,
-                ReferenceManager.instance.marketManager.gold,
-                false
-            );
-            
-            resultWindow.SetResultWindow(resultData);
-            
-            gameState = GameState.GameOver;
-            OnGameOverAction?.Invoke();
-            Debug.Log("[InGameStateManager.SetGameOver()] 게임 오버");
-        }
-        
-        void OnDisable()
-        {
-            SceneManager.sceneLoaded -= OnSceneLoaded;
+            //TODO 게임오버 로직
         }
     }
 }

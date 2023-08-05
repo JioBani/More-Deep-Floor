@@ -15,10 +15,10 @@ namespace LNK.MoreDeepFloor.InGame.Ui
             stageManager = ReferenceManager.instance.stageManager;
         }
 
-        public void OnClickStartRound()
+        /*public void OnClickStartRound()
         {
             stageManager.OnClickStageStart();
-        }
+        }*/
     }
 }
 

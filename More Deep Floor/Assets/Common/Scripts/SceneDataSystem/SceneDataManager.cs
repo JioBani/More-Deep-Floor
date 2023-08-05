@@ -23,7 +23,7 @@ namespace LNK.MoreDeepFloor.Common
         public static SceneDataManager instance;
 
         private GameDataSaver gameDataSaver;
-        public StageOriginalData[] stageOriginalDatas;
+        //public StageOriginalData[] stageOriginalDatas;
         private int stageSelectIndex;
 
         private SceneType lastScene;
@@ -43,10 +43,10 @@ namespace LNK.MoreDeepFloor.Common
             DontDestroyOnLoad(gameObject);
         }
 
-        public StageOriginalData GetStageData()
+        /*public StageOriginalData GetStageData()
         {
             return stageOriginalDatas[stageSelectIndex];
-        }
+        }*/
 
         public void SetStageSelectIndex(int index)
         {

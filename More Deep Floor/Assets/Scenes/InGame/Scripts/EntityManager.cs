@@ -11,14 +11,14 @@ namespace LNK.MoreDeepFloor.InGame
     public class EntityManager : MonoBehaviour
     {
         //#. 변수
-        [SerializeField] private List<Defender> battleDefenders;
-        [SerializeField] private List<Monster> battleMonsters;
+        private DefenderManager defenderManager;
+        private MonsterManager monsterManager;
 
 
         private void Awake()
         {
-            battleDefenders = ReferenceManager.instance.defenderManager.battleDefenders;
-            battleMonsters = ReferenceManager.instance.monsterManager.monsters;
+            defenderManager = ReferenceManager.instance.defenderManager;
+            monsterManager = ReferenceManager.instance.monsterManager;
         }
 
         public List<Entity> SearchEnemies(Entity attacker)
@@ -26,14 +26,14 @@ namespace LNK.MoreDeepFloor.InGame
             List<Entity> enemies;
             float dis = 99999;
             var position = attacker.transform.position;
-            
+
             if (attacker.data.entityType == EntityType.Defender)
             {
-                enemies = battleMonsters.Cast<Entity>().ToList();
+                enemies = monsterManager.monsters.Cast<Entity>().ToList();
             }
             else if (attacker.data.entityType == EntityType.Monster)
             {
-                enemies = battleDefenders.Cast<Entity>().ToList();
+                enemies = defenderManager.battleDefenders.Cast<Entity>().ToList();
             }
             else
             {
@@ -50,19 +50,6 @@ namespace LNK.MoreDeepFloor.InGame
             });
             
             return enemies;
-        }
-
-        public void OnClickStart()
-        {
-            foreach (var battleDefender in battleDefenders)
-            {
-                battleDefender.entityBehavior.isActive = true;
-            }
-            
-            foreach (var battleMonster in battleMonsters)
-            {
-                battleMonster.entityBehavior.isActive = true;
-            }
         }
     }
 }

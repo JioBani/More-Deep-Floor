@@ -68,10 +68,10 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
                 defenderButtons[i] = defenderButtonParent.transform.GetChild(i).GetComponent<DefenderButton>();
             }
 
-            inGameStateManager.OnDataLoadAction += OnDataLoad;
+            //inGameStateManager.OnDataLoadAction += OnDataLoad;
             inGameStateManager.OnRoundStartAction += OnRoundStart;
             inGameStateManager.OnRoundEndAction += OnRoundEnd;
-            inGameStateManager.AddDefenderDataLoadAction(OnDefenderDataLoaded);
+            //inGameStateManager.AddDefenderDataLoadAction(OnDefenderDataLoaded);
 
         }
         
@@ -93,6 +93,23 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
             levelInfo.Init();
             onInitLevelAction?.Invoke(levelInfo.level);
             OnInitEventAction?.Invoke(levelInfo.level,levelInfo.currentExp,levelInfo.maxExp);
+        }
+
+        public void Setting()
+        {
+            merchandiseInfo = new MerchandiseInfo(defenderManager.defenderDataTable);
+            
+            foreach (var defenderButton in defenderButtons)
+            {
+                defenderButton.SetDefender(merchandiseInfo.GetDefender(levelInfo.level));
+            }
+            
+            gold = 0;
+            levelInfo.Init();
+            onInitLevelAction?.Invoke(levelInfo.level);
+            OnInitEventAction?.Invoke(levelInfo.level,levelInfo.currentExp,levelInfo.maxExp);
+            
+            GoldChange(startGold, "시작골드");
         }
         
         void OnDataLoad()
@@ -165,7 +182,7 @@ namespace LNK.MoreDeepFloor.InGame.MarketSystem
         //#. 구매
         public bool TryBuy(int price)
         {
-            if (inGameStateManager.gameState == GameState.GameOver)
+            if (inGameStateManager.gameState == GameState.StageFinished)
             {
                 Debug.Log($"[MarketManager.TryBuy()] 구매 실패 : 게임 오버({gold})");
                 return false;

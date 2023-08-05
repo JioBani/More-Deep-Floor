@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace LNK.MoreDeepFloor.Data.Schemas
 {
-    [CreateAssetMenu(fileName = "Round Data", menuName = "Scriptable Object/Round Data", order = int.MaxValue)]
+    /*[CreateAssetMenu(fileName = "Round Data", menuName = "Scriptable Object/Round Data", order = int.MaxValue)]
     
     public class RoundOriginalData : ScriptableObject
     {
@@ -16,6 +16,6 @@ namespace LNK.MoreDeepFloor.Data.Schemas
         
         [SerializeField] private int monsterNums;
         public int MonsterNums { get { return monsterNums; } }
-    }
+    }*/
 }
 

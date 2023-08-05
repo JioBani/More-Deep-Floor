@@ -132,7 +132,6 @@ MonoBehaviour:
   show: 0
   index: {x: 0, y: 0}
   isWall: 0
-  isRoute: 0
   wallStack: 0
   desOf: {fileID: 0}
   desNotNeeded: 0

@@ -20,11 +20,10 @@ using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame
 {
-    public class DefenderManager : MonoBehaviour
+    public class DefenderManager : InGameBehaviour
     {
         //#. 참조
         private MarketManager marketManager;
-        private InGameStateManager inGameStateManager;
         [SerializeField] private ObjectPooler defenderPooler;
         [SerializeField] private CorpsDataBase corpsDataBase;
         [SerializeField] private TextMeshProUGUI corpsText;
@@ -57,20 +56,18 @@ namespace LNK.MoreDeepFloor.InGame
         public OnDefenderInOutEventHandler OnDefenderExitBattleFieldAction;
         public OnDefenderPlaceChangeEventHandler OnDefenderPlaceChangeAction;
         public OnDefenderSpawnEventHandler OnDefenderSpawnAction;
+        
+        #region #. 라이프 사이클
 
-
-        //#. 이벤트 함수
-        private void Awake()
+        protected override void BehaviorAwake()
         {
             marketManager = ReferenceManager.instance.marketManager;
-            inGameStateManager = ReferenceManager.instance.inGameStateManager;
 
             gameDataSaver = new GameDataSaver();
 
             marketManager.onInitLevelAction += OnInitLevel;
             marketManager.OnLevelUpAction += OnLevelUp;
             
-            inGameStateManager.OnSceneLoadAction += OnSceneLoad;
             corpsDic = new Dictionary<CorpsId, CorpsData>();
             
             for (var i = 0; i < corpsDataBase.CorpsDatas.Count; i++)
@@ -78,8 +75,8 @@ namespace LNK.MoreDeepFloor.InGame
                 corpsDic[corpsDataBase.CorpsDatas[i].CorpsId] = corpsDataBase.CorpsDatas[i];
             }
         }
-
-        void OnSceneLoad()
+        
+        public void SetData()
         {
             var members = new List<DefenderOriginalData>();
             List<CorpsData> corpsDatas = new List<CorpsData>();
@@ -98,8 +95,6 @@ namespace LNK.MoreDeepFloor.InGame
 
             defenderDataTable = new DefenderDataTable(members);
             
-            inGameStateManager.RunDefenderDataLoadAction(defenderDataTable);
-
             StringBuilder stringBuilder = new StringBuilder();
             
             foreach (var corpsData in corpsDatas)
@@ -109,6 +104,13 @@ namespace LNK.MoreDeepFloor.InGame
 
             corpsText.text = stringBuilder.ToString();
         }
+
+        protected override void OnRoundStart(int round)
+        {
+            SetBattleState();
+        }
+
+        #endregion
 
         #region #. 커스텀 이벤트 
         void OnInitLevel(int level)
@@ -339,6 +341,14 @@ namespace LNK.MoreDeepFloor.InGame
             };
 
             ModifyDefenderData(modifier);
+        }
+
+        public void SetBattleState()
+        {
+            for (var i = 0; i < battleDefenders.Count; i++)
+            {
+                battleDefenders[i].entityBehavior.SetBehaviorState(EntityBehaviorState.Battle);
+            }
         }
 
         #endregion

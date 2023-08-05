@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame.DataSchema
 {
-    [Serializable]
+    /*[Serializable]
     public class StageData
     {
         public string name;
@@ -45,7 +45,7 @@ namespace LNK.MoreDeepFloor.InGame.DataSchema
         {
             return new StageData(name, isInfinity, rounds, roundOriginalDatas, infiniteTowerOriginalData);
         }
-    }
+    }*/
 }
 
 

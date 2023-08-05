@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using LNK.MoreDeepFloor.Common.Loggers;
 using LNK.MoreDeepFloor.Data.Schemas;
+using LNK.MoreDeepFloor.Data.Stages;
 using LNK.MoreDeepFloor.InGame.DataSchema;
 using LNK.MoreDeepFloor.InGame.Entitys;
 using LNK.MoreDeepFloor.InGame.MarketSystem;
@@ -12,7 +13,7 @@ using Random = UnityEngine.Random;
 
 namespace LNK.MoreDeepFloor.InGame
 {
-    public class MonsterManager : MonoBehaviour
+    public class MonsterManager : InGameBehaviour
     {
         
         public ObjectPooler objectPooler;
@@ -24,7 +25,7 @@ namespace LNK.MoreDeepFloor.InGame
         public List<Monster> monsters = new List<Monster>();
         public int roundMonsterNums;
         public int roundOffMonsterNums;
-        private RoundOriginalData _currentRoundOriginal;
+        //private RoundOriginalData _currentRoundOriginal;
         private List<List<Tile>> routes;
 
         
@@ -37,12 +38,12 @@ namespace LNK.MoreDeepFloor.InGame
 
         public OnMonsterNumberChangeEventHandler OnMonsterNumberChangeAction;
 
-        private void Awake()
+        #region #. 이벤트함수
+
+        protected override void BehaviorAwake()
         {
             marketManager = ReferenceManager.instance.marketManager;
             tileManager = ReferenceManager.instance.tileManager;
-
-            ReferenceManager.instance.inGameStateManager.OnDataLoadAction += OnDataLoad;
         }
 
         private void Start()
@@ -67,57 +68,42 @@ namespace LNK.MoreDeepFloor.InGame
             }
         }
 
-        private void OnDataLoad()
+        protected override void OnRoundStart(int round)
         {
+            SetBattleState();
+        }
+
+        public void Setting(){
             monsterNumber = 0;
             OnMonsterNumberChangeAction?.Invoke(monsterNumber);
         }
 
-        public void StartStage()
-        {
-            //SetRoute();
-        }
+        #endregion
+        
+        
 
-        public void StartRound(RoundOriginalData roundOriginalData)
+        public void SetRoundMonster(RoundData roundData)
         {
-            roundMonsterNums = roundOriginalData.MonsterNums;
-            currentMonsterData = new MonsterData(roundOriginalData.MonsterOriginal);
-            roundOffMonsterNums = 0;
-            _currentRoundOriginal = roundOriginalData;
-            StartCoroutine(GenerateMonsterLoop(roundOriginalData.MonsterNums));
-        }
-
-        public void StartInfinityTowerRound(InfinityTowerData infinityTowerData)
-        {
-            roundMonsterNums = infinityTowerData.monsterNums;
-            currentMonsterData = infinityTowerData.currentMonsterData;
-            roundOffMonsterNums = 0;
-            StartCoroutine(GenerateMonsterLoop(roundMonsterNums));
-        }
-
-
-        IEnumerator GenerateMonsterLoop(int number)
-        {
-            yield return new WaitForSeconds(3.0f);
-            while (number != 0)
+            monsterNumber = 0;
+            monsters = new List<Monster>();
+            for (int i = 0; i < roundData.MonsterCount; i++)
             {
-                GenerateMonster(Random.Range(0,5));
-                yield return new WaitForSeconds(1.0f);
-                number--;
+                MonsterOriginalData monsterOriginalData = roundData.GetMonster();
+                Monster monster = GenerateMonster(new MonsterData(monsterOriginalData));
+                monster.transform.position = tileManager.battleFieldTiles[Random.Range(0, 5)][Random.Range(0, 5)].transform.position;
+                monsters.Add(monster);
             }
         }
-        
-        void GenerateMonster(int line)
+
+        Monster GenerateMonster(MonsterData monsterData)
         {
-            
             Monster monster = objectPooler.Pool(monsterParent).GetComponent<Monster>();
-            monster.Init(currentMonsterData, 0);
-            monster.SetLine(line);
-            monster.SetMove();
+            monster.Init(monsterData, 0);
             monsters.Add(monster.GetComponent<Monster>());
 
             monsterNumber++;
             OnMonsterNumberChangeAction?.Invoke(monsterNumber);
+            return monster;
         }
 
         void OnMonsterDie(Entity monster , Entity killer)
@@ -147,6 +133,14 @@ namespace LNK.MoreDeepFloor.InGame
 
             monsterNumber++;
             OnMonsterNumberChangeAction?.Invoke(monsterNumber);
+        }
+
+        public void SetBattleState()
+        {
+            for (var i = 0; i < monsters.Count; i++)
+            {
+                monsters[i].entityBehavior.SetBehaviorState(EntityBehaviorState.Battle);
+            }
         }
     }
 

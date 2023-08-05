@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bccbccb2d581f874aa2d5ebccf373752, type: 3}
+  m_Name: TestRound
+  m_EditorClassIdentifier: 
+  monsterCount: 5
+  probabilities:
+  - monsterCount: 5
+    monsterOriginalData: {fileID: 11400000, guid: d7ac56036da4fce45851652546e396e9,
+      type: 2}
+    rate: 10
+  totalRate: 5

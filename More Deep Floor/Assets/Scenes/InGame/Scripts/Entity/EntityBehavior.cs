@@ -19,6 +19,13 @@ namespace LNK.MoreDeepFloor.InGame
         공격중 = 6,
         
     }
+
+    public enum EntityBehaviorState
+    {
+        None = 0,
+        RoundWait = 1,
+        Battle = 2
+    }
     public class EntityBehavior : MonoBehaviour
     {
         //#. 참조
@@ -32,7 +39,8 @@ namespace LNK.MoreDeepFloor.InGame
         [SerializeField] private StatusValue moveSpeed;
         [SerializeField] private AttackSpeedValue attackSpeed;
         [SerializeField] private RangeValue range;
-        public bool isActive;
+        public bool isActive { get; private set; }
+        public EntityBehaviorState entityBehaviorState { get; private set; } = EntityBehaviorState.None;
         public int mode;
         [SerializeField] private Color gizmoColor;
         [SerializeField] private float routeFindTimer = 0.5f;
@@ -75,6 +83,7 @@ namespace LNK.MoreDeepFloor.InGame
         {
             entity = _entity;
             isActive = false;
+            entityBehaviorState = EntityBehaviorState.RoundWait;
             routes = new List<RouteTile>();
             currentTile = null;
             currentDes = null;
@@ -93,7 +102,7 @@ namespace LNK.MoreDeepFloor.InGame
 
         void Update()
         {
-            if (isActive)
+            if (entityBehaviorState == EntityBehaviorState.Battle)
             {
                 if (!ReferenceEquals(entity.target, null))
                 {
@@ -294,6 +303,11 @@ namespace LNK.MoreDeepFloor.InGame
             attackTimer = 0;
             bulletManager.Fire(entity , entity.target, damage.currentValue , entity.data.attackType);
             AfterAttackAction?.Invoke(entity.target , damage.currentValue);
+        }
+
+        public void SetBehaviorState(EntityBehaviorState state)
+        {
+            entityBehaviorState = state;
         }
 
         #endregion

@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace LNK.MoreDeepFloor.Data.Schemas
 {
-    [CreateAssetMenu(fileName = "Stage Data", menuName = "Scriptable Object/Stage Data", order = int.MaxValue)]
+    //[CreateAssetMenu(fileName = "Stage Data", menuName = "Scriptable Object/Stage Data", order = int.MaxValue)]
     
-    public class StageOriginalData : ScriptableObject
+    /*public class StageOriginalData : ScriptableObject
     {
         [SerializeField] private string stageName;
         public string StageName { get { return stageName; } }
@@ -20,7 +20,7 @@ namespace LNK.MoreDeepFloor.Data.Schemas
         
         [SerializeField] private InfiniteTowerOriginalData infiniteTowerOriginalData;
         public InfiniteTowerOriginalData InfiniteTowerOriginalData { get { return infiniteTowerOriginalData; } }
-    }
+    }*/
 }
 
 

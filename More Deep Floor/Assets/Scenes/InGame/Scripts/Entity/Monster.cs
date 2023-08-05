@@ -165,6 +165,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
 
         public override void SetOff(Entity killer , string msg = null)
         {
+            CustomLogger.Log("[Monster.SetOff()]");
             poolable.SetOff();
         }
         

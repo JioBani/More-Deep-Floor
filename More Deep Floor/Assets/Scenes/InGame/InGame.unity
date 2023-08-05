@@ -3449,9 +3449,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 77929692}
-        m_TargetAssemblyTypeName: LNK.MoreDeepFloor.InGame.Ui.StageStartButton, Assembly-CSharp
-        m_MethodName: OnClickStartStage
+      - m_Target: {fileID: 91726015}
+        m_TargetAssemblyTypeName: LNK.MoreDeepFloor.InGame.StageManager, Assembly-CSharp
+        m_MethodName: OnClickRoundStart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4297,8 +4297,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c7388bee94c46847902629e5addb919, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageOriginalDatas:
-  - {fileID: 11400000, guid: 53253ea4c34da82448b366ff81af20dd, type: 2}
 --- !u!4 &87327470
 Transform:
   m_ObjectHideFlags: 0
@@ -4726,13 +4724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68b1c0755a856f3468e880cc24439699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageData:
-    name: 
-    isInfinity: 0
-    rounds: 0
-    roundOriginalDatas: []
-    infiniteTowerOriginalData: {fileID: 0}
-    stageOriginalData: {fileID: 0}
+  stageData: {fileID: 11400000, guid: ea0d167c45c1b4d45a39b5dd99f229d5, type: 2}
   isStageStarted: 0
   route:
   - {x: 1, y: 1}
@@ -52536,7 +52528,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resultWindow: {fileID: 841812952}
-  gameState: 0
 --- !u!1 &985247499
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame.DataSchema
 {
-    public class RoundData
+    /*public class RoundData
     {
         public string name;
         public MonsterOriginalData monsterData;
@@ -31,5 +31,5 @@ namespace LNK.MoreDeepFloor.InGame.DataSchema
         {
             return new RoundData(name,monsterData,monsterNums);
         }
-    }
+    }*/
 }
