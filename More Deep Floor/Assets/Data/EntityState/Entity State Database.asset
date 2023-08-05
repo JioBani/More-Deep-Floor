@@ -15,4 +15,5 @@ MonoBehaviour:
   entityStates:
   - {fileID: 11400000, guid: c902c5e6e410f504bac78680c0756e21, type: 2}
   - {fileID: 11400000, guid: ed67aad669ec41e4eb3857fc4ec19bb0, type: 2}
+  - {fileID: 11400000, guid: 899f5cbc8219db848a44473f0b2fde49, type: 2}
   - {fileID: 11400000, guid: 348b4b7af1b5f894e841c09daa4f5b73, type: 2}

@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c19f575fde90ed54aa8ca20174b50491, type: 3}
+  m_Name: Defender So Generator
+  m_EditorClassIdentifier: 
+  defenders:
+  - name: "\uC5D8\uB9AC\uC2A4"
+    cost: 1
+  - name: "\uBE44\uC5D0\uACE0"
+    cost: 1
+  - name: "\uBC31\uC2A4"
+    cost: 2
+  - name: "\uC4F0\uB808\uC26C"
+    cost: 2
+  - name: "\uB9C8\uC624\uCE74\uC774"
+    cost: 3
+  - name: "\uCE7C\uB9AC\uC2A4\uD2B8"
+    cost: 3
+  - name: "\uCE74\uC11C\uC2A4"
+    cost: 4
+  - name: "\uD5E4\uCE74\uB9BC"
+    cost: 4
+  - name: "\uADF8\uC6EC"
+    cost: 5
+  corpsName: "\uADF8\uB9BC\uC790\uAD70\uB3C4"
+  status:
+    damages:
+    - 0
+    - 10
+    - 20
+    - 40
+    attackSpeeds:
+    - 0.7
+    - 0.7
+    - 0.7
+    - 0.7
+    ranges:
+    - 3
+    - 3
+    - 3
+    - 3
+    magicalPowers:
+    - 20
+    - 20
+    - 20
+    - 20
+    criticalRates:
+    - 0
+    - 10
+    - 20
+    - 40
+    heathPoints:
+    - 100
+    - 100
+    - 200
+    - 400
+    physicalDefenses:
+    - 0
+    - 0
+    - 0
+    - 0
+    magicalDefenses:
+    - 0
+    - 0
+    - 0
+    - 0
+    moveSpeeds:
+    - 3
+    - 3
+    - 3
+    - 3
+    maxManas:
+    - 100
+    - 100
+    - 100
+    - 100

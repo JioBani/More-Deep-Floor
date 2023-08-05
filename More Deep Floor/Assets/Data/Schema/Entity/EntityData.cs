@@ -88,18 +88,18 @@ namespace LNK.MoreDeepFloor.Data.Entity
             attackType = entityOriginalData.EntityType == EntityType.Defender ? AttackType.DefenderToMonster : AttackType.MonsterToDefender;
 
             //#. 공격
-            damages = new EntityStatusArray("데미지" ,entityOriginalData.Damages);
-            magicalPowers = new EntityStatusArray("마법력" ,entityOriginalData.MagicalPowers);
-            attackSpeeds = new EntityStatusArray("공격속도" ,entityOriginalData.AttackSpeeds);
-            ranges = new EntityStatusArray("사거리" ,entityOriginalData.Ranges);
-            criticalRates = new EntityStatusArray("치명타율" ,entityOriginalData.CriticalRates);
+            damages = new EntityStatusArray("데미지" ,entityOriginalData.Status.Damages);
+            magicalPowers = new EntityStatusArray("마법력" ,entityOriginalData.Status.MagicalPowers);
+            attackSpeeds = new EntityStatusArray("공격속도" ,entityOriginalData.Status.AttackSpeeds);
+            ranges = new EntityStatusArray("사거리" ,entityOriginalData.Status.Ranges);
+            criticalRates = new EntityStatusArray("치명타율" ,entityOriginalData.Status.CriticalRates);
             
-            heathPoints = new EntityStatusArray("체력" ,entityOriginalData.HeathPoints);
-            physicalDefenses = new EntityStatusArray("물리방어력" ,entityOriginalData.PhysicalDefense);
-            magicalDefenses = new EntityStatusArray("마법방어력" ,entityOriginalData.MagicalDefenses);
+            heathPoints = new EntityStatusArray("체력" ,entityOriginalData.Status.HeathPoints);
+            physicalDefenses = new EntityStatusArray("물리방어력" ,entityOriginalData.Status.PhysicalDefense);
+            magicalDefenses = new EntityStatusArray("마법방어력" ,entityOriginalData.Status.MagicalDefenses);
             
-            moveSpeeds = new EntityStatusArray("이동속도" ,entityOriginalData.MoveSpeeds);
-            maxManas = new EntityStatusArray("최대마나" ,entityOriginalData.MaxManas);
+            moveSpeeds = new EntityStatusArray("이동속도" ,entityOriginalData.Status.MoveSpeeds);
+            maxManas = new EntityStatusArray("최대마나" ,entityOriginalData.Status.MaxManas);
 
             statusDic = new Dictionary<string, EntityStatusArray>();
             

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using LNK.MoreDeepFloor.Data.Defenders;
@@ -27,9 +28,17 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.Defenders
             for (var i = 0; i < members.Count; i++)
             {
                 DefenderData defenderData = new DefenderData(members[i]);
-                defenderDatas.Add(defenderData);
-                defenderSortById.Add(defenderData.id, defenderData);
-                defenderSortByCost[defenderData.cost].Add(defenderData);
+                if (defenderSortById.ContainsKey(defenderData.id))
+                {
+                    throw new ArgumentException(
+                        $"[DefenderDataTable.DefenderDataTable()] 이미 id가 존재합니다. {defenderData.corpsData.CorpsId} : {defenderData.id}");
+                }
+                else
+                {
+                    defenderDatas.Add(defenderData);
+                    defenderSortById.Add(defenderData.id, defenderData);
+                    defenderSortByCost[defenderData.cost].Add(defenderData);
+                }
             }
         }
 

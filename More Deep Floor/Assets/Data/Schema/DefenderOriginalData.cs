@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using LNK.MoreDeepFloor.Data.Corps;
@@ -18,8 +19,8 @@ namespace LNK.MoreDeepFloor.Data.Schemas
     public class DefenderOriginalData : EntityOriginalData
     {
         [SerializeField]
-        private DefenderId id;
-        public DefenderId Id { get { return id; } }
+        private DefenderId defenderId;
+        public DefenderId DefenderId => defenderId;
 
         /*[SerializeField]
         private string name;
@@ -48,6 +49,20 @@ namespace LNK.MoreDeepFloor.Data.Schemas
         
         [SerializeField] private PersonalityData personalityData;
         public PersonalityData PersonalityData => personalityData;
+
+        public void SetInfo(string corpsName , GenerateInfo generateInfo)
+        {
+            entityName = generateInfo.name;
+            cost = generateInfo.cost;
+            foreach(DefenderId _id in Enum.GetValues(typeof(DefenderId)))
+            {
+                if (_id.ToString() == $"{corpsName}_{generateInfo.name}")
+                {
+                    defenderId = _id;
+                    break;
+                }
+            }
+        }
 
     }
 }

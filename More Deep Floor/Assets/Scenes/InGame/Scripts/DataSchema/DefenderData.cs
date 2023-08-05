@@ -38,7 +38,7 @@ namespace LNK.MoreDeepFloor.InGame.DataSchema
             : base(defenderOriginalData)
         {
             
-            id = defenderOriginalData.Id;
+            id = defenderOriginalData.DefenderId;
             cost = defenderOriginalData.Cost;
             skillData = defenderOriginalData.SkillData;
             //job = defenderOriginalData.Job;

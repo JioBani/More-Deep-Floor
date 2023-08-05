@@ -9,6 +9,7 @@ using LNK.MoreDeepFloor.Data.EntityStates.Trait.Crops;
 using LNK.MoreDeepFloor.Data.EntityStates.Traits;
 using LNK.MoreDeepFloor.Data.EntityStates.Traits.Personalities;
 using LNK.MoreDeepFloor.Data.Schemas;
+using LNK.MoreDeepFloor.Data.Traits.Corps;
 using UnityEngine;
 
 namespace LNK.MoreDeepFloor.InGame.Entitys.States
@@ -65,6 +66,9 @@ namespace LNK.MoreDeepFloor.InGame.Entitys.States
             switch (stateData.StateId)
             {
                 case EntityStateId.Corps_JadeKnights : return new CS_JadeKnights(stateData, self) as T;
+                case EntityStateId.Corps_녹서스 : return new CS_Noxus(stateData, self) as T;
+                case EntityStateId.Corps_타곤 : return new CS_Noxus(stateData, self) as T;
+                case EntityStateId.Corps_그림자군도 : return new CS_Shadow(stateData, self) as T;
                 case EntityStateId.Personality_Test : return new PersonalityState_Test(stateData, self) as T;
             }
 

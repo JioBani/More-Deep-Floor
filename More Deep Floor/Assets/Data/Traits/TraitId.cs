@@ -24,6 +24,9 @@ namespace LNK.MoreDeepFloor.Data.DefenderTraits
         Corps_Test3 = 1004,
         Corps_Test4 = 1005,
         Corps_Test5 = 1006,
+        Crops_녹서스 = 1010,
+        Crops_타곤 = 1011,
+        Crops_그림자군도 = 1012,
     }
 
     /*public enum TraitType

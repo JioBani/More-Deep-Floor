@@ -26,11 +26,11 @@ namespace LNK.MoreDeepFloor.CorpsSelectScene.FormationModifyViews
 
             defenderName.text = defenderOriginalData.name;
             
-            statusTexts[0].SetStatus(_defenderOriginalData.Damages);
-            statusTexts[1].SetStatus(_defenderOriginalData.AttackSpeeds);
-            statusTexts[2].SetStatus(_defenderOriginalData.Ranges);
-            statusTexts[3].SetStatus(_defenderOriginalData.CriticalRates);
-            statusTexts[4].SetStatus(_defenderOriginalData.MaxManas);
+            statusTexts[0].SetStatus(_defenderOriginalData.Status.Damages);
+            statusTexts[1].SetStatus(_defenderOriginalData.Status.AttackSpeeds);
+            statusTexts[2].SetStatus(_defenderOriginalData.Status.Ranges);
+            statusTexts[3].SetStatus(_defenderOriginalData.Status.CriticalRates);
+            statusTexts[4].SetStatus(_defenderOriginalData.Status.MaxManas);
             
             // description.text = defenderOriginalData.
         }

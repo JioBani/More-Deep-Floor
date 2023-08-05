@@ -16,5 +16,10 @@ namespace LNK.MoreDeepFloor.Data.Traits.Corps
         Test_7 = 7,
         Test_8 = 8,
         Test_9 = 9,
+        
+        //#. 테스트
+        녹서스 = 100,
+        타곤 = 101,
+        그림자군도 = 102,
     }
 }

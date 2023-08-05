@@ -58,17 +58,8 @@ namespace LNK.MoreDeepFloor.Data.Schemas
         public Dictionary<string, List<float>> PropertiesDictionary => propertiesDictionary;
         private void OnValidate()
         {
-            try
-            {
-                propertiesDictionary = GetData();
-                traitStateData.SetProperties(propertiesDictionary);
-            }
-            catch (Exception e)
-            {
-                CustomLogger.LogException(e);
-                throw;
-            }
-            
+            propertiesDictionary = GetData();
+            traitStateData.SetProperties(propertiesDictionary);
         }
 
         Dictionary<string, List<float>> GetData()

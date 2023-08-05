@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   corpsDatas:
   - {fileID: 11400000, guid: 366c0272215b13e419f4b677b41b82de, type: 2}
-  - {fileID: 11400000, guid: 0e46adfd5b26791478871cc1f6702971, type: 2}
-  - {fileID: 11400000, guid: 89be13c7d93b82c48b0c58f05bef0b9e, type: 2}
-  - {fileID: 11400000, guid: 76a06d97364f79c4eae9b8f64079eb79, type: 2}
-  - {fileID: 11400000, guid: e050fa303d12db1478c3c718d3a2c7c2, type: 2}
-  - {fileID: 11400000, guid: 49a4cde55938c1245b80336a390bc640, type: 2}
+  - {fileID: 11400000, guid: 50407099fc5232f40a1a00be648350d2, type: 2}
+  - {fileID: 11400000, guid: d7f4cbabb54519e4da0d09f42e17c66f, type: 2}
+  - {fileID: 11400000, guid: 7d91a26a83483b247959cb6e76bef210, type: 2}
+  dicLength: 0
