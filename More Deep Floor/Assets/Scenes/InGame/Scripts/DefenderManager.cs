@@ -359,6 +359,9 @@ namespace LNK.MoreDeepFloor.InGame
             }
         }
 
+        /// <summary>
+        /// 전투석에 있는 Defender들의 위치를 원래 배치 위치로 되돌리기
+        /// </summary>
         public void RevertDefenderOriginalPlacement()
         {
             for (var i = 0; i < battleDefenders.Count; i++)
