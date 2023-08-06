@@ -48,6 +48,9 @@ namespace LNK.MoreDeepFloor.InGame
             {
                 monsterManager.SetRoundMonster(stageData.Rounds[_round + 1]);
             }
+            
+            monsterManager.SetRoundWaitState();
+            defenderManager.SetRoundWaitState();
         }
         
         public void OnClickRoundStart()
@@ -82,8 +85,6 @@ namespace LNK.MoreDeepFloor.InGame
 
         public void NotifyMonsterAllDie()
         {
-            monsterManager.SetRoundWaitState();
-            defenderManager.SetRoundWaitState();
             inGameStateManager.SetRoundEnd(round);
             round++;
         }
