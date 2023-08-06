@@ -4725,12 +4725,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageData: {fileID: 11400000, guid: ea0d167c45c1b4d45a39b5dd99f229d5, type: 2}
-  isStageStarted: 0
-  route:
-  - {x: 1, y: 1}
   round: 0
   monsterLimit: 100
-  roundTime: 30
 --- !u!1001 &96347811
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21420,8 +21416,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40be8fb1cdac6514493c87fbdc0c50ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battleDefenders: []
-  battleMonsters: []
 --- !u!1001 &437124720
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -102256,8 +102250,6 @@ MonoBehaviour:
   monsterPool: {fileID: 1932443727}
   monsterParent: {fileID: 2109020827}
   monsters: []
-  roundMonsterNums: 0
-  roundOffMonsterNums: 0
   testMonsterOriginalData: {fileID: 11400000, guid: d7ac56036da4fce45851652546e396e9,
     type: 2}
 --- !u!4 &1885899818

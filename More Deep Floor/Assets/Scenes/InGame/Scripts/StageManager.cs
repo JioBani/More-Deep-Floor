@@ -80,6 +80,14 @@ namespace LNK.MoreDeepFloor.InGame
             }
         }
 
+        public void NotifyMonsterAllDie()
+        {
+            monsterManager.SetRoundWaitState();
+            defenderManager.SetRoundWaitState();
+            inGameStateManager.SetRoundEnd(round);
+            round++;
+        }
+
 
     }
 }

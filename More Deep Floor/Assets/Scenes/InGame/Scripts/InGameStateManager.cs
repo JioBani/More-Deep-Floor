@@ -88,6 +88,7 @@ namespace LNK.MoreDeepFloor.InGame
         {
             Debug.Log("[InGameStateManager] 라운드 끝");
             OnRoundEndAction?.Invoke(round);
+            gameState = GameState.RoundWaiting;
         }
 
         public void NotifyGameOver()

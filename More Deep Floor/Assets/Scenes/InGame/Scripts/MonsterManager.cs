@@ -44,10 +44,7 @@ namespace LNK.MoreDeepFloor.InGame
             marketManager = ReferenceManager.instance.marketManager;
             tileManager = ReferenceManager.instance.tileManager;
             stageManager = ReferenceManager.instance.stageManager;
-        }
-
-        private void Start()
-        {
+            
             for (int i = 0; i < monsterPool.transform.childCount; i++)
             {
                 Monster monster =  monsterPool.transform.GetChild(i).GetComponent<Monster>();
@@ -55,8 +52,10 @@ namespace LNK.MoreDeepFloor.InGame
                 monster.OnPassAction += OnMonsterPass;
                 monster.OnOffAction += OnMonsterOff;
             }
+        }
 
-
+        private void Start()
+        {
             routes = new List<List<Tile>>();
             
             for (int i = 0; i < 5; i++)
@@ -91,7 +90,6 @@ namespace LNK.MoreDeepFloor.InGame
                 MonsterOriginalData monsterOriginalData = roundData.GetMonster();
                 Monster monster = GenerateMonster(new MonsterData(monsterOriginalData));
                 monster.transform.position = tileManager.battleFieldTiles[Random.Range(0, 5)][Random.Range(0, 5)].transform.position;
-                monsters.Add(monster);
             }
         }
 
@@ -114,7 +112,7 @@ namespace LNK.MoreDeepFloor.InGame
             OnMonsterNumberChangeAction?.Invoke(monsterNumber);
             if (monsterNumber == 0)
             {
-                
+                stageManager.NotifyMonsterAllDie();
             }
         }
 

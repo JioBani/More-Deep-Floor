@@ -43,10 +43,10 @@ MonoBehaviour:
     - 20
     - 40
     heathPoints:
-    - 100
-    - 100
-    - 200
-    - 400
+    - 30
+    - 30
+    - 30
+    - 30
     physicalDefenses:
     - 0
     - 0
