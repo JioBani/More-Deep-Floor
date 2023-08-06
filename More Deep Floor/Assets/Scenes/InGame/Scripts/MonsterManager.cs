@@ -15,16 +15,15 @@ namespace LNK.MoreDeepFloor.InGame
 {
     public class MonsterManager : InGameBehaviour
     {
-        
+        //#. 참조
         public ObjectPooler objectPooler;
         public GameObject monsterPool;
         private MarketManager marketManager;
         private TileManager tileManager;
+        private StageManager stageManager;
         
         public GameObject monsterParent;
         public List<Monster> monsters = new List<Monster>();
-        public int roundMonsterNums;
-        public int roundOffMonsterNums;
         //private RoundOriginalData _currentRoundOriginal;
         private List<List<Tile>> routes;
 
@@ -44,6 +43,7 @@ namespace LNK.MoreDeepFloor.InGame
         {
             marketManager = ReferenceManager.instance.marketManager;
             tileManager = ReferenceManager.instance.tileManager;
+            stageManager = ReferenceManager.instance.stageManager;
         }
 
         private void Start()
@@ -112,6 +112,10 @@ namespace LNK.MoreDeepFloor.InGame
             monsterNumber--;
             monsters.Remove((Monster)monster);
             OnMonsterNumberChangeAction?.Invoke(monsterNumber);
+            if (monsterNumber == 0)
+            {
+                
+            }
         }
 
         void OnMonsterPass(Entity monster)
@@ -121,7 +125,6 @@ namespace LNK.MoreDeepFloor.InGame
         
         void OnMonsterOff(Entity monster , Entity killer)
         {
-            roundOffMonsterNums++;
             monsters.Remove(monster as Monster);
         }
 
@@ -140,6 +143,14 @@ namespace LNK.MoreDeepFloor.InGame
             for (var i = 0; i < monsters.Count; i++)
             {
                 monsters[i].entityBehavior.SetBehaviorState(EntityBehaviorState.Battle);
+            }
+        }
+        
+        public void SetRoundWaitState()
+        {
+            for (var i = 0; i < monsters.Count; i++)
+            {
+                monsters[i].entityBehavior.SetBehaviorState(EntityBehaviorState.RoundWait);
             }
         }
     }

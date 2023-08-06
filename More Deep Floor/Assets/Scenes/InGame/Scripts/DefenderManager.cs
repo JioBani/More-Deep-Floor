@@ -351,6 +351,14 @@ namespace LNK.MoreDeepFloor.InGame
             }
         }
 
+        public void SetRoundWaitState()
+        {
+            for (var i = 0; i < battleDefenders.Count; i++)
+            {
+                battleDefenders[i].entityBehavior.SetBehaviorState(EntityBehaviorState.RoundWait);
+            }
+        }
+
         #endregion
         
     }
