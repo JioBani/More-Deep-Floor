@@ -51,6 +51,7 @@ namespace LNK.MoreDeepFloor.InGame
             
             monsterManager.SetRoundWaitState();
             defenderManager.SetRoundWaitState();
+            defenderManager.RevertDefenderOriginalPlacement();
         }
         
         public void OnClickRoundStart()

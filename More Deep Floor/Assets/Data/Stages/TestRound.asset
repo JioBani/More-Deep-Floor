@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bccbccb2d581f874aa2d5ebccf373752, type: 3}
   m_Name: TestRound
   m_EditorClassIdentifier: 
-  monsterCount: 5
+  monsterCount: 1
   probabilities:
   - monsterCount: 5
     monsterOriginalData: {fileID: 11400000, guid: d7ac56036da4fce45851652546e396e9,
