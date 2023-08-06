@@ -600,6 +600,19 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             placer.TryMove(tile);
         }
 
+        public void MoveToPlacerTile()
+        {
+            if (placer.currentTile != null)
+            {
+                var position = placer.currentTile.transform.position;
+                transform.position = new Vector3(
+                    position.x,
+                    position.y,
+                    transform.position.z
+                );
+            }
+        }
+
 
         #endregion
 
