@@ -359,6 +359,14 @@ namespace LNK.MoreDeepFloor.InGame
             }
         }
 
+        public void RevertDefenderOriginalPlacement()
+        {
+            for (var i = 0; i < battleDefenders.Count; i++)
+            {
+                battleDefenders[i].MoveToPlacerTile();
+            }
+        }
+
         #endregion
         
     }
