@@ -16,7 +16,7 @@ namespace LNK.MoreDeepFloor.InGame.Tiles
 
         void Awake()
         {
-            debugSpriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
+            //debugSpriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
         }
 
         public Tile(Vector2Int index, TileType type)
