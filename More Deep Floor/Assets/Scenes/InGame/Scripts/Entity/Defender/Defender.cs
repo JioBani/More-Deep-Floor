@@ -449,7 +449,7 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
         private MarketManager marketManager;
         private DefenderManager defenderManager;
 
-        private Dragger dragger;
+        [SerializeField] private Dragger dragger;
         private Poolable poolable;
         private Placer placer;
         public TraitAdapter traitAdapter { get; private set; }
@@ -483,8 +483,6 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
             defenderManager = ReferenceManager.instance.defenderManager;
             uiManager = ReferenceManager.instance.uiManager;
             
-            //traitController = GetComponent<TraitController>();
-            dragger = GetComponent<Dragger>();
             poolable = GetComponent<Poolable>();
             placer = GetComponent<Placer>();
             traitAdapter = GetComponent<TraitAdapter>();
