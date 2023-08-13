@@ -25,9 +25,12 @@ namespace LNK.MoreDeepFloor.InGame.Bullets
         private float damage;
         private bool isBulletActive;
 
+        private InGameStateManager inGameStateManager; 
+        
         void Awake()
         {
             poolable = GetComponent<Poolable>();
+            inGameStateManager = ReferenceManager.instance.inGameStateManager;
         }
 
         void FixedUpdate()
@@ -35,7 +38,9 @@ namespace LNK.MoreDeepFloor.InGame.Bullets
             Vector3 bulletPos = transform.position;
             Vector3 targetPos = target.transform.position;
 
-            if (target.gameObject.activeSelf == false || target.entityLifeState != EntityLifeState.Battle)
+            if (target.gameObject.activeSelf == false || 
+                target.entityLifeState != EntityLifeState.Battle || 
+                inGameStateManager.gameState != GameState.RoundPlaying)
             {
                 SetOff();
             }
@@ -44,14 +49,6 @@ namespace LNK.MoreDeepFloor.InGame.Bullets
                 if (Vector2.Distance(bulletPos, targetPos) < 0.05)
                 {
                     target.SetHit(firer , damage);
-                    /*if (attackType == AttackType.DefenderToMonster)
-                    {
-                        target.GetComponent<Monster>().SetHit(firer , damage);
-                    }
-                    else if(attackType == AttackType.MonsterToDefender)
-                    {
-                        target.GetComponent<Defender>().SetHit(firer , damage);
-                    }*/
                     SetOff();
                 }
                 else
