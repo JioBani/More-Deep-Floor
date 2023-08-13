@@ -111,7 +111,8 @@ namespace LNK.MoreDeepFloor.InGame
                         if (Vector2.SqrMagnitude(entity.transform.position - entity.target.transform.position) <= range.square)
                         {
                             moverState = MoverState.공격중;
-                            currentDes.desNotNeeded = true;
+                            if (!ReferenceEquals(currentDes, null))
+                                currentDes.desNotNeeded = true;
                             if (attackTimer > attackSpeed.timerPerAttack)
                             {
                                 Attack();
