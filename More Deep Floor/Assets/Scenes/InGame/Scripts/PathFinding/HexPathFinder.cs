@@ -37,11 +37,6 @@ namespace LNK.MoreDeepFloor.InGame.PathFinding
         private int n = 0;
         private long sum = 0;
 
-        //#. 프로퍼티
-        private bool isStart = false;
-
-
-
 
         private void Awake()
         {
@@ -332,33 +327,24 @@ namespace LNK.MoreDeepFloor.InGame.PathFinding
             
             void OpenListAdd(int checkX, int checkY)
             {
-                try
+                if (checkX >= bottomLeft.x && checkX < topRight.x + 1 && checkY >= bottomLeft.y && checkY < topRight.y + 1 && !nodeArray[checkX - bottomLeft.x, checkY - bottomLeft.y].isWall && !closedList.Contains(nodeArray[checkX - bottomLeft.x, checkY - bottomLeft.y]))
                 {
-                    if (checkX >= bottomLeft.x && checkX < topRight.x + 1 && checkY >= bottomLeft.y && checkY < topRight.y + 1 && !nodeArray[checkX - bottomLeft.x, checkY - bottomLeft.y].isWall && !closedList.Contains(nodeArray[checkX - bottomLeft.x, checkY - bottomLeft.y]))
-                    {
                      
-                        // 이웃노드에 넣고, 직선은 10, 대각선은 14비용
-                        HexNode NeighborNode = nodeArray[checkX - bottomLeft.x, checkY - bottomLeft.y];
-                        int MoveCost = 10;
+                    // 이웃노드에 넣고, 직선은 10, 대각선은 14비용
+                    HexNode NeighborNode = nodeArray[checkX - bottomLeft.x, checkY - bottomLeft.y];
+                    int MoveCost = 10;
 
 
-                        // 이동비용이 이웃노드G보다 작거나 또는 열린리스트에 이웃노드가 없다면 G, H, ParentNode를 설정 후 열린리스트에 추가
-                        if (MoveCost < NeighborNode.G || !openList.Contains(NeighborNode))
-                        {
-                            NeighborNode.G = MoveCost;
-                            NeighborNode.H = (Mathf.Abs(NeighborNode.x - targetNode.x) + Mathf.Abs(NeighborNode.y - targetNode.y)) * 10;
-                            NeighborNode.ParentNode = curNode;
+                    // 이동비용이 이웃노드G보다 작거나 또는 열린리스트에 이웃노드가 없다면 G, H, ParentNode를 설정 후 열린리스트에 추가
+                    if (MoveCost < NeighborNode.G || !openList.Contains(NeighborNode))
+                    {
+                        NeighborNode.G = MoveCost;
+                        NeighborNode.H = (Mathf.Abs(NeighborNode.x - targetNode.x) + Mathf.Abs(NeighborNode.y - targetNode.y)) * 10;
+                        NeighborNode.ParentNode = curNode;
 
-                            openList.Add(NeighborNode);
-                        }
+                        openList.Add(NeighborNode);
                     }
-
                 }
-                catch (Exception e)
-                {
-                    Debug.LogWarning($"[Exception] checkX : {checkX} , checkY : {checkY} , bottomLeft.y : {bottomLeft.y} , topRight.y : {topRight.y}");
-                }
-                // 상하좌우 범위를 벗어나지 않고, 벽이 아니면서, 닫힌리스트에 없다면
             }
         }
 
