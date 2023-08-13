@@ -28,10 +28,16 @@ namespace LNK.MoreDeepFloor.InGame.Ui.DefenderStatusInfoUi
         [SerializeField] private Image characterImage;
         [SerializeField] private TextMeshProUGUI characterName;
         
-        [SerializeField] private TextMeshProUGUI damageText;
+        [SerializeField] private TextMeshProUGUI ppText;
+        [SerializeField] private TextMeshProUGUI spText;
         [SerializeField] private TextMeshProUGUI attackSpeedText;
         [SerializeField] private TextMeshProUGUI rangeText;
-        [SerializeField] private TextMeshProUGUI manaText;
+        [SerializeField] private TextMeshProUGUI criticalRateText;
+        [SerializeField] private TextMeshProUGUI maxHpText;
+        [SerializeField] private TextMeshProUGUI pdText;
+        [SerializeField] private TextMeshProUGUI sdText;
+        [SerializeField] private TextMeshProUGUI maxManaText;
+        [SerializeField] private TextMeshProUGUI moveSpeedText;
 
         private bool isOn = false;
 
@@ -70,8 +76,17 @@ namespace LNK.MoreDeepFloor.InGame.Ui.DefenderStatusInfoUi
         {
             if (isOn)
             {
-                damageText.text = defenderStatus.damage.currentValue.ToString();
+                ppText.text = defenderStatus.damage.currentValue.ToString();
+                spText.text = defenderStatus.magicalPower.currentValue.ToString();
                 attackSpeedText.text = defenderStatus.attackSpeed.currentValue.ToString();
+                rangeText.text = defenderStatus.range.currentValue.ToString();
+                criticalRateText.text = defenderStatus.criticalRate.currentValue.ToString();
+                
+                maxHpText.text = defenderStatus.maxHp.currentValue.ToString();
+                pdText.text = defenderStatus.physicalDefense.currentValue.ToString();
+                sdText.text = defenderStatus.magicalDefense.currentValue.ToString();
+                maxManaText.text = defenderStatus.maxMana.currentValue.ToString();
+                moveSpeedText.text = defenderStatus.moveSpeed.currentValue.ToString();
             }
         }
 

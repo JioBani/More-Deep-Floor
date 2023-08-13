@@ -1469,16 +1469,16 @@ MonoBehaviour:
   jobName: {fileID: 8625164960426487406}
   characterImage: {fileID: 8625164960977422955}
   characterName: {fileID: 8625164959981398980}
-  ppText: {fileID: 0}
-  spText: {fileID: 0}
+  ppText: {fileID: 8625164959599646202}
+  spText: {fileID: 5383060035385781504}
   attackSpeedText: {fileID: 8625164959641633357}
-  rangeText: {fileID: 0}
-  criticalRateText: {fileID: 0}
-  maxHpText: {fileID: 0}
-  pdText: {fileID: 0}
-  sdText: {fileID: 0}
-  maxManaText: {fileID: 0}
-  moveSpeedText: {fileID: 0}
+  rangeText: {fileID: 8625164959403120533}
+  criticalRateText: {fileID: 8625164958902403977}
+  maxHpText: {fileID: 7851857653836353425}
+  pdText: {fileID: 5910111523767552162}
+  sdText: {fileID: 8372579074185407434}
+  maxManaText: {fileID: 1959469350920308194}
+  moveSpeedText: {fileID: 3794845870362584398}
 --- !u!1 &8625164959094822387
 GameObject:
   m_ObjectHideFlags: 0
