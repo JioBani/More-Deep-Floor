@@ -10,15 +10,8 @@ namespace LNK.MoreDeepFloor.InGame.Entitys
     {
         public float originalValue { get; private set; }
         public float currentValue { get; private set; }
-        
+
         private List<StatusBuff> buffList = new List<StatusBuff>();
-        
-        /*public StatusValue(float value)
-        {
-            originalValue = value;
-            currentValue = value;
-        }
-        */
 
         public StatusValue Reset(float value)
         {
