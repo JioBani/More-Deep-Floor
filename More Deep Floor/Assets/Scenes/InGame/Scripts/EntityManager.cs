@@ -24,7 +24,6 @@ namespace LNK.MoreDeepFloor.InGame
         public List<Entity> SearchEnemies(Entity attacker)
         {
             List<Entity> enemies;
-            float dis = 99999;
             var position = attacker.transform.position;
 
             if (attacker.data.entityType == EntityType.Defender)
